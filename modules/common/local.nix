@@ -3,11 +3,8 @@
 { config, pkgs, lib, globals, ... }:
 {
 
-  # --- Locale ---
-
-
   # Set time zone to CET.
-  time.timeZone = "Europe/Budapest";
+  time.timeZone = "Europe/Amsterdam";
 
   # Select the en_US locale, as this is the default,
   # and should be supported by all programs.
@@ -23,14 +20,13 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
-  # Configure keymap in X11
+
+  # Configure keyboard layout.
   services.xserver.xkb = {
-    layout = "hu";
+    layout = "us";
     variant = "";
   };
-
-  # Configure console keymap
-  console.keyMap = "hu";
+  console.keyMap = "us";
 
   # Configure keyd to remap caps lock to escape.
   # Pressing both shifts acts as the new caps lock key.
@@ -66,4 +62,5 @@
     MatchName=keyd virtual keyboard
     AttrKeyboardIntegration=internal
   '';
+
 }

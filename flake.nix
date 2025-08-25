@@ -48,8 +48,9 @@
           inputs.home-manager.nixosModules.home-manager
 
           # Main Configuration
-          ./sulfur/configuration.nix
-          ./sulfur/hardware-configuration.nix
+          ./hosts/sulfur/configuration.nix
+          ./hosts/sulfur/hardware-configuration.nix
+          ./hosts/sulfur/overrides.nix
 
         ];
       };

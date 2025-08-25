@@ -8,7 +8,7 @@
 
   # Link Qtile configuration into place.
   home.file.".config/qtile" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/sulfur/qtile";
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/qtile";
     recursive = true;
   };
 
