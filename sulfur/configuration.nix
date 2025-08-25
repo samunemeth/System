@@ -75,7 +75,6 @@
   };
 
 
-
   # --- Misc ---
 
   
@@ -89,38 +88,26 @@
   # --- Users ---
 
 
-  # My default user.
-  users.users.samu = {
+  users.users.${globals.user} = {
     isNormalUser = true;
-    description = "Samu Németh";
+    description = globals.name;
     extraGroups = [ "networkmanager" "wheel" "plugdev" "audio" ];
   };
 
 
   # --- Home Manager ---
 
+
   home-manager = {
     backupFileExtension = "hmbackup";
     useUserPackages = true;
   };
 
-  home-manager.users.samu = {
-
-    imports = [
-
-      # As I am not running any gtk or qt applications at the moment,
-      # there is no need for the themes.
-      #./modules/home/theme.nix
-
-
-    ];
-
-    # --- State Version ---
-    home.stateVersion = globals.stateVersion;
-
-  };
 
   # --- State Version ---
+
+
   system.stateVersion = globals.stateVersion;
+  home-manager.users.${globals.user}.home.stateVersion = globals.stateVersion;
 
 }

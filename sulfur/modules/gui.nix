@@ -48,7 +48,7 @@ in
 
       greeters.mini = {
         enable = true;
-        user = "samu";
+        user = globals.user;
         extraConfig = ''
           [greeter]
           show-password-label = false

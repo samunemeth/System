@@ -17,9 +17,14 @@
     pkgs = import nixpkgs { inherit system; };
 
     globals = {
+
       inherit system; 
       stateVersion = "25.05"; # This should not be changed!
+
       user = "samu";
+      name = "Samu Németh";
+      email = "nemeth.samu.0202@gmail.com";
+
     };
 
   in

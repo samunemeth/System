@@ -1,4 +1,4 @@
-# --- lf: Terminal File Manager ---
+# --- Terminal File Manager ---
 
 { config, pkgs, lib, globals, ... }:
 {

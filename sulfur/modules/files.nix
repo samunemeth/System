@@ -15,7 +15,7 @@
     '';
     serviceConfig = {
       Type = "forking";
-      User = "samu";
+      User = globals.user;
     };
   };
 
