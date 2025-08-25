@@ -2,6 +2,12 @@
 
 This is the central documentation and description for my NixOS configuration.
 
+This repository should be placed under the users home directory:
+```
+cd ~
+git clone https://github.com/samunemeth/System.git
+```
+
 I try to split my configuration files into practical chunks, and separate those
 into files under the `modules` directory, and its subdirectories.
 There are template files available in every subdirectory, with the name of
@@ -15,7 +21,6 @@ a clean, unified look, while remaining light-weight.
 
 ## ToDo
 
-  - LOOK FOR INCORRECT SYMLINKS???
   - DO SOMETHING WITH HARDWARE CONFIGURATION???
   - Set password for user automatically.
   - Add this git repo to github.
