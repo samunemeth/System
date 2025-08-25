@@ -15,6 +15,7 @@
     ./modules/ssh.nix
     ./modules/audio.nix
     ./modules/files.nix
+    #./modules/theme.nix
 
     # Program specific configurations.
     ./modules/neovim.nix

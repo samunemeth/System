@@ -3,10 +3,10 @@
 { config, pkgs, lib, globals, ... }:
 {
 
-  home-manager.users.${globals.user} = {
+  # --- Home Manager Part ---
+  home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {
 
-  # Copy qtile configuration into place.
-  # TODO: Maybe use a relative file path?
+  # Link Qtile configuration into place.
   home.file.".config/qtile" = {
     source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/sulfur/qtile";
     recursive = true;

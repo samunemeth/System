@@ -3,15 +3,34 @@
 { config, pkgs, lib, globals, ... }:
 {
 
-  # Required packages.
   environment.systemPackages = with pkgs; [
 
-    # Put packages here!
+
+    # Put global packages here.
+
 
   ];
 
-  # Put other configuration here.
 
+  # Put other global configuration here.
+
+
+  # --- Home Manager Part ---
+  home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {
+
+  home.packages = with pkgs; [
+
+
+    # Put user packages here.
+
+
+  ];
+
+
+  # Put other user configuration here.
+
+
+  };
 }
 
 

@@ -3,6 +3,9 @@
 { config, pkgs, lib, globals, ... }:
 {
 
+  # --- Home Manager Part ---
+  home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {
+
   programs.zathura = {
 
     enable = true;
@@ -42,4 +45,5 @@
 
   };
 
+  };
 }

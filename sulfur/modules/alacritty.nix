@@ -3,7 +3,8 @@
 { config, pkgs, lib, globals, ... }:
 {
 
-  home-manager.users.${globals.user} = {
+  # --- Home Manager Part ---
+  home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {
   
   programs.alacritty = {
 
