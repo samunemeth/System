@@ -12,8 +12,8 @@ a clean, unified look, while remaining light-weight.
 
   - Add more documentation for initial setup.
   - Set password for user automatically.
-  - Look at boot log errors and warnings.
-  - Change flameshot for scrot.
+  - Use `lf` in Neovim too.
+  - Change Flameshot for Scrot?
   - Automatically initialize Seafile on system rebuild.
   - Make Neovim configuration mutable.
   - Set up Veracrypt.
@@ -22,7 +22,7 @@ a clean, unified look, while remaining light-weight.
     If not, delete configuration parts related to Wayland.
   - Create a visualization for Qtile key mapping?
   - Add more Qtile groups?
-  - Find a better gtk theme.
+  - Find a better GTK theme.
 
 There are some more ToDo items in the configuration files.
 They can be found by their label: `# TODO: `.
