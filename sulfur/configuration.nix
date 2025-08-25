@@ -16,6 +16,17 @@
     ./modules/audio.nix
     ./modules/files.nix
 
+    # Program specific configurations.
+    ./modules/neovim.nix
+    ./modules/alacritty.nix
+    ./modules/bash.nix
+    ./modules/firefox.nix
+    ./modules/git.nix
+    ./modules/rofi.nix
+    ./modules/zathura.nix
+    ./modules/qtile.nix
+    ./modules/lf.nix
+
   ];
 
 
@@ -100,16 +111,6 @@
       # there is no need for the themes.
       #./modules/home/theme.nix
 
-      # Program specific configurations.
-      ./modules/home/neovim.nix
-      ./modules/home/alacritty.nix
-      ./modules/home/bash.nix
-      ./modules/home/firefox.nix
-      ./modules/home/git.nix
-      ./modules/home/rofi.nix
-      ./modules/home/zathura.nix
-      ./modules/home/qtile.nix
-      ./modules/home/lf.nix
 
     ];
 

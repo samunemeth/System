@@ -1,6 +1,6 @@
 # --- Keyboard ---
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, globals, ... }:
 {
   # Configure keymap in X11
   services.xserver.xkb = {

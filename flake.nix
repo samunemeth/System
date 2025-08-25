@@ -19,6 +19,7 @@
     globals = {
       inherit system; 
       stateVersion = "25.05"; # This should not be changed!
+      user = "samu";
     };
 
   in

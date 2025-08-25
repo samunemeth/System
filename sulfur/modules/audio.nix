@@ -1,6 +1,6 @@
 # --- Audio ---
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, globals, ... }:
 {
 
   # Enable sound with PulseAudio.

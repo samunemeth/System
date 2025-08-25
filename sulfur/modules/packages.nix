@@ -1,7 +1,6 @@
 # --- Packages ---
 
-
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, globals, ... }:
 {
 
   # Allow unfree packages.

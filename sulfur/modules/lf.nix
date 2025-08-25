@@ -1,7 +1,9 @@
 # --- lf: Terminal File Manager ---
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, globals, ... }:
 {
+
+  home-manager.users.${globals.user} = {
 
   # Enables lf and defines some basic settings.
   programs.lf = {
@@ -78,4 +80,5 @@
 
   '';
 
+  };
 }

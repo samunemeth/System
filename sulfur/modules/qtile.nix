@@ -1,7 +1,9 @@
 # --- Template ---
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, globals, ... }:
 {
+
+  home-manager.users.${globals.user} = {
 
   # Copy qtile configuration into place.
   # TODO: Maybe use a relative file path?
@@ -10,4 +12,5 @@
     recursive = true;
   };
 
+  };
 }

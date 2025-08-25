@@ -1,6 +1,6 @@
 # --- SSH ---
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, globals, ... }:
 {
 
   programs.ssh = {

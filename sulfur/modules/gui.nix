@@ -1,6 +1,6 @@
 # --- GUI ---
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, globals, ... }:
 let
 
   # --- Color Settings ---

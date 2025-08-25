@@ -1,7 +1,9 @@
 # --- Rofi ---
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, globals, ... }:
 {
+
+  home-manager.users.${globals.user} = {
 
   programs.rofi = {
 
@@ -52,4 +54,5 @@
 
   '';
 
+  };
 }

@@ -1,6 +1,6 @@
 # --- Boot ---
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, globals, ... }:
 {
 
   # Configure bootloader to have a maximum of 30 entries,

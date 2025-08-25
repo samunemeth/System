@@ -1,7 +1,9 @@
 # --- Theme ---
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, globals, ... }:
 {
+
+  home-manager.users.${globals.user} = {
  
   # Required packages.
   home.packages = with pkgs; [
@@ -42,4 +44,5 @@
     };
   };
 
+  };
 }

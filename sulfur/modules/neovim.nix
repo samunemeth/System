@@ -1,7 +1,9 @@
 # --- Neovim ---
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, globals, ... }:
 {
+
+  home-manager.users.${globals.user} = {
 
   programs.neovim = {
 
@@ -59,4 +61,5 @@
       run nvim --headless +PlugInstall +TSUpdate +qa 
     '';
 
+  };
 }

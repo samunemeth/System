@@ -1,6 +1,6 @@
 # --- Template ---
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, globals, ... }:
 {
 
   # Required packages.

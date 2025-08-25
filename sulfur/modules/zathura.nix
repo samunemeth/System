@@ -1,6 +1,6 @@
 # --- Zathura ---
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, globals, ... }:
 {
 
   programs.zathura = {
