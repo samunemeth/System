@@ -2,17 +2,6 @@
 
 This is the central documentation and description for my NixOS configuration.
 
-This repository should be placed under the users home directory:
-```
-cd ~
-git clone https://github.com/samunemeth/System.git
-```
-
-I try to split my configuration files into practical chunks, and separate those
-into files under the `modules` directory, and its subdirectories.
-There are template files available in every subdirectory, with the name of
-`template.nix` for all the different types of modules.
-
 ## Description
 
 I am trying to achieve a minimal NixOS installation, with Qtile as my window
@@ -23,7 +12,6 @@ a clean, unified look, while remaining light-weight.
 
   - DO SOMETHING WITH HARDWARE CONFIGURATION???
   - Set password for user automatically.
-  - Add this git repo to github.
   - Look at boot log errors and warnings.
   - Change flameshot for scrot.
   - Automatically initialize Seafile on system rebuild.
@@ -41,6 +29,12 @@ They can be found by their label: `# TODO: `.
 
 
 ## Setup
+
+  - Clone this repository into the users home directory:
+```
+cd ~
+git clone https://github.com/samunemeth/System.git
+```
 
   - Generate an ssh key:
   ```
