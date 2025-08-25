@@ -1,0 +1,160 @@
+# These snippets provide basic LATEX functionality
+# to be used in all kinds of file/projects.
+# Some of them are more specific than others,
+# some require packages (this is indicated in the description).
+
+# --- Environments, Sections and Others ---
+
+snippet "beg?i?n?(\s(\S+))?" "Environment" rb
+\begin{${1:`!p
+snip.rv = match.group(2) if match.group(1) is not None else "environment"
+`}}$2
+${0:${VISUAL}}
+\end{$1}
+endsnippet
+
+snippet sec "Section" bA
+\section{${VISUAL}$1}$0
+endsnippet
+
+snippet # "Section Alt" b
+\section{${VISUAL}$1}$0
+endsnippet
+
+snippet "^#\s" "Section Alt" rbA
+\section{${VISUAL}$1}$0
+endsnippet
+
+snippet ssec "Subsection" bA
+\subsection{${VISUAL}$1}$0
+endsnippet
+
+snippet ## "Subsection Alt" b
+\subsection{${VISUAL}$1}$0
+endsnippet
+
+snippet "^##\s" "Subsection Alt" rbA
+\subsection{${VISUAL}$1}$0
+endsnippet
+
+snippet sssec "Subsubsection" bA
+\subsubsection{${VISUAL}$1}$0
+endsnippet
+
+snippet ### "Subsubsection" b
+\subsubsection{${VISUAL}$1}$0
+endsnippet
+
+snippet "^###\s" "Subsubsection" rbA
+\subsubsection{${VISUAL}$1}$0
+endsnippet
+
+snippet cc "Unnumbered Centered subsubsection" b
+\addcontentsline{toc}{subsubsection}{${VISUAL}$1}
+\subsubsection*{\centering{${VISUAL}$1}}$0
+endsnippet
+
+# -- Footnotes ---
+
+snippet fm "Footnotemark" i
+\footnotemark $0
+endsnippet
+
+snippet ft "Footnotetext" w
+\footnotetext{${VISUAL}$1}$0
+endsnippet
+
+# --- Text decorations ---
+
+snippet em "Wrap in emph" w
+\emph{${VISUAL}$1}$0
+endsnippet
+
+snippet it "Wrap in textit" w
+\textit{${VISUAL}$1}$0
+endsnippet
+
+snippet bf "Wrap in textbf" w
+\textbf{${VISUAL}$1}$0
+endsnippet
+
+snippet say "Wrap in say (dirtytalk package)" w
+\say{${VISUAL}$1}$0
+endsnippet
+
+# --- References ---
+
+snippet sref "Superscript reference" i
+\textsuperscript{\ref{$1}}$0
+endsnippet
+
+# --- Definitions, Theorems and Others ---
+
+snippet def "Definition" bA
+\begin{definition}
+\label{${VISUAL}${1:Definition}}
+\textbf{${VISUAL}$1}: $2
+\end{definition}$0
+endsnippet
+
+# --- Lists ---
+
+snippet enum "Enumerated list" b
+\begin{enumerate}
+	$0
+\end{enumerate}
+endsnippet
+
+snippet number "Dense Enumerated list" b
+\begin{enumerate-dense}
+$0
+\end{enumerate-dense}
+endsnippet
+
+snippet itemize "Itemized list" b
+\begin{itemize}
+	$0
+\end{itemize}
+endsnippet
+
+snippet list "Dense Itemized list" b
+\begin{itemize-dense}
+	$0
+\end{itemize-dense}
+endsnippet
+
+snippet i "Item" b
+\item $0
+endsnippet
+
+snippet iit "Item with italic start" b
+\item \textit{${VISUAL}$1:} $0
+endsnippet
+
+snippet ibf "Item with bold start" b
+\item \textbf{${VISUAL}$1:} $0
+endsnippet
+
+# --- Tables ---
+
+snippet table "Centered table" b
+\begin{centered-table}{ ${1:P{1em} | M} }
+	$0
+\end{centered-table}
+endsnippet
+
+snippet line "Horizontal line in table" b
+\hline $0
+endsnippet
+
+# --- Mind maps ---
+snippet cnode "Child node" b
+child { node { ${1:${VISUAL}} } }$0
+endsnippet
+
+# --- Miscellaneous ---
+
+snippet td "TODO label" wA
+% TODO$0
+endsnippet
+

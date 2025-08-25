@@ -1,0 +1,204 @@
+# These snippets are for math mode.
+# Usually they convert to specific symbols.
+# All symbols must have a space after them.
+
+# --- Context Definition for Math ---
+
+global !p
+def math():
+    return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+endglobal
+
+# --- Initiating Math  ---
+
+snippet math "Math" bA
+\[ $1 \]$0
+endsnippet
+
+snippet mm "Inline math" wA
+$ ${1}$`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ', ';']:
+    snip.rv = ' '
+else:
+    snip.rv = ''
+`$2
+endsnippet
+
+# --- Auto Calculations ---
+
+context "math()"
+snippet calc "Sympy calculation block" w
+calc $1 calc$0
+endsnippet
+
+priority 10000
+context "math()"
+snippet 'calc(.*)calc' "Evaluate sympy calculation (requires: sympy)" wr
+`!p
+from sympy import *
+x, y, z, t = symbols('x y z t')
+k, m, n = symbols('k m n', integer=True)
+f, g, h = symbols('f g h', cls=Function)
+init_printing()
+snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
+    .replace('^', '**') \
+    .replace('{', '(') \
+    .replace('}', ')') + ')')
+`
+endsnippet
+
+# --- Non-math elements ---
+context "math()"
+snippet space "Empty space" wA
+\quad $0
+endsnippet
+
+context "math()"
+snippet break "More Empty space" wA
+\qquad $0
+endsnippet
+
+context "math()"
+snippet tt "Text in math" wA
+\text{${VISUAL}$1} $0
+endsnippet
+
+# --- Align Environment ---
+
+context "math()"
+snippet == "Align Equals" wA
+&=$0
+endsnippet
+
+# --- Fractions ---
+
+context "math()"
+snippet // "Fraction (raw)" iA
+\\frac{$1}{$2}$0
+endsnippet
+
+context "math()"
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction (adaptive)" wrA
+\\frac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
+
+# --- Large Brackets ---
+context "math()"
+snippet (( "Large Left Brace" iA
+\left($0
+endsnippet
+
+context "math()"
+snippet )) "Large Right Brace" iA
+\right)$0
+endsnippet
+
+# --- Environments inside Math ---
+context "math()"
+snippet arr "Array Environment" w
+\begin{array}{ ${1:c} } ${2:${VISUAL}} \end{array}$0
+endsnippet
+
+# --- Postfixes ---
+
+context "math()"
+snippet "(\\?\w+)(,\.|\.,)" "Vector postfix" riA
+\vec{`!p snip.rv=match.group(1)`}
+endsnippet
+
+# --- Subscript ---
+
+context "math()"
+snippet __ "Text subscript" iA
+_\text{$1}$0
+endsnippet
+
+# --- Symbols ---
+
+context "math()"
+snippet dt "Delta symbol" wA
+\Delta $0
+endsnippet
+
+context "math()"
+snippet ssum "Sigma symbol" wA
+\Sigma $0
+endsnippet
+
+context "math()"
+snippet dots "Low Dots symbol" wA
+\ldots $0
+endsnippet
+
+# --- Different kinds of arrows ---
+
+context "math()"
+snippet larr "Left Arrow symbol" wA
+\leftarrow $0
+endsnippet
+
+context "math()"
+snippet "rarr" "Right Arrow symbol" rwA
+\rightarrow $0
+endsnippet
+
+context "math()"
+snippet "Rarr" "Double Right Arrow symbol" rwA
+\Rightarrow $0
+endsnippet
+
+context "math()"
+snippet lrarr "Left-right Arrow symbol" wA
+\leftrightarrow $0
+endsnippet
+
+context "math()"
+snippet deduce "Long Double Right Arrow symbol" wA
+\Longrightarrow $0
+endsnippet
+
+# --- Logical Operators ---
+
+context "math()"
+snippet equ "Equivalent symbol" wA
+\equiv $0
+endsnippet
+
+context "math()"
+snippet true "True symbol" wA
+\mathbb{T} $0
+endsnippet
+
+context "math()"
+snippet false "False symbol" wA
+\mathbb{F} $0
+endsnippet
+
+context "math()"
+snippet and "And symbol" wA
+\wedge $0
+endsnippet
+
+context "math()"
+snippet or "Or symbol" wA
+\vee $0
+endsnippet
+
+context "math()"
+snippet not "Not symbol" wA
+\neg $0
+endsnippet
+
+context "math()"
+snippet in "In symbol" wA
+\in $0
+endsnippet
+
+# --- Math fonts ---
+
+context "math()"
+snippet "m?a?t?h?bb\s?(\S)" "Math BB Font" rwA
+\mathbb{`!p
+snip.rv = match.group(1).upper()
+`} $0
+endsnippet

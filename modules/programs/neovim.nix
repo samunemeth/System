@@ -31,12 +31,7 @@
 
     # Neovim configuration files.
     ".config/nvim" = {
-      source = pkgs.fetchFromGitHub {
-        owner = "samunemeth";
-        repo = "nvim-config";
-        rev = "7bd709c304cfe734421b205cedf35f9662f3c7e1"; # Updated 2025-08-14
-        hash = "sha256-eITC6YpskRsDx8jOS4IefO9AhgQPg+cYJ9+svXrw9cY=";
-      };
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/nvim";
       recursive = true;
     };
 

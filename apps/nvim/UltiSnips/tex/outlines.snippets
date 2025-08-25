@@ -1,0 +1,43 @@
+# These snippets are for generating document outlines
+# All of the snippets start with three exclamation marks
+# The text after the three exclamation marks describes the outcome
+
+# --- General Outline ---
+
+snippet !!! "General Outline" b
+% --- Settings ---
+
+\documentclass[11pt, a4paper]{article}
+\usepackage{outline}
+\dat{Németh Samu}{$1}
+
+% --- Document ---
+
+\begin{document}
+\maketitle
+
+$0
+
+\end{document}
+
+endsnippet
+
+# --- Hungarian Outline ---
+
+snippet !!!hun "General Hungarian Outline" b
+% --- Beállítások ---
+
+\documentclass[11pt, a4paper]{article}
+\usepackage{outline-hun}
+\dat{Németh Samu}{$1}
+
+% --- Dokumentum ---
+
+\begin{document}
+\maketitle
+
+$0
+
+\end{document}
+
+endsnippet
