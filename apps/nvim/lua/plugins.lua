@@ -3,8 +3,11 @@
 local Plug = vim.fn["plug#"]
 
 --- Need to load before plugins ---
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+
+-- So these lines were actually causing the shenanigans with the spell files.
+-- TODO: Figure out if these are necessary?
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
 
 --- Plugins ---
 
@@ -37,8 +40,5 @@ Plug("tpope/vim-fugitive") -- For git
 Plug("nvim-treesitter/nvim-treesitter", { ["do"] = ":TSUpdate" }) -- For syntax highlighting
 -- Plug("williamboman/mason.nvim") -- For installing and managing LSP servers.
 -- Plug("neovim/nvim-lspconfig") -- Pre-made configurations for LSP servers.
-
--- AI Assistant
-Plug("github/copilot.vim") -- Github Copilot
 
 vim.call("plug#end")
