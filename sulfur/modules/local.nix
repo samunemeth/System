@@ -25,12 +25,12 @@
   };
   # Configure keymap in X11
   services.xserver.xkb = {
-    layout = "hu";
-    variant = "";
+    layout = lib.mkDefault "hu";
+    variant = lib.mkDefault "";
   };
 
   # Configure console keymap
-  console.keyMap = "hu";
+  console.keyMap = lib.mkDefault "hu";
 
   # Configure keyd to remap caps lock to escape.
   # Pressing both shifts acts as the new caps lock key.
