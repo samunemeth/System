@@ -1,12 +1,13 @@
 # --- Imports ---
 
+import os
+import subprocess
+
 from libqtile import bar, layout, qtile, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile import hook
-import os
-import subprocess
 from libqtile.widget import base
 
 
@@ -16,7 +17,6 @@ color_background_main = "#14161B"
 color_background_contrast = "#0A0B0E"
 color_foreground_main = "#F2F4F3"
 color_foreground_soft = "#D0D6DD"
-# color_foreground_warning = "#ECA72C"
 color_foreground_error = "#DC4332"
 
 

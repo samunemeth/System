@@ -12,15 +12,18 @@
   outputs = { nixpkgs, ... }@inputs:
   let
     
+    # System type.
     system = "x86_64-linux";
-
     pkgs = import nixpkgs { inherit system; };
 
+    # A global set of variables passed to all modules.
     globals = {
 
+      # System and version information.
       inherit system; 
       stateVersion = "25.05"; # This should not be changed!
 
+      # User information.
       user = "samu";
       name = "Samu Németh";
       email = "nemeth.samu.0202@gmail.com";
@@ -46,6 +49,7 @@
 
           # Main Configuration
           ./sulfur/configuration.nix
+          ./sulfur/hardware-configuration.nix
 
         ];
       };

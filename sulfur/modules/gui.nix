@@ -12,7 +12,6 @@ let
     foreground = {
       main = "#F2F4F3";
       soft = "#D0D6DD";
-      # warning = "#ECA72C";
       error = "#DC4332";
     };
   };
