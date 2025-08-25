@@ -15,6 +15,7 @@
     ./modules/audio.nix
     ./modules/files.nix
     ./modules/network.nix
+    ./modules/users.nix
     #./modules/theme.nix
 
     # Program specific configurations.
