@@ -28,6 +28,9 @@ Plug("nvim-tree/nvim-tree.lua") -- For file tree
 Plug("nvim-lua/plenary.nvim")
 Plug("nvim-telescope/telescope.nvim", { ["tag"] = "0.1.8" }) -- For fuzzy finding
 
+Plug("akinsho/toggleterm.nvim", { ["tag"] = "*" }) -- For pop up terminal.
+Plug("lmburns/lf.nvim") -- For file management.
+
 -- Visuals
 Plug("itchyny/lightline.vim") -- For the fancy status bar
 Plug("karb94/neoscroll.nvim") -- For smooth scrolling
