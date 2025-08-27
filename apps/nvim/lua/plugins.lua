@@ -2,15 +2,6 @@
 
 local Plug = vim.fn["plug#"]
 
---- Need to load before plugins ---
-
--- So these lines were actually causing the shenanigans with the spell files.
--- TODO: Figure out if these are necessary?
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
-
---- Plugins ---
-
 -- All packages used are imported here.
 -- Any package without a comment after it is a requirement of the next package.
 -- Packages are grouped based on functionality.
@@ -41,7 +32,5 @@ Plug("tpope/vim-fugitive") -- For git
 
 -- LSP and Syntax
 Plug("nvim-treesitter/nvim-treesitter", { ["do"] = ":TSUpdate" }) -- For syntax highlighting
--- Plug("williamboman/mason.nvim") -- For installing and managing LSP servers.
--- Plug("neovim/nvim-lspconfig") -- Pre-made configurations for LSP servers.
 
 vim.call("plug#end")
