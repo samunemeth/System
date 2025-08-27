@@ -11,4 +11,4 @@ lf.setup{
 }
 
 
-vim.keymap.set("n", "<leader>f", "<cmd>Lf<CR>")
+vim.keymap.set("n", "<leader>w", "<cmd>Lf<CR>")
