@@ -14,7 +14,7 @@
     shellAliases = {
   
       # Aliases for editing and building NixOS.
-      "nec" = "( cd ~/System ; nvim flake.nix +\"set ts=2 sts=2 shiftwidth=2 et autoindent nosmartindent\" )";
+      "nec" = "( cd ~/System ; nvim flake.nix )";
       "nrs" = "sudo nixos-rebuild switch --flake ~/System/#sulfur";
       "nfu" = "( cd ~/System ; nix flake update )";
       "ncg" = "sudo nix-collect-garbage -d";
