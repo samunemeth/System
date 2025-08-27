@@ -10,22 +10,28 @@ a clean, unified look, while remaining light-weight.
 
 ## ToDo
 
+**General**
+
   - Add more documentation for initial setup.
-  - Set password for user automatically.
-  - Use `lf` in Neovim too.
   - Change Flameshot for Scrot?
-  - Automatically initialize Seafile on system rebuild.
-  - Make Neovim configuration mutable.
   - Set up Veracrypt.
-  - Check if there is a benefit to having user packages?
+
+**Impérium**
+
+  - Set password for user automatically.
+  - Automatically initialize Seafile on system rebuild.
+
+**Qtile**
+
   - Check if moving to Wayland would be beneficial?
     If not, delete configuration parts related to Wayland.
   - Create a visualization for Qtile key mapping?
   - Add more Qtile groups?
-  - Find a better GTK theme.
 
-There are some more ToDo items in the configuration files.
-They can be found by their label: `# TODO: `.
+**Nvim**
+
+  - Fix `lf` having back background.
+
 
 
 ## Setup
