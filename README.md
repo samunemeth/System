@@ -61,6 +61,7 @@ There are some things that are still missing form the declarative configuration:
   - WiFi Networks
   - SSH Keys
   - Seafile Configuration
+  - Firefox Bookmarks
 
 *Everything else should be configured declaratively!*
 
