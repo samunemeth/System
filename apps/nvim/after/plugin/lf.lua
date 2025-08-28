@@ -1,6 +1,8 @@
 --- Configuration for Lf ---
 
-local lf = require("lf")
+local lf = safe_require("lf")
+
+if lf then
 
 --Setup
 lf.setup{
@@ -12,3 +14,5 @@ lf.setup{
 
 
 vim.keymap.set("n", "<leader>w", "<cmd>Lf<CR>")
+
+end

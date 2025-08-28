@@ -1,6 +1,8 @@
 --- Configuration for Nvimtree ---
 
-local nvimtree = require("nvim-tree")
+local nvimtree = safe_require("nvim-tree")
+
+if nvimtree then
 
 -- Settings
 local function my_on_attach(bufnr)
@@ -27,3 +29,5 @@ nvimtree.setup({
 -- Keymaps
 vim.keymap.set("n", "<leader>f", "<cmd>NvimTreeOpen<cr>")
 
+
+end

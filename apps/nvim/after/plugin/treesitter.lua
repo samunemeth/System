@@ -1,6 +1,8 @@
 --- Configuration for Treesitter ---
 
-local treesitter = require("nvim-treesitter.configs")
+local treesitter = safe_require("nvim-treesitter.configs")
+
+if treesitter then
 
 -- Settings
 treesitter.setup({
@@ -13,3 +15,5 @@ treesitter.setup({
     additional_vim_regex_highlighting = false,
   },
 })
+
+end

@@ -1,5 +1,7 @@
 --- Configuration for Knap --- 
-local knap = require("knap")
+local knap = safe_require("knap")
+
+if knap then
 
 -- Knap settings
 local gknapsettings = {
@@ -33,3 +35,5 @@ end)
 vim.keymap.set({"n", "v"}, "<leader>y", function()
     knap.forward_jump()
 end)
+
+end

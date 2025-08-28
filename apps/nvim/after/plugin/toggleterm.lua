@@ -1,6 +1,8 @@
 --- Configuration for Toggleterm ---
 
-local toggleterm = require("toggleterm")
+local toggleterm = safe_require("toggleterm")
+
+if toggleterm then
 
 -- Setup
 
@@ -24,3 +26,5 @@ toggleterm.setup{
     end,
   },
 }
+
+end
