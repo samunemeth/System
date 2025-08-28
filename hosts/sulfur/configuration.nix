@@ -35,6 +35,9 @@
   # Enable flakes.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # Set host name.
+  networking.hostName = "sulfur";
+
   # Set state versions.
   system.stateVersion = globals.stateVersion;
   home-manager.users.${globals.user}.home.stateVersion = globals.stateVersion;
