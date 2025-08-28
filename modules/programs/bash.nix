@@ -21,6 +21,11 @@
       nrs () {
         sudo nixos-rebuild switch --flake ~/System/#$1
       }
+    '' + 
+
+    # Custom bash prompt.
+    ''
+      export PS1='\[\e[92m\]\u\[\e[2;3m\]@\h\[\e[0;1m\]:\[\e[96m\]\w\[\e[39m\]\$\[\e[0m\] '
     '';
 
     # General aliases.
@@ -29,10 +34,6 @@
       "l" = "ls -lhAG --color=always | sed -re 's/^[^ ]* //' | tail -n +2";
     };
   
-    # Custom bash prompt.
-    initExtra = ''
-      export PS1='\[\e[92m\]\u\[\e[2;3m\]@\h\[\e[0;1m\]:\[\e[96m\]\w\[\e[39m\]\$\[\e[0m\] '
-    '';
 
   };
 

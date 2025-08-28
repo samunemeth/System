@@ -6,7 +6,7 @@
 
 
   # Just a basic host name.
-  networking.hostName = "nixos";
+  networking.hostName = lib.mkDefault "nixos";
 
   # Enable networking with network manager.
   networking.networkmanager.enable = true;
