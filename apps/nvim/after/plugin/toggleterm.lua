@@ -5,7 +5,7 @@ local toggleterm = require("toggleterm")
 -- Setup
 
 toggleterm.setup{
-  open_mapping = "<c-t>",
+  open_mapping = "<c-s>",
   insert_mappings = false,
   terminal_mappings = true,
   direction = "float",

@@ -20,7 +20,7 @@ end
 nvimtree.setup({
   on_attach = my_on_attach,
   filters = {
-    dotfiles = false,
+    dotfiles = true,
   },
 })
 
