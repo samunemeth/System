@@ -22,6 +22,8 @@ in
   
   environment.systemPackages = with pkgs; [
 
+    warpd                # Keyboard mouse control and movement emulation.
+
   ];
 
   # Enable the X11 windowing system with qtile.
@@ -76,10 +78,6 @@ in
 
   };
 
-  # List of fonts.
-  fonts.packages = with pkgs; [
-    nerd-fonts.hack
-  ];
 
   # Use natural scrolling, as I am used to it.
   services.libinput.touchpad.naturalScrolling = true;

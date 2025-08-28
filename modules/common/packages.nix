@@ -9,18 +9,14 @@
   # List of packages.
   environment.systemPackages = with pkgs; [
 
-    vim                  # Default editor.
-    # wget                 # Fetching form the web.
+    vim                  # Simple text editor.
     curl                 # Fetching form the web.
     btop                 # System monitoring and testing.
     # speedtest-cli        # Internet speed testing.
     fastfetchMinimal     # Displaying system data.
     gcc                  # C code compilation.
     nodejs_24            # Node.js distribution.
-    git                  # Version control.
     zathura              # Minimalistic pdf viewer.
-    # networkmanager       # Network connection management. Do I need this?
-    pinentry             # Password input.
     hsetroot             # For background setting.
     # vlc                  # For media playback
     flameshot            # For interactive screenshots
@@ -32,16 +28,16 @@
     xclip                # Command line clipboard tool.
     ripgrep              # Recursive command line search command.
     fd                   # A user friendly file search engine.
-    # texliveFull          # LaTeX package. (This takes up LOTS of space)
-    texliveMedium        # LaTeX package. (This takes up a bit less space)
-    rubber               # An optimised LaTeX builder.
-    rofi                 # Stylish Dmenu alternative.
-    rofi-calc            # Calculator plugin for Rofi.
-    networkmanager_dmenu # Network manager plugin for Rofi.
     pulseaudio-ctl       # Command line volume control.
-    tree-sitter          # Neovim parser generator.
-    warpd                # Keyboard mouse control and movement emulation.
 
+  ];
+
+  # Remove unused packages enabled my default.
+  services.speechd.enable = false;
+
+  # List of fonts.
+  fonts.packages = with pkgs; [
+    nerd-fonts.hack
   ];
 
 }

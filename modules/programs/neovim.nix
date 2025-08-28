@@ -3,6 +3,12 @@
 { config, pkgs, lib, globals, ... }:
 {
 
+  environment.systemPackages = with pkgs; [
+
+    tree-sitter          # Neovim parser generator.
+
+  ];
+
   # --- Home Manager Part ---
   home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {
 

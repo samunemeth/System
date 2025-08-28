@@ -3,6 +3,14 @@
 { config, pkgs, lib, globals, ... }:
 {
 
+  environment.systemPackages = with pkgs; [
+
+    rofi                 # Stylish Dmenu alternative.
+    rofi-calc            # Calculator plugin for Rofi.
+    networkmanager_dmenu # Network manager plugin for Rofi.
+  
+  ];
+
   # --- Home Manager Part ---
   home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {
 
@@ -32,7 +40,6 @@
     highlight_bg =
     highlight_bold = True
     compact = True
-    pinentry = pinentry
     wifi_icons = 󰤯󰤟󰤢󰤥󰤨
     format = {name:<20} {icon:<4} {sec} 
     list_saved = False
@@ -41,10 +48,6 @@
     [dmenu_passphrase]
     obscure = False
     obscure_color = #222222
-    
-    [pinentry]
-    description = Get network password
-    prompt = Password:
     
     [editor]
     terminal = alacritty
