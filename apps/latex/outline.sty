@@ -1,0 +1,63 @@
+\ProvidesPackage{outline}
+
+% Math packages
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage{dirtytalk}
+\usepackage{adjustbox}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{color}
+
+\hypersetup{
+    colorlinks,
+    allcolors=black,
+    linktoc=all,
+    breaklinks=true,
+}
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+
+\newcommand{\dat}[3][\today{}]
+{
+	\date{#1}
+	\author{\textit{#2}}
+	\title{\textbf{#3}}
+
+}
+
+\newenvironment{itemize-dense}
+{
+	\begin{itemize}
+	\itemsep 0em
+}{
+	\end{itemize}
+}
+
+\newenvironment{enumerate-dense}
+{
+	\begin{enumerate}
+	\itemsep 0em
+}{
+	\end{enumerate}
+}
+
+\newenvironment{centered-table}[1]
+{
+	\vspace{1em}
+	\begin{adjustbox}{center}
+	\begin{tabular}{#1}
+}{
+	\end{tabular}
+	\end{adjustbox}
+}
+
+\theoremstyle{definition}
+\newtheorem{definition}{}[subsection]
