@@ -14,11 +14,10 @@ a clean, unified look, while remaining light-weight.
 
   - Add more documentation for initial setup.
   - Change Flameshot for Scrot?
-  - Set up Veracrypt.
+  - Set up Veracrypt?
 
 **Impérium**
 
-  - Set password for user automatically.
   - Automatically initialize Seafile on system rebuild.
 
 **Qtile**
