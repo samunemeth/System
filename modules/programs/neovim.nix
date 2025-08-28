@@ -40,9 +40,6 @@
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/nvim";
       recursive = true;
     };
-    ".config/vim-plug/.keep" = {
-      text = ""; 
-    };
 
   };
 
