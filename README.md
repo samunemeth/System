@@ -27,7 +27,7 @@ a clean, unified look, while remaining light-weight.
 
 **Nvim**
 
-  - Fix `lf` having back background.
+  - Fix `lf` having black background.
 
 
 
@@ -60,7 +60,7 @@ There are some things that are still missing form the declarative configuration:
   - WiFi Networks
   - SSH Keys
   - Seafile Configuration
-  - Firefox Bookmarks
+  - Account Logins
 
 *Everything else should be configured declaratively!*
 
