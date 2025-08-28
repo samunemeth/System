@@ -5,8 +5,14 @@
 
   environment.systemPackages = with pkgs; [
 
-    # texliveFull          # LaTeX package. (This takes up LOTS of space)
-    texliveMedium        # LaTeX package. (This takes up a bit less space)
+    # I'm still unsure what size I actually need.  
+
+    # texliveFull
+    # texliveMedium
+    texliveSmall
+    # texliveBasic
+    # texliveMinimal
+
     rubber               # An optimised LaTeX builder.
 
   ];

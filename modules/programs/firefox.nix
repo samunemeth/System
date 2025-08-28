@@ -27,6 +27,16 @@
         Behavior = "reject-tracker-and-partition-foreign";
         Locked = true;
       };
+      SanitizeOnShutdown = {
+        Cache = true;
+        Cookies = false;
+        FormData = false;
+        History = false;
+        Sessions = false;
+        SiteSettings = false;
+        Locked = true;
+      };
+      AutofillCreditCardEnabled = false;
   
       # Extensions.
       ExtensionSettings = {
