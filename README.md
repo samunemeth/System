@@ -22,8 +22,6 @@ a clean, unified look, while remaining light-weight.
 
 **Qtile**
 
-  - Check if moving to Wayland would be beneficial?
-    If not, delete configuration parts related to Wayland.
   - Create a visualization for Qtile key mapping?
   - Add more Qtile groups?
 
@@ -56,10 +54,6 @@ a clean, unified look, while remaining light-weight.
 ## Imperative Parts
 
 There are some things that are still missing form the declarative configuration:
-
-**Configuration Files**
-
-  - `~/.config/nvim/spell/hu.utf-8.spl`
 
 **Other Settings**
 
