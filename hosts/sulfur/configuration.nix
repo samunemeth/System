@@ -28,6 +28,7 @@
     ../../modules/programs/zathura.nix
     ../../modules/programs/qtile.nix
     ../../modules/programs/lf.nix
+    ../../modules/programs/latex.nix
 
   ];
 

@@ -35,27 +35,16 @@
       recursive = true;
     };
 
-    # LaTeX outline files.
-    "texmf/tex/latex" = {
-      source = pkgs.fetchFromGitHub {
-        owner = "samunemeth";
-        repo = "latex-outlines";
-        rev = "5d1c9d3e276a7c1c988065afb9dd09a2e66a3789"; # Updated 2025-08-15
-        hash = "sha256-QjQHDao0wyBic8cTehCCjUtYTEqSKcaQzAgMUOT2g20=";
-      };
-      recursive = true;
-    };
-
   };
 
   # Run a script on activation that installs the packages and file parsers.
   # TODO: See if this is running as root, and ruining package access rights?
-  home.activation.install-nvim = 
-    let nvimPath = with pkgs; lib.makeBinPath [ neovim git gcc ]; in
-    lib.hm.dag.entryAfter ["installPackages"] ''
-      export PATH=${nvimPath}:$PATH
-      run nvim --headless +PlugInstall +TSUpdate +qa 
-    '';
+  # home.activation.install-nvim = 
+  #   let nvimPath = with pkgs; lib.makeBinPath [ neovim git gcc ]; in
+  #   lib.hm.dag.entryAfter ["installPackages"] ''
+  #     export PATH=${nvimPath}:$PATH
+  #     run nvim --headless +PlugInstall +TSUpdate +qa 
+  #   '';
 
   };
 }
