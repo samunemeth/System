@@ -84,7 +84,7 @@ keys = [
     Key([mod], "s", lazy.spawn(f"rofi -show power-menu -modi \"power-menu:{qtile_home_path}/rofi/rofi-power-plugin --choices shutdown/reboot/suspend/hibernate/logout\"")),
     Key([mod], "c", lazy.spawn("rofi -show calc -modi calc")),
     Key([mod], "n", lazy.spawn("networkmanager_dmenu")),
-    Key([mod], "x", lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained")),
+    Key([mod], "m", lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained")),
     Key([mod], "y", lazy.spawn(f"rofi -show rofi-sound -modi \"rofi-sound:{qtile_home_path}/rofi/rofi-sound-plugin\"")),
 
     # Hardware key maps to commands.
