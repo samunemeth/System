@@ -40,17 +40,11 @@
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/nvim";
       recursive = true;
     };
+    ".config/vim-plug/.keep" = {
+      text = ""; 
+    };
 
   };
-
-  # Run a script on activation that installs the packages and file parsers.
-  # TODO: See if this is running as root, and ruining package access rights?
-  # home.activation.install-nvim = 
-  #   let nvimPath = with pkgs; lib.makeBinPath [ neovim git gcc ]; in
-  #   lib.hm.dag.entryAfter ["installPackages"] ''
-  #     export PATH=${nvimPath}:$PATH
-  #     run nvim --headless +PlugInstall +TSUpdate +qa 
-  #   '';
 
   };
 }

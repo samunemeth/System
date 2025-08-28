@@ -12,23 +12,16 @@
     vim                  # Simple text editor.
     curl                 # Fetching form the web.
     btop                 # System monitoring and testing.
-    # speedtest-cli        # Internet speed testing.
     fastfetchMinimal     # Displaying system data.
     gcc                  # C code compilation.
     nodejs_24            # Node.js distribution.
-    zathura              # Minimalistic pdf viewer.
-    hsetroot             # For background setting.
-    # vlc                  # For media playback
-    flameshot            # For interactive screenshots
-    # nsxiv                # Minimalistic image viewer.
-    # dunst                # Notification server.
-    # lm_sensors           # Read system sensors.
-    brightnessctl        # Built in monitor brightness control.
-    # acpilight            # Alternative brightness controller.
     xclip                # Command line clipboard tool.
     ripgrep              # Recursive command line search command.
     fd                   # A user friendly file search engine.
-    pulseaudio-ctl       # Command line volume control.
+
+    # vlc                  # For media playback
+    # flameshot            # For interactive screenshots
+    # speedtest-cli        # Internet speed testing.
 
   ];
 
