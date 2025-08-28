@@ -10,6 +10,7 @@
     isNormalUser = true;
     description = globals.name;
     extraGroups = [ "networkmanager" "wheel" "plugdev" "audio" ];
+    hashedPassword = globals.password;
   };
 
 
