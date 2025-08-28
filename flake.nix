@@ -9,7 +9,7 @@
     };
   };
 
-  outputs = { nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, ... }@inputs:
   let
     
     # System type.
@@ -55,7 +55,31 @@
 
         ];
       };
+
+      # --- Trunc ---
+
+      trunc = nixpkgs.lib.nixosSystem {
+
+        # Pass the special globals argument to the modules.
+        specialArgs = { inherit globals; };
+
+        modules = [
+          
+          # Home Manager
+          inputs.home-manager.nixosModules.home-manager
+          
+          # CD installation configuration snippet.
+          (nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
+
+          # Main Configuration
+          ./hosts/trunc/configuration.nix
+          ./hosts/trunc/overrides.nix
+
+        ];
+      };
     };
+
+    packages.${system}.trunc = self.nixosConfigurations.trunc.config.system.build.isoImage;
 
   };
 }
