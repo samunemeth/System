@@ -10,6 +10,13 @@ from libqtile.utils import guess_terminal
 from libqtile import hook
 from libqtile.widget import base
 
+import importlib.util
+import sys
+spec = importlib.util.spec_from_file_location("qtilemachine", os.path.expanduser("~/.config/qtilemachine.py"))
+qtilemachine = importlib.util.module_from_spec(spec)
+sys.modules["qtilemachine"] = qtilemachine
+spec.loader.exec_module(qtilemachine)
+
 
 # --- Colors ---
 
@@ -287,10 +294,10 @@ widgets = [
         size_percent = 70
     ),
     widget.Wlan(
-        interface = "wlo1",
+        interface = qtilemachine.wireless_interface,
         format = "{essid} {percent:2.0%}",
         mouse_callbacks={
-            "Button1": lambda: qtile.cmd_spawn("networkmanager_dmenu"),
+            "Button1": lambda: qtile.spawn("networkmanager_dmenu"),
         },
         padding = 10,
     ),
@@ -300,7 +307,7 @@ widgets = [
         size_percent = 70
     ),
     widget.KeyboardLayout(
-        configured_keyboards = ["hu", "us", "us dvp"],
+        configured_keyboards = qtilemachine.available_layouts,
         display_map = {
             "hu": "HU",
             "us": "US",
@@ -332,10 +339,10 @@ widgets = [
             ["bash", "-c", "brightnessctl | grep -oP '\\(\\K[0-9]+'"], text=True
         ).strip() + "%",
         mouse_callbacks={
-            "Button1": lambda: qtile.cmd_spawn("brightnessctl set +10%"),
-            "Button3": lambda: qtile.cmd_spawn("brightnessctl set 10%-"),
-            "Button4": lambda: qtile.cmd_spawn("brightnessctl set 5%-"),
-            "Button5": lambda: qtile.cmd_spawn("brightnessctl set +5%"),
+            "Button1": lambda: qtile.spawn("brightnessctl set +10%"),
+            "Button3": lambda: qtile.spawn("brightnessctl set 10%-"),
+            "Button4": lambda: qtile.spawn("brightnessctl set 5%-"),
+            "Button5": lambda: qtile.spawn("brightnessctl set +5%"),
         },
         fmt=" {}",
         padding = 10

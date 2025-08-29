@@ -9,9 +9,9 @@
     efi.canTouchEfiVariables = true;
     systemd-boot = {
       enable = true;
-      configurationLimit = 30;
+      configurationLimit = lib.mkDefault 30;
     };
-    timeout = 1;
+    timeout = lib.mkDefault 1;
   };
 
   # Set boot options to enable resuming from hibernation.

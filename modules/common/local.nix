@@ -22,11 +22,11 @@
   };
 
   # Configure keyboard layout.
-  services.xserver.xkb = {
+  services.xserver.xkb = lib.mkDefault {
     layout = "us";
     variant = "";
   };
-  console.keyMap = "us";
+  console.keyMap = lib.mkDefault "us";
 
   # Configure keyd to remap caps lock to escape.
   # Pressing both shifts acts as the new caps lock key.
@@ -41,6 +41,9 @@
         "main" = {
           "capslock" = "esc";
           "leftshift+rightshift" = "capslock";
+
+          # Copilot key remapping.
+          "f23+leftshift+leftmeta" = "capslock";
         };
         "alt" = {
           "h" = "left";

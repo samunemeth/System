@@ -1,17 +1,23 @@
-# --- Overrides for Sulfur ---
+# --- Overrides for Joseph ---
 
 { config, pkgs, lib, globals, ... }:
 {
 
 
-  # Put other global configuration here.
+  boot.loader = {
+    systemd-boot.configurationLimit = 3;
+    timeout = 3;
+  };
 
 
   # --- Home Manager Part ---
   home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {
 
 
-  # Put other user configuration here.
+  home.file.".config/qtilemachine.py".text = ''
+    wireless_interface = "wlp4s0"
+    available_layouts = ["us", "us dvp"]
+  '';
 
 
   };
