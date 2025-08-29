@@ -11,6 +11,8 @@
   };
   console.keyMap = "hu";
 
+  services.xserver.displayManager.lightdm.greeters.mini.enable = lib.mkForce false;
+
 
   # --- Home Manager Part ---
   home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {
