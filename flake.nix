@@ -56,6 +56,26 @@
         ];
       };
 
+      # --- Joseph ---
+
+      joseph = nixpkgs.lib.nixosSystem {
+
+        # Pass the special globals argument to the modules.
+        specialArgs = { inherit globals; };
+
+        modules = [
+          
+          # Home Manager
+          inputs.home-manager.nixosModules.home-manager
+
+          # Main Configuration
+          ./hosts/joseph/configuration.nix
+          ./hosts/joseph/hardware-configuration.nix
+          ./hosts/joseph/overrides.nix
+
+        ];
+      };
+
       # --- Trunc ---
 
       trunc = nixpkgs.lib.nixosSystem {
