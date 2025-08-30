@@ -33,8 +33,6 @@
     nerd-fonts.hack
   ];
 
-  # Automatically optimise packages.
-  nix.settings.auto-optimise-store = true;
 
 }
 
