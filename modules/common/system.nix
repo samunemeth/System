@@ -16,4 +16,12 @@
   # Automatically optimise packages.
   nix.settings.auto-optimise-store = true;
 
+  # Automatically collect garbage.
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+    persistent = true;
+  };
+
 }
