@@ -7,6 +7,7 @@
   imports = [
 
     # Custom modules containing configuration.
+    ../../modules/common/system.nix
     ../../modules/common/boot.nix
     ../../modules/common/gui.nix
     ../../modules/common/local.nix
@@ -32,14 +33,7 @@
 
   ];
 
-  # Enable flakes.
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   # Set host name.
   networking.hostName = "joseph";
-
-  # Set state versions.
-  system.stateVersion = globals.stateVersion;
-  home-manager.users.${globals.user}.home.stateVersion = globals.stateVersion;
 
 }

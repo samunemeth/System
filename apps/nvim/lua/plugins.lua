@@ -25,6 +25,7 @@ Plug("lmburns/lf.nvim") -- For file management.
 -- Visuals
 Plug("itchyny/lightline.vim") -- For the fancy status bar
 Plug("karb94/neoscroll.nvim") -- For smooth scrolling
+Plug("folke/todo-comments.nvim")
 
 -- Change Tracking
 Plug("mbbill/undotree") -- For the undo tree
