@@ -3,7 +3,7 @@
 { config, pkgs, lib, globals, ... }:
 {
 
-  
+  # Packages for previewing files.  
   environment.systemPackages = with pkgs; [
     highlight
     poppler-utils
@@ -13,8 +13,11 @@
   home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {
 
 
-  # Configuration files from the web.
-  home.file.".config/previewer.sh".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/lf/previewer.sh";
+  # Configuration files.
+  home.file = {
+    ".config/lf/icons".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/lf/icons";
+    ".config/lf/previewer.sh".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/lf/previewer.sh";
+  };
 
   # Enables lf and defines some basic settings.
   programs.lf = {
@@ -26,13 +29,14 @@
       "gd" = "cd ~/Documents";
       "gn" = "cd ~/Notes";
       "gc" = "cd ~/.config";
+      "DD" = "delete";
     };
     settings = {
       "icons" = "true";
       "info" = "size";
       "ignorecase" = "true";
-      "hiddenfiles" = ".*:desktop.ini:main.out:main.log:main.aux:main.synctex.gz:/home/${globals.user}/texmf";
-      "previewer" = "~/.config/previewer.sh";
+      "hiddenfiles" = ".*:desktop.ini:main.out:main.log:main.aux:main.synctex.gz:/home/${globals.user}/texmf:lost+found";
+      "previewer" = "~/.config/lf/previewer.sh";
     };
     commands = {
       "type" = "%xdg-mime query filetype \"$f\"";
@@ -46,52 +50,6 @@
     }
   '';
 
-  # Icons have to be set manually for some reason.
-  # A full example file can be found here:
-  # https://github.com/gokcehan/lf/blob/master/etc/icons_colored.example
-  home.file.".config/lf/icons".text = ''
-
-    ln             # LINK
-    or             # ORPHAN
-    tw      t       # STICKY_OTHER_WRITABLE
-    ow             # OTHER_WRITABLE
-    st      t       # STICKY
-    di             # DIR
-    pi      p       # FIFO
-    so      s       # SOCK
-    bd      b       # BLK
-    cd      c       # CHR
-    su      u       # SETUID
-    sg      g       # SETGID
-    ex             # EXEC
-    fi             # FILE
-    
-    *.tex               
-    *.pdf                   00;38;2;179;11;0
-    
-    *.md                
-    *.mdx               
-    *.markdown          
-    *.rmd               
-    
-    *.py                
-    *.lua               
-    
-    *.gitconfig         
-    *.gitignore         
-    *.gitattributes     
-    
-    *.png               󰋩
-    *.jpg               󰋩
-    *.webp              󰋩
-
-    *.mp4               
-    *.mkv               
-
-    *.mp3               
-    *.wav               
-
-  '';
 
   };
 }
