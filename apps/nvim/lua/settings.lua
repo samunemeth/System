@@ -49,3 +49,6 @@ vim.opt.colorcolumn = "80"
 
 -- Auto reload on external change
 vim.opt.autoread = true
+
+-- Disable mouse input.
+vim.opt.mouse = ""
