@@ -3,8 +3,18 @@
 { config, pkgs, lib, globals, ... }:
 {
 
+  
+  environment.systemPackages = with pkgs; [
+    highlight
+    poppler-utils
+  ];
+
   # --- Home Manager Part ---
   home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {
+
+
+  # Configuration files from the web.
+  home.file.".config/previewer.sh".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/lf/previewer.sh";
 
   # Enables lf and defines some basic settings.
   programs.lf = {
@@ -21,6 +31,8 @@
       "icons" = "true";
       "info" = "size";
       "ignorecase" = "true";
+      "hiddenfiles" = ".*:desktop.ini:main.out:main.log:main.aux:main.synctex.gz:/home/${globals.user}/texmf";
+      "previewer" = "~/.config/previewer.sh";
     };
     commands = {
       "type" = "%xdg-mime query filetype \"$f\"";

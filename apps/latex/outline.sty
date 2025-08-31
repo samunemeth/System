@@ -15,12 +15,6 @@
 \usepackage{hyperref}
 \usepackage{color}
 
-\hypersetup{
-    colorlinks,
-    allcolors=black,
-    linktoc=all,
-    breaklinks=true,
-}
 
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
@@ -31,6 +25,14 @@
 	\author{\textit{#2}}
 	\title{\textbf{#3}}
 
+  \hypersetup{
+    colorlinks,
+    allcolors=black,
+    linktoc=all,
+    breaklinks=true,
+    pdfauthor={#2},
+    pdftitle={#3},
+  }
 }
 
 \newenvironment{itemize-dense}
