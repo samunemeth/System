@@ -1,17 +1,19 @@
 # NixOS Configuration
 
-This is the central documentation and description for my NixOS configuration.
+This is the central collection and documentation of my NixOS configurations.
 
-## Description
-
-I am trying to achieve a minimal NixOS installation, with Qtile as my window
-manager. For settings, I try to use Rofi menus where possible, as it provides
-a clean, unified look, while remaining light-weight.
+I am trying to achieve a minimal NixOS installation for productivity.
+I use Qtile as my window manager, Neovim for text and code editing,
+Firefox for browsing and Lf for file management.
+For settings, I try to use Rofi menus where possible.
+I am mainly using these systems for internet browsing and LaTeX compilation.
 
 ## ToDo
 
 **General**
 
+  - Look into why the *mini greeter* seems to act up on first boot.
+  - Separate Home Manager building for time saving.
   - Add more documentation for initial setup.
   - Change Flameshot for Scrot?
   - Set up Veracrypt?
@@ -23,11 +25,17 @@ a clean, unified look, while remaining light-weight.
 **Qtile**
 
   - Create a visualization for Qtile key mapping?
-  - Add more Qtile groups?
 
 **Nvim**
 
   - Fix `lf` having black background.
+  - Add TODO label highlights.
+  - Look into why markdown indentation seems to be set incorrectly.
+
+**Long Term**
+
+  - Creating a custom ISO.
+  - Add configuration for WSL.
 
 ## Imperative Parts
 
