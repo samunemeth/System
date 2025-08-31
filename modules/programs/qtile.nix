@@ -11,6 +11,7 @@
     # acpilight            # Alternative brightness controller.
     pulseaudio-ctl       # Command line volume control.
     hsetroot             # For background setting.
+    playerctl
 
   ];
 

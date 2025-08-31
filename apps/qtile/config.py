@@ -75,7 +75,7 @@ keys = [
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow Up"),
 
     # Layout management.
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle Layouts"),
+    Key([mod], "t", lazy.next_layout(), desc="Toggle Layouts"),
     Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Fullscreen"),
 
     Key([mod], "v", lazy.window.kill(), desc="Kill Window"),
@@ -90,9 +90,12 @@ keys = [
     Key([mod], "d", lazy.spawn("rofi -show drun")),
     Key([mod], "s", lazy.spawn(f"rofi -show power-menu -modi \"power-menu:{qtile_home_path}/rofi/rofi-power-plugin --choices shutdown/reboot/suspend/hibernate/logout\"")),
     Key([mod], "c", lazy.spawn("rofi -show calc -modi calc")),
-    Key([mod], "n", lazy.spawn("networkmanager_dmenu")),
-    Key([mod], "m", lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained")),
-    Key([mod], "y", lazy.spawn(f"rofi -show rofi-sound -modi \"rofi-sound:{qtile_home_path}/rofi/rofi-sound-plugin\"")),
+    Key([mod], "w", lazy.spawn("networkmanager_dmenu")),
+    Key([mod], "e", lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained")),
+    Key([mod], "x", lazy.spawn(f"rofi -show rofi-sound -modi \"rofi-sound:{qtile_home_path}/rofi/rofi-sound-plugin\"")),
+
+    # Hide and show bottom bar.
+    Key([mod], "Tab", lazy.hide_show_bar(), desc="Hide/Show Bar"),
 
     # Hardware key maps to commands.
     Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +5%")),
@@ -102,12 +105,17 @@ keys = [
     Key([], "XF86AudioLowerVolume", lazy.spawn("pulseaudio-ctl down")),
     Key([], "XF86AudioMute", lazy.spawn("pulseaudio-ctl mute")),
 
+    Key([], "XF86AudioMicMute", lazy.spawn("pulseaudio-ctl mute-input")),
+    Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
+
+    Key([], "XF86Calculator", lazy.spawn("rofi -show calc -modi calc")),
+
     # Keyboard layout switching.
     Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard()),
 
     # Screenshot.
-    Key([mod, "shift"], "s", lazy.spawn("flameshot gui")),
-    Key([], "Print", lazy.spawn("flameshot gui")),
+    # Key([mod, "shift"], "s", lazy.spawn("flameshot gui")),
+    # Key([], "Print", lazy.spawn("flameshot gui")),
 ]
 
 # Add key bindings to switch VTs in Wayland.
@@ -128,6 +136,8 @@ groups = [
     Group("I"),
     Group("O"),
     Group("P", spawn="firefox"),
+    Group("N"),
+    Group("M"),
 ]
 
 for i in groups:
