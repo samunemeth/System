@@ -9,7 +9,10 @@
   networking.hostName = lib.mkDefault "nixos";
 
   # Enable networking with network manager.
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    plugins = lib.mkForce [];
+  };
 
   # Enable the firewall, and do not let anything through.
   networking.firewall.enable = true;
