@@ -31,75 +31,48 @@
 
     };
 
-  in
+
+  in rec
   {
 
-    nixosConfigurations = {
+    # Define useful functions.
+    listToAttrs = builtins.foldl' (acc: elem: { "${elem}" = elem; } // acc) {};
 
-      # --- Sulfur ---
+    # Get the directories in the hosts folder to get the host names.
+    dirContents = builtins.readDir ./hosts;
+    hosts = builtins.foldl'
+      (acc: elem: if builtins.getAttr elem dirContents == "directory" then acc ++ [elem] else acc)
+      [] (builtins.attrNames dirContents);
 
-      sulfur = nixpkgs.lib.nixosSystem {
+    # Generate NixOS configuration entries from host list.
+    nixosConfigurations = builtins.mapAttrs (host: _: 
 
-        # Pass the special globals argument to the modules.
-        specialArgs = { inherit globals; };
-
+      nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit globals inputs; };
         modules = [
           
           # Home Manager
           inputs.home-manager.nixosModules.home-manager
 
           # Main Configuration
-          ./hosts/sulfur/configuration.nix
-          ./hosts/sulfur/hardware-configuration.nix
-          ./hosts/sulfur/overrides.nix
+          ./hosts/${host}/configuration.nix
+
+          # Set the host name for the system.
+          ({ config, pkgs, lib, globals, ... }: {
+            networking.hostName = host;
+          })
 
         ];
-      };
+      }
 
-      # --- Joseph ---
+    ) (listToAttrs hosts);
 
-      joseph = nixpkgs.lib.nixosSystem {
+    # Generate Home Manager configuration entries for hosts.
+    homeConfigurations = builtins.mapAttrs (host: _: 
 
-        # Pass the special globals argument to the modules.
-        specialArgs = { inherit globals; };
+      nixosConfigurations.${host}.config.home-manager.users.${globals.user}.home
 
-        modules = [
-          
-          # Home Manager
-          inputs.home-manager.nixosModules.home-manager
-
-          # Main Configuration
-          ./hosts/joseph/configuration.nix
-          ./hosts/joseph/hardware-configuration.nix
-          ./hosts/joseph/overrides.nix
-
-        ];
-      };
-
-      # --- Trunc ---
-
-      trunc = nixpkgs.lib.nixosSystem {
-
-        # Pass the special globals argument to the modules.
-        specialArgs = { inherit globals; };
-
-        modules = [
-          
-          # Home Manager
-          inputs.home-manager.nixosModules.home-manager
-          
-          # CD installation configuration snippet.
-          (nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
-
-          # Main Configuration
-          ./hosts/trunc/configuration.nix
-          ./hosts/trunc/overrides.nix
-
-        ];
-      };
-    };
-
-    packages.${system}.trunc = self.nixosConfigurations.trunc.config.system.build.isoImage;
+    ) (listToAttrs hosts);
 
   };
 }

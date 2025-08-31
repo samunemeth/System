@@ -1,12 +1,14 @@
-# --- Sulfur ---
-
 { config, pkgs, lib, globals, ... }:
 {
 
   # Import all needed modules.
   imports = [
 
-    # Custom modules containing configuration.
+    # Host specific configurations.
+    ./hardware-configuration.nix
+    ./overrides.nix
+
+    # Common modules containing configuration.
     ../../modules/common/system.nix
     ../../modules/common/boot.nix
     ../../modules/common/gui.nix
@@ -32,8 +34,5 @@
     ../../modules/programs/latex.nix
 
   ];
-
-  # Set host name.
-  networking.hostName = "joseph";
 
 }
