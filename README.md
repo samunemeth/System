@@ -67,12 +67,19 @@ a clean, unified look, while remaining light-weight.
   ```
   nixos-generate-config --root /mnt
   ```
+  - Create a new folder if you are setting up a host (this is most easily
+    done by coping an existing host and adapting it), or override one of the
+    existing hosts hardware configuration if you are moving a system.
+  - You do *not* have to add anything to the `flake.nix` file
+    as it scans the `hosts` directory automatically!
   - Move the newly generated hardware configuration to your desired host's folder:
   ```
   cp -r /mnt/etc/nixos/hardware-configuration.nix ~/System/hosts/<YOUR-HOST>/
   ```
-  - Make sure that all the configuration looks good for your host, and that
-    the new hardware configuration is included.
+  - *Make sure that your hosts folder includes a `configuration.nix` file, as
+    this is the entry point. Also make sure that this file imports
+    `hardware-configuration.nix`, `overrides.nix` (if applicable) and other
+    common and program specific modules that are intended to be used!*
     - As the *lightdm mini* greeter does not usually work for the initial login,
       you can disable it for the first few boot by adding the following
       configuration option to the `overrides.nix` file of your host:
