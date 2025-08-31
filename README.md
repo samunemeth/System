@@ -83,14 +83,16 @@ There are some things that are still missing form the declarative configuration:
     ```
     nixos-generate-config --root /mnt
     ```
-  - Create a new folder if you are setting up a host (this is most easily
-    done by coping an existing host and adapting it), or override one of the
-    existing hosts hardware configuration if you are moving a system.
-  - You do *not* have to add anything to the `flake.nix` file
-    as it scans the `hosts` directory automatically!
+  - Create a new host is most easily done by coping an existing host's
+    directory and adapting it:
+    ```
+    cp -r ~/System/hosts/<SOURCE-HOST> ~/System/hosts/<YOUR-HOST>
+    ```
+  - *You do not have to add anything to the `flake.nix` file
+    as it scans the `hosts` directory automatically!*
   - Move the newly generated hardware configuration to your desired host's folder:
     ```
-    cp -r /mnt/etc/nixos/hardware-configuration.nix ~/System/hosts/<YOUR-HOST>/
+    cp /mnt/etc/nixos/hardware-configuration.nix ~/System/hosts/<YOUR-HOST>/
     ```
   - *Make sure that your hosts folder includes a `configuration.nix` file, as
     this is the entry point. Also make sure that this file imports
@@ -117,8 +119,8 @@ There are some things that are still missing form the declarative configuration:
     ```
     nixos-install --flake .#<YOUR-HOST>
     ```
-  - Please remember to set passwords for users that do not have them configured
-    declaratively!
+  - *Please remember to set passwords for users that do not have them configured
+    declaratively!*
   - As the changes are still not pushed to GitHub, you will need to move the
     current git repository to the new users home:
     ```
