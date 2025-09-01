@@ -83,10 +83,10 @@ in
   services.libinput.touchpad.naturalScrolling = true;
 
   # Compositor
-  services.picom = {
-    enable = true;
-    backend = "xrender";
-    vSync = true;
-  };
+  # services.picom = {
+  #   enable = true;
+  #   backend = "xrender";
+  #   vSync = true;
+  # };
 
 }
