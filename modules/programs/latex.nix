@@ -1,19 +1,40 @@
 # --- LaTeX ---
 
 { config, pkgs, lib, globals, ... }:
+let
+  tex = with pkgs; (texlive.combine { inherit
+
+      # Root packages.
+      (texlive)
+      scheme-basic
+
+      # Math related packages.
+      amsmath
+      amsfonts
+      
+      # Other packages.
+      dirtytalk
+      adjustbox
+      pgf
+      ragged2e
+      hyperref
+      graphics
+
+      # Language packages.
+      babel
+      babel-hungarian
+
+  ;});
+in
 {
 
   environment.systemPackages = with pkgs; [
 
-    # I'm still unsure what size I actually need.  
+    # The package set defined above.
+    tex
 
-    # texliveFull
-    # texliveMedium
-    texliveSmall
-    # texliveBasic
-    # texliveMinimal
-
-    rubber               # An optimised LaTeX builder.
+    # An optimised LaTeX builder.
+    rubber
 
   ];
 
