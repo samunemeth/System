@@ -35,7 +35,6 @@ qtile_home_path = os.path.expanduser("~/.config/qtile")
 
 
 # --- Startup Script ---
-
 @hook.subscribe.startup
 def autostart():
 
@@ -98,8 +97,8 @@ keys = [
     Key([mod], "Tab", lazy.hide_show_bar(), desc="Hide/Show Bar"),
 
     # Hardware key maps to commands.
-    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl set +5%")),
-    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl set 5%-")),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("sudo xbacklight -inc 5")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("sudo xbacklight -dec 5")),
 
     Key([], "XF86AudioRaiseVolume", lazy.spawn("pulseaudio-ctl up")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("pulseaudio-ctl down")),
@@ -344,32 +343,24 @@ widgets = [
         padding = 10,
         size_percent = 70
     ),
-    # TODO: Implement a better way to manage screen brightness.
-    widget.GenPollText(
-        update_interval=3,  # seconds
-        func=lambda: subprocess.check_output(
-            ["bash", "-c", "brightnessctl | grep -oP '\\(\\K[0-9]+'"], text=True
-        ).strip() + "%",
+    widget.Backlight(
         mouse_callbacks={
-            "Button1": lambda: qtile.spawn("brightnessctl set +10%"),
-            "Button3": lambda: qtile.spawn("brightnessctl set 10%-"),
-            "Button4": lambda: qtile.spawn("brightnessctl set 5%-"),
-            "Button5": lambda: qtile.spawn("brightnessctl set +5%"),
+            "Button1": lambda: qtile.spawn("sudo xbacklight -set 75"),
+            "Button3": lambda: qtile.spawn("sudo xbacklight -set 25"),
+            "Button4": lambda: qtile.spawn("sudo xbacklight -inc 3"),
+            "Button5": lambda: qtile.spawn("sudo xbacklight -dec 3"),
         },
         fmt=" {}",
-        padding = 10
+        backlight_name = qtilemachine.backlight_name,
+        padding = 10,
     ),
-    # widget.Backlight(
-    #     backlight_name = "intel_backlight",
-    #     padding = 10,
-    # ),
     widget.Sep(
         linewidth = 2,
         padding = 10,
         size_percent = 70
     ),
     widget.Battery(
-        format="{char} {percent:2.1%} {watt:.0f}W",
+        format="{char} {percent:2.1%} {hour:02d}:{min:02d} 󱧦",
         charge_char = "",
         discharge_char = "",
         full_char = "=",

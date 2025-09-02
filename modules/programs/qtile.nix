@@ -7,14 +7,16 @@
   environment.systemPackages = with pkgs; [
 
     # lm_sensors           # Read system sensors.
-    brightnessctl        # Built in monitor brightness control.
-    # acpilight            # Alternative brightness controller.
+    acpilight            # Alternative brightness controller.
     pulseaudio-ctl       # Command line volume control.
     hsetroot             # For background setting.
     playerctl            # For media control (play/pause).
     scrot                # For screenshots.
 
   ];
+
+  # Service for power management.
+  services.upower.enable = true;
 
   # --- Home Manager Part ---
   home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {
@@ -28,6 +30,7 @@
     ".config/qtilemachine.py".text = lib.mkDefault ''
       wireless_interface = "wlo1"
       available_layouts = ["hu", "us", "us dvp"]
+      backlight_name = "intel_backlight"
     '';
   };
 
