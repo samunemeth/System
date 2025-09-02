@@ -25,6 +25,16 @@ toggleterm.setup{
       end
     end,
   },
+  auto_scroll = true,
 }
+
+function _G.set_terminal_keymaps()
+  local opts = {buffer = 0}
+  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+end
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+
+vim.keymap.set("n", "<leader>j", "<cmd>2TermExec cmd=\"java %:p\" name=\"Java Execution\"<CR>")
+
 
 end
