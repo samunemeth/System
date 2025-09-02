@@ -32,6 +32,7 @@
     ../../modules/programs/qtile.nix
     ../../modules/programs/lf.nix
     ../../modules/programs/latex.nix
+    # ../../modules/programs/java.nix
 
   ];
 
