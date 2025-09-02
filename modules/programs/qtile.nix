@@ -11,7 +11,8 @@
     # acpilight            # Alternative brightness controller.
     pulseaudio-ctl       # Command line volume control.
     hsetroot             # For background setting.
-    playerctl
+    playerctl            # For media control (play/pause).
+    scrot                # For screenshots.
 
   ];
 

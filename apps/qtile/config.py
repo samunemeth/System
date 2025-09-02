@@ -114,8 +114,10 @@ keys = [
     Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard()),
 
     # Screenshot.
-    # Key([mod, "shift"], "s", lazy.spawn("flameshot gui")),
-    # Key([], "Print", lazy.spawn("flameshot gui")),
+    Key([mod, "shift"], "s", lazy.spawn("scrot ~/Downloads/%b%d::%H%M%S.png", shell=True)),
+    Key([], "Print", lazy.spawn("scrot ~/Downloads/%b%d::%H%M%S.png", shell=True)),
+
+
 ]
 
 # Add key bindings to switch VTs in Wayland.
