@@ -14,7 +14,10 @@
     
     # System type.
     system = "x86_64-linux";
-    pkgs = import nixpkgs { inherit system; };
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
 
     # A global set of variables passed to all modules.
     globals = {
@@ -48,7 +51,7 @@
     nixosConfigurations = builtins.mapAttrs (host: _: 
 
       nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit globals inputs; };
+        specialArgs = { inherit pkgs globals inputs; };
         modules = [
           
           # Home Manager
