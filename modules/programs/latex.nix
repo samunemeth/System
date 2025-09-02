@@ -19,6 +19,7 @@ let
       ragged2e
       hyperref
       graphics
+      listings
 
       # Language packages.
       babel

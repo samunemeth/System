@@ -54,6 +54,14 @@ snippet cc "Unnumbered Centered subsubsection" b
 \subsubsection*{\centering{${VISUAL}$1}}$0
 endsnippet
 
+snippet "code(\s(\S+))?" "Code Block" rb
+\begin{lstlisting}[language=${1:`!p
+snip.rv = match.group(2) if match.group(1) is not None else "Java"
+`}]
+${0:${VISUAL}}
+\end{lstlisting}
+endsnippet
+
 # -- Footnotes ---
 
 snippet fm "Footnotemark" i
