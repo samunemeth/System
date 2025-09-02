@@ -17,7 +17,6 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - Set up a script for enterprise WPA networks, or check why
     user interfaces do not work with it.
   - Add more documentation for initial setup.
-  - Change Flameshot for Scrot?
   - Set up Veracrypt?
 
 **Impérium**
@@ -27,6 +26,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 **Qtile**
 
   - Create a visualization for Qtile key mapping?
+  - Add Ethernet support to Wlan widget.
+  - Add more accurate battery remaining time calculation.
 
 **Nvim**
 
@@ -38,6 +39,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
   - Creating a custom ISO.
   - Add configuration for WSL.
+  - Add configuration for minimal installation.
 
 ## Imperative Parts
 
