@@ -12,6 +12,7 @@
     hsetroot             # For background setting.
     playerctl            # For media control (play/pause).
     scrot                # For screenshots.
+    dunst                # Notification agent.
 
   ];
 
