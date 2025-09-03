@@ -18,7 +18,6 @@
 \usepackage{listings}
 \usepackage{pgfplots}
 
-
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
 
@@ -36,6 +35,18 @@
     pdfauthor={#2},
     pdftitle={#3},
   }
+}
+
+\pgfplotsset{
+    width=12cm,
+    axis lines = center,
+    xlabel = {$x$},
+    ylabel = {$y$},
+    minor tick num = 3,
+    every inner x axis line/.append style={-},
+    every inner y axis line/.append style={-},
+    % extra x ticks = { 1 },
+    % extra y ticks = { 1 },
 }
 
 \newenvironment{itemize-dense}

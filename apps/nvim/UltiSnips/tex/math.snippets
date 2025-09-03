@@ -17,11 +17,29 @@ endsnippet
 
 snippet mm "Inline math" wA
 $ ${1}$`!p
-if t[2] and t[2][0] not in [',', '.', '?', '-', ' ', ';']:
+if t[2] and t[2][0] not in [':', ',', '.', '?', '-', ' ', ';']:
     snip.rv = ' '
 else:
     snip.rv = ''
 `$2
+endsnippet
+
+snippet plot "Plot" b
+\begin{figure}[h!] \centering
+\begin{tikzpicture} \begin{axis}
+		\addplot [domain=-${2:10}:$2, samples=100]
+		{ ${0:${VISUAL:x^2}} };
+\end{axis} \end{tikzpicture}
+\caption{${1:Graph of a function.}}
+\end{figure}
+endsnippet
+
+snippet "beg?i?n?(\s(\S+))?" "Environment" rb
+\begin{${1:`!p
+snip.rv = match.group(2) if match.group(1) is not None else "environment"
+`}}$2
+${0:${VISUAL}}
+\end{$1}
 endsnippet
 
 # --- Auto Calculations ---
@@ -130,6 +148,11 @@ snippet dots "Low Dots symbol" wA
 \ldots $0
 endsnippet
 
+context "math()"
+snippet inf "Infinity symbol" w
+\infty $0
+endsnippet
+
 # --- Different kinds of arrows ---
 
 context "math()"
@@ -190,7 +213,12 @@ snippet not "Not symbol" wA
 endsnippet
 
 context "math()"
-snippet in "In symbol" wA
+snippet neq "Not Equal symbol" wA
+\neq $0
+endsnippet
+
+context "math()"
+snippet in "In symbol" w
 \in $0
 endsnippet
 
