@@ -20,6 +20,7 @@ let
       hyperref
       graphics
       listings
+      pgfplots
 
       # Language packages.
       babel
