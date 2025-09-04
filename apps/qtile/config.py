@@ -110,6 +110,8 @@ keys = [
     Key([], "XF86Calculator", lazy.spawn("rofi -show calc -modi calc")),
 
     # Keyboard layout switching.
+    # This is practical to have it bound to 'a', as 'a' is placed in the same
+    # spot on QWERTY and Dvorak respectively.
     Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard()),
 
     # Screenshot.
@@ -272,6 +274,7 @@ widgets = [
             "hu": "HU",
             "us": "US",
             "us dvp": "DV",
+            "us intl": "INT",
         },
         padding = 10,
     ),
