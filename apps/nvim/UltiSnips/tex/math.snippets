@@ -34,14 +34,6 @@ snippet plot "Plot" b
 \end{figure}
 endsnippet
 
-snippet "beg?i?n?(\s(\S+))?" "Environment" rb
-\begin{${1:`!p
-snip.rv = match.group(2) if match.group(1) is not None else "environment"
-`}}$2
-${0:${VISUAL}}
-\end{$1}
-endsnippet
-
 # --- Auto Calculations ---
 
 context "math()"
@@ -79,6 +71,12 @@ endsnippet
 context "math()"
 snippet tt "Text in math" wA
 \text{${VISUAL}$1} $0
+endsnippet
+
+# --- vectors ---
+context "math()"
+snippet vec "Vector" w
+\left[\begin{array}{c} $1 \end{array}\right]$0
 endsnippet
 
 # --- Align Environment ---
