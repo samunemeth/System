@@ -11,6 +11,8 @@ let
       # Math related packages.
       amsmath
       amsfonts
+      pgfplots
+      flagderiv
       
       # Other packages.
       dirtytalk
@@ -20,7 +22,6 @@ let
       hyperref
       graphics
       listings
-      pgfplots
 
       # Language packages.
       babel
