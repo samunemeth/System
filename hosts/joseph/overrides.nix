@@ -16,7 +16,8 @@
 
   home.file.".config/qtilemachine.py".text = ''
     wireless_interface = "wlp4s0"
-    available_layouts = ["us", "us intl"]
+    available_layouts = ["us", "us dvp"]
+    #available_layouts = ["us", "us intl", "us dvp"]
     backlight_name = "amdgpu_bl2"
   '';
 

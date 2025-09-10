@@ -43,7 +43,7 @@
           "leftshift+rightshift" = "capslock";
 
           # Copilot key remapping.
-          "f23+leftshift+leftmeta" = "capslock";
+          "f23+leftshift+leftmeta" = "M-a";
         };
         "alt" = {
           "h" = "left";
