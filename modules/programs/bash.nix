@@ -32,6 +32,7 @@
     shellAliases = {
       "snvim" = "sudo -E nvim";
       "l" = "ls -lhAG --color=always | sed -re 's/^[^ ]* //' | tail -n +2";
+      "fetch" = "fastfetch";
     };
   
 
