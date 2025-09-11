@@ -14,12 +14,12 @@
     ../../modules/common/system.nix
     #../../modules/common/boot.nix
     #../../modules/common/gui.nix
-    ../../modules/common/local.nix
+    #../../modules/common/local.nix
     ../../modules/common/packages.nix
     ../../modules/common/ssh.nix
     #../../modules/common/audio.nix
-    ../../modules/common/files.nix
-    ../../modules/common/network.nix
+    #../../modules/common/files.nix
+    #../../modules/common/network.nix
     ../../modules/common/users.nix
     #../../modules/common/theme.nix
 
