@@ -13,7 +13,7 @@
 
   
   boot.loader = {
-    systemd-boot.configurationLimit = 5;
+    systemd-boot.configurationLimit = 3;
     timeout = 1;
   };
 
