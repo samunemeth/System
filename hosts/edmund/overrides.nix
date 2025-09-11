@@ -5,6 +5,7 @@
 
   nixpkgs.hostPlatform = "x86_64-linux";
   wsl.enable = true;
+  wsl.defaultUser = globals.user;
 
   # Set time zone to CET.
   time.timeZone = "Europe/Amsterdam";
