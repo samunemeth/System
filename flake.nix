@@ -2,15 +2,22 @@
   description = "A flake for my NixOS configuration.";
 
   inputs = {
+
+    # Root NixOS packages and distribution.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+
+    # Home Manager distribution.
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # WSL support distribution.
     nixos-wsl = {
       url = "github:nix-community/nixos-wsl/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
@@ -68,6 +75,9 @@
           ({ config, pkgs, lib, globals, ... }: {
             networking.hostName = host;
           })
+
+          # Disable options related to packages inside the configuration files.
+          inputs.nixpkgs.nixosModules.readOnlyPkgs
 
         ];
       }
