@@ -12,7 +12,7 @@
 
     # Common modules containing configuration.
     ../../modules/common/system.nix
-    ../../modules/common/boot.nix
+    #../../modules/common/boot.nix
     #../../modules/common/gui.nix
     ../../modules/common/local.nix
     ../../modules/common/packages.nix
