@@ -4,7 +4,7 @@
 {
 
   # Set host name default.
-  networking.hostName = lib.mkDefault "nixos";
+  networking.hostName = globals.host;
 
   # Enable flakes.
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

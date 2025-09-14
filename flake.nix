@@ -20,10 +20,8 @@
 
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
-  let
-    
-    # System type.
+  outputs = { self, nixpkgs, ... }@inputs: {
+
 
     # A global set of variables passed to all modules.
     globals = {
@@ -40,24 +38,25 @@
 
     };
 
-
-  in rec
-  {
-
     # Define useful functions.
     listToAttrs = builtins.foldl' (acc: elem: { "${elem}" = elem; } // acc) {};
 
     # Get the directories in the hosts folder to get the host names.
     dirContents = builtins.readDir ./hosts;
     hosts = builtins.foldl'
-      (acc: elem: if builtins.getAttr elem dirContents == "directory" then acc ++ [elem] else acc)
-      [] (builtins.attrNames dirContents);
+      (acc: elem: if builtins.getAttr elem self.dirContents == "directory" then acc ++ [elem] else acc)
+      [] (builtins.attrNames self.dirContents);
 
     # Generate NixOS configuration entries from host list.
     nixosConfigurations = builtins.mapAttrs (host: _: 
 
       nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit globals inputs; };
+
+        specialArgs = {
+          inherit inputs;
+          globals = self.globals // { inherit host; };
+        };
+
         modules = [
           
           # Home Manager
@@ -66,22 +65,17 @@
           # Main Configuration
           ./hosts/${host}/configuration.nix
 
-          # Set the host name for the system.
-          {
-            networking.hostName = host;
-          }
-
         ];
       }
 
-    ) (listToAttrs hosts);
+    ) (self.listToAttrs self.hosts);
 
     # Generate Home Manager configuration entries for hosts.
     homeConfigurations = builtins.mapAttrs (host: _: 
 
-      nixosConfigurations.${host}.config.home-manager.users.${globals.user}.home
+      self.nixosConfigurations.${host}.config.home-manager.users.${self.globals.user}.home
 
-    ) (listToAttrs hosts);
+    ) (self.listToAttrs self.hosts);
 
   };
 }
