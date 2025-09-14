@@ -24,17 +24,12 @@
   let
     
     # System type.
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
 
     # A global set of variables passed to all modules.
     globals = {
 
       # System and version information.
-      inherit system; 
+      system = "x86_64-linux";
       stateVersion = "25.05"; # This should not be changed!
 
       # User information.
@@ -62,7 +57,7 @@
     nixosConfigurations = builtins.mapAttrs (host: _: 
 
       nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit pkgs globals inputs; };
+        specialArgs = { inherit globals inputs; };
         modules = [
           
           # Home Manager
@@ -72,15 +67,9 @@
           ./hosts/${host}/configuration.nix
 
           # Set the host name for the system.
-          ({ config, pkgs, lib, globals, ... }: {
+          {
             networking.hostName = host;
-          })
-
-          # Disable options related to packages inside the configuration files.
-          inputs.nixpkgs.nixosModules.readOnlyPkgs
-          ({
-            nixpkgs.pkgs = pkgs;
-          })
+          }
 
         ];
       }
