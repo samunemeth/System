@@ -78,6 +78,9 @@
 
           # Disable options related to packages inside the configuration files.
           inputs.nixpkgs.nixosModules.readOnlyPkgs
+          ({
+            nixpkgs.pkgs = pkgs;
+          })
 
         ];
       }
