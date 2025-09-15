@@ -1,3 +1,10 @@
+
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos-white.svg">
+  <img src="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos.svg" width="500px" alt="NixOS logo">
+</picture>
+
 # NixOS Configuration
 
 This is the central collection and documentation of my NixOS configurations.
@@ -12,35 +19,40 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **General**
 
-  - Look into why the *mini greeter* seems to act up on first boot.
-  - Separate Home Manager building for time saving.
-  - Set up a script for enterprise WPA networks, or check why
+  - *Look Into:* Why the *mini greeter* seems to act up on first boot.
+  - *Look Into:* Separate Home Manager building for time saving.
+  - *Set Up:* A script for enterprise WPA networks, or check why
     user interfaces do not work with it.
-  - Add more documentation for initial setup.
-  - Set up Veracrypt?
-  - Look into minimal plymouth themes.
-  - Set up [sops-nix](https://github.com/Mic92/sops-nix) for secret management.
+  - *Look Into:* Minimal plymouth themes.
+  - *Set Up:* [sops-nix](https://github.com/Mic92/sops-nix) for secret management.
+  - *Fix:* Alacritty not handling dynamic window titles.
+    [More Info](https://github.com/alacritty/alacritty/issues/1636)
+  - *Fix:* Firefox opening in the wrong group.
+     
 
 **Impérium**
 
-  - Automatically initialize Seafile on system rebuild.
+  - *Set Up:* Automatically initialize Seafile on system rebuild.
+  - *Look Into:* Adding even more declarative settings.
+    [More Info](https://grahamc.com/blog/erase-your-darlings/)
+  - *Look Into:* Adding even more preset Firefox options.
 
 **Qtile**
 
-  - Create a visualization for Qtile key mapping?
-  - Add Ethernet support to Wlan widget.
-  - Add more accurate battery remaining time calculation.
+  - *Look Into:* Creating a visualization for Qtile key mapping.
+  - *Set Up:* Ethernet support to Wlan widget.
+  - *Look Into:* More accurate battery remaining time calculation.
 
 **Nvim**
 
-  - Fix `lf` having black background.
-  - Add TODO label highlights.
-  - Look into why markdown indentation seems to be set incorrectly.
+  - *Fix:* `lf` having black background.
+  - *Set Up:* [TODO label highlights](https://github.com/folke/todo-comments.nvim).
+  - *Look Into:* why markdown indentation seems to be set incorrectly.
 
 **Long Term**
 
-  - Creating a custom ISO.
-  - Add configuration for minimal installation.
+  - *Look Into:* Creating a custom ISO.
+  - *Set Up:* A configuration for minimal installation.
 
 ## Imperative Parts
 
@@ -180,6 +192,7 @@ There are some things that are still missing form the declarative configuration:
     works as expected. Enable the *lightdm mini* greeter after the first few
     boots.
 
+
 ## WiFi
 
 Setting up a WPA enterprise network does not work with `nmtui` or `networkmanager_dmenu` for some reason.
@@ -193,5 +206,13 @@ nmcli connection up "<SSID>"
 
 Replace `<SSID>`, `<IDENTITY>` and `<PASSWORD>` accordingly.
 
+# Resources
 
+Here I have collected some useful resources I have used to create
+this configuration.
+
+## Dual Booting
+
+[Here](https://drakerossman.com/blog/how-to-dualboot-windows-and-nixos) is some
+more information on dual booting NixOS.
 
