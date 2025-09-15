@@ -10,3 +10,6 @@ hsetroot -solid "$BG_COLOR" &
 
 # Move the cursor to the middle of the screen.
 warpd --move "$XC $YC"
+
+# Turn on NumLock
+numlockx on
