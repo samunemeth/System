@@ -18,6 +18,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     user interfaces do not work with it.
   - Add more documentation for initial setup.
   - Set up Veracrypt?
+  - Look into minimal plymouth themes.
+  - Look into sleep levels.
 
 **Impérium**
 
@@ -38,7 +40,6 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 **Long Term**
 
   - Creating a custom ISO.
-  - Add configuration for WSL.
   - Add configuration for minimal installation.
 
 ## Imperative Parts
