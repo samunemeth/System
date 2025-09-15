@@ -1,11 +1,11 @@
-
+<p align="center">
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos.svg">
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos-white.svg">
   <img src="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos.svg" width="500px" alt="NixOS logo">
 </picture>
-
-# NixOS Configuration
+CONFIGURATION
+</p>
 
 This is the central collection and documentation of my NixOS configurations.
 
@@ -19,40 +19,40 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **General**
 
-  - *Look Into:* Why the *mini greeter* seems to act up on first boot.
-  - *Look Into:* Separate Home Manager building for time saving.
-  - *Set Up:* A script for enterprise WPA networks, or check why
+  - [ ] *Look Into:* Why the *mini greeter* seems to act up on first boot.
+  - [ ] *Look Into:* Separate Home Manager building for time saving.
+  - [ ] *Set Up:* A script for enterprise WPA networks, or check why
     user interfaces do not work with it.
-  - *Look Into:* Minimal plymouth themes.
-  - *Set Up:* [sops-nix](https://github.com/Mic92/sops-nix) for secret management.
-  - *Fix:* Alacritty not handling dynamic window titles.
+  - [ ] *Look Into:* Minimal plymouth themes.
+  - [ ] *Set Up:* [sops-nix](https://github.com/Mic92/sops-nix) for secret management.
+  - [ ] *Fix:* Alacritty not handling dynamic window titles.
     [More Info](https://github.com/alacritty/alacritty/issues/1636)
-  - *Fix:* Firefox opening in the wrong group.
+  - [ ] *Fix:* Firefox opening in the wrong group.
      
 
 **Impérium**
 
-  - *Set Up:* Automatically initialize Seafile on system rebuild.
-  - *Look Into:* Adding even more declarative settings.
+  - [ ] *Set Up:* Automatically initialize Seafile on system rebuild.
+  - [ ] *Look Into:* Adding even more declarative settings.
     [More Info](https://grahamc.com/blog/erase-your-darlings/)
-  - *Look Into:* Adding even more preset Firefox options.
+  - [ ] *Look Into:* Adding even more preset Firefox options.
 
 **Qtile**
 
-  - *Look Into:* Creating a visualization for Qtile key mapping.
-  - *Set Up:* Ethernet support to Wlan widget.
-  - *Look Into:* More accurate battery remaining time calculation.
+  - [ ] *Look Into:* Creating a visualization for Qtile key mapping.
+  - [ ] *Set Up:* Ethernet support to Wlan widget.
+  - [ ] *Look Into:* More accurate battery remaining time calculation.
 
 **Nvim**
 
-  - *Fix:* `lf` having black background.
-  - *Set Up:* [TODO label highlights](https://github.com/folke/todo-comments.nvim).
-  - *Look Into:* why markdown indentation seems to be set incorrectly.
+  - [ ] *Fix:* `lf` having black background.
+  - [ ] *Set Up:* [TODO label highlights](https://github.com/folke/todo-comments.nvim).
+  - [ ] *Look Into:* why markdown indentation seems to be set incorrectly.
 
 **Long Term**
 
-  - *Look Into:* Creating a custom ISO.
-  - *Set Up:* A configuration for minimal installation.
+  - [ ] *Look Into:* Creating a custom ISO.
+  - [ ] *Set Up:* A configuration for minimal installation.
 
 ## Imperative Parts
 
