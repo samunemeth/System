@@ -217,3 +217,10 @@ this configuration.
 [Here](https://drakerossman.com/blog/how-to-dualboot-windows-and-nixos) is some
 more information on dual booting NixOS.
 
+## sops-nix
+
+Some info on setting up with a Yubikey maybe?
+  - [Reddit](https://www.reddit.com/r/NixOS/comments/1dbsx17/working_example_of_sopsnix_with_yubikey/)
+  - [Reddit](https://www.reddit.com/r/NixOS/comments/1dbalru/comment/l802uqq/?context=3)
+  - [Github](https://github.com/Mic92/sops-nix/issues/377#issuecomment-2926579189)
+
