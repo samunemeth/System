@@ -1,11 +1,8 @@
-<p align="center">
-<picture>
+<p align="center"> <picture>
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos.svg">
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos-white.svg">
   <img src="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos.svg" width="500px" alt="NixOS logo">
-</picture>
-CONFIGURATION
-</p>
+</picture> </p>
 
 This is the central collection and documentation of my NixOS configurations.
 
@@ -15,7 +12,8 @@ Firefox for browsing and Lf for file management.
 For settings, I try to use Rofi menus where possible.
 I am mainly using these systems for internet browsing and LaTeX compilation.
 
-## ToDo
+
+# ToDo
 
 **General**
 
@@ -53,19 +51,6 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
   - [ ] *Look Into:* Creating a custom ISO.
   - [ ] *Set Up:* A configuration for minimal installation.
-
-## Imperative Parts
-
-There are some things that are still missing form the declarative configuration:
-
-**Other Settings**
-
-  - WiFi Networks
-  - SSH Keys
-  - Seafile Configuration
-  - Account Logins
-
-*Everything else should be configured declaratively!*
 
 
 # Setup
@@ -192,6 +177,18 @@ There are some things that are still missing form the declarative configuration:
     works as expected. Enable the *lightdm mini* greeter after the first few
     boots.
 
+## Imperative Parts
+
+There are some things that are still missing form the declarative configuration:
+
+**Other Settings**
+
+  - WiFi Networks
+  - SSH Keys
+  - Seafile Configuration
+  - Account Logins
+
+*Everything else should be configured declaratively!*
 
 ## WiFi
 
@@ -205,6 +202,7 @@ nmcli connection up "<SSID>"
 ```
 
 Replace `<SSID>`, `<IDENTITY>` and `<PASSWORD>` accordingly.
+
 
 # Resources
 
