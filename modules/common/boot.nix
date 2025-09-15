@@ -17,6 +17,12 @@
   # Set boot options to enable resuming from hibernation.
   boot.initrd.systemd.enable = true;
 
+  # Silent boot implementation.
+  boot.kernelParams = [ "quiet" "fbcon=vc:2-6" "console=tty0" ];
+  boot.consoleLogLevel = 0;
+
+  #boot.plymouth.enable = true;
+
 
   # --- Power Management ---
 
