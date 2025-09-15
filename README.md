@@ -19,7 +19,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - Add more documentation for initial setup.
   - Set up Veracrypt?
   - Look into minimal plymouth themes.
-  - Look into sleep levels.
+  - Set up [sops-nix](https://github.com/Mic92/sops-nix) for secret management.
 
 **Impérium**
 
