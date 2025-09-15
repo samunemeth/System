@@ -4,7 +4,10 @@
   <img src="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos.svg" width="500px" alt="NixOS logo">
 </picture> </p>
 
-This is the central collection and documentation of my NixOS configurations.
+<p align="center"><i>My main flake and documentation for it.</i></p>
+
+
+# Goal
 
 I am trying to achieve a minimal NixOS installation for productivity.
 I use Qtile as my window manager, Neovim for text and code editing,
