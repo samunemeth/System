@@ -135,22 +135,39 @@ groups = [
     Group("I"),
     Group("O"),
     Group("P", spawn="firefox"),
+    Group("["),
     Group("N"),
     Group("M"),
+    Group(","),
+    Group("."),
+    Group("/"),
 ]
+
+group_key_lookup = {
+    "U": "U",
+    "I": "I",
+    "O": "O",
+    "P": "P",
+    "[": "bracketleft",
+    "N": "N",
+    "M": "M",
+    ",": "comma",
+    ".": "period",
+    "/": "slash",
+}
 
 for i in groups:
     keys.extend(
         [
             Key(
                 [mod],
-                i.name,
+                group_key_lookup[i.name],
                 lazy.group[i.name].toscreen(),
                 desc=f"Switch to group {i.name}",
             ),
             Key(
                 [mod, "shift"],
-                i.name,
+                group_key_lookup[i.name],
                 lazy.window.togroup(i.name, switch_group=True),
                 desc=f"Switch to & move focused window to group {i.name}",
             ),
