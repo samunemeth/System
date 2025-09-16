@@ -31,6 +31,7 @@
       "gn" = "cd ~/Notes";
       "gc" = "cd ~/.config";
       "DD" = "delete";
+      "a" = "add";
     };
     settings = {
       "icons" = "true";
@@ -41,6 +42,20 @@
     };
     commands = {
       "type" = "%xdg-mime query filetype \"$f\"";
+      "add" = ''
+        %{{
+          printf "New: "
+          read ans
+          if [[ $ans == */ ]]; then
+            mkdir -p $ans
+          elif [[ $ans == */* ]]; then
+            mkdir -p ''${ans%/*}
+            touch $ans
+          else
+            touch $ans
+          fi
+        }}
+      '';
     };
   };
 
