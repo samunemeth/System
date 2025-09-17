@@ -6,7 +6,7 @@
 
   environment.systemPackages = with pkgs; [
 
-    # lm_sensors           # Read system sensors.
+    lm_sensors           # Read system sensors.
     acpilight            # Alternative brightness controller.
     pulseaudio-ctl       # Command line volume control.
     hsetroot             # For background setting.

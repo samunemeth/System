@@ -216,34 +216,48 @@ widgets = [
         padding = 10,
         size_percent = 70,
     ),
-    widget.WindowName(
-        parse_text = shorten_widow_title,
+    widget.KeyboardLayout(
+        configured_keyboards = qtilemachine.available_layouts,
+        display_map = {
+            "hu": "HU",
+            "us": "US",
+            "us dvp": "DV",
+            "us intl": "IN",
+        },
         padding = 10,
+    ),
+    widget.Sep(
+        linewidth = 2,
+        padding = 10,
+        size_percent = 70
     ),
 
     # --------------------------
 
     # widget.OpenWeather(
-    #     cityid = 3052009,
+    #     # cityid = 3052009,
+    #     cityid = 2750821,
+    #     hide_crach = True,
+    #     format = "{location_city}: {main_temp:.0f}°{units_temperature} {weather}",
     # ),
+
+    # widget.WindowName(
+    #     parse_text = shorten_widow_title,
+    #     padding = 10,
+    # ),
+
+    # --------------------------
+
+    widget.Spacer(),
+
+    # --------------------------
+
     # widget.Sep(
     #     linewidth = 2,
     #     padding = 10,
     #     size_percent = 70
     # ),
-    # widget.CPU(
-    #     format = " {load_percent:3.0f}% ",
-    # ),
-    # widget.ThermalSensor(
-    #     format = "{temp:.0f}{unit}",
-    #     tag_sensor = "Package id 0",
-    # ),
-    # widget.Memory(
-    #     format = "{MemUsed:.1f}{mm}",
-    #     measure_mem = "G",
-    #     measure_swap = "G",
-    #     padding = 10,
-    # ),
+
 
     # --------------------------
 
@@ -285,21 +299,6 @@ widgets = [
         padding = 10,
         size_percent = 70
     ),
-    widget.KeyboardLayout(
-        configured_keyboards = qtilemachine.available_layouts,
-        display_map = {
-            "hu": "HU",
-            "us": "US",
-            "us dvp": "DV",
-            "us intl": "INT",
-        },
-        padding = 10,
-    ),
-    widget.Sep(
-        linewidth = 2,
-        padding = 10,
-        size_percent = 70
-    ),
     widget.PulseVolume(
         mute_format = "   ",
         unmute_format = " {volume}%",
@@ -328,8 +327,22 @@ widgets = [
         padding = 10,
         size_percent = 70
     ),
+    widget.ThermalSensor(
+        format = " {temp:.0f}{unit}",
+        # tag_sensor = "Package id 0",
+        tag_sensor = "Tctl",
+        mouse_callbacks={
+            "Button1": lambda: qtile.spawn("alacritty -e btop"),
+        },
+        padding = 10,
+    ),
+    widget.Sep(
+        linewidth = 2,
+        padding = 10,
+        size_percent = 70
+    ),
     widget.Battery(
-        format="{char} {percent:2.1%} {hour:02d}:{min:02d} 󱧦",
+        format="{char} {percent:2.1%}  󱧦 {hour:02d}:{min:02d}",
         charge_char = "",
         discharge_char = "",
         full_char = "=",
@@ -346,6 +359,9 @@ widgets = [
     ),
     widget.Clock(
         format="%Y-%m-%d %H:%M:%S",
+        mouse_callbacks={
+            "Button1": lambda: qtile.spawn("alacritty --hold -e \"cal\""),
+        },
         padding = 10,
     ),
 ]
