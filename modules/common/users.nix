@@ -9,7 +9,7 @@
   users.users.${globals.user} = {
     isNormalUser = true;
     description = globals.name;
-    extraGroups = [ "networkmanager" "wheel" "plugdev" "audio" ];
+    extraGroups = [ "networkmanager" "wheel" "plugdev" "audio" "input" ];
     hashedPassword = globals.password;
   };
 

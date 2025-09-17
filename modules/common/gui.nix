@@ -23,6 +23,7 @@ in
   environment.systemPackages = with pkgs; [
 
     warpd                # Keyboard mouse control and movement emulation.
+    libinput-gestures    # For touchpad gestures.
 
   ];
 
@@ -88,5 +89,29 @@ in
   #   backend = "xrender";
   #   vSync = true;
   # };
+
+  # Start the libinput-gestures daemon to handle touchpad gestures.  
+  systemd.services.libinput-gestures = {
+    enable = true;
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "simple";
+      User = globals.user;
+      Restart = "always";
+      ExecStart = "${pkgs.libinput-gestures}/bin/libinput-gestures -c /home/${globals.user}/.config/libinput-gestures.conf";
+    };
+  };
+
+  home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {
+
+  # Configuration for touchpad gestures.
+  home.file.".config/libinput-gestures.conf".text = ''
+    gesture swipe right 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o screen -f next_group
+    gesture swipe left 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o screen -f prev_group
+    gesture swipe down 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o group P -f toscreen
+    gesture swipe up 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o group U -f toscreen
+  '';
+
+  };
 
 }
