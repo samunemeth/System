@@ -34,6 +34,7 @@ terminal = guess_terminal()
 qtile_home_path = os.path.expanduser("~/.config/qtile")
 
 
+
 # --- Startup Script ---
 
 @hook.subscribe.startup
@@ -271,7 +272,7 @@ widgets = [
         hide_unnamed_devices = True,
         symbol_connected = "",
         symbol_paired = "󰂯",
-        default_text = "󰂯: {num_connected_devices}",
+        default_text = "󰂯 {num_connected_devices}",
         device_format = "D: {name}{battery_level} {symbol}",
         adapter_format = "A: {name} ({powered}{discovery})",
         device_battery_format = " [{battery}%]",
@@ -288,7 +289,11 @@ widgets = [
     ),
     widget.Wlan(
         interface = qtilemachine.wireless_interface,
-        format = "{essid} {percent:2.0%}",
+        format = "󰖩 {percent:2.0%}",
+        disconnected_message = "󰖪 ",
+        ethernet_message_format = "󰈀 ",
+        # use_ethernet = True;
+        # ethernet_interface = "";
         mouse_callbacks={
             "Button1": lambda: qtile.spawn("networkmanager_dmenu"),
         },
@@ -359,9 +364,6 @@ widgets = [
     ),
     widget.Clock(
         format="%Y-%m-%d %H:%M:%S",
-        mouse_callbacks={
-            "Button1": lambda: qtile.spawn("alacritty --hold -e \"cal\""),
-        },
         padding = 10,
     ),
 ]
