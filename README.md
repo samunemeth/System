@@ -29,6 +29,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Fix:* Alacritty not handling dynamic window titles.
     [More Info](https://github.com/alacritty/alacritty/issues/1636)
   - [ ] *Fix:* Firefox opening in the wrong group.
+  - [ ] *Fix:* Qtile machine dependent options.
      
 
 **Impérium**
