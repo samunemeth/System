@@ -22,9 +22,10 @@
   };
 
   # Configure keyboard layout.
-  services.xserver.xkb = lib.mkDefault {
-    layout = "us";
-    variant = "";
+  services.xserver.xkb =  {
+    layout = lib.mkDefault "us";
+    variant = lib.mkDefault "";
+    options = "compose:menu";
   };
   console.keyMap = lib.mkDefault "us";
 
@@ -52,6 +53,27 @@
           "l" = "right";
           "p" = "enter";
           ";" = "backspace";
+        } // {
+          "e" = "macro(compose e ')";
+          "a" = "macro(compose a ')";
+          "i" = "macro(compose i ')";
+          "u" = "macro(compose u ')";
+          "o" = "macro(compose o ')";
+          "n" = "macro(compose u \")";
+          "m" = "macro(compose o \")";
+          "[" = "macro(compose = u)";
+          "]" = "macro(compose = o)";
+        };
+        "alt+shift" = {
+          "e" = "macro(compose E ')";
+          "a" = "macro(compose A ')";
+          "i" = "macro(compose I ')";
+          "u" = "macro(compose U ')";
+          "o" = "macro(compose O ')";
+          "n" = "macro(compose U \")";
+          "m" = "macro(compose O \")";
+          "[" = "macro(compose = U)";
+          "]" = "macro(compose = O)";
         };
       };
     };
