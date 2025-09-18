@@ -29,7 +29,6 @@
       # Copy selection to system clipboard
       "selection-clipboard" = "clipboard";
 
-      "recolor" = "true";
       "recolor-keephue" = "true";
       "recolor-reverse-video" = "false";
       "recolor-lightcolor" = globals.colors.background.main;
