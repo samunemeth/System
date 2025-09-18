@@ -313,6 +313,7 @@ widgets = [
         foreground = qtilecolor.foreground_main,
         padding = 10,
     ),
+] + ([
     widget.Sep(
         linewidth = 2,
         padding = 10,
@@ -329,6 +330,7 @@ widgets = [
         backlight_name = qtilemachine.backlight_name,
         padding = 10,
     ),
+] if qtilemachine.has_backlight else []) + [
     widget.Sep(
         linewidth = 2,
         padding = 10,
@@ -342,6 +344,7 @@ widgets = [
         },
         padding = 10,
     ),
+] + ([
     widget.Sep(
         linewidth = 2,
         padding = 10,
@@ -358,6 +361,7 @@ widgets = [
         low_foreground = qtilecolor.foreground_error,
         padding = 10
     ),
+] if qtilemachine.has_battery else []) + [
     widget.Sep(
         linewidth = 2,
         padding = 10,

@@ -18,6 +18,9 @@
 
     available_layouts = ["us", "us dvp"]
 
+    has_battery = True
+    has_backlight = True
+
     backlight_name = "amdgpu_bl2"
     processor_temperature_name = "Tctl"
 

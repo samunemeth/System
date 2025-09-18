@@ -15,7 +15,8 @@
   };
   console.keyMap = "hu";
 
-  services.xserver.displayManager.lightdm.greeters.mini.enable = lib.mkForce false;
+  # No touchpad on a desktop.
+  systemd.services.libinput-gestures.enable = false;
 
   # --- Home Manager Part ---
   home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {
@@ -23,13 +24,16 @@
 
   home.file.".config/qtilemachine.py".text = ''
 
-    available_layouts = ["hu"]
+    available_layouts = ["hu", "us"]
 
-    backlight_name = "amdgpu_bl2"
-    processor_temperature_name = "Tctl"
+    has_battery = False
+    has_backlight = False
 
-    wireless_interface = "wlp4s0"
-    wired_interface = "enp2s0f0"
+    backlight_name = ""
+    processor_temperature_name = "Package id 0"
+
+    wireless_interface = "wlo1"
+    wired_interface = "enp6s0"
 
   '';
 
