@@ -66,6 +66,18 @@
 
     '';
 
+    # Color settings for Qtile.
+    ".config/qtilecolor.py".text = ''
+
+      background_main = "${globals.colors.background.main}"
+      background_contrast = "${globals.colors.background.contrast}"
+      foreground_main = "${globals.colors.foreground.main}"
+      foreground_soft = "${globals.colors.foreground.soft}"
+      foreground_error = "${globals.colors.foreground.error}"
+
+    '';
+
+
     # Settings for touchpad gestures.
     ".config/libinput-gestures.conf".text = ''
       gesture swipe left 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o screen -f next_group

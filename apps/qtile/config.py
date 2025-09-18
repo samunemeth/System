@@ -1,17 +1,20 @@
 # --- Imports ---
 
 import os
-import subprocess
+import sys
 
-from libqtile import bar, layout, qtile, widget
+import subprocess
+import importlib.util
+
+from libqtile import bar, layout, qtile, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-from libqtile import hook
 from libqtile.widget import base
 
-import importlib.util
-import sys
+
+# --- Machine Specific ---
+
 spec = importlib.util.spec_from_file_location("qtilemachine", os.path.expanduser("~/.config/qtilemachine.py"))
 qtilemachine = importlib.util.module_from_spec(spec)
 sys.modules["qtilemachine"] = qtilemachine
@@ -20,11 +23,10 @@ spec.loader.exec_module(qtilemachine)
 
 # --- Colors ---
 
-color_background_main = "#14161B"
-color_background_contrast = "#0A0B0E"
-color_foreground_main = "#F2F4F3"
-color_foreground_soft = "#D0D6DD"
-color_foreground_error = "#DC4332"
+spec = importlib.util.spec_from_file_location("qtilecolor", os.path.expanduser("~/.config/qtilecolor.py"))
+qtilecolor = importlib.util.module_from_spec(spec)
+sys.modules["qtilecolor"] = qtilecolor
+spec.loader.exec_module(qtilecolor)
 
 
 # --- Global Settings ---
@@ -48,7 +50,7 @@ def autostart():
     yc = str(screens[0].y + screens[0].height // 2)
 
     # Run the startup script with the parameters.
-    subprocess.Popen([script, color_background_main, xc, yc])
+    subprocess.Popen([script, qtilecolor.background_main, xc, yc])
 
 
 # --- Keyboard Shortcuts ---
@@ -178,8 +180,8 @@ for i in groups:
 layouts = [
     layout.Columns(
         border_width=2,
-        border_focus=color_foreground_soft,
-        border_normal=color_background_contrast,
+        border_focus=qtilecolor.foreground_soft,
+        border_normal=qtilecolor.background_contrast,
     ),
     layout.Max(),
 ]
@@ -207,8 +209,8 @@ def shorten_widow_title(text):
 
 widgets = [
     widget.GroupBox(
-        this_current_screen_border = color_foreground_main,
-        this_screen_border = color_foreground_main,
+        this_current_screen_border = qtilecolor.foreground_main,
+        this_screen_border = qtilecolor.foreground_main,
         borderwidth = 2,
         disable_drag = True,
     ),
@@ -307,8 +309,8 @@ widgets = [
     widget.PulseVolume(
         mute_format = "   ",
         unmute_format = " {volume}%",
-        mute_foreground = color_foreground_error,
-        foreground = color_foreground_main,
+        mute_foreground = qtilecolor.foreground_error,
+        foreground = qtilecolor.foreground_main,
         padding = 10,
     ),
     widget.Sep(
@@ -353,7 +355,7 @@ widgets = [
         not_charging_char = "-",
         update_interval = 3,
         low_percentage = 0.2,
-        low_foreground = color_foreground_error,
+        low_foreground = qtilecolor.foreground_error,
         padding = 10
     ),
     widget.Sep(
@@ -374,7 +376,7 @@ screens = [
         bottom=bar.Bar(
             widgets,
             24,
-            background=color_background_contrast,
+            background=qtilecolor.background_contrast,
             opacity=1.0,
         ),
     ),

@@ -47,7 +47,7 @@
     
     [dmenu_passphrase]
     obscure = False
-    obscure_color = #222222
+    obscure_color = ${globals.colors.background.main}
     
     [editor]
     terminal = alacritty
