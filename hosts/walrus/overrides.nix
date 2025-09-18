@@ -1,4 +1,4 @@
-# --- Overrides for Joseph ---
+# --- Overrides for Walrus ---
 
 { config, pkgs, lib, globals, ... }:
 {
