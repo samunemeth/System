@@ -4,7 +4,10 @@
 {
 
   boot.loader = {
-    systemd-boot.configurationLimit = 3;
+    systemd-boot = {
+      configurationLimit = 3;
+      consoleMode = "max";
+    };
     timeout = 3;
   };
 
