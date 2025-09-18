@@ -15,10 +15,15 @@
 
 
   home.file.".config/qtilemachine.py".text = ''
-    wireless_interface = "wlp4s0"
+
     available_layouts = ["us", "us dvp"]
-    #available_layouts = ["us", "us intl", "us dvp"]
+
     backlight_name = "amdgpu_bl2"
+    processor_temperature_name = "Tctl"
+
+    wireless_interface = "wlp4s0"
+    wired_interface = "enp2s0f0"
+
   '';
 
 

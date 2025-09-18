@@ -23,9 +23,15 @@
 
 
   home.file.".config/qtilemachine.py".text = ''
-    wireless_interface = "wlo1"
+
     available_layouts = ["hu", "us", "us dvp"]
+
     backlight_name = "intel_backlight"
+    processor_temperature_name = "Package id 0"
+
+    wireless_interface = "wlo1"
+    wired_interface = "eth0"
+
   '';
 
 

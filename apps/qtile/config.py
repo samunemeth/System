@@ -292,8 +292,8 @@ widgets = [
         format = "󰖩 {percent:2.0%}",
         disconnected_message = "󰖪 ",
         ethernet_message_format = "󰈀 ",
-        # use_ethernet = True;
-        # ethernet_interface = "";
+        use_ethernet = True,
+        ethernet_interface = qtilemachine.wired_interface,
         mouse_callbacks={
             "Button1": lambda: qtile.spawn("networkmanager_dmenu"),
         },
@@ -334,8 +334,7 @@ widgets = [
     ),
     widget.ThermalSensor(
         format = " {temp:.0f}{unit}",
-        # tag_sensor = "Package id 0",
-        tag_sensor = "Tctl",
+        tag_sensor = qtilemachine.processor_temperature_name,
         mouse_callbacks={
             "Button1": lambda: qtile.spawn("alacritty -e btop"),
         },
