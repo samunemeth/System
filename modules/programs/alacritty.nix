@@ -50,7 +50,7 @@
           family = "Hack Nerd Font Mono";
           style = "Bold Italic";
         };
-        size = 8;
+        size = 12;
       };
     };
   };

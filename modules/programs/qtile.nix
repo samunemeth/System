@@ -30,7 +30,7 @@
 
   # Start the libinput-gestures daemon to handle touchpad gestures.  
   systemd.services.libinput-gestures = {
-    enable = true;
+    enable = lib.mkDefault true;
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "simple";
@@ -57,6 +57,9 @@
     ".config/qtilemachine.py".text = lib.mkDefault ''
 
       available_layouts = ["us", "hu", "us dvp"]
+
+      has_battery = True
+      has_backlight = True
 
       backlight_name = "intel_backlight"
       processor_temperature_name = "Package id 0"
