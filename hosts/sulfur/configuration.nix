@@ -19,7 +19,6 @@
     ../../modules/common/files.nix
     ../../modules/common/network.nix
     ../../modules/common/users.nix
-    #../../modules/common/theme.nix
 
     # Program specific configurations.
     ../../modules/programs/neovim.nix
