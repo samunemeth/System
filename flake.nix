@@ -36,6 +36,19 @@
       email = "nemeth.samu.0202@gmail.com";
       password = "$y$j9T$91ZetH54Sf6t8lZD7d7P91$VzSmCPXgC21OnIpeV5hoNFuYmGTQUeJQmJoFwEoLME7";
 
+      # Color configuration.
+      colors = {
+        background = {
+          main = "#14161B";
+          contrast = "#0A0B0E";
+        };
+        foreground = {
+          main = "#F2F4F3";
+          soft = "#D0D6DD";
+          error = "#DC4332";
+        };
+      };
+
     };
 
     # Define useful functions.

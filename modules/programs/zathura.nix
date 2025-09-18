@@ -1,22 +1,6 @@
 # --- Zathura ---
 
 { config, pkgs, lib, globals, ... }:
-let
-
-  # --- Color Settings ---
-  colors = {
-    background = {
-      main = "#14161B";
-      contrast = "#0A0B0E";
-    };
-    foreground = {
-      main = "#F2F4F3";
-      soft = "#D0D6DD";
-      error = "#DC4332";
-    };
-  };
-
-in
 {
 
   # --- Home Manager Part ---
@@ -31,13 +15,13 @@ in
 
       # Configure status bar
       "guioptions" = "s";
-      "statusbar-bg" = colors.background.contrast;
-      "statusbar-fg" = colors.foreground.main;
+      "statusbar-bg" = globals.colors.background.contrast;
+      "statusbar-fg" = globals.colors.foreground.main;
       "statusbar-basename" = "true";
 
       # Configure notifications
-      "notification-bg" = colors.foreground.soft;
-      "notification-fg" = colors.background.contrast;
+      "notification-bg" = globals.colors.foreground.soft;
+      "notification-fg" = globals.colors.background.contrast;
 
       # Configure window title
       "window-title-home-tilde" = "true";
@@ -48,8 +32,8 @@ in
       "recolor" = "true";
       "recolor-keephue" = "true";
       "recolor-reverse-video" = "false";
-      "recolor-lightcolor" = colors.background.main;
-      "recolor-darkcolor" = colors.foreground.main;
+      "recolor-lightcolor" = globals.colors.background.main;
+      "recolor-darkcolor" = globals.colors.foreground.main;
 
     };
 

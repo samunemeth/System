@@ -28,7 +28,7 @@
       };
 
       # Override the background color of the default theme.
-      colors.primary.background = "#14161B";
+      colors.primary.background = globals.colors.background.main;
 
       scrolling.history = 1000;
 

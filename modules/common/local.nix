@@ -29,6 +29,9 @@
   };
   console.keyMap = lib.mkDefault "us";
 
+  # Use natural scrolling, as I am used to it.
+  services.libinput.touchpad.naturalScrolling = true;
+
   # Configure keyd to remap caps lock to escape.
   # Pressing both shifts acts as the new caps lock key.
   # Holding alt with your thumb acts as a nav layer.

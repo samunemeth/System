@@ -31,6 +31,9 @@
   powerManagement.enable = true;
   services.power-profiles-daemon.enable = true;
 
+  # Enable upower for keeping statistics.
+  services.upower.enable = true;
+
   # Configure power actions on different events.
   services.logind = {
     lidSwitch = "suspend-then-hibernate";
