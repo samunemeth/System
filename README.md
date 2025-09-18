@@ -42,8 +42,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 **Qtile**
 
   - [ ] *Look Into:* Creating a visualization for Qtile key mapping.
-  - [ ] *Set Up:* Ethernet support to Wlan widget.
   - [ ] *Look Into:* More accurate battery remaining time calculation.
+  - [ ] *Set Up*: Use colors from flake.
 
 **Nvim**
 
