@@ -38,6 +38,7 @@
 
       # Color configuration.
       colors = {
+        dark = true;
         background = {
           main = "#14161B";
           contrast = "#0A0B0E";

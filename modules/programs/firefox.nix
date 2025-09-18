@@ -76,12 +76,12 @@
         # List all the settings here.
         "extensions.pocket.enabled" = lock-false;
         "browser.theme.toolbar-theme" = {
-          Value = 0;
+          Value = if globals.colors.dark then 0 else 1;
           Type = "number";
           Status = "locked";
         };
         "browser.theme.content-theme" = {
-          Value = 0;
+          Value = if globals.colors.dark then 0 else 1;
           Type = "number";
           Status = "locked";
         };

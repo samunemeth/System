@@ -20,7 +20,9 @@
 
     package = pkgs.rofi;
     font = "Hack Nerd Font Mono 13";
-    theme = "${pkgs.rofi}/share/rofi/themes/Arc-Dark.rasi";
+    theme = if globals.colors.dark
+      then "${pkgs.rofi}/share/rofi/themes/Arc-Dark.rasi"
+      else "${pkgs.rofi}/share/rofi/themes/Arc.rasi";
 
     plugins = with pkgs; [
       rofi-calc
