@@ -6,6 +6,11 @@
   environment.systemPackages = with pkgs; [
 
     tree-sitter          # Neovim parser generator.
+    ripgrep              # Recursive command line search command.
+    fd                   # A user friendly file search engine.
+    gcc                  # C code compilation.
+    nodejs_24            # Node.js distribution.
+    xclip                # Command line clipboard tool.
 
   ];
 
