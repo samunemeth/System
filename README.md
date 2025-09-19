@@ -29,7 +29,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Fix:* Alacritty not handling dynamic window titles.
     [More Info](https://github.com/alacritty/alacritty/issues/1636)
   - [ ] *Fix:* Firefox opening in the wrong group.
-  - [ ] *Fix:* Qtile machine dependent options.
+  - [x] *Fix:* Qtile machine dependent options.
      
 
 **Impérium**
@@ -43,13 +43,13 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
   - [ ] *Look Into:* Creating a visualization for Qtile key mapping.
   - [ ] *Look Into:* More accurate battery remaining time calculation.
-  - [ ] *Set Up*: Use colors from flake.
+  - [x] *Set Up*: Use colors from flake.
 
 **Nvim**
 
   - [ ] *Fix:* `lf` having black background.
   - [ ] *Set Up:* [TODO label highlights](https://github.com/folke/todo-comments.nvim).
-  - [ ] *Look Into:* why markdown indentation seems to be set incorrectly.
+  - [x] *Look Into:* why markdown indentation seems to be set incorrectly.
 
 **Long Term**
 
