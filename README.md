@@ -67,9 +67,6 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     ```
     sudo -i
     ```
-  - **Create your partitions.**
-  - **Format your partitions.**
-  - **Mount your partitions.**
   - If you are using a wired internet connection, you can skip the next step.
   - Connect to a WiFi network with these commands:
     ```
@@ -87,27 +84,32 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     ```
     ping google.com
     ```
+  - If you want some program to help you with the installation, you can install
+    it now. I suggest using `lf` for easier file management, but it is not necessary:
+    ```
+    nix-shell -p lf <YOUR-PACKAGES>
+    ```
+  - **Create your partitions.**
+  - **Format your partitions.**
+  - **Mount your partitions.**
   - Clone this repository into the installers home directory, and change into it:
     ```
     cd ~
     git clone https://github.com/samunemeth/System.git
     cd System
     ```
-  - Generate the hardware configuration for the system:
-    ```
-    nixos-generate-config --root /mnt
-    ```
   - Create a new host is most easily done by coping an existing host's
     directory and adapting it:
     ```
     cp -r ~/System/hosts/<SOURCE-HOST> ~/System/hosts/<YOUR-HOST>
     ```
+  - Generate the hardware configuration for the system directly to the new host's
+    directory:
+    ```
+    nixos-generate-config --root /mnt --dir ~/System/hosts/<YOUR-HOST>/
+    ```
   - *You do not have to add anything to the `flake.nix` file
     as it scans the `hosts` directory automatically!*
-  - Move the newly generated hardware configuration to your desired host's folder:
-    ```
-    cp /mnt/etc/nixos/hardware-configuration.nix ~/System/hosts/<YOUR-HOST>/
-    ```
   - *Make sure that your hosts folder includes a `configuration.nix` file, as
     this is the entry point. Also make sure that this file imports
     `hardware-configuration.nix`, `overrides.nix` (if applicable) and other
@@ -133,8 +135,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     ```
     nixos-install --flake .#<YOUR-HOST>
     ```
-  - *Please remember to set passwords for users that do not have them configured
-    declaratively!*
+    *You will be asked for a root password.*
   - As the changes are still not pushed to GitHub, you will need to move the
     current git repository to the new users home:
     ```
@@ -144,21 +145,23 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     ```
     reboot
     ```
-  - The login screen does not work, you can
+  - If the login screen does not work, you can
     switch to a console by pressing `ctrl+shift+f2`, logging in and disabling
     the greeter with the configuration suggested above.
-    - You can set up a network connection with the help of `nmtui` from the
-      console.
+    You can set up a network connection with the help of `nmtui` from the
+    console if needed.
+  - Get the ownership of the repository, as it was copied by a root user
+    during installation.
+    ```
+    sudo chown -R <YOUR-USER>:users ~/System
+    ```
   - Generate an ssh key:
     ```
     ssh-keygen -t ed25519 -C "nemeth.samu.0202@gmail.com"
     ```
-  - Get the ownership of the repository, as it was copied by a root user:
-    ```
-    sudo chown -R <YOUR-USER>:users ~/System
-    ```
   - Add your ssh key into your GitHub account, so you can push the new
-    `hardware-configuration.nix` file to your repository. For this, you have
+    changes to your repository. This is needed as NixOS does not like dirty
+    git trees. For this, you have
     to change the origin URL of the repository:
     ```
     cd ~/System
@@ -179,7 +182,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     ```
   - Everything should be set! Rebuild with `nrs` and reboot to see if everything
     works as expected. Enable the *lightdm mini* greeter after the first few
-    boots.
+    boots if you disabled it before.
 
 ## Imperative Parts
 
