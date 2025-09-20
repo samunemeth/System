@@ -21,6 +21,7 @@ case "$1" in
   *.mp4 | *.mkv)
     printf "\033[30;47;1mVIDEO\033[0m";;
   *.mp3 | *.wav)
-    printf "\033[30;47;1mAUDIO\033[0m";;
+    printf "\033[30;47;1mAUDIO\033[0m\n\n"
+    exiftool "$1" | rg '^(Audio Bitrate|Sample Rate|Channel Mode|Artist|Album|Title|Year|Comment|Genre|Duration)\s*:\s(\w.*)$' --color=never;;
   *) highlight -O ansi "$1";;
 esac
