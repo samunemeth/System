@@ -5,9 +5,9 @@
 
   # Packages for previewing files.  
   environment.systemPackages = with pkgs; [
-    # highlight
-    # poppler-utils
-    # exiftool
+    highlight
+    poppler-utils
+    exiftool
   ];
 
   # --- Home Manager Part ---
