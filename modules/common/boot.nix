@@ -18,8 +18,8 @@
   boot.initrd.systemd.enable = true;
 
   # Silent boot implementation.
-  boot.kernelParams = lib.mkDefault [ "quiet" "fbcon=vc:2-6" "console=tty0" ];
-  boot.consoleLogLevel = lib.mkDefault 0;
+  boot.kernelParams = [ "quiet" "fbcon=vc:2-6" "console=tty0" ];
+  boot.consoleLogLevel = 0;
 
   #boot.plymouth.enable = true;
 
