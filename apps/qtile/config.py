@@ -7,7 +7,7 @@ import subprocess
 import importlib.util
 
 from libqtile import bar, layout, qtile, widget, hook
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.widget import base
@@ -76,6 +76,9 @@ keys = [
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow Down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow Up"),
 
+    # Key([mod, "control"], "l", lazy.layout.grow(), desc="Grow Right"),
+    # Key([mod, "control"], "h", lazy.layout.shrink(), desc="Grow Left"),
+
     # Layout management.
     Key([mod], "t", lazy.next_layout(), desc="Toggle Layouts"),
     Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Fullscreen"),
@@ -121,6 +124,7 @@ keys = [
     Key([mod, "shift"], "s", lazy.spawn("scrot ~/Downloads/%b%d::%H%M%S.png", shell=True)),
     Key([], "Print", lazy.spawn("scrot ~/Downloads/%b%d::%H%M%S.png", shell=True)),
 
+    Key([mod], "semicolon", lazy.group["scratchpad"].dropdown_toggle("term")),
 ]
 
 for vt in range(1, 8):
@@ -134,6 +138,7 @@ for vt in range(1, 8):
     )
 
 groups = [
+
     Group("U", spawn="alacritty"),
     Group("I"),
     Group("O"),
@@ -144,6 +149,19 @@ groups = [
     Group(","),
     Group("."),
     Group("/"),
+
+    ScratchPad("scratchpad", [
+        DropDown(
+            "term",
+            terminal,
+            width = 0.8,
+            height = 0.6,
+            x = 0.1,
+            y = 0.15,
+            opacity = 1,
+        ),
+    ]),
+
 ]
 
 group_key_lookup = {
@@ -160,6 +178,8 @@ group_key_lookup = {
 }
 
 for i in groups:
+    if i.name == "scratchpad":
+        continue
     keys.extend(
         [
             Key(
@@ -177,14 +197,29 @@ for i in groups:
         ]
     )
 
+
+# --- Layout settings ---
+
 layouts = [
     layout.Columns(
-        border_width=2,
-        border_focus=qtilecolor.foreground_soft,
-        border_normal=qtilecolor.background_contrast,
+        border_width = 2,
+        border_focus = qtilecolor.foreground_soft,
+        border_normal = qtilecolor.background_contrast,
     ),
-    layout.Max(),
+    # layout.MonadTall(
+    #     border_width = 2,
+    #     border_focus = qtilecolor.foreground_soft,
+    #     border_normal = qtilecolor.background_contrast,
+    #     ratio = 0.6,
+    # ),
 ]
+
+floating_layout = layout.Floating(
+    border_width = 2,
+    border_focus = qtilecolor.foreground_soft,
+    border_normal = qtilecolor.background_contrast,
+)
+
 
 # --- Widget settings ---
 
