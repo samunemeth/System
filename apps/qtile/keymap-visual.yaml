@@ -1,0 +1,191 @@
+layout:
+  qmk_keyboard: plx
+  layout_name: LAYOUT_60_ansi_tsangan
+draw_config:
+  glyph_tap_size: 20
+  footer_text: "By: @samunemeth"
+layers:
+  META:
+    - { s: "`" }
+    - { s: "1" }
+    - { s: "2" }
+    - { s: "3" }
+    - { s: "4" }
+    - { s: "5" }
+    - { s: "6" }
+    - { s: "7" }
+    - { s: "8" }
+    - { s: "9" }
+    - { s: "0" }
+    - { s: "-" }
+    - { s: "=" }
+    - { s: "$$mdi:backspace$$" }
+    - { s: "$$mdi:keyboard-tab$$" }
+    - { s: Q }
+    - { s: W }
+    - { s: E }
+    - { s: R }
+    - { s: T }
+    - { s: Y }
+    - { s: U, t: "$$mdi:layers-triple$$" }
+    - { s: I, t: "$$mdi:layers-triple$$" }
+    - { s: O, t: "$$mdi:layers-triple$$" }
+    - { s: P, t: "$$mdi:layers-triple$$" }
+    - { s: "[", t: "$$mdi:layers-triple$$" }
+    - { s: "]" }
+    - { s: \ }
+    - { s: ESC }
+    - { s: A }
+    - { s: S }
+    - { s: D }
+    - { s: F }
+    - { s: G }
+    - { s: H, t: "$$mdi:arrow-left-bold$$", h: "Focus" }
+    - { s: J, t: "$$mdi:arrow-up-bold$$", h: "Focus" }
+    - { s: K, t: "$$mdi:arrow-down-bold$$", h: "Focus" }
+    - { s: L, t: "$$mdi:arrow-right-bold$$", h: "Focus" }
+    - { s: ; }
+    - { s: "'" }
+    - { s: "$$mdi:keyboard-return$$" }
+    - { t: "SHIFT", type: "ghost" }
+    - { s: Z }
+    - { s: X }
+    - { s: C }
+    - { s: V }
+    - { s: B }
+    - { s: N, t: "$$mdi:layers-triple$$" }
+    - { s: M, t: "$$mdi:layers-triple$$" }
+    - { s: ",", t: "$$mdi:layers-triple$$" }
+    - { s: ., t: "$$mdi:layers-triple$$" }
+    - { s: /, t: "$$mdi:layers-triple$$" }
+    - { t: "SHIFT", type: "ghost" }
+    - { t: "CTRL" , type: "ghost" }
+    - { t: "META", type: "held" }
+    - { s: "ALT" }
+    - { s: "SPACE", t: "Focus Next" }
+    - { s: "ALT GR" }
+    - { s: "COPLOT" }
+    - { t: "ARROWS", type: "ghost" }
+  SHIFT:
+    - { s: "`" }
+    - { s: "1" }
+    - { s: "2" }
+    - { s: "3" }
+    - { s: "4" }
+    - { s: "5" }
+    - { s: "6" }
+    - { s: "7" }
+    - { s: "8" }
+    - { s: "9" }
+    - { s: "0" }
+    - { s: "-" }
+    - { s: "=" }
+    - { s: "$$mdi:backspace$$" }
+    - { s: "$$mdi:keyboard-tab$$" }
+    - { s: Q }
+    - { s: W }
+    - { s: E }
+    - { s: R }
+    - { s: T }
+    - { s: Y }
+    - { s: U }
+    - { s: I }
+    - { s: O }
+    - { s: P }
+    - { s: "[" }
+    - { s: "]" }
+    - { s: \ }
+    - { s: ESC }
+    - { s: A }
+    - { s: S }
+    - { s: D }
+    - { s: F }
+    - { s: G }
+    - { s: H, t: "$$mdi:arrow-left-bold$$", h: "Shuffle" }
+    - { s: J, t: "$$mdi:arrow-up-bold$$", h: "Shuffle" }
+    - { s: K, t: "$$mdi:arrow-down-bold$$", h: "Shuffle" }
+    - { s: L, t: "$$mdi:arrow-right-bold$$", h: "Shuffle" }
+    - { s: ; }
+    - { s: "'" }
+    - { s: "$$mdi:keyboard-return$$" }
+    - { t: "SHIFT", type: "held" }
+    - { s: Z }
+    - { s: X }
+    - { s: C }
+    - { s: V }
+    - { s: B }
+    - { s: N }
+    - { s: M }
+    - { s: "," }
+    - { s: . }
+    - { s: / }
+    - { t: "SHIFT", type: "held" }
+    - { t: "CTRL", type: "ghost" }
+    - { t: "META", type: "held" }
+    - { s: "ALT" }
+    - { s: "SPACE" }
+    - { s: "ALT GR" }
+    - { s: "COPLOT" }
+    - { t: "ARROWS", type: "ghost" }
+  CTRL:
+    - { s: "`" }
+    - { s: "1" }
+    - { s: "2" }
+    - { s: "3" }
+    - { s: "4" }
+    - { s: "5" }
+    - { s: "6" }
+    - { s: "7" }
+    - { s: "8" }
+    - { s: "9" }
+    - { s: "0" }
+    - { s: "-" }
+    - { s: "=" }
+    - { s: "$$mdi:backspace$$" }
+    - { s: "$$mdi:keyboard-tab$$" }
+    - { s: Q }
+    - { s: W }
+    - { s: E }
+    - { s: R, t: "$$mdi:restart$$", h: "Reload" }
+    - { s: T }
+    - { s: Y }
+    - { s: U }
+    - { s: I }
+    - { s: O }
+    - { s: P }
+    - { s: "[" }
+    - { s: "]" }
+    - { s: \ }
+    - { s: ESC }
+    - { s: A }
+    - { s: S }
+    - { s: D }
+    - { s: F }
+    - { s: G }
+    - { s: H, t: "$$mdi:arrow-left-bold$$", h: "Trans." }
+    - { s: J, t: "$$mdi:arrow-up-bold$$", h: "Trans." }
+    - { s: K, t: "$$mdi:arrow-down-bold$$", h: "Trans." }
+    - { s: L, t: "$$mdi:arrow-right-bold$$", h: "Trans." }
+    - { s: ; }
+    - { s: "'" }
+    - { s: "$$mdi:keyboard-return$$" }
+    - { t: "SHIFT", type: "ghost" }
+    - { s: Z }
+    - { s: X }
+    - { s: C }
+    - { s: V }
+    - { s: B }
+    - { s: N }
+    - { s: M }
+    - { s: "," }
+    - { s: . }
+    - { s: / }
+    - { t: "SHIFT", type: "ghost" }
+    - { t: "CTRL", type: "held" }
+    - { t: "META", type: "held" }
+    - { s: "ALT" }
+    - { s: "SPACE" }
+    - { s: "ALT GR" }
+    - { s: "COPLOT" }
+    - { t: "ARROWS", type: "ghost" }
+
