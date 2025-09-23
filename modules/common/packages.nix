@@ -10,7 +10,6 @@
     curl                 # Fetching form the web.
     btop                 # System monitoring and testing.
     fastfetchMinimal     # Displaying system data.
-    xclip                # Command line clipboard tool.
 
   ];
 
