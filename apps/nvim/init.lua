@@ -13,6 +13,6 @@ require("autocommands")
 require("before")
 require("markdown")
 require("matheval")
-require("vscodeconfig")
+require("code")
 
 
