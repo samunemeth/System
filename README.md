@@ -30,6 +30,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     [More Info](https://github.com/alacritty/alacritty/issues/1636)
   - [ ] *Fix:* Firefox opening in the wrong group.
   - [x] *Fix:* Qtile machine dependent options.
+  - [x] *Set Up:* Zip unpacking.
+  - [ ] *Set Up:* Tar unpacking.
      
 
 **Impérium**

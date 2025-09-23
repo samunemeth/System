@@ -8,6 +8,8 @@
     highlight
     poppler-utils
     exiftool
+    zip                  # For creating zip files.
+    unzip                # For unpacking zip files.
   ];
 
   # --- Home Manager Part ---
@@ -32,6 +34,7 @@
       "gc" = "cd ~/.config";
       "DD" = "delete";
       "a" = "add";
+      "zz" = "zip";
     };
     settings = {
       "icons" = "true";
@@ -39,6 +42,7 @@
       "ignorecase" = "true";
       "hiddenfiles" = ".*:desktop.ini:main.out:main.log:main.aux:main.synctex.gz:/home/${globals.user}/texmf:lost+found";
       "previewer" = "~/.config/lf/previewer.sh";
+      "filesep" = ";";
     };
     commands = {
       "type" = "%xdg-mime query filetype \"$f\"";
@@ -54,6 +58,42 @@
           else
             touch $ans
           fi
+        }}
+      '';
+
+      # Override the default open command to be able to implement unzipping.
+      "open" = ''
+        &{{
+          filetype=$(xdg-mime query filetype "$f")
+          if [[ $filetype == "application/zip" ]] then
+            todir="''${f%.*}-unzip/"
+            mkdir -p "$todir"
+            unzip "$f" -d "$todir"
+            printf "Unzipped contents."
+          elif [[ $filetype == "application/pdf" ]] then
+            zathura "$f" --fork -l error
+            printf "Opened with Zathura."
+          else
+            alacritty -e $EDITOR "$f"
+            printf "Unknown filetype, opened with text editor."
+          fi
+        }}
+      '';
+
+      # Zip selected files into one zip file.
+      "zip" = ''
+        %{{
+          printf "ZIP file name [NewZip.zip]: "
+          read name
+          name=''${name:-NewZip.zip}
+          IFS=';' read -ra filesarray <<< "$fx"
+          filelist=""
+          for absfile in "''${filesarray[@]}"; do
+            relfile=''${absfile##"$PWD"/}
+            filelist="$filelist $relfile"
+          done 
+          zip -r "$PWD/$name" $filelist
+          printf "Zipped selection."
         }}
       '';
     };

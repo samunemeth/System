@@ -20,6 +20,11 @@ case "$1" in
     printf "\033[30;47;1mIMAGE\033[0m";;
   *.mp4 | *.mkv)
     printf "\033[30;47;1mVIDEO\033[0m";;
+  *.zip)
+    printf "\033[30;47;1mZIP\033[0m \033[39;49;3;4mOpen to Extract\033[0m\n\n"
+    unzip -l "$1" | tail -n +2;;
+  *.tar*)
+    printf "\033[30;47;1mTAR\033[0m";;
   *.mp3 | *.wav)
     printf "\033[30;47;1mAUDIO\033[0m\n\n"
     exiftool "$1" | rg '^(Audio Bitrate|Sample Rate|Channel Mode|Artist|Album|Title|Year|Comment|Genre|Duration)\s*:\s(\w.*)$' --color=never;;
