@@ -84,12 +84,6 @@
 
     ) (self.listToAttrs self.hosts);
 
-    # Generate Home Manager configuration entries for hosts.
-    homeConfigurations = builtins.mapAttrs (host: _: 
-
-      self.nixosConfigurations.${host}.config.home-manager.users.${self.globals.user}.home
-
-    ) (self.listToAttrs self.hosts);
 
   };
 }
