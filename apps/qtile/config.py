@@ -121,8 +121,8 @@ keys = [
     Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard()),
 
     # Screenshot.
-    Key([mod, "shift"], "s", lazy.spawn("scrot ~/Downloads/%b%d::%H%M%S.png", shell=True)),
-    Key([], "Print", lazy.spawn("scrot ~/Downloads/%b%d::%H%M%S.png", shell=True)),
+    Key([mod, "shift"], "s", lazy.spawn("scrot ~/Downloads/screenshot-%Y-%m-%d-%H%M%S.png", shell=True)),
+    Key([], "Print", lazy.spawn("scrot ~/Downloads/screenshot-%Y-%m-%d-%H%M%S.png", shell=True)),
 
     Key([mod], "semicolon", lazy.group["scratchpad"].dropdown_toggle("term")),
 ]
