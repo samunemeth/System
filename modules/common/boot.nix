@@ -39,7 +39,7 @@
     lidSwitch = "suspend-then-hibernate";
     lidSwitchExternalPower = "ignore";
     powerKey = "ignore";
-    powerKeyLongPress = "poweroff"; # Does not seem to do anything!
+    powerKeyLongPress = "hibernate";
   };
 
   # Set delay to hibernate after sleeping in the corresponding mode.

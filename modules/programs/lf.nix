@@ -3,13 +3,16 @@
 { config, pkgs, lib, globals, ... }:
 {
 
-  # Packages for previewing files.  
+  # Packages for previewing files, and some other tasks.
   environment.systemPackages = with pkgs; [
-    highlight
-    poppler-utils
-    exiftool
-    zip                  # For creating zip files.
-    unzip                # For unpacking zip files.
+
+    highlight            # Text file highlighting.
+    poppler-utils        # Pdf to text conversion.
+    exiftool             # Getting metadata.
+    zip                  # Creating zip files.
+    unzip                # Unpacking zip files.
+    ripgrep              # Recursive command line search command.
+
   ];
 
   # --- Home Manager Part ---
@@ -22,9 +25,10 @@
     ".config/lf/previewer.sh".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/lf/previewer.sh";
   };
 
-  # Enables lf and defines some basic settings.
   programs.lf = {
+
     enable = true;
+
     keybindings = {
       "<enter>" = "open";
       "<esc>" = "quit";
@@ -36,17 +40,23 @@
       "a" = "add";
       "zz" = "zip";
     };
+
     settings = {
       "icons" = "true";
       "info" = "size";
       "ignorecase" = "true";
       "hiddenfiles" = ".*:desktop.ini:main.out:main.log:main.aux:main.synctex.gz:/home/${globals.user}/texmf:lost+found";
       "previewer" = "~/.config/lf/previewer.sh";
-      "filesep" = ";";
+      "filesep" = ";"; # This is needed for commands.
     };
+
     commands = {
+
+      # Output the selected file's type.
       "type" = "%xdg-mime query filetype \"$f\"";
-      "add" = ''
+
+      # Add a new folder or file, similar implementation to nvim-tree.
+      "add" = /* bash */ ''
         %{{
           printf "New: "
           read ans
@@ -62,7 +72,7 @@
       '';
 
       # Override the default open command to be able to implement unzipping.
-      "open" = ''
+      "open" = /* bash */ ''
         &{{
           filetype=$(xdg-mime query filetype "$f")
           if [[ $filetype == "application/zip" ]] then
@@ -81,7 +91,7 @@
       '';
 
       # Zip selected files into one zip file.
-      "zip" = ''
+      "zip" = /* bash */ ''
         %{{
           printf "ZIP file name [NewZip.zip]: "
           read name
@@ -99,8 +109,8 @@
     };
   };
 
-  # Add an lfcd command to change directories with the lf utility.
-  programs.bash.initExtra = ''
+  # Add a command to change directories with Lf.
+  programs.bash.initExtra = /* bash */ ''
     lfcd () {
       cd "$(command lf -print-last-dir "$@")"
     }
