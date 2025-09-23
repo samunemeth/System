@@ -21,7 +21,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 **General**
 
   - [ ] *Look Into:* Why the *mini greeter* seems to act up on first boot.
-  - [ ] *Look Into:* Separate Home Manager building for time saving.
+  - [x] *Look Into:* Separate Home Manager building for time saving.
+        **Not Possible.**
   - [ ] *Set Up:* A script for enterprise WPA networks, or check why
     user interfaces do not work with it.
   - [ ] *Look Into:* Minimal plymouth themes.
