@@ -4,11 +4,6 @@
 {
 
 
-  boot.loader = {
-    systemd-boot.configurationLimit = 3;
-    timeout = 3;
-  };
-
 
   # --- Home Manager Part ---
   home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {

@@ -3,20 +3,11 @@
 { config, pkgs, lib, globals, ... }:
 {
 
-  boot.loader = {
-    systemd-boot = {
-      configurationLimit = 3;
-      consoleMode = "max";
-    };
-    timeout = 3;
-  };
+  # Change systemd console mode to account for large display.
+  boot.loader.systemd-boot.consoleMode = "max";
 
   # Configure keyboard layout.
-  services.xserver.xkb = {
-    layout = "hu";
-    variant = "";
-  };
-  console.keyMap = "hu";
+  local.keyboardLayout = "hu";
 
   # No touchpad on a desktop.
   systemd.services.libinput-gestures.enable = false;
@@ -40,6 +31,7 @@
 
   '';
 
+  # Change Alacritty font size for 1440p monitor.
   programs.alacritty.settings.font.size = lib.mkForce 12;
 
   };

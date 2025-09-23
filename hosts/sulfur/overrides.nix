@@ -3,19 +3,11 @@
 { config, pkgs, lib, globals, ... }:
 {
 
-
   # Configure keyboard layout.
-  services.xserver.xkb = {
-    layout = "hu";
-    variant = "";
-  };
-  console.keyMap = "hu";
+  local.keyboardLayout = "hu";
 
-  
-  boot.loader = {
-    systemd-boot.configurationLimit = 3;
-    timeout = 1;
-  };
+  # Shorten boot loader timeout as NixOS is not used frequently.  
+  boot.loader.timeout = 1;
 
 
   # --- Home Manager Part ---

@@ -3,15 +3,15 @@
 { config, pkgs, lib, globals, ... }:
 {
 
-  # Configure bootloader to have a maximum of 30 entries,
-  # and a timeout of 1 seconds to allow rollbacks.
+  # Configure bootloader to have a maximum of 3 entries,
+  # and a timeout of 3 seconds to allow rollbacks.
   boot.loader = {
     efi.canTouchEfiVariables = true;
     systemd-boot = {
       enable = true;
-      configurationLimit = lib.mkDefault 30;
+      configurationLimit = lib.mkDefault 3;
     };
-    timeout = lib.mkDefault 1;
+    timeout = lib.mkDefault 3;
   };
 
   # Set boot options to enable resuming from hibernation.

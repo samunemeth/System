@@ -3,6 +3,23 @@
 { config, pkgs, lib, globals, ... }:
 {
 
+  options = {
+    local.keyboardLayout = lib.mkOption {
+      type = lib.types.str;
+      default = "us";
+      example = "hu";
+      description = "Deafult keyboard layout. Can be changed with Qtile.";
+    };
+    local.keyboardVariant = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      example = "dvp";
+      description = "Deafult keyboard variant. Can be changed with Qtile.";
+    };
+  };
+
+  config = {
+
   # Set time zone to CET.
   time.timeZone = "Europe/Amsterdam";
 
@@ -23,11 +40,11 @@
 
   # Configure keyboard layout.
   services.xserver.xkb =  {
-    layout = lib.mkDefault "us";
-    variant = lib.mkDefault "";
+    layout = config.local.keyboardLayout;
+    variant = config.local.keyboardVariant;
     options = "compose:menu";
   };
-  console.keyMap = lib.mkDefault "us";
+  console.keyMap = config.local.keyboardLayout;
 
   # Use natural scrolling, as I am used to it.
   services.libinput.touchpad.naturalScrolling = true;
@@ -91,4 +108,5 @@
     AttrKeyboardIntegration=internal
   '';
 
+  };
 }
