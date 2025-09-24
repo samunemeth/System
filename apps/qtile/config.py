@@ -36,7 +36,6 @@ terminal = guess_terminal()
 qtile_home_path = os.path.expanduser("~/.config/qtile")
 
 
-
 # --- Startup Script ---
 
 @hook.subscribe.startup
@@ -57,50 +56,54 @@ def autostart():
 
 keys = [
 
-    # Switch between windows
+    # Switching and moving windows.
     Key([mod], "h", lazy.layout.left(), desc="Focus Left"),
     Key([mod], "l", lazy.layout.right(), desc="Focus Right"),
     Key([mod], "j", lazy.layout.down(), desc="Focus Down"),
     Key([mod], "k", lazy.layout.up(), desc="Focus Up"),
-    Key([mod], "space", lazy.layout.next(), desc="Move Focus"),
 
-    # Move Windows
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move Left"),
     Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Moveto Right"),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move Down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move Up"),
 
-    # Grow windows.
     Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow Left"),
     Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow Right"),
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow Down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow Up"),
 
-    # Key([mod, "control"], "l", lazy.layout.grow(), desc="Grow Right"),
-    # Key([mod, "control"], "h", lazy.layout.shrink(), desc="Grow Left"),
-
     # Layout management.
+    Key([mod], "e", lazy.layout.next(), desc="Move Focus"),
     Key([mod], "t", lazy.next_layout(), desc="Toggle Layouts"),
-    Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Fullscreen"),
-
+    Key([mod], "r", lazy.window.toggle_fullscreen(), desc="Fullscreen"),
     Key([mod], "v", lazy.window.kill(), desc="Kill Window"),
+    Key([mod], "q", lazy.hide_show_bar(), desc="Hide/Show Bar"),
 
-    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload Config"),
+    # Toggle scratchpads.
+    Key([mod], "f", lazy.group["scratchpad"].dropdown_toggle("lf")),
+    Key([mod], "g", lazy.group["scratchpad"].dropdown_toggle("term")),
 
     # Application quick launch
-    Key([mod], "Return", lazy.spawn(terminal), desc="Terminal"),
-    Key([mod], "b", lazy.spawn("firefox"), desc="Firefox"),
+    Key([mod], "semicolon", lazy.spawn(terminal), desc="Terminal"),
+    Key([mod], "w", lazy.spawn("firefox"), desc="Firefox"),
 
     # Rofi menu options
     Key([mod], "d", lazy.spawn("rofi -show drun")),
     Key([mod], "s", lazy.spawn(f"rofi -show power-menu -modi \"power-menu:{qtile_home_path}/rofi/rofi-power-plugin --choices shutdown/reboot/suspend/hibernate/logout\"")),
     Key([mod], "c", lazy.spawn("rofi -show calc -modi calc")),
-    Key([mod], "w", lazy.spawn("networkmanager_dmenu")),
-    Key([mod], "e", lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained")),
+    Key([mod], "n", lazy.spawn("networkmanager_dmenu")),
+    Key([mod], "b", lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained")),
     Key([mod], "x", lazy.spawn(f"rofi -show rofi-sound -modi \"rofi-sound:{qtile_home_path}/rofi/rofi-sound-plugin\"")),
 
-    # Hide and show bottom bar.
-    Key([mod], "Tab", lazy.hide_show_bar(), desc="Hide/Show Bar"),
+    # Keyboard layout switching.
+    Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard()),
+
+    # Reload configuration.
+    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload Config"),
+
+    # Screenshot.
+    Key([mod, "shift"], "s", lazy.spawn("scrot ~/Downloads/screenshot-%Y-%m-%d-%H%M%S.png", shell=True)),
+    Key([], "Print", lazy.spawn("scrot ~/Downloads/screenshot-%Y-%m-%d-%H%M%S.png", shell=True)),
 
     # Hardware key maps to commands.
     Key([], "XF86MonBrightnessUp", lazy.spawn("sudo xbacklight -inc 5")),
@@ -115,27 +118,10 @@ keys = [
 
     Key([], "XF86Calculator", lazy.spawn("rofi -show calc -modi calc")),
 
-    # Keyboard layout switching.
-    # This is practical to have it bound to 'a', as 'a' is placed in the same
-    # spot on QWERTY and Dvorak respectively.
-    Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard()),
-
-    # Screenshot.
-    Key([mod, "shift"], "s", lazy.spawn("scrot ~/Downloads/screenshot-%Y-%m-%d-%H%M%S.png", shell=True)),
-    Key([], "Print", lazy.spawn("scrot ~/Downloads/screenshot-%Y-%m-%d-%H%M%S.png", shell=True)),
-
-    Key([mod], "semicolon", lazy.group["scratchpad"].dropdown_toggle("term")),
 ]
 
-for vt in range(1, 8):
-    keys.append(
-        Key(
-            ["control", "mod1"],
-            f"f{vt}",
-            lazy.core.change_vt(vt).when(func=lambda: qtile.core.name == "wayland"),
-            desc=f"Switch to VT{vt}",
-        )
-    )
+
+# --- Group Settings ---
 
 groups = [
 
@@ -149,6 +135,7 @@ groups = [
     Group("/"),
 
     ScratchPad("scratchpad", [
+
         DropDown(
             "term",
             terminal,
@@ -158,11 +145,23 @@ groups = [
             y = 0.15,
             opacity = 1,
         ),
+
+        DropDown(
+            "lf",
+            "alacritty -e lf",
+            width = 0.8,
+            height = 0.6,
+            x = 0.1,
+            y = 0.15,
+            opacity = 1,
+        ),
+
     ]),
 
 ]
 
 group_key_lookup = {
+
     "U": "U",
     "I": "I",
     "O": "O",
@@ -171,6 +170,7 @@ group_key_lookup = {
     ",": "comma",
     ".": "period",
     "/": "slash",
+
 }
 
 for i in groups:
@@ -194,7 +194,7 @@ for i in groups:
     )
 
 
-# --- Layout settings ---
+# --- Layout Settings ---
 
 layouts = [
     layout.Columns(
@@ -202,12 +202,6 @@ layouts = [
         border_focus = qtilecolor.foreground_soft,
         border_normal = qtilecolor.background_contrast,
     ),
-    # layout.MonadTall(
-    #     border_width = 2,
-    #     border_focus = qtilecolor.foreground_soft,
-    #     border_normal = qtilecolor.background_contrast,
-    #     ratio = 0.6,
-    # ),
 ]
 
 floating_layout = layout.Floating(
@@ -217,26 +211,14 @@ floating_layout = layout.Floating(
 )
 
 
-# --- Widget settings ---
+# --- Widget Settings ---
 
 widget_defaults = dict(
-    font="Hack Nerd Font",
-    fontsize=14,
-    padding=3,
+    font = "Hack Nerd Font",
+    fontsize = 14,
+    padding = 3,
 )
 extension_defaults = widget_defaults.copy()
-
-# This is a utility function for shortening window names.
-def shorten_widow_title(text):
-
-    # Firefox uses an unfriendly em dash instead of a simple dash.
-    for string in [" — Mozilla Firefox"]:
-        text = text.replace(string, "")
-
-    return text
-
-
-# --- Widgets ---
 
 widgets = [
     widget.GroupBox(
@@ -327,7 +309,7 @@ widgets = [
         ethernet_message_format = "󰈀 ",
         use_ethernet = True,
         ethernet_interface = qtilemachine.wired_interface,
-        mouse_callbacks={
+        mouse_callbacks = {
             "Button1": lambda: qtile.spawn("networkmanager_dmenu"),
         },
         padding = 10,
@@ -351,7 +333,7 @@ widgets = [
         size_percent = 70
     ),
     widget.Backlight(
-        mouse_callbacks={
+        mouse_callbacks = {
             "Button1": lambda: qtile.spawn("sudo xbacklight -set 75"),
             "Button3": lambda: qtile.spawn("sudo xbacklight -set 25"),
             "Button4": lambda: qtile.spawn("sudo xbacklight -inc 3"),
@@ -370,7 +352,7 @@ widgets = [
     widget.ThermalSensor(
         format = " {temp:.0f}{unit}",
         tag_sensor = qtilemachine.processor_temperature_name,
-        mouse_callbacks={
+        mouse_callbacks = {
             "Button1": lambda: qtile.spawn("alacritty -e btop"),
         },
         padding = 10,
@@ -399,20 +381,20 @@ widgets = [
         size_percent = 70
     ),
     widget.Clock(
-        format="%Y-%m-%d %H:%M:%S",
+        format = "%Y-%m-%d %H:%M:%S",
         padding = 10,
     ),
 ]
 
-# --- Screens ---
+# --- Screen Settings ---
 
 screens = [
     Screen(
         bottom=bar.Bar(
             widgets,
             24,
-            background=qtilecolor.background_contrast,
-            opacity=1.0,
+            background = qtilecolor.background_contrast,
+            opacity = 1.0,
         ),
     ),
 ]
