@@ -20,19 +20,15 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **General**
 
+  - [ ] *Set Up:* [sops-nix](https://github.com/Mic92/sops-nix) for secret management.
   - [ ] *Look Into:* Why the *mini greeter* seems to act up on first boot.
-  - [x] *Look Into:* Separate Home Manager building for time saving.
-        **Not Possible.**
   - [ ] *Set Up:* A script for enterprise WPA networks, or check why
     user interfaces do not work with it.
-  - [ ] *Look Into:* Minimal plymouth themes.
-  - [ ] *Set Up:* [sops-nix](https://github.com/Mic92/sops-nix) for secret management.
   - [ ] *Fix:* Alacritty not handling dynamic window titles.
     [More Info](https://github.com/alacritty/alacritty/issues/1636)
   - [ ] *Fix:* Firefox opening in the wrong group.
-  - [x] *Fix:* Qtile machine dependent options.
-  - [x] *Set Up:* Zip unpacking.
   - [ ] *Set Up:* Tar unpacking.
+  - [ ] *SetU Up:* Separate VSCode configuration form Java.
      
 
 **Impérium**
@@ -46,13 +42,11 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
   - [ ] *Look Into:* Creating a visualization for Qtile key mapping.
   - [ ] *Look Into:* More accurate battery remaining time calculation.
-  - [x] *Set Up*: Use colors from flake.
+  - [ ] *Set Up:* Machine specific options with nix options.
 
 **Nvim**
 
-  - [ ] *Fix:* `lf` having black background.
-  - [ ] *Set Up:* [TODO label highlights](https://github.com/folke/todo-comments.nvim).
-  - [x] *Look Into:* why markdown indentation seems to be set incorrectly.
+  - [ ] *Set Up:* Keybindings for VSCode
 
 **Long Term**
 
