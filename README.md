@@ -31,7 +31,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Set Up:* Separate VSCode configuration form Java.
   - [ ] *Set Up:* Trashcan in Lf.
   - [ ] *Set Up:* Openers in Lf.
-     
+  - [ ] *Look Into:* Cleaner module organization.
 
 **Impérium**
 
