@@ -28,7 +28,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     [More Info](https://github.com/alacritty/alacritty/issues/1636)
   - [ ] *Fix:* Firefox opening in the wrong group.
   - [ ] *Set Up:* Tar unpacking.
-  - [ ] *SetU Up:* Separate VSCode configuration form Java.
+  - [ ] *Set Up:* Separate VSCode configuration form Java.
+  - [ ] *Set Up:* Trashcan in Lf.
      
 
 **Impérium**
@@ -52,6 +53,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
   - [ ] *Look Into:* Creating a custom ISO.
   - [ ] *Set Up:* A configuration for minimal installation.
+  - [ ] *Set Up:* Android streaming module and scripts.
 
 
 # Setup
