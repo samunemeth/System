@@ -30,6 +30,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Set Up:* Tar unpacking.
   - [ ] *Set Up:* Separate VSCode configuration form Java.
   - [ ] *Set Up:* Trashcan in Lf.
+  - [ ] *Set Up:* Openers in Lf.
      
 
 **Impérium**
@@ -44,6 +45,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Look Into:* Creating a visualization for Qtile key mapping.
   - [ ] *Look Into:* More accurate battery remaining time calculation.
   - [ ] *Set Up:* Machine specific options with nix options.
+  - [ ] *Look Into:* Automatically determining network devices.
+  - [ ] *Set Up:* Only use key available in 34 key layout.
 
 **Nvim**
 
