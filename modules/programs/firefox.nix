@@ -37,6 +37,9 @@
         Locked = true;
       };
       AutofillCreditCardEnabled = false;
+      SearchEngines = {
+        Default = "DuckDuckGo";
+      };
   
       # Extensions.
       ExtensionSettings = {
