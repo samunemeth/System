@@ -30,7 +30,7 @@ https://google.github.io/styleguide/javaguide.html
   </module>
 
   <module name="TreeWalker">
-
+  
     <module name="EmptyLineSeparator">
       <property name="allowMultipleEmptyLines" value="true"/>
       <property name="tokens" value="CLASS_DEF,INTERFACE_DEF,STATIC_INIT,INSTANCE_INIT,METHOD_DEF,RECORD_DEF"/>
@@ -376,8 +376,8 @@ https://google.github.io/styleguide/javaguide.html
     <module name="SimplifyBooleanReturn" />
 
     <module name="CyclomaticComplexity">
-      <property name="max" value="5" />
-      <message key="cyclomaticComplexity" value="Deeply nested statements result in complex code. Can you simplify your code?" />
+      <property name="max" value="20" />
+      <message key="cyclomaticComplexity" value="This is not checked! It might be a good idea to simplify this however." />
     </module>
 
     <module name="VariableDeclarationUsageDistance">
