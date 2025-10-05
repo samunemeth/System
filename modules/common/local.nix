@@ -3,28 +3,16 @@
 { config, pkgs, lib, globals, ... }:
 {
 
-  options = {
-    local.keyboardLayout = lib.mkOption {
-      type = lib.types.str;
-      default = "us";
-      example = "hu";
-      description = ''
-        Deafult keyboard layout. Qtile overrides this!
-        This setting is only useful for tty.
-      '';
-    };
-    local.keyboardVariant = lib.mkOption {
-      type = lib.types.str;
-      default = "";
-      example = "dvp";
-      description = ''
-        Deafult keyboard variant. Qtile overrides this!
-        This setting is only useful for tty.
-      '';
-    };
-  };
+  config =
+  let
 
-  config = {
+    keyboard = builtins.split " " (builtins.head config.qtile.availableKeyboardLayouts);
+    hasVariant = if builtins.length keyboard >= 3 then true else false;
+    keyboardLayout = builtins.head keyboard;
+    keyboardVariant = if hasVariant then builtins.elemAt keyboard 2 else "";
+
+  in
+  {
 
   # Set time zone to CET.
   time.timeZone = "Europe/Amsterdam";
@@ -46,11 +34,11 @@
 
   # Configure keyboard layout.
   services.xserver.xkb =  {
-    layout = config.local.keyboardLayout;
-    variant = config.local.keyboardVariant;
+    layout = keyboardLayout;
+    variant = keyboardVariant;
     options = "compose:menu";
   };
-  console.keyMap = config.local.keyboardLayout;
+  console.keyMap = keyboardLayout;
 
   # Use natural scrolling, as I am used to it.
   services.libinput.touchpad.naturalScrolling = true;

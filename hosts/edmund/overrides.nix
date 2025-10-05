@@ -6,9 +6,6 @@
   # Change systemd console mode to account for large display.
   boot.loader.systemd-boot.consoleMode = "max";
 
-  # Configure keyboard layout.
-  local.keyboardLayout = "hu";
-
   # No touchpad on a desktop.
   systemd.services.libinput-gestures.enable = false;
 

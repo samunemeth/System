@@ -3,11 +3,11 @@
 { config, pkgs, lib, globals, ... }:
 {
 
-  # Configure keyboard layout.
-  local.keyboardLayout = "hu";
-
   # Shorten boot loader timeout as NixOS is not used frequently.  
   boot.loader.timeout = 1;
+
+  # Set time zone to CET.
+  time.timeZone = "Europe/Budapest";
 
   # Qtile settings.
   qtile.availableKeyboardLayouts = ["hu" "us" "us dvp"];
