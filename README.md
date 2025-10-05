@@ -1,4 +1,4 @@
-<p align="center"> <picture>
+<p alifoldgn="center"> <picture>
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos.svg">
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos-white.svg">
   <img src="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos.svg" width="500px" alt="NixOS logo">
@@ -44,13 +44,14 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
   - [ ] *Look Into:* Creating a visualization for Qtile key mapping.
   - [ ] *Look Into:* More accurate battery remaining time calculation.
-  - [ ] *Set Up:* Machine specific options with nix options.
-  - [ ] *Look Into:* Automatically determining network devices.
-  - [ ] *Set Up:* Only use key available in 34 key layout.
+  - [x] *Set Up:* Machine specific options with nix options.
+  - [x] *Look Into:* Automatically determining network devices.
+  - [x] *Set Up:* Only use key available in 34 key layout.
+  - [ ] *Validate:* That automatic settings based on `/sys` are working.
 
 **Nvim**
 
-  - [ ] *Set Up:* Keybindings for VSCode
+  - [x] *Set Up:* Keybindings for VSCode
 
 **Long Term**
 
