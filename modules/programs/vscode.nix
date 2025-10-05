@@ -1,4 +1,4 @@
-# --- Java Tools ---
+# --- VSCode ---
 
 { config, pkgs, lib, globals, ... }:
 {
