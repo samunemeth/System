@@ -13,20 +13,48 @@ from libqtile.utils import guess_terminal
 from libqtile.widget import base
 
 
-# --- Machine Specific ---
+# --- Parametric Settings ---
 
-spec = importlib.util.spec_from_file_location("qtilemachine", os.path.expanduser("~/.config/qtilemachine.py"))
-qtilemachine = importlib.util.module_from_spec(spec)
-sys.modules["qtilemachine"] = qtilemachine
-spec.loader.exec_module(qtilemachine)
+spec = importlib.util.spec_from_file_location("qtileparametric", os.path.expanduser("~/.config/qtileparametric.py"))
+parametric = importlib.util.module_from_spec(spec)
+sys.modules["parametric"] = parametric
+spec.loader.exec_module(parametric)
 
 
-# --- Colors ---
+# --- Guess Network Adapter Names ---
 
-spec = importlib.util.spec_from_file_location("qtilecolor", os.path.expanduser("~/.config/qtilecolor.py"))
-qtilecolor = importlib.util.module_from_spec(spec)
-sys.modules["qtilecolor"] = qtilecolor
-spec.loader.exec_module(qtilecolor)
+try:
+    network_interfaces = subprocess.check_output(["ls", "/sys/class/net/"]).decode("utf-8").split("\n")
+except:
+    network_interfaces = []
+
+try:
+    wired_interface = next(filter(lambda e: e.startswith("e"), network_interfaces))
+except:
+    wired_interface = "eth0"
+
+try:
+    wireless_interface = next(filter(lambda e: e.startswith("w"), network_interfaces))
+except:
+    wireless_interface = "wlo1"
+
+
+# --- Guess Backlight Name ---
+
+try:
+    backlight_name = subprocess.check_output(["ls", "/sys/class/backlight/"]).decode("utf-8").split("\n")[0]
+except:
+    backlight_name = ""
+
+
+# --- Check Battery ---
+
+try:
+    power_supplies = subprocess.check_output(["ls", "/sys/class/power_supply/"]).decode("utf-8").split("\n")
+    next(filter(lambda e: e.startswith("BAT"), power_supplies))
+    has_battery = True
+except:
+    has_battery = False
 
 
 # --- Global Settings ---
@@ -49,7 +77,7 @@ def autostart():
     yc = str(screens[0].y + screens[0].height // 2)
 
     # Run the startup script with the parameters.
-    subprocess.Popen([script, qtilecolor.background_main, xc, yc])
+    subprocess.Popen([script, parametric.background_main, xc, yc])
 
 
 # --- Keyboard Shortcuts ---
@@ -199,15 +227,15 @@ for i in groups:
 layouts = [
     layout.Columns(
         border_width = 2,
-        border_focus = qtilecolor.foreground_soft,
-        border_normal = qtilecolor.background_contrast,
+        border_focus = parametric.foreground_soft,
+        border_normal = parametric.background_contrast,
     ),
 ]
 
 floating_layout = layout.Floating(
     border_width = 2,
-    border_focus = qtilecolor.foreground_soft,
-    border_normal = qtilecolor.background_contrast,
+    border_focus = parametric.foreground_soft,
+    border_normal = parametric.background_contrast,
 )
 
 
@@ -222,8 +250,8 @@ extension_defaults = widget_defaults.copy()
 
 widgets = [
     widget.GroupBox(
-        this_current_screen_border = qtilecolor.foreground_main,
-        this_screen_border = qtilecolor.foreground_main,
+        this_current_screen_border = parametric.foreground_main,
+        this_screen_border = parametric.foreground_main,
         borderwidth = 2,
         disable_drag = True,
     ),
@@ -233,7 +261,7 @@ widgets = [
         size_percent = 70,
     ),
     widget.KeyboardLayout(
-        configured_keyboards = qtilemachine.available_layouts,
+        configured_keyboards = parametric.available_layouts,
         display_map = {
             "hu": "HU",
             "us": "US",
@@ -303,12 +331,12 @@ widgets = [
         size_percent = 70
     ),
     widget.Wlan(
-        interface = qtilemachine.wireless_interface,
+        interface = wireless_interface,
         format = "󰖩 {percent:2.0%}",
         disconnected_message = "󰖪 ",
         ethernet_message_format = "󰈀 ",
         use_ethernet = True,
-        ethernet_interface = qtilemachine.wired_interface,
+        ethernet_interface = wired_interface,
         mouse_callbacks = {
             "Button1": lambda: qtile.spawn("networkmanager_dmenu"),
         },
@@ -322,8 +350,8 @@ widgets = [
     widget.PulseVolume(
         mute_format = "   ",
         unmute_format = " {volume}%",
-        mute_foreground = qtilecolor.foreground_error,
-        foreground = qtilecolor.foreground_main,
+        mute_foreground = parametric.foreground_error,
+        foreground = parametric.foreground_main,
         padding = 10,
     ),
 ] + ([
@@ -340,10 +368,10 @@ widgets = [
             "Button5": lambda: qtile.spawn("sudo xbacklight -dec 3"),
         },
         fmt=" {}",
-        backlight_name = qtilemachine.backlight_name,
+        backlight_name = backlight_name,
         padding = 10,
     ),
-] if qtilemachine.has_backlight else []) + [
+] if backlight_name else []) + [
     widget.Sep(
         linewidth = 2,
         padding = 10,
@@ -351,7 +379,7 @@ widgets = [
     ),
     widget.ThermalSensor(
         format = " {temp:.0f}{unit}",
-        tag_sensor = qtilemachine.processor_temperature_name,
+        tag_sensor = parametric.processor_temperature_name,
         mouse_callbacks = {
             "Button1": lambda: qtile.spawn("alacritty -e btop"),
         },
@@ -371,10 +399,10 @@ widgets = [
         not_charging_char = "-",
         update_interval = 3,
         low_percentage = 0.2,
-        low_foreground = qtilecolor.foreground_error,
+        low_foreground = parametric.foreground_error,
         padding = 10
     ),
-] if qtilemachine.has_battery else []) + [
+] if has_battery else []) + [
     widget.Sep(
         linewidth = 2,
         padding = 10,
@@ -393,7 +421,7 @@ screens = [
         bottom=bar.Bar(
             widgets,
             24,
-            background = qtilecolor.background_contrast,
+            background = parametric.background_contrast,
             opacity = 1.0,
         ),
     ),

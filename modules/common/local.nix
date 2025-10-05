@@ -8,13 +8,19 @@
       type = lib.types.str;
       default = "us";
       example = "hu";
-      description = "Deafult keyboard layout. Can be changed with Qtile.";
+      description = ''
+        Deafult keyboard layout. Qtile overrides this!
+        This setting is only useful for tty.
+      '';
     };
     local.keyboardVariant = lib.mkOption {
       type = lib.types.str;
       default = "";
       example = "dvp";
-      description = "Deafult keyboard variant. Can be changed with Qtile.";
+      description = ''
+        Deafult keyboard variant. Qtile overrides this!
+        This setting is only useful for tty.
+      '';
     };
   };
 

@@ -3,6 +3,30 @@
 { config, pkgs, lib, globals, ... }:
 {
 
+  options = {
+    qtile.processorTemperatureName = lib.mkOption {
+      type = lib.types.str;
+      default = "Package id 0";
+      example = "Tctl";
+      description = ''
+        Name of the temperature sensor that shows processor temperature.
+        Usually `Package id 0` for Intel or `Tctl` for AMD processors.
+      '';
+    };
+    qtile.availableKeyboardLayouts = lib.mkOption {
+      type = lib.types.listOf lib.types.nonEmptyStr;
+      default = ["us" "hu"];
+      example = ["hu" "us dvp"];
+      description = ''
+        A list of keyboard layouts to make available in the switcher.
+        The keyboard layout may be followed by a space and a variant.
+        The first keyboard layout will be used as default.
+      '';
+    };
+  };
+
+  config = {
+
   # Packages related to Qtile in some way.
   environment.systemPackages = with pkgs; [
 
@@ -42,7 +66,13 @@
 
 
   # --- Home Manager Part ---
-  home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {
+  home-manager.users.${globals.user} =   let
+
+    qtile_processort_temperature_name = config.qtile.processorTemperatureName;
+    qtile_available_layouts = "[" + (builtins.foldl' (acc: elem: acc + "\"" + elem + "\",") "" config.qtile.availableKeyboardLayouts) + "]";
+
+  in
+  { config, pkgs, lib, ... }: {
 
   # Link Qtile configuration into place.
   home.file = {
@@ -53,30 +83,17 @@
       recursive = true;
     };
 
-    # Machine specific settings for Qtile.
-    ".config/qtilemachine.py".text = lib.mkDefault ''
-
-      available_layouts = ["us", "hu", "us dvp"]
-
-      has_battery = True
-      has_backlight = True
-
-      backlight_name = "intel_backlight"
-      processor_temperature_name = "Package id 0"
-
-      wireless_interface = "wlo1"
-      wired_interface = "eth0"
-
-    '';
-
-    # Color settings for Qtile.
-    ".config/qtilecolor.py".text = ''
+    # More settings for Qtile in the form of a python file containing settings.
+    ".config/qtileparametric.py".text = /* python */ ''
 
       background_main = "${globals.colors.background.main}"
       background_contrast = "${globals.colors.background.contrast}"
       foreground_main = "${globals.colors.foreground.main}"
       foreground_soft = "${globals.colors.foreground.soft}"
       foreground_error = "${globals.colors.foreground.error}"
+
+      processor_temperature_name = "${qtile_processort_temperature_name}"
+      available_layouts = ${qtile_available_layouts}
 
     '';
 
@@ -92,5 +109,6 @@
   };
 
 
+  };
   };
 }
