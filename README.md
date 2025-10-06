@@ -1,4 +1,4 @@
-<p alifoldgn="center"> <picture>
+<p align="center"> <picture>
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos.svg">
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos-white.svg">
   <img src="https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/nixos.svg" width="500px" alt="NixOS logo">
@@ -218,7 +218,7 @@ Replace `<SSID>`, `<IDENTITY>` and `<PASSWORD>` accordingly.
 
 Here I have collected some useful resources I have used to create
 this configuration.
-For general linux questions, it is generally a good idea to consult the
+For general linux questions, it is usually a good idea to consult the
 [Arch Wiki](https://docs.qtile.org/en/stable/index.html).
 
 ## Options
