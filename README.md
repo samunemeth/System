@@ -196,7 +196,7 @@ There are some things that are still missing form the declarative configuration:
   - WiFi Networks
   - SSH Keys
   - Seafile Configuration
-  - Account Logins
+  - Account Logins (Firefox, Google, VSCode, GitHub)
 
 *Everything else should be configured declaratively!*
 
@@ -230,4 +230,14 @@ Some info on setting up with a Yubikey maybe?
   - [Reddit](https://www.reddit.com/r/NixOS/comments/1dbsx17/working_example_of_sopsnix_with_yubikey/)
   - [Reddit](https://www.reddit.com/r/NixOS/comments/1dbalru/comment/l802uqq/?context=3)
   - [Github](https://github.com/Mic92/sops-nix/issues/377#issuecomment-2926579189)
+
+## Firefox
+
+Some useful resources for configuring Firefox with Nix.
+
+  - [View Current Policies](about:policies#documentation)
+  - [Available Policies](https://mozilla.github.io/policy-templates/#preferences)
+  - [Available Preferences](https://searchfox.org/firefox-main/source/modules/libpref/init/StaticPrefList.yaml)
+  - [Some Examples](https://discourse.nixos.org/t/declare-firefox-extensions-and-settings/36265/7)
+  - [Declarative Bookmarks](https://discourse.nixos.org/t/firefox-import-html-bookmark-file-in-a-declarative-manner/38168/23)
 
