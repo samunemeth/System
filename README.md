@@ -219,6 +219,18 @@ Replace `<SSID>`, `<IDENTITY>` and `<PASSWORD>` accordingly.
 Here I have collected some useful resources I have used to create
 this configuration.
 
+## Options
+
+  - [MyNixOS](https://mynixos.com/) for looking up configuration options.
+  - [Nix Packages](https://search.nixos.org/packages) for looking up packages.
+
+## Nix Language
+
+Some learning material and references for the Nix language itself.
+
+  - [Language Basics](https://nix.dev/tutorials/nix-language.html)
+  - [Builtin](https://nix.dev/manual/nix/2.28/language/builtins.html)
+
 ## Dual Booting
 
 [Here](https://drakerossman.com/blog/how-to-dualboot-windows-and-nixos) is some
@@ -235,9 +247,22 @@ Some info on setting up with a Yubikey maybe?
 
 Some useful resources for configuring Firefox with Nix.
 
-  - [View Current Policies](about:policies#documentation)
+  - [View Current Policies: `about:policies#documentation`](about:policies#documentation)
   - [Available Policies](https://mozilla.github.io/policy-templates/#preferences)
   - [Available Preferences](https://searchfox.org/firefox-main/source/modules/libpref/init/StaticPrefList.yaml)
   - [Some Examples](https://discourse.nixos.org/t/declare-firefox-extensions-and-settings/36265/7)
   - [Declarative Bookmarks](https://discourse.nixos.org/t/firefox-import-html-bookmark-file-in-a-declarative-manner/38168/23)
+
+## Qtile
+
+[Here](https://docs.qtile.org/en/stable/index.html) is the reference manual for
+Qtile.
+
+## Other
+
+Some other guides, resources that I have found useful.
+
+  - [Hibernation](https://nixos.wiki/wiki/Hibernation)
+  - [Bluetooth](https://wiki.nixos.org/wiki/Bluetooth)
+  - [Some Dudes Configuration](https://github.com/nmasur/dotfiles/tree/b282e76be4606d9f2fecc06d2dc8e58d5e3514be)
 
