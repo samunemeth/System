@@ -43,7 +43,7 @@
   };
 
   # Set delay to hibernate after sleeping in the corresponding mode.
-  # Your system might have an option to enter a slightly deeper slepp mode.
+  # Your system might have an option to enter a slightly deeper sleep mode.
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=10m
     SuspendState=mem
