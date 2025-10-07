@@ -14,7 +14,7 @@
     };
   };
 
-  config = lib.mkIf modules.specializations.lite {
+  config = lib.mkIf config.modules.specializations.lite {
 
     specialisation.lite.configuration = {
   
