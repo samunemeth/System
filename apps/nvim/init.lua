@@ -11,7 +11,6 @@ require("settings")
 require("remaps")
 require("autocommands")
 require("before")
-require("markdown")
 require("matheval")
 require("code")
 

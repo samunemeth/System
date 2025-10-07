@@ -33,11 +33,9 @@ in
 
   environment.systemPackages = with pkgs; [
 
-    # The package set defined above.
-    tex
-
-    # An optimised LaTeX builder.
-    rubber
+    tex         # The package set defined above.
+    rubber      # Helper for latex building.
+    pandoc      # For markdown to pdf and some other LaTeX based conversions.
 
   ];
 

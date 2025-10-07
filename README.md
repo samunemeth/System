@@ -52,6 +52,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 **Nvim**
 
   - [x] *Set Up:* Keybindings for VSCode
+  - [ ] *Set Up:* Automatic formatting with [conform.nvim](https://github.com/stevearc/conform.nvim).
 
 **Long Term**
 
