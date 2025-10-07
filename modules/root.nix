@@ -55,6 +55,25 @@
         Adds VSCode and Java.
       '';
     };
+    modules.qtile.processorTemperatureName = lib.mkOption {
+      type = lib.types.str;
+      default = "Package id 0";
+      example = "Tctl";
+      description = ''
+        Name of the temperature sensor that shows processor temperature.
+        Usually `Package id 0` for Intel or `Tctl` for AMD processors.
+      '';
+    };
+    modules.local.keyboardLayouts = lib.mkOption {
+      type = lib.types.listOf lib.types.nonEmptyStr;
+      default = ["us" "hu"];
+      example = ["hu" "us dvp"];
+      description = ''
+        A list of keyboard layouts to make available in the switcher.
+        The keyboard layout may be followed by a space and a variant.
+        The first keyboard layout will be used as default.
+      '';
+    };
   };
 
   config = {};

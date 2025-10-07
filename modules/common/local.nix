@@ -6,7 +6,7 @@
   config =
   let
 
-    keyboard = builtins.split " " (builtins.head config.qtile.availableKeyboardLayouts);
+    keyboard = builtins.split " " (builtins.head config.modules.local.keyboardLayouts);
     hasVariant = if builtins.length keyboard >= 3 then true else false;
     keyboardLayout = builtins.head keyboard;
     keyboardVariant = if hasVariant then builtins.elemAt keyboard 2 else "";

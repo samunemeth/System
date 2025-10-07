@@ -1,13 +1,20 @@
-# --- Overrides for Edmund ---
+# --- Configuration for Edmund ---
 
 { config, pkgs, lib, globals, ... }:
 {
 
-  qtile.availableKeyboardLayouts = ["hu" "us"];
-  qtile.processorTemperatureName = "Package id 0";
+  # Configuration for modules.
+  modules = {
 
-  modules.packages.lowPriority = true;
-  modules.packages.programming = false;
+    local.keyboardLayouts = ["hu" "us"];
+    qtile.processorTemperatureName = "Package id 0";
+
+    packages = {
+      lowPriority = true;
+      programming = false;
+    };
+
+  };
 
   # Change systemd console mode to account for large display.
   boot.loader.systemd-boot.consoleMode = "max";

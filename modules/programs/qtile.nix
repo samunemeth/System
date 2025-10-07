@@ -2,29 +2,6 @@
 
 { config, pkgs, lib, globals, ... }:
 {
-
-  options = {
-    qtile.processorTemperatureName = lib.mkOption {
-      type = lib.types.str;
-      default = "Package id 0";
-      example = "Tctl";
-      description = ''
-        Name of the temperature sensor that shows processor temperature.
-        Usually `Package id 0` for Intel or `Tctl` for AMD processors.
-      '';
-    };
-    qtile.availableKeyboardLayouts = lib.mkOption {
-      type = lib.types.listOf lib.types.nonEmptyStr;
-      default = ["us" "hu"];
-      example = ["hu" "us dvp"];
-      description = ''
-        A list of keyboard layouts to make available in the switcher.
-        The keyboard layout may be followed by a space and a variant.
-        The first keyboard layout will be used as default.
-      '';
-    };
-  };
-
   config = {
 
   # Packages related to Qtile in some way.
@@ -66,10 +43,11 @@
 
 
   # --- Home Manager Part ---
-  home-manager.users.${globals.user} =   let
+  home-manager.users.${globals.user} =
+  let
 
-    qtile_processort_temperature_name = config.qtile.processorTemperatureName;
-    qtile_available_layouts = "[" + (builtins.foldl' (acc: elem: acc + "\"" + elem + "\",") "" config.qtile.availableKeyboardLayouts) + "]";
+    qtile_processort_temperature_name = config.modules.qtile.processorTemperatureName;
+    qtile_available_layouts = "[" + (builtins.foldl' (acc: elem: acc + "\"" + elem + "\",") "" config.modules.local.keyboardLayouts) + "]";
 
   in
   { config, pkgs, lib, ... }: {
