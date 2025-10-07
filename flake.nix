@@ -76,8 +76,12 @@
           # Home Manager
           inputs.home-manager.nixosModules.home-manager
 
-          # Main Configuration
+          # Main configuration and hardware configuration.
           ./hosts/${host}/configuration.nix
+          ./hosts/${host}/hardware-configuration.nix
+
+          # Modules
+          ./modules/root.nix
 
         ];
       }

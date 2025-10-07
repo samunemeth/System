@@ -8,7 +8,7 @@
 
     vim                  # Simple text editor.
 
-  ] ++ (if config.modules.lowPriorityPackages then [
+  ] ++ (if config.modules.packages.lowPriority then [
 
     curl                 # Fetching form the web.
     btop                 # System monitoring and testing.

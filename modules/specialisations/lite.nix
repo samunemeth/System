@@ -4,7 +4,7 @@
 {
 
   options = {
-    specializations.lite = lib.mkOption {
+    customSpecialisations.lite.enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
       example = true;
@@ -14,7 +14,7 @@
     };
   };
 
-  config = {
+  config = lib.mkIf config.customSpecialisations.lite.enable {
 
     specialisation.lite.configuration = {
   

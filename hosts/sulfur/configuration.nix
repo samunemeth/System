@@ -1,38 +1,18 @@
-{ config, pkgs, lib, globals, inputs, ... }:
+# --- Overrides for Sulfur ---
+
+{ config, pkgs, lib, globals, ... }:
 {
 
-  # Import all needed modules.
-  imports = [
+  qtile.availableKeyboardLayouts = ["hu" "us" "us dvp"];
+  qtile.processorTemperatureName = "Package id 0";
 
-    # Host specific configurations.
-    ./hardware-configuration.nix
-    ./overrides.nix
+  modules.packages.lowPriority = true;
+  modules.packages.programming = false;
 
-    # Common modules containing configuration.
-    ../../modules/common/system.nix
-    ../../modules/common/boot.nix
-    ../../modules/common/gui.nix
-    ../../modules/common/local.nix
-    ../../modules/common/packages.nix
-    ../../modules/common/ssh.nix
-    ../../modules/common/audio.nix
-    ../../modules/common/files.nix
-    ../../modules/common/network.nix
-    ../../modules/common/users.nix
+  # Shorten boot loader timeout as NixOS is not used frequently.  
+  boot.loader.timeout = 1;
 
-    # Program specific configurations.
-    ../../modules/programs/neovim.nix
-    ../../modules/programs/alacritty.nix
-    ../../modules/programs/bash.nix
-    ../../modules/programs/firefox.nix
-    ../../modules/programs/git.nix
-    ../../modules/programs/rofi.nix
-    ../../modules/programs/zathura.nix
-    ../../modules/programs/qtile.nix
-    ../../modules/programs/lf.nix
-    ../../modules/programs/latex.nix
-    # ../../modules/programs/vscode.nix
-
-  ];
+  # Set time zone to CET.
+  time.timeZone = "Europe/Budapest";
 
 }

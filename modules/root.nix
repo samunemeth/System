@@ -32,12 +32,12 @@
     ./programs/vscode.nix
 
     # Configurations for specializations.
-    ./specializations/lite.nix
+    ./specialisations/lite.nix
 
   ];
 
   options = {
-    modules.lowPriorityPackages = lib.mkOption {
+    modules.packages.lowPriority = lib.mkOption {
       type = lib.types.bool;
       default = true;
       example = false;
@@ -45,6 +45,14 @@
         By default, there are some packages included that are not used that
         often, but are sometimes useful. Setting this to false will slightly
         reduce the size of the installation, but may cause inconveniences.
+      '';
+    };
+    modules.packages.programming = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      example = true;
+      description = ''
+        Adds VSCode and Java.
       '';
     };
   };

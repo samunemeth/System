@@ -1,38 +1,25 @@
-{ config, pkgs, lib, globals, inputs, ... }:
+# --- Overrides for Edmund ---
+
+{ config, pkgs, lib, globals, ... }:
 {
 
-  # Import all needed modules.
-  imports = [
+  qtile.availableKeyboardLayouts = ["hu" "us"];
+  qtile.processorTemperatureName = "Package id 0";
 
-    # Host specific configurations.
-    ./hardware-configuration.nix
-    ./overrides.nix
+  modules.packages.lowPriority = true;
+  modules.packages.programming = false;
 
-    # Common modules containing configuration.
-    ../../modules/common/system.nix
-    ../../modules/common/boot.nix
-    ../../modules/common/gui.nix
-    ../../modules/common/local.nix
-    ../../modules/common/packages.nix
-    ../../modules/common/ssh.nix
-    ../../modules/common/audio.nix
-    ../../modules/common/files.nix
-    ../../modules/common/network.nix
-    ../../modules/common/users.nix
+  # Change systemd console mode to account for large display.
+  boot.loader.systemd-boot.consoleMode = "max";
 
-    # Program specific configurations.
-    ../../modules/programs/neovim.nix
-    ../../modules/programs/alacritty.nix
-    ../../modules/programs/bash.nix
-    ../../modules/programs/firefox.nix
-    ../../modules/programs/git.nix
-    ../../modules/programs/rofi.nix
-    ../../modules/programs/zathura.nix
-    ../../modules/programs/qtile.nix
-    ../../modules/programs/lf.nix
-    ../../modules/programs/latex.nix
-    # ../../modules/programs/vscode.nix
+  # No touchpad on a desktop.
+  systemd.services.libinput-gestures.enable = false;
 
-  ];
+  # --- Home Manager Part ---
+  home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {
 
+  # Change Alacritty font size for 1440p monitor.
+  programs.alacritty.settings.font.size = lib.mkForce 12;
+
+  };
 }
