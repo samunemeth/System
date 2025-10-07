@@ -24,13 +24,21 @@
 
     # Alias for building NixOS and custom bash prompt.
     initExtra = /* bash */ ''
+
       nrs () {
         sudo nixos-rebuild switch --flake ~/System/#$1
       }
+
       export PS1='\[\e[92m\]\u\[\e[2;3m\]@\h\[\e[0;1m\]:\[\e[96m\]\w\[\e[39m\]\$\[\e[0m\] '
+
       pkgs () {
         nix-shell --command "PS1='\[\e[95;2m\][nix-shell]\[\e[0m\] $PS1'; return" -p "$@"
       }
+
+      diskspace () {
+        sudo du -cha --max-depth=1 $1 | sort -hr | head -n -1 | rg "^[\d\.]+[MG]" --color=never
+      }
+
     '';
 
   };
