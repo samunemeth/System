@@ -12,7 +12,11 @@
     nodejs_24            # Node.js distribution.
     xclip                # Command line clipboard tool.
 
-  ];
+  ] ++ (if config.modules.packages.lowPriority then [
+
+    stylua               # Lua formatter.
+
+  ] else []);
 
   # --- Home Manager Part ---
   home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {

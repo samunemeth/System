@@ -28,6 +28,7 @@ Plug("tpope/vim-fugitive") -- For git
 
 -- LSP and Syntax
 Plug("nvim-treesitter/nvim-treesitter", { ["do"] = ":TSUpdate" }) -- For syntax highlighting
+Plug("stevearc/conform.nvim")
 
 vim.call("plug#end")
 
