@@ -1,12 +1,21 @@
 # --- Configuration for Joseph ---
 
-{ config, pkgs, lib, globals, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  globals,
+  ...
+}:
 {
 
   # Configuration for modules.
   modules = {
 
-    local.keyboardLayouts = ["us" "us dvp"];
+    local.keyboardLayouts = [
+      "us"
+      "us dvp"
+    ];
     qtile.processorTemperatureName = "Tctl";
 
     packages = {

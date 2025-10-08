@@ -1,21 +1,30 @@
 # --- Users ---
 
-{ config, pkgs, lib, globals, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  globals,
+  ...
+}:
 {
 
   # --- Users ---
 
-
   users.users.${globals.user} = {
     isNormalUser = true;
     description = globals.name;
-    extraGroups = [ "networkmanager" "wheel" "plugdev" "audio" "input" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "plugdev"
+      "audio"
+      "input"
+    ];
     hashedPassword = globals.password;
   };
 
-
   # --- Home Manager ---
-
 
   home-manager = {
     backupFileExtension = "hmbackup";
@@ -23,10 +32,7 @@
     useGlobalPkgs = true;
   };
 
-
   # Disable sudo password prompt.
   security.sudo.wheelNeedsPassword = false;
 
 }
-
-

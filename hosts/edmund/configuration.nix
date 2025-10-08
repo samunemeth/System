@@ -1,12 +1,21 @@
 # --- Configuration for Edmund ---
 
-{ config, pkgs, lib, globals, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  globals,
+  ...
+}:
 {
 
   # Configuration for modules.
   modules = {
 
-    local.keyboardLayouts = ["hu" "us"];
+    local.keyboardLayouts = [
+      "hu"
+      "us"
+    ];
     qtile.processorTemperatureName = "Package id 0";
 
     packages = {

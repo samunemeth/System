@@ -1,13 +1,22 @@
 # --- System ---
 
-{ config, pkgs, lib, globals, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  globals,
+  ...
+}:
 {
 
   # Set host name default.
   networking.hostName = globals.host;
 
   # Enable flakes.
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Set state versions.
   system.stateVersion = globals.stateVersion;

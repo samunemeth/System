@@ -1,6 +1,12 @@
 # --- Boot ---
 
-{ config, pkgs, lib, globals, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  globals,
+  ...
+}:
 {
 
   # Configure bootloader to have a maximum of 3 entries,
@@ -18,14 +24,16 @@
   boot.initrd.systemd.enable = true;
 
   # Silent boot implementation.
-  boot.kernelParams = [ "quiet" "fbcon=vc:2-6" "console=tty0" ];
+  boot.kernelParams = [
+    "quiet"
+    "fbcon=vc:2-6"
+    "console=tty0"
+  ];
   boot.consoleLogLevel = 0;
 
   #boot.plymouth.enable = true;
 
-
   # --- Power Management ---
-
 
   # Enable power management packages for sleep and hibernation.
   powerManagement.enable = true;

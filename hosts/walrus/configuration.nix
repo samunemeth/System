@@ -1,4 +1,11 @@
-{ config, pkgs, lib, globals, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  globals,
+  inputs,
+  ...
+}:
 {
 
   # Import all needed modules.

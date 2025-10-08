@@ -1,9 +1,13 @@
-
 # --- Template ---
 
-{ config, pkgs, lib, globals, ... }:
 {
-
+  config,
+  pkgs,
+  lib,
+  globals,
+  ...
+}:
+{
 
   # Just a basic host name.
   networking.hostName = lib.mkDefault "nixos";
@@ -11,7 +15,7 @@
   # Enable networking with network manager.
   networking.networkmanager = {
     enable = true;
-    plugins = lib.mkForce [];
+    plugins = lib.mkForce [ ];
   };
 
   # Enable the firewall, and do not let anything through.
@@ -24,8 +28,3 @@
   # services.printing.enable = true;
 
 }
-
-
-
-
-

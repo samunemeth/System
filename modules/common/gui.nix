@@ -1,8 +1,13 @@
 # --- GUI ---
 
-{ config, pkgs, lib, globals, ... }:
 {
-
+  config,
+  pkgs,
+  lib,
+  globals,
+  ...
+}:
+{
 
   # Enable the X11 windowing system with qtile.
   # Include any further packages qtile requires.
@@ -34,13 +39,13 @@
           password-border-radius = 0em
           error-color = "${globals.colors.background.main}"
           password-character = ■
-        ''; 
+        '';
       };
     };
 
     # Remove XTerm
     desktopManager.xterm.enable = false;
-    excludePackages = with pkgs; [ 
+    excludePackages = with pkgs; [
       xterm
     ];
 
@@ -52,6 +57,5 @@
     backend = "xrender";
     vSync = true;
   };
-
 
 }

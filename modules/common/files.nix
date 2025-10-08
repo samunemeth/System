@@ -1,6 +1,12 @@
 # --- Files ---
 
-{ config, pkgs, lib, globals, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  globals,
+  ...
+}:
 {
 
   # Seafile daemon setup.

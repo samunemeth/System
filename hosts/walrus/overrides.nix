@@ -1,6 +1,12 @@
 # --- Overrides for Walrus ---
 
-{ config, pkgs, lib, globals, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  globals,
+  ...
+}:
 {
 
   nixpkgs.hostPlatform = "x86_64-linux";
@@ -26,9 +32,14 @@
   };
 
   # --- Home Manager Part ---
-  home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {
+  home-manager.users.${globals.user} =
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
+    {
 
-
-
-  };
+    };
 }

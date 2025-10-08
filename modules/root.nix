@@ -1,6 +1,13 @@
 # --- Root for Modules ---
 
-{ config, pkgs, lib, globals, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  globals,
+  inputs,
+  ...
+}:
 {
 
   # Import all modules.
@@ -66,8 +73,14 @@
     };
     modules.local.keyboardLayouts = lib.mkOption {
       type = lib.types.listOf lib.types.nonEmptyStr;
-      default = ["us" "hu"];
-      example = ["hu" "us dvp"];
+      default = [
+        "us"
+        "hu"
+      ];
+      example = [
+        "hu"
+        "us dvp"
+      ];
       description = ''
         A list of keyboard layouts to make available in the switcher.
         The keyboard layout may be followed by a space and a variant.
@@ -76,8 +89,6 @@
     };
   };
 
-  config = {};
+  config = { };
 
 }
-
-

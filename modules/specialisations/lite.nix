@@ -1,6 +1,12 @@
 # --- Lite Specialization ---
 
-{ config, pkgs, lib, globals, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  globals,
+  ...
+}:
 {
 
   options = {
@@ -17,23 +23,25 @@
   config = lib.mkIf config.modules.specializations.lite {
 
     specialisation.lite.configuration = {
-  
+
       services.xserver.enable = lib.mkForce false;
       services.xserver.displayManager.lightdm.enable = lib.mkForce false;
       services.picom.enable = lib.mkForce false;
       services.xserver.windowManager.qtile.enable = lib.mkForce false;
       systemd.services.libinput-gestures.enable = lib.mkForce false;
-  
+
       services.kmscon = {
         enable = true;
-        fonts = [{
-          name = "Hack Nerd Font Mono";
-          package = pkgs.nerd-fonts.hack;
-        }];
+        fonts = [
+          {
+            name = "Hack Nerd Font Mono";
+            package = pkgs.nerd-fonts.hack;
+          }
+        ];
         # hwRender = true;
         # useXkbConfig = true;
         extraConfig = "login=/bin/bash -i";
-  
+
         # extraOptions =
         #   "--palette custom " +
         #   "--palette-red=172, 66, 66 " +
@@ -55,9 +63,9 @@
         #   "--palette-foreground=242, 244, 243 " +
         #   "--palette-light-grey= 200, 200, 200 ";
       };
-  
-      boot.kernelParams = lib.mkForce [];
-  
+
+      boot.kernelParams = lib.mkForce [ ];
+
     };
 
   };
