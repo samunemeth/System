@@ -14,7 +14,9 @@
 
   ] ++ (if config.modules.packages.lowPriority then [
 
+    treefmt              # Recursive formatter for projects.
     stylua               # Lua formatter.
+    nixfmt-rfc-style     # Nix formatter.
 
   ] else []);
 
