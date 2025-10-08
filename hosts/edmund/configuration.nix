@@ -23,10 +23,17 @@
   systemd.services.libinput-gestures.enable = false;
 
   # --- Home Manager Part ---
-  home-manager.users.${globals.user} = { config, pkgs, lib, ... }: {
+  home-manager.users.${globals.user} =
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
+    {
 
-  # Change Alacritty font size for 1440p monitor.
-  programs.alacritty.settings.font.size = lib.mkForce 12;
+      # Change Alacritty font size for 1440p monitor.
+      programs.alacritty.settings.font.size = lib.mkForce 12;
 
-  };
+    };
 }
