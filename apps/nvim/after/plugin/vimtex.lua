@@ -12,7 +12,7 @@ vim.g.vimtex_imaps_enabled = 0
 -- Sterilise the plugin so that it does not complain if latexmk is
 -- not available. (We are not using it anyways...)
 vim.g.vimtex_compiler_method = "generic"
-vim.g.vimtex_compiler_generic = {["command"] = ":"}
+vim.g.vimtex_compiler_generic = { ["command"] = ":" }
 
 -- Color and graphical options.
 vim.g.vimtex_quickfix_ignore_filters = { "Underfull", "Overfull" }

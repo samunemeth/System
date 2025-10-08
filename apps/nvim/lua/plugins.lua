@@ -34,20 +34,20 @@ vim.call("plug#end")
 
 -- Check for missing plugins, and install them automatically.
 vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    if vim.fn.exists("g:plugs") == 1 then
-      for _, plug in pairs(vim.g.plugs) do
-        if vim.fn.isdirectory(plug.dir) == 0 then
-          vim.cmd("echo 'Installing plugins, please restart after!' | PlugInstall --sync | qa")
-          break
-        end
-      end
-    end
-  end,
-  group = vim.api.nvim_create_augroup("AutoPlugInstall", { clear = true }),
+	callback = function()
+		if vim.fn.exists("g:plugs") == 1 then
+			for _, plug in pairs(vim.g.plugs) do
+				if vim.fn.isdirectory(plug.dir) == 0 then
+					vim.cmd("echo 'Installing plugins, please restart after!' | PlugInstall --sync | qa")
+					break
+				end
+			end
+		end
+	end,
+	group = vim.api.nvim_create_augroup("AutoPlugInstall", { clear = true }),
 })
 
 function safe_require(module)
-  local ok, mod = pcall(require, module)
-  return ok and mod or nil
+	local ok, mod = pcall(require, module)
+	return ok and mod or nil
 end

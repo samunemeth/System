@@ -3,24 +3,32 @@
 local telescope = safe_require("telescope")
 
 if telescope then
-local builtin = require("telescope.builtin")
+	local builtin = require("telescope.builtin")
 
--- Settings
-telescope.setup{
-	defaults = { file_ignore_patterns = {
+	-- Settings
+	telescope.setup({
+		defaults = {
+			file_ignore_patterns = {
 
-		-- General ignores
-		"%.pdf",
+				-- General ignores
+				"%.pdf",
 
-		-- File ignores for latex projects
-		"main.pdf", "main.aux", "main.fdb_latexmk", "main.fls", "main.log", "main.pdf", "main.synctex.gz", "main.toc", "main.out",
+				-- File ignores for latex projects
+				"main.pdf",
+				"main.aux",
+				"main.fdb_latexmk",
+				"main.fls",
+				"main.log",
+				"main.pdf",
+				"main.synctex.gz",
+				"main.toc",
+				"main.out",
+			},
+		},
+		pickers = { find_files = { hidden = false } },
+	})
 
-	} },
-	pickers = { find_files = { hidden = false } }
-} 
-
--- Keymaps
-vim.keymap.set("n", "<leader><leader>", builtin.find_files, {})
-vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
-
+	-- Keymaps
+	vim.keymap.set("n", "<leader><leader>", builtin.find_files, {})
+	vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
 end

@@ -1,4 +1,4 @@
 --- Configuration for Lightline ---
 
--- Settings 
+-- Settings
 vim.opt.showmode = false
