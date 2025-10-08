@@ -28,7 +28,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     [More Info](https://github.com/alacritty/alacritty/issues/1636)
   - [ ] *Fix:* Firefox opening in the wrong group.
   - [ ] *Set Up:* Tar unpacking.
-  - [ ] *Set Up:* Separate VSCode configuration form Java.
+  - [x] *Set Up:* Separate VSCode configuration form Java.
   - [ ] *Set Up:* Trashcan in Lf.
   - [ ] *Set Up:* Openers in Lf.
   - [x] *Look Into:* Cleaner module organization.
