@@ -236,6 +236,11 @@ floating_layout = layout.Floating(
     border_width = 2,
     border_focus = parametric.foreground_soft,
     border_normal = parametric.background_contrast,
+    float_rules = [
+        *layout.Floating.default_float_rules,
+        Match(wm_class='SnakeGame'),
+        Match(wm_class='ChessGame'),
+    ]
 )
 
 
