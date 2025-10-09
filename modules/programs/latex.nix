@@ -41,29 +41,32 @@ let
 in
 {
 
-  environment.systemPackages = with pkgs; [
+  config = lib.mkIf config.modules.packages.latex {
 
-    tex # The package set defined above.
-    rubber # Helper for latex building.
-    pandoc # For markdown to pdf and some other LaTeX based conversions.
+    environment.systemPackages = with pkgs; [
 
-  ];
+      tex # The package set defined above.
+      rubber # Helper for latex building.
+      pandoc # For markdown to pdf and some other LaTeX based conversions.
 
-  # --- Home Manager Part ---
-  home-manager.users.${globals.user} =
-    {
-      config,
-      pkgs,
-      lib,
-      ...
-    }:
-    {
+    ];
 
-      # LaTeX outline files.
-      home.file."texmf/tex/latex" = {
-        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/latex";
-        recursive = true;
+    # --- Home Manager Part ---
+    home-manager.users.${globals.user} =
+      {
+        config,
+        pkgs,
+        lib,
+        ...
+      }:
+      {
+
+        # LaTeX outline files.
+        home.file."texmf/tex/latex" = {
+          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/latex";
+          recursive = true;
+        };
+
       };
-
-    };
+  };
 }

@@ -38,30 +38,46 @@
     ./programs/latex.nix
     ./programs/vscode.nix
 
+
+    ./code/java.nix
+
     # Configurations for specializations.
     ./specialisations/lite.nix
 
   ];
 
   options = {
-    modules.packages.lowPriority = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      example = false;
-      description = ''
-        By default, there are some packages included that are not used that
-        often, but are sometimes useful. Setting this to false will slightly
-        reduce the size of the installation, but may cause inconveniences.
-      '';
+
+    modules.packages = {
+      lowPriority = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        example = false;
+        description = ''
+          By default, there are some packages included that are not used that
+          often, but are sometimes useful. Setting this to false will slightly
+          reduce the size of the installation, but may cause inconveniences.
+        '';
+      };
+      programming = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        example = true;
+        description = ''
+          Adds VSCode and Java.
+        '';
+      };
+      latex = lib.mkOption {
+        type= lib.types.bool;
+        default = true;
+        example = false;
+        description = ''
+          Adds LaTeX compiler and LaTeX packages. Adds pandoc for markdown
+          compilation.
+        '';
+      };
     };
-    modules.packages.programming = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      example = true;
-      description = ''
-        Adds VSCode and Java.
-      '';
-    };
+
     modules.qtile.processorTemperatureName = lib.mkOption {
       type = lib.types.str;
       default = "Package id 0";

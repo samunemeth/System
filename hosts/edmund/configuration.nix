@@ -21,6 +21,7 @@
     packages = {
       lowPriority = true;
       programming = false;
+      latex = true;
     };
 
   };
