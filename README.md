@@ -20,8 +20,9 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **General**
 
-  - [ ] *Set Up:* [sops-nix](https://github.com/Mic92/sops-nix) for secret management.
-  - [ ] *Look Into:* Why the *mini greeter* seems to act up on first boot.
+  - [x] *Set Up:* [sops-nix](https://github.com/Mic92/sops-nix) for secret management.
+  - [ ] *Set UP:* Host keys on other machines.
+  - [ ] *Fix:* The *mini greeter* seems to act up on first boot.
   - [ ] *Set Up:* A script for enterprise WPA networks, or check why
     user interfaces do not work with it.
   - [ ] *Fix:* Alacritty not handling dynamic window titles.
@@ -34,13 +35,13 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [x] *Look Into:* Cleaner module organization.
   - [ ] *Set Up:* Password prompt after hibernation.
   - [x] *Set Up:* Low Priority packages.
+  - [ ] *Set Up:* Documentation for sops and sops-nix.
 
 
 **Impérium**
 
   - [ ] *Set Up:* Automatically initialize Seafile on system rebuild.
-  - [ ] *Look Into:* Adding even more declarative settings.
-    [More Info](https://grahamc.com/blog/erase-your-darlings/)
+  - [ ] *Look Into:* Impermanence. [More Info](https://grahamc.com/blog/erase-your-darlings/)
   - [ ] *Look Into:* Adding even more preset Firefox options.
 
 **Qtile**
@@ -56,12 +57,12 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
   - [x] *Set Up:* Keybindings for VSCode
   - [x] *Set Up:* Automatic formatting with [conform.nvim](https://github.com/stevearc/conform.nvim).
+  - [ ] *Set Up:* Automatically decrypt `secrets.yaml` if key is available.
 
 **Long Term**
 
   - [ ] *Look Into:* Creating a custom ISO.
   - [ ] *Set Up:* A configuration for minimal installation.
-  - [ ] *Set Up:* Android streaming module and scripts.
 
 
 # Setup
