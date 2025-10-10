@@ -50,7 +50,7 @@
             }
 
             diskspace () {
-              sudo du -cha --max-depth=1 $1 | sort -hr | head -n -1 | rg "^[\d\.]+[MG]" --color=never
+              du -cha --max-depth=1 $1 | sort -hr | head -n -1 | rg "^[\d\.]+[MG]" --color=never
             }
 
           '';
