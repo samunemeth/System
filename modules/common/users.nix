@@ -11,6 +11,10 @@
 
   # --- Users ---
 
+  # Setup for getting the user's password hash.
+  sops.secrets.user-password-hash.neededForUsers = true;
+  users.mutableUsers = false;
+
   users.users.${globals.user} = {
     isNormalUser = true;
     description = globals.name;
@@ -21,7 +25,7 @@
       "audio"
       "input"
     ];
-    hashedPassword = globals.password;
+    hashedPasswordFile = config.sops.secrets.user-password-hash.path;
   };
 
   # --- Home Manager ---

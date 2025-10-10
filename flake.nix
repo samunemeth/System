@@ -18,6 +18,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Sops for secrets.
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
@@ -35,7 +41,6 @@
         user = "samu";
         name = "Samu Németh";
         email = "nemeth.samu.0202@gmail.com";
-        password = "$y$j9T$91ZetH54Sf6t8lZD7d7P91$VzSmCPXgC21OnIpeV5hoNFuYmGTQUeJQmJoFwEoLME7";
 
         # Color configuration.
         colors = {
@@ -79,6 +84,9 @@
 
             # Home Manager
             inputs.home-manager.nixosModules.home-manager
+
+            # Sops
+            inputs.sops-nix.nixosModules.sops
 
             # Main configuration and hardware configuration.
             ./hosts/${host}/configuration.nix

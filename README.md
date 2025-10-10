@@ -209,13 +209,20 @@ There are some things that are still missing form the declarative configuration:
 Setting up a WPA enterprise network does not work with `nmtui` or `networkmanager_dmenu` for some reason.
 Here are some command for setting up such a network:
 
-```
+```bash
 nmcli connection add type wifi con-name "<SSID>" ssid "<SSID>"
 nmcli connection modify "<SSID>" wifi-sec.key-mgmt wpa-eap 802-1x.eap peap 802-1x.phase2-auth mschapv2 802-1x.identity "<IDENTITY>" 802-1x.password "<PASSWORD>"
 nmcli connection up "<SSID>"
 ```
 
 Replace `<SSID>`, `<IDENTITY>` and `<PASSWORD>` accordingly.
+
+## Sops
+
+Get an *age* public key of your machines host ssh key:
+```bash
+nix-shell -p ssh-to-age --run 'cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'
+```
 
 
 # Resources

@@ -24,6 +24,7 @@
     ./common/files.nix
     ./common/network.nix
     ./common/users.nix
+    ./common/sops.nix
 
     # Program specific configurations.
     ./programs/neovim.nix
@@ -38,7 +39,7 @@
     ./programs/latex.nix
     ./programs/vscode.nix
 
-
+    # Coding language specific configurations.
     ./code/java.nix
 
     # Configurations for specializations.
