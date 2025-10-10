@@ -13,6 +13,7 @@
 
   # Setup for getting the user's password hash.
   sops.secrets.user-password-hash.neededForUsers = true;
+  sops.secrets.root-password-hash.neededForUsers = true;
   users.mutableUsers = false;
 
   users.users.${globals.user} = {
@@ -28,6 +29,10 @@
     hashedPasswordFile = config.sops.secrets.user-password-hash.path;
   };
 
+  users.users.root = {
+    hashedPasswordFile = config.sops.secrets.root-password-hash.path;
+  };
+
   # --- Home Manager ---
 
   home-manager = {
@@ -37,6 +42,12 @@
   };
 
   # Disable sudo password prompt.
-  security.sudo.wheelNeedsPassword = false;
+  security.sudo = {
+    enable = true;
+    wheelNeedsPassword = true;
+    extraConfig = ''
+      Defaults rootpw
+    '';
+  };
 
 }

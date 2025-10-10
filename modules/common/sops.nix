@@ -40,6 +40,7 @@
 
     secrets = {
       user-password-hash = { };
+      root-password-hash = { };
     };
 
   };
