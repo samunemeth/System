@@ -10,3 +10,4 @@ creation_rules:
     - age:
       - *joseph-admin
       - *joseph-system
+      - *sulfur-system
