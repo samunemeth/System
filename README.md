@@ -24,9 +24,9 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Set UP:* Host keys on other machines.
   - [ ] *Fix:* The *mini greeter* seems to act up on first boot.
   - [ ] *Set Up:* A script for enterprise WPA networks, or check why
-    user interfaces do not work with it.
+        user interfaces do not work with it.
   - [ ] *Fix:* Alacritty not handling dynamic window titles.
-    [More Info](https://github.com/alacritty/alacritty/issues/1636)
+        [More Info](https://github.com/alacritty/alacritty/issues/1636)
   - [ ] *Fix:* Firefox opening in the wrong group.
   - [ ] *Set Up:* Tar unpacking.
   - [x] *Set Up:* Separate VSCode configuration form Java.
@@ -36,7 +36,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Set Up:* Password prompt after hibernation.
   - [x] *Set Up:* Low Priority packages.
   - [ ] *Set Up:* Documentation for sops and sops-nix.
-
+  - [ ] *Set Up:* Some declarative WiFi networks with sops.
+        [More Info](https://www.reddit.com/r/NixOS/comments/zneyil/using_sopsnix_to_amange_wireless_secrets/)
 
 **Impérium**
 
@@ -250,13 +251,6 @@ Some learning material and references for the Nix language itself.
 [Here](https://drakerossman.com/blog/how-to-dualboot-windows-and-nixos) is some
 more information on dual booting NixOS.
 
-## sops-nix
-
-Some info on setting up with a Yubikey maybe?
-  - [Working Example](https://www.reddit.com/r/NixOS/comments/1dbsx17/working_example_of_sopsnix_with_yubikey/)
-  - [Reddit Thread](https://www.reddit.com/r/NixOS/comments/1dbalru/comment/l802uqq/?context=3)
-  - [GitHub Issue](https://github.com/Mic92/sops-nix/issues/377#issuecomment-2926579189)
-
 ## Firefox
 
 Some useful resources for configuring Firefox with Nix.
@@ -279,4 +273,5 @@ Some other guides, resources that I have found useful.
   - [Hibernation](https://nixos.wiki/wiki/Hibernation)
   - [Bluetooth](https://wiki.nixos.org/wiki/Bluetooth)
   - [Some Dudes Configuration](https://github.com/nmasur/dotfiles/tree/b282e76be4606d9f2fecc06d2dc8e58d5e3514be)
+  - [Declarative WiFi with Sops](https://www.reddit.com/r/NixOS/comments/zneyil/using_sopsnix_to_amange_wireless_secrets/)
 
