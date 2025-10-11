@@ -21,6 +21,11 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 **General**
 
   - [x] *Set Up:* [sops-nix](https://github.com/Mic92/sops-nix) for secret management.
+  - [x] *Set Up:* Separate VSCode configuration form Java.
+  - [x] *Look Into:* Cleaner module organization.
+  - [x] *Set Up:* Low Priority packages.
+  - [x] *Set Up:* Some declarative WiFi networks with sops.
+        [More Info](https://www.reddit.com/r/NixOS/comments/zneyil/using_sopsnix_to_amange_wireless_secrets/)
   - [ ] *Set UP:* Host keys on other machines.
   - [ ] *Fix:* The *mini greeter* seems to act up on first boot.
   - [ ] *Set Up:* A script for enterprise WPA networks, or check why
@@ -29,15 +34,10 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
         [More Info](https://github.com/alacritty/alacritty/issues/1636)
   - [ ] *Fix:* Firefox opening in the wrong group.
   - [ ] *Set Up:* Tar unpacking.
-  - [x] *Set Up:* Separate VSCode configuration form Java.
   - [ ] *Set Up:* Trashcan in Lf.
   - [ ] *Set Up:* Openers in Lf.
-  - [x] *Look Into:* Cleaner module organization.
   - [ ] *Set Up:* Password prompt after hibernation.
-  - [x] *Set Up:* Low Priority packages.
   - [ ] *Set Up:* Documentation for sops and sops-nix.
-  - [ ] *Set Up:* Some declarative WiFi networks with sops.
-        [More Info](https://www.reddit.com/r/NixOS/comments/zneyil/using_sopsnix_to_amange_wireless_secrets/)
 
 **Impérium**
 
@@ -47,11 +47,11 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **Qtile**
 
-  - [ ] *Look Into:* Creating a visualization for Qtile key mapping.
-  - [ ] *Look Into:* More accurate battery remaining time calculation.
   - [x] *Set Up:* Machine specific options with nix options.
   - [x] *Look Into:* Automatically determining network devices.
   - [x] *Set Up:* Only use key available in 34 key layout.
+  - [ ] *Look Into:* Creating a visualization for Qtile key mapping.
+  - [ ] *Look Into:* More accurate battery remaining time calculation.
   - [ ] *Validate:* That automatic settings based on `/sys` are working.
 
 **Nvim**
@@ -210,14 +210,18 @@ There are some things that are still missing form the declarative configuration:
 
 Setting up a WPA enterprise network does not work with `nmtui` or `networkmanager_dmenu` for some reason.
 Here are some command for setting up such a network:
-
 ```bash
 nmcli connection add type wifi con-name "<SSID>" ssid "<SSID>"
 nmcli connection modify "<SSID>" wifi-sec.key-mgmt wpa-eap 802-1x.eap peap 802-1x.phase2-auth mschapv2 802-1x.identity "<IDENTITY>" 802-1x.password "<PASSWORD>"
 nmcli connection up "<SSID>"
 ```
-
 Replace `<SSID>`, `<IDENTITY>` and `<PASSWORD>` accordingly.
+
+To list all the connections saved, and their configuration file location, use
+the following command:
+```bash
+sudo nmcli -f NAME,DEVICE,FILENAME connection show
+```
 
 ## Sops
 
@@ -234,26 +238,23 @@ this configuration.
 For general linux questions, it is usually a good idea to consult the
 [Arch Wiki](https://docs.qtile.org/en/stable/index.html).
 
-## Options
+## Options and Packages
 
-  - [MyNixOS](https://mynixos.com/) for looking up configuration options.
+For looking for packages or configuration options respectively.
+
   - [Nix Packages](https://search.nixos.org/packages) for looking up packages.
+  - [MyNixOS](https://mynixos.com/) for looking up configuration options.
 
 ## Nix Language
 
-Some learning material and references for the Nix language itself.
+Wiki's for Nix language basics.
 
   - [Language Basics](https://nix.dev/tutorials/nix-language.html)
   - [Builtin](https://nix.dev/manual/nix/2.28/language/builtins.html)
 
-## Dual Booting
-
-[Here](https://drakerossman.com/blog/how-to-dualboot-windows-and-nixos) is some
-more information on dual booting NixOS.
-
 ## Firefox
 
-Some useful resources for configuring Firefox with Nix.
+Resources for configuring Firefox with Nix.
 
   - [View Current Policies: `about:policies#documentation`](about:policies#documentation)
   - [Available Policies](https://mozilla.github.io/policy-templates/#preferences)
@@ -261,17 +262,13 @@ Some useful resources for configuring Firefox with Nix.
   - [Some Examples](https://discourse.nixos.org/t/declare-firefox-extensions-and-settings/36265/7)
   - [Declarative Bookmarks](https://discourse.nixos.org/t/firefox-import-html-bookmark-file-in-a-declarative-manner/38168/23)
 
-## Qtile
-
-[Here](https://docs.qtile.org/en/stable/index.html) is the reference manual for
-Qtile.
-
 ## Other
 
-Some other guides, resources that I have found useful.
+Guides, threads, wiki's that I have found useful.
 
   - [Hibernation](https://nixos.wiki/wiki/Hibernation)
   - [Bluetooth](https://wiki.nixos.org/wiki/Bluetooth)
   - [Some Dudes Configuration](https://github.com/nmasur/dotfiles/tree/b282e76be4606d9f2fecc06d2dc8e58d5e3514be)
   - [Declarative WiFi with Sops](https://www.reddit.com/r/NixOS/comments/zneyil/using_sopsnix_to_amange_wireless_secrets/)
+  - [How to Dual Boot Windows and NixOS](https://drakerossman.com/blog/how-to-dualboot-windows-and-nixos)
 
