@@ -21,7 +21,7 @@
     {
 
       # Set time zone to CET.
-      time.timeZone = "Europe/Amsterdam";
+      time.timeZone = lib.mkDefault "Europe/Amsterdam";
 
       # Select the en_US locale, as this is the default,
       # and should be supported by all programs.

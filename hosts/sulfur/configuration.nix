@@ -13,8 +13,8 @@
   modules = {
 
     local.keyboardLayouts = [
-      "hu"
       "us"
+      "hu"
       "us dvp"
     ];
     qtile.processorTemperatureName = "Package id 0";
