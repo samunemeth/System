@@ -38,9 +38,7 @@
     ./programs/lf.nix
     ./programs/latex.nix
     ./programs/vscode.nix
-
-    # Coding language specific configurations.
-    ./code/java.nix
+    ./programs/java.nix
 
     # Configurations for specializations.
     ./specialisations/lite.nix
