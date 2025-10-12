@@ -19,39 +19,21 @@
     };
   };
 
-  config = lib.mkIf config.modules.qtile.enable {
+  config = lib.mkIf config.modules.gnome.enable {
 
     # Enable Gnome
     services.xserver = {
+      enable = true;
       displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;
     };
 
-    # Disable default applications.
-    environment.gnome.excludePackages = (
-      with pkgs;
-      [
-        atomix
-        cheese
-        epiphany
-        evince
-        geary
-        gedit
-        gnome-characters
-        gnome-music
-        gnome-photos
-        gnome-terminal
-        gnome-tour
-        hitori
-        iagno
-        tali
-        totem
-      ]
-    );
+    # Disable default bloat.
+    services.gnome.core-utilities.enable = false;
 
     # System tray icons.
     environment.systemPackages = with pkgs; [ gnomeExtensions.appindicator ];
-    services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+    services.udev.packages = with pkgs; [ gnome-settings-daemon ];
 
     # --- Home Manager Part ---
     home-manager.users.${globals.user} =

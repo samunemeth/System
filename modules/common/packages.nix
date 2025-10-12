@@ -48,7 +48,7 @@
 
     # Remove unused packages enabled my default.
     environment.defaultPackages = lib.mkForce [ ];
-    services.speechd.enable = false;
+    services.speechd.enable = lib.mkForce false;
     programs.nano.enable = false;
 
     # Disable documentation by default, for space saving.

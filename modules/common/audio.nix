@@ -10,8 +10,8 @@
 {
 
   # Enable sound with PulseAudio.
-  services.pulseaudio.enable = true;
+  services.pulseaudio.enable = if config.modules.gnome.enable then false else true;
   security.rtkit.enable = true;
-  services.pipewire.enable = false;
+  services.pipewire.enable = if config.modules.gnome.enable then true else false;
 
 }
