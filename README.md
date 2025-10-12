@@ -39,7 +39,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Set Up:* Password prompt after hibernation.
   - [ ] *Set Up:* Documentation for sops and sops-nix.
 
-**Impérium**
+**Declarative Wonderland**
 
   - [ ] *Set Up:* Automatically initialize Seafile on system rebuild.
   - [ ] *Look Into:* Impermanence. [More Info](https://grahamc.com/blog/erase-your-darlings/)
@@ -64,6 +64,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
   - [ ] *Look Into:* Creating a custom ISO.
   - [ ] *Set Up:* A configuration for minimal installation.
+  - [ ] *Set Up:* Gnome with declarative settings.
 
 
 # Setup
