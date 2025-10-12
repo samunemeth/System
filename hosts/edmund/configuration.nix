@@ -29,6 +29,7 @@
       enable = true;
       processorTemperatureName = "Package id 0";
     };
+    gnome.enable = false;
 
     # Enable latex tools and packages.
     latex.enable = true;

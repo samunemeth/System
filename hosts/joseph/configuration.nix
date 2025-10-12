@@ -29,6 +29,7 @@
       enable = true;
       processorTemperatureName = "Tctl";
     };
+    gnome.enable = false;
 
     # Enable latex tools and packages.
     latex.enable = true;
