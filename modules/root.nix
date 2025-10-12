@@ -16,7 +16,6 @@
     # Common modules containing configuration.
     ./common/system.nix
     ./common/boot.nix
-    ./common/gui.nix
     ./common/local.nix
     ./common/packages.nix
     ./common/ssh.nix
@@ -47,60 +46,13 @@
   ];
 
   options = {
-
-    modules.packages = {
-      lowPriority = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        example = false;
-        description = ''
-          By default, there are some packages included that are not used that
-          often, but are sometimes useful. Setting this to false will slightly
-          reduce the size of the installation, but may cause inconveniences.
-        '';
-      };
-      programming = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        example = true;
-        description = ''
-          Adds VSCode and Java.
-        '';
-      };
-      latex = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        example = false;
-        description = ''
-          Adds LaTeX compiler and LaTeX packages. Adds pandoc for markdown
-          compilation.
-        '';
-      };
-    };
-
-    modules.qtile.processorTemperatureName = lib.mkOption {
-      type = lib.types.str;
-      default = "Package id 0";
-      example = "Tctl";
+    modules.isDesktop = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      example = true;
       description = ''
-        Name of the temperature sensor that shows processor temperature.
-        Usually `Package id 0` for Intel or `Tctl` for AMD processors.
-      '';
-    };
-    modules.local.keyboardLayouts = lib.mkOption {
-      type = lib.types.listOf lib.types.nonEmptyStr;
-      default = [
-        "us"
-        "hu"
-      ];
-      example = [
-        "hu"
-        "us dvp"
-      ];
-      description = ''
-        A list of keyboard layouts to make available in the switcher.
-        The keyboard layout may be followed by a space and a variant.
-        The first keyboard layout will be used as default.
+        Weather the machine is a desktop machine. If true, disables touch
+        input gestures.
       '';
     };
   };

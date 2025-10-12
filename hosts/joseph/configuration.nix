@@ -9,21 +9,37 @@
 }:
 {
 
-  # Configuration for modules.
+  # Configuration for custom modules.
   modules = {
 
+    # This is a laptop.
+    isDesktop = false;
+
+    # Configure keyboard layouts. The first one becomes the default.
     local.keyboardLayouts = [
       "us"
       "us dvp"
     ];
-    qtile.processorTemperatureName = "Tctl";
 
-    packages = {
-      lowPriority = true;
-      programming = true;
-      latex = true;
+    # Enable low priority packages.
+    packages.lowPriority = true;
+
+    # Enable Qtile as a window manager.
+    qtile = {
+      enable = true;
+      processorTemperatureName = "Tctl";
     };
 
+    # Enable latex tools and packages.
+    latex.enable = true;
+
+    # Enable tools for programming.
+    programming = {
+      vscode = true;
+      java = true;
+    };
+
+    # Enable support for YubiKeys, logging in and using sudo with them.
     yubikey = {
       enable = true;
       login = true;

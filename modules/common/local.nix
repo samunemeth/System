@@ -9,6 +9,25 @@
 }:
 {
 
+  options = {
+    modules.local.keyboardLayouts = lib.mkOption {
+      type = lib.types.listOf lib.types.nonEmptyStr;
+      default = [
+        "us"
+        "hu"
+      ];
+      example = [
+        "hu"
+        "us dvp"
+      ];
+      description = ''
+        A list of keyboard layouts to make available in the switcher.
+        The keyboard layout may be followed by a space and a variant.
+        The first keyboard layout will be used as default.
+      '';
+    };
+  };
+
   config =
     let
 

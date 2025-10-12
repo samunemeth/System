@@ -8,7 +8,19 @@
   ...
 }:
 {
-  config = lib.mkIf config.modules.packages.programming {
+
+  options = {
+    modules.programming.java = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      example = true;
+      description = ''
+        Enables Java.
+      '';
+    };
+  };
+
+  config = lib.mkIf config.modules.programming.java {
 
     environment.systemPackages = with pkgs; [
 

@@ -16,6 +16,7 @@
     systemd-boot = {
       enable = true;
       configurationLimit = lib.mkDefault 3;
+      consoleMode = "max";
     };
     timeout = lib.mkDefault 3;
   };

@@ -41,7 +41,19 @@ let
 in
 {
 
-  config = lib.mkIf config.modules.packages.latex {
+  options = {
+    modules.latex.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      example = false;
+      description = ''
+        Adds LaTeX compiler and LaTeX packages. Adds pandoc for markdown
+        compilation.
+      '';
+    };
+  };
+
+  config = lib.mkIf config.modules.latex.enable {
 
     environment.systemPackages = with pkgs; [
 

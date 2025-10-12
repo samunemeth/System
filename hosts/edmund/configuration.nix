@@ -9,28 +9,44 @@
 }:
 {
 
-  # Configuration for modules.
+  # Configuration for custom modules.
   modules = {
 
-    local.keyboardLayouts = [
-      "hu"
-      "us"
-    ];
-    qtile.processorTemperatureName = "Package id 0";
+    # This is a desktop.
+    isDesktop = true;
 
-    packages = {
-      lowPriority = true;
-      programming = false;
-      latex = true;
+    # Configure keyboard layouts. The first one becomes the default.
+    local.keyboardLayouts = [
+      "us"
+      "hu"
+    ];
+
+    # Enable low priority packages.
+    packages.lowPriority = true;
+
+    # Enable Qtile as a window manager.
+    qtile = {
+      enable = true;
+      processorTemperatureName = "Package id 0";
+    };
+
+    # Enable latex tools and packages.
+    latex.enable = true;
+
+    # Disable tools for programming.
+    programming = {
+      vscode = false;
+      java = false;
+    };
+
+    # Enable support for YubiKeys, logging in and using sudo with them.
+    yubikey = {
+      enable = true;
+      login = true;
+      sudo = true;
     };
 
   };
-
-  # Change systemd console mode to account for large display.
-  boot.loader.systemd-boot.consoleMode = "max";
-
-  # No touchpad on a desktop.
-  systemd.services.libinput-gestures.enable = false;
 
   # --- Home Manager Part ---
   home-manager.users.${globals.user} =
