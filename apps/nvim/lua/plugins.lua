@@ -30,6 +30,9 @@ Plug("tpope/vim-fugitive") -- For git
 Plug("nvim-treesitter/nvim-treesitter", { ["do"] = ":TSUpdate" }) -- For syntax highlighting
 Plug("stevearc/conform.nvim")
 
+-- Secrets with SOPS
+-- Plug("samunemeth/sops.nvim")
+
 vim.call("plug#end")
 
 -- Check for missing plugins, and install them automatically.
