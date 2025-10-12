@@ -9,30 +9,38 @@
 }:
 {
 
-  # Configure bootloader to have a maximum of 3 entries,
-  # and a timeout of 3 seconds to allow rollbacks.
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    systemd-boot = {
-      enable = true;
-      configurationLimit = lib.mkDefault 3;
-      consoleMode = "max";
+  # Boot options.
+  boot = {
+
+    # Configure bootloader to have a maximum of 3 entries,
+    # and a timeout of 3 seconds to allow rollbacks.
+    loader = {
+      efi.canTouchEfiVariables = true;
+      systemd-boot = {
+        enable = true;
+        configurationLimit = lib.mkDefault 3;
+        consoleMode = lib.mkDefault "max";
+      };
+      timeout = lib.mkDefault 3;
     };
-    timeout = lib.mkDefault 3;
+
+    # Set boot options to enable resuming from hibernation.
+    initrd.systemd.enable = true;
+
+    # Silent boot implementation.
+    # This will interfere with tty if there is no window manager, so it is
+    # turned off in that case.
+    kernelParams =
+      if config.modules.qtile.enable then
+        [
+          "quiet"
+          "fbcon=vc:2-6"
+          "console=tty0"
+        ]
+      else
+        [ "quiet" ];
+
   };
-
-  # Set boot options to enable resuming from hibernation.
-  boot.initrd.systemd.enable = true;
-
-  # Silent boot implementation.
-  boot.kernelParams = [
-    "quiet"
-    "fbcon=vc:2-6"
-    "console=tty0"
-  ];
-  boot.consoleLogLevel = 0;
-
-  #boot.plymouth.enable = true;
 
   # --- Power Management ---
 
