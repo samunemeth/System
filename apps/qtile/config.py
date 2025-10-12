@@ -102,10 +102,10 @@ keys = [
 
     # Layout management.
     Key([mod], "e", lazy.layout.next(), desc="Move Focus"),
-    Key([mod], "t", lazy.next_layout(), desc="Toggle Layouts"),
+    Key([mod], "q", lazy.next_layout(), desc="Toggle Layouts"),
     Key([mod], "r", lazy.window.toggle_fullscreen(), desc="Fullscreen"),
     Key([mod], "v", lazy.window.kill(), desc="Kill Window"),
-    Key([mod], "q", lazy.hide_show_bar(), desc="Hide/Show Bar"),
+    Key([mod], "t", lazy.hide_show_bar(), desc="Hide/Show Bar"),
 
     # Toggle scratchpads.
     Key([mod], "f", lazy.group["scratchpad"].dropdown_toggle("lf")),
@@ -113,7 +113,7 @@ keys = [
 
     # Application quick launch
     Key([mod], "semicolon", lazy.spawn(terminal), desc="Terminal"),
-    Key([mod], "w", lazy.spawn("firefox"), desc="Firefox"),
+    #Key([mod], "w", lazy.spawn("firefox"), desc="Firefox"),
 
     # Rofi menu options
     Key([mod], "d", lazy.spawn("rofi -show drun")),
@@ -122,6 +122,7 @@ keys = [
     Key([mod], "n", lazy.spawn("networkmanager_dmenu")),
     Key([mod], "b", lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained")),
     Key([mod], "x", lazy.spawn(f"rofi -show rofi-sound -modi \"rofi-sound:{qtile_home_path}/rofi/rofi-sound-plugin\"")),
+    Key([mod], "w", lazy.spawn(f"rofi -show rofi-oath -modi \"rofi-oath:{qtile_home_path}/rofi/rofi-oath-plugin\"")),
 
     # Keyboard layout switching.
     Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard()),
