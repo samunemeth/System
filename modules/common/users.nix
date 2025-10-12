@@ -31,7 +31,7 @@
   };
 
   # Root User
-  secrets.root-password-hash = { };
+  sops.secrets.root-password-hash = { };
   sops.secrets.root-password-hash.neededForUsers = true;
   users.users.root = {
     hashedPasswordFile = config.sops.secrets.root-password-hash.path;
