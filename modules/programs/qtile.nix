@@ -36,6 +36,19 @@
         ];
     };
 
+    # Add rules so Qtile can adjust screen brightness.
+    security.sudo.extraRules = lib.mkAfter [
+      {
+        commands = [
+          {
+            command = "/run/current-system/sw/bin/xbacklight";
+            options = [ "NOPASSWD" ];
+          }
+        ];
+        groups = [ "wheel" ];
+      }
+    ];
+
     # Start the libinput-gestures daemon to handle touchpad gestures.
     systemd.services.libinput-gestures = {
       enable = lib.mkDefault true;

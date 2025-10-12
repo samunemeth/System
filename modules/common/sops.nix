@@ -38,11 +38,6 @@
       generateKey = true;
     };
 
-    secrets = {
-      user-password-hash = { };
-      root-password-hash = { };
-    };
-
   };
 
 }

@@ -69,7 +69,7 @@
         '';
       };
       latex = lib.mkOption {
-        type= lib.types.bool;
+        type = lib.types.bool;
         default = true;
         example = false;
         description = ''
