@@ -24,6 +24,12 @@
       latex = true;
     };
 
+    yubikey = {
+      enable = true;
+      login = true;
+      sudo = true;
+    };
+
   };
 
   # This machine has a big battery, so it is fine to stay in sleep longer.

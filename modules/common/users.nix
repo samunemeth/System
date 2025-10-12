@@ -52,8 +52,10 @@
   security.sudo = {
     enable = true;
     wheelNeedsPassword = true;
+
+    # Show password hints.
     extraConfig = ''
-      Defaults rootpw
+      Defaults pwfeedback
     '';
   };
 

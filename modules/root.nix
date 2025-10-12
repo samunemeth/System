@@ -25,6 +25,7 @@
     ./common/network.nix
     ./common/users.nix
     ./common/sops.nix
+    ./common/yubikey.nix
 
     # Program specific configurations.
     ./programs/neovim.nix
