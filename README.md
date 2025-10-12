@@ -230,6 +230,11 @@ Get an *age* public key of your machines host ssh key:
 nix-shell -p ssh-to-age --run 'cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'
 ```
 
+Whatever this is:
+```bash
+pamu2fcfg -u samu > ~/u2f_keys
+```
+
 
 # Resources
 
@@ -271,4 +276,5 @@ Guides, threads, wiki's that I have found useful.
   - [Some Dudes Configuration](https://github.com/nmasur/dotfiles/tree/b282e76be4606d9f2fecc06d2dc8e58d5e3514be)
   - [Declarative WiFi with Sops](https://www.reddit.com/r/NixOS/comments/zneyil/using_sopsnix_to_amange_wireless_secrets/)
   - [How to Dual Boot Windows and NixOS](https://drakerossman.com/blog/how-to-dualboot-windows-and-nixos)
+  - [YubiKeys on NixOS](https://youtu.be/3CeXbONjIgE)
 
