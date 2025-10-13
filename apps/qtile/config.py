@@ -113,7 +113,7 @@ keys = [
 
     # Application quick launch
     Key([mod], "semicolon", lazy.spawn(terminal), desc="Terminal"),
-    #Key([mod], "w", lazy.spawn("firefox"), desc="Firefox"),
+    Key([mod], "w", lazy.spawn("firefox"), desc="Firefox"),
 
     # Rofi menu options
     Key([mod], "d", lazy.spawn("rofi -show drun")),
@@ -122,7 +122,7 @@ keys = [
     Key([mod], "n", lazy.spawn("networkmanager_dmenu")),
     Key([mod], "b", lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained")),
     Key([mod], "x", lazy.spawn(f"rofi -show rofi-sound -modi \"rofi-sound:{qtile_home_path}/rofi/rofi-sound-plugin\"")),
-    Key([mod], "w", lazy.spawn(f"rofi -show rofi-oath -modi \"rofi-oath:{qtile_home_path}/rofi/rofi-oath-plugin\"")),
+    Key([mod, "shift"], "w", lazy.spawn(f"rofi -show rofi-oath -modi \"rofi-oath:{qtile_home_path}/rofi/rofi-oath-plugin\"")),
 
     # Keyboard layout switching.
     Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard()),
@@ -135,7 +135,10 @@ keys = [
     Key([], "Print", lazy.spawn("scrot ~/Downloads/screenshot-%Y-%m-%d-%H%M%S.png", shell=True)),
 
     # Color picker that copies to clipboard.
-    Key([mod, "shift"], "c", lazy.spawn("xcolor | xclip -selection clipboard", shell=True)),
+    Key([mod, "shift"], "c", lazy.spawn("""
+                                        xcolor | xclip -selection clipboard
+                                        dunstify -u low "Copied hex code to clipboard."
+                                        """, shell=True)),
 
     # Hardware key maps to commands.
     Key([], "XF86MonBrightnessUp", lazy.spawn("sudo xbacklight -inc 5")),
