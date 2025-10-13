@@ -212,7 +212,7 @@ nix-shell -p ssh-to-age --run 'cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-ag
 ## WiFi
 
 Some WiFi networks are declared in the Nix configuration and `secrets.yaml` file.
-To add a network, create and identifier for it, in this example, let that be `WORK`.
+To add a network, create and identifier for it, in this example, let that be `*WORK*.
 
 **If *WORK* is a regular network:**
 
