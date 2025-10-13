@@ -66,6 +66,7 @@
         shellAliases = {
 
           "nec" = "( cd ~/System ; nvim flake.nix )";
+          "nes" = "( cd ~/System ; sops secrets.yaml )";
           "nfu" = "( cd ~/System ; nix flake update )";
           "ncg" = "sudo nix-collect-garbage -d";
 
