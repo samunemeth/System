@@ -26,10 +26,10 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [x] *Set Up:* Low Priority packages.
   - [x] *Set Up:* Some declarative WiFi networks with sops.
         [More Info](https://www.reddit.com/r/NixOS/comments/zneyil/using_sopsnix_to_amange_wireless_secrets/)
-  - [ ] *Set UP:* Host keys on other machines.
-  - [ ] *Fix:* The *mini greeter* seems to act up on first boot.
-  - [ ] *Set Up:* A script for enterprise WPA networks, or check why
+  - [x] *Set Up:* A script for enterprise WPA networks, or check why
         user interfaces do not work with it.
+  - [ ] *Set Up:* Host keys on other machines.
+  - [ ] *Fix:* The *mini greeter* seems to act up on first boot.
   - [ ] *Fix:* Alacritty not handling dynamic window titles.
         [More Info](https://github.com/alacritty/alacritty/issues/1636)
   - [ ] *Fix:* Firefox opening in the wrong group.
@@ -37,11 +37,11 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Set Up:* Trashcan in Lf.
   - [ ] *Set Up:* Openers in Lf.
   - [ ] *Set Up:* Password prompt after hibernation.
-  - [ ] *Set Up:* Documentation for sops and sops-nix.
 
 **Declarative Wonderland**
 
   - [ ] *Set Up:* Automatically initialize Seafile on system rebuild.
+  - [ ] *Set Up:* Declarative user ssh keys.
   - [ ] *Look Into:* Impermanence. [More Info](https://grahamc.com/blog/erase-your-darlings/)
   - [ ] *Look Into:* Adding even more preset Firefox options.
 
@@ -50,15 +50,24 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [x] *Set Up:* Machine specific options with nix options.
   - [x] *Look Into:* Automatically determining network devices.
   - [x] *Set Up:* Only use key available in 34 key layout.
-  - [ ] *Look Into:* Creating a visualization for Qtile key mapping.
-  - [ ] *Look Into:* More accurate battery remaining time calculation.
+  - [x] *Look Into:* Creating a visualization for Qtile key mapping.
+    *Not worth it!*
+  - [x] *Look Into:* More accurate battery remaining time calculation.
+    *Pretty accurate after all...*
   - [ ] *Validate:* That automatic settings based on `/sys` are working.
 
 **Nvim**
 
   - [x] *Set Up:* Keybindings for VSCode
   - [x] *Set Up:* Automatic formatting with [conform.nvim](https://github.com/stevearc/conform.nvim).
-  - [ ] *Set Up:* Automatically decrypt `secrets.yaml` if key is available.
+  - [x] *Set Up:* Automatically decrypt `secrets.yaml` if key is available.
+    *Not implemented as it messes with the file diff and just overrides everything,
+    although correct, not pretty or git-friendly.*
+
+**Documentation**
+
+  - [ ] *Update:* Installation documentation.
+  - [ ] *Add:* Documentation for sops and sops-nix.
 
 **Long Term**
 
@@ -71,6 +80,9 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 > [!NOTE]
 > For further guidance, look at the [official installation documentation](https://nixos.org/manual/nixos/stable/#sec-installation).
+
+> [!WARNING]
+> This is pretty outdated at this point.
 
 
   - Get an install media to boot, then switch to the root user with:
@@ -121,15 +133,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - *You do not have to add anything to the `flake.nix` file
     as it scans the `hosts` directory automatically!*
   - *Make sure that your hosts folder includes a `configuration.nix` file, as
-    this is the entry point. Also make sure that this file imports
-    `hardware-configuration.nix`, `overrides.nix` (if applicable) and other
-    common and program specific modules that are intended to be used!*
-    - As the *lightdm mini* greeter does not usually work for the initial login,
-      you can disable it for the first few boot by adding the following
-      configuration option to the `overrides.nix` file of your host:
-      ```
-      services.xserver.displayManager.lightdm.greeters.mini.enable = lib.mkForce false;
-      ```
+    this is the entry point. Also make sure that this file enables settings 
+    that make other common and program specific modules available!*
   - You will have to
     commit your changes, as nix does not like a dirty git tree. You will also
     need to set up your git identity temporarily:
@@ -140,12 +145,13 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     git add .
     git commit -m "Added changes to accomodate new host."
     ```
+    *MAYBE JUST ADD?*
   - After all the changes are made and committed, you can finally install the
     system from the flake:
     ```
     nixos-install --flake .#<YOUR-HOST>
     ```
-    *You will be asked for a root password.*
+    *NEED HOST SSH KEYS?*
   - As the changes are still not pushed to GitHub, you will need to move the
     current git repository to the new users home:
     ```
@@ -156,10 +162,11 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     reboot
     ```
   - If the login screen does not work, you can
-    switch to a console by pressing `ctrl+shift+f2`, logging in and disabling
+    switch to a virtual terminal by pressing `ctrl+shift+f2`, logging in and disabling
     the greeter with the configuration suggested above.
     You can set up a network connection with the help of `nmtui` from the
     console if needed.
+    *IS DISABLING REQUIRED OR JUST LOGIN?*
   - Get the ownership of the repository, as it was copied by a root user
     during installation.
     ```
@@ -191,25 +198,48 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     seaf-cli sync -l 734b3f5b-7bd0-49c2-a1df-65f1cbb201a4 -s https://seafile.samunemeth.hu -d /home/samu/Notes -u "nemeth.samu.0202@gmail.com"
     ```
   - Everything should be set! Rebuild with `nrs` and reboot to see if everything
-    works as expected. Enable the *lightdm mini* greeter after the first few
-    boots if you disabled it before.
+    works as expected.
 
-## Imperative Parts
 
-There are some things that are still missing form the declarative configuration:
+## Sops
 
-**Other Settings**
+Get an *age* public key of your machines host ssh key:
+```bash
+nix-shell -p ssh-to-age --run 'cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'
+```
 
-  - WiFi Networks
-  - SSH Keys
-  - Seafile Configuration
-  - Account Logins (Firefox, Google, VSCode, GitHub)
-
-*Everything else should be configured declaratively!*
 
 ## WiFi
 
-Setting up a WPA enterprise network does not work with `nmtui` or `networkmanager_dmenu` for some reason.
+Some WiFi networks are declared in the Nix configuration and `secrets.yaml` file.
+To add a network, create and identifier for it, in this example, let that be `WORK`.
+
+**If *WORK* is a regular network:**
+
+Then add it to the `normal_networks` list in the `networks.yaml` file, than append
+the following to the `wireless-env` key in the `secrets.yaml` file:
+```
+    WORK_SSID=<SSID>
+    WORK_MGMT=<MGMT-METHOD>
+    WORK_PASS=<PASSWORD>
+```
+Replace `<SSID>`, `<MGMT-METHOD>` and `<PASSWORD>` accordingly.
+Where `<MGMT-METHOD>` is usually either `wpa-psk` or `sae`. You can find out the 
+exact value by saving the network imperatively and looking at the generated configuration.
+
+**If *WORK* is an enterprise network:**
+
+Then add it to the `normal_networks` list in the `networks.yaml` file, than append
+the following to the `wireless-env` key in the `secrets.yaml` file:
+```
+    WORK_SSID=<SSID>
+    WORK_IDEN=<USERNAME>
+    WORK_PASS=<PASSWORD>
+```
+Replace `<SSID>`, `<USERNAME>` and `<PASSWORD>` accordingly.
+
+Setting up a WPA enterprise network imperatively does not work with `nmtui`
+or `networkmanager_dmenu` for some reason.
 Here are some command for setting up such a network:
 ```bash
 nmcli connection add type wifi con-name "<SSID>" ssid "<SSID>"
@@ -224,17 +254,22 @@ the following command:
 sudo nmcli -f NAME,DEVICE,FILENAME connection show
 ```
 
-## Sops
+To generate Nix snippets from your saved networks, check out
+[this tool](https://github.com/janik-haag/nm2nix).
 
-Get an *age* public key of your machines host ssh key:
-```bash
-nix-shell -p ssh-to-age --run 'cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'
-```
 
-Whatever this is:
-```bash
-pamu2fcfg -u samu > ~/u2f_keys
-```
+# Imperative Parts
+
+There are some things that are still missing form the declarative configuration:
+
+  - SSH keys.
+  - Seafile configuration.
+  - Some parts of Firefox.
+  - Basically VSCode as a whole.
+  - Gnome.
+  - Account Logins (Firefox, Google, VSCode, GitHub)
+
+*Everything else should be configured declaratively!*
 
 
 # Resources
