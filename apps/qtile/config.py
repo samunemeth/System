@@ -134,6 +134,9 @@ keys = [
     Key([mod, "shift"], "s", lazy.spawn("scrot ~/Downloads/screenshot-%Y-%m-%d-%H%M%S.png", shell=True)),
     Key([], "Print", lazy.spawn("scrot ~/Downloads/screenshot-%Y-%m-%d-%H%M%S.png", shell=True)),
 
+    # Color picker that copies to clipboard.
+    Key([mod, "shift"], "c", lazy.spawn("xcolor | xclip -selection clipboard", shell=True)),
+
     # Hardware key maps to commands.
     Key([], "XF86MonBrightnessUp", lazy.spawn("sudo xbacklight -inc 5")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("sudo xbacklight -dec 5")),

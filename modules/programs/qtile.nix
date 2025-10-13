@@ -31,20 +31,32 @@
   config = lib.mkIf config.modules.qtile.enable {
 
     # Packages related to Qtile in some way.
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages =
+      with pkgs;
+      [
 
-      lm_sensors # Read system sensors.
-      acpilight # Brightness controller.
-      pulseaudio-ctl # Command line volume control.
-      hsetroot # For background setting.
-      playerctl # For media control (play/pause).
-      scrot # For screenshots.
-      dunst # Notification agent.
-      numlockx # To enable NumLock by default.
-      libinput-gestures # For touchpad gestures.
-      warpd # Keyboard mouse control and movement emulation.
+        lm_sensors # Read system sensors.
+        acpilight # Brightness controller.
+        pulseaudio-ctl # Command line volume control.
+        hsetroot # For background setting.
+        dunst # Notification agent.
+        numlockx # To enable NumLock by default.
+        libinput-gestures # For touchpad gestures.
+        warpd # Keyboard mouse control and movement emulation.
 
-    ];
+      ]
+      ++ (
+        if config.modules.packages.lowPriority then
+          [
+
+            playerctl # For media control (play/pause).
+            scrot # For screenshots.
+            xcolor # For color picking.
+
+          ]
+        else
+          [ ]
+      );
 
     # Enable the X11 windowing system.
     services.xserver = {
