@@ -37,6 +37,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Set Up:* Trashcan in Lf.
   - [ ] *Set Up:* Openers in Lf.
   - [ ] *Set Up:* Password prompt after hibernation.
+  - [ ] *Look Into:* A cleaner way of generating host ssh keys.
+      *Maybe just manually create them on install?*
 
 **Declarative Wonderland**
 
