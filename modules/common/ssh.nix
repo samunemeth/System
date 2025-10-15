@@ -9,12 +9,25 @@
 }:
 {
 
-  programs.ssh = {
+  # Add default password protected ssh key to the .ssh folder.
+  sops.secrets.user-ssh-pass-public = {
+    owner = globals.user;
+    group = "users";
+    path = "/home/${globals.user}/.ssh/id_pass.pub";
+  };
+  sops.secrets.user-ssh-pass-private = {
+    owner = globals.user;
+    group = "users";
+    path = "/home/${globals.user}/.ssh/id_pass";
+  };
 
-    startAgent = true;
+  # Machine ssh settings.
+  programs.ssh = {
 
     # Configure known hosts to avoid errors.
     knownHosts = {
+
+      # GitHub public keys.
       "github.com/ed25519" = {
         hostNames = [
           "github.com"
@@ -39,5 +52,44 @@
     };
 
   };
+
+  # --- Home Manager Part ---
+  home-manager.users.${globals.user} =
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
+    {
+
+      # User ssh settings.
+      programs.ssh = {
+
+        enable = true;
+
+        # Pass keys to ssh agent. This is needed for YubiKey.
+        extraConfig = ''
+          AddKeysToAgent yes
+        '';
+
+        # Define what keys to use
+        matchBlocks = {
+
+          # Use `yubi` as the primary, `pass` for fallback for GitHub.
+          "git" = {
+            host = "github.com";
+            user = "git";
+            identityFile = [
+              "~/.ssh/id_yubi"
+              "~/.ssh/id_pass"
+            ];
+          };
+
+        };
+
+      };
+
+    };
 
 }

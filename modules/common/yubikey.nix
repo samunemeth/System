@@ -50,6 +50,7 @@
 
     # YubiKey for login and sudo.
     security.pam = {
+      sshAgentAuth.enable = true;
       u2f = {
         enable = true;
         settings = {
@@ -75,6 +76,18 @@
       path = "/home/${globals.user}/.config/Yubico/u2f_keys";
     };
 
+    # Add `yubi` ssh keys to the users `.ssh` folder.
+    sops.secrets.user-ssh-yubi-public = {
+      owner = globals.user;
+      group = "users";
+      path = "/home/${globals.user}/.ssh/id_yubi.pub";
+    };
+    sops.secrets.user-ssh-yubi-private = {
+      owner = globals.user;
+      group = "users";
+      path = "/home/${globals.user}/.ssh/id_yubi";
+    };
+
     # --- Home Manager Part ---
     home-manager.users.${globals.user} =
       {
@@ -84,6 +97,8 @@
         ...
       }:
       {
+
+
 
         # Touch detection
         # home.packages = with pkgs; [
