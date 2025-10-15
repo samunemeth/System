@@ -43,7 +43,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 **Declarative Wonderland**
 
   - [ ] *Set Up:* Automatically initialize Seafile on system rebuild.
-  - [ ] *Set Up:* Declarative user ssh keys.
+  - [x] *Set Up:* Declarative user ssh keys.
   - [ ] *Look Into:* Impermanence. [More Info](https://grahamc.com/blog/erase-your-darlings/)
   - [ ] *Look Into:* Adding even more preset Firefox options.
 
