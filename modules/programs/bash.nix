@@ -71,6 +71,7 @@
           "ncg" = "sudo nix-collect-garbage -d";
 
           "snvim" = "sudo -E nvim";
+          "clip" = "xclip -selection clipboard";
           "fetch" = "fastfetch";
 
         };
