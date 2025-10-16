@@ -67,6 +67,9 @@
         acc: elem: if builtins.getAttr elem self.dirContents == "directory" then acc ++ [ elem ] else acc
       ) [ ] (builtins.attrNames self.dirContents);
 
+
+      # --- Configurations ---
+
       # Generate NixOS configuration entries from host list.
       nixosConfigurations = builtins.mapAttrs (
         host: _:
@@ -100,14 +103,17 @@
 
       ) (self.listToAttrs self.hosts);
 
-      # Directly runnable applications.
-      apps.x86_64-linux.hello-there = {
+
+      # --- Runnable Applications ---
+
+      # Host key generator script.
+      apps.x86_64-linux.generate-host-keys = {
         type = "app";
-        program = "${self.packages.x86_64-linux.hello-there}/bin/hello-there";
+        program = "${self.packages.x86_64-linux.generate-host-keys}/bin/generate-host-keys";
       };
-      packages.x86_64-linux.hello-there =  nixpkgs.legacyPackages.x86_64-linux.writers.writeBashBin "hello-there" ''
-        echo "Hello there!"
-      '';
+      packages.x86_64-linux.generate-host-keys = nixpkgs.legacyPackages.x86_64-linux.writers.writeBashBin "generate-host-keys" (
+        builtins.readFile ./runnable/generate-host-keys.sh
+      );
 
     };
 }
