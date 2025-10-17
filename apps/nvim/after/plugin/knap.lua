@@ -36,7 +36,7 @@ if knap then
 	vim.keymap.set({ "n", "v" }, "<leader>x", function()
 		knap.close_viewer()
 	end)
-	vim.keymap.set({ "n", "v" }, "<leader>c", function()
+	vim.keymap.set({ "n", "v" }, "<leader>a", function()
 		knap.toggle_autopreviewing()
 	end)
 	vim.keymap.set({ "n", "v" }, "<leader>y", function()
