@@ -3,7 +3,7 @@ keys:
     - &joseph-admin age1sea7mljrfuu0xakccvvn9ep0emaq76czwqp93x4v6hds4d3jpcastc0teh
   - &hosts:
     - &joseph-system age1qa43nn7cd70ydew8csgxawc9rsn2z0nqfh0lwp2e6qzu2cyr8fsq2a6289
-    - &sulfur-system age108y7df45mpzh04h5ch9ykfrwa4y8gvcd07a9z4xc75w34xnngczsujx99h
+    - &sulfur-system age1lsfh32ceclj9lcrfuzvwrl2znyd7efhgza9fpzp8c67t3yg5du2sdyc9ju
 creation_rules:
   - path_regex: secrets.yaml$
     key_groups:
