@@ -116,6 +116,10 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - **Create your partitions.**
   - **Format your partitions.**
   - **Mount your partitions.**
+  - Generate some host ssh keys for your new machine:
+    ```
+    ssh-keygen -A -f /mnt
+    ```
   - Clone this repository into the installers home directory, and change into it:
     ```
     cd ~
