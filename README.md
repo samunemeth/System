@@ -294,6 +294,7 @@ Wiki's for Nix language basics.
 
   - [Language Basics](https://nix.dev/tutorials/nix-language.html)
   - [Builtin](https://nix.dev/manual/nix/2.28/language/builtins.html)
+  - [Nix Pills](https://nixos.org/guides/nix-pills/00-preface.html)
 
 ## Firefox
 
@@ -315,4 +316,5 @@ Guides, threads, wiki's that I have found useful.
   - [Declarative WiFi with Sops](https://www.reddit.com/r/NixOS/comments/zneyil/using_sopsnix_to_amange_wireless_secrets/)
   - [How to Dual Boot Windows and NixOS](https://drakerossman.com/blog/how-to-dualboot-windows-and-nixos)
   - [YubiKeys on NixOS](https://youtu.be/3CeXbONjIgE)
+  - [Reference for Writers](https://nixos.wiki/wiki/Nix-writers)
 
