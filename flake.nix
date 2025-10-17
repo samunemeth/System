@@ -100,14 +100,5 @@
 
       ) (self.listToAttrs self.hosts);
 
-      # Directly runnable applications.
-      apps.x86_64-linux.hello-there = {
-        type = "app";
-        program = "${self.packages.x86_64-linux.hello-there}/bin/hello-there";
-      };
-      packages.x86_64-linux.hello-there =  nixpkgs.legacyPackages.x86_64-linux.writers.writeBashBin "hello-there" ''
-        echo "Hello there!"
-      '';
-
     };
 }
