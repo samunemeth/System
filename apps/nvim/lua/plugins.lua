@@ -1,4 +1,5 @@
 --- Plugins ---
+--[[
 
 local Plug = vim.fn["plug#"]
 
@@ -49,6 +50,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
 	end,
 	group = vim.api.nvim_create_augroup("AutoPlugInstall", { clear = true }),
 })
+
+]]
 
 function safe_require(module)
 	local ok, mod = pcall(require, module)
