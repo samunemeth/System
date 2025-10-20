@@ -24,6 +24,9 @@
   # Machine ssh settings.
   programs.ssh = {
 
+    # This is required for YubiKey related stuff.
+    startAgent = true;
+
     # Configure known hosts to avoid errors.
     knownHosts = {
 
