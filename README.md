@@ -300,6 +300,10 @@ Wiki's for Nix language basics.
   - [Builtin](https://nix.dev/manual/nix/2.28/language/builtins.html)
   - [Nix Pills](https://nixos.org/guides/nix-pills/00-preface.html)
 
+## Impermanence
+
+  - [Blog Post](https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/)
+
 ## Firefox
 
 Resources for configuring Firefox with Nix.
