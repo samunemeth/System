@@ -53,12 +53,13 @@
           SearchEngines = {
             Default = "DuckDuckGo";
           };
+          ShowHomeButton = false;
 
           # Extensions.
           ExtensionSettings = {
 
             # Block installation of other extensions.
-            "*".installation_mode = "blocked";
+            # "*".installation_mode = "blocked";
 
             # uBlock Origin
             "uBlock0@raymondhill.net" = {
