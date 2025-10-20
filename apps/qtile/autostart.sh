@@ -13,3 +13,11 @@ warpd --move "$XC $YC"
 
 # Turn on NumLock
 numlockx on
+
+# Start a locker that has a password prompt already showing.
+# xsecurelock &
+# for i in {1..20}; do
+#   pid=$(pgrep -xu "$USER" -n xsecurelock)
+#   [ -n "$pid" ] && { kill -USR2 "$pid"; break; }
+#   sleep 0.05
+# done

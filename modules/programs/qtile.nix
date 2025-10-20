@@ -43,6 +43,7 @@
         numlockx # To enable NumLock by default.
         libinput-gestures # For touchpad gestures.
         warpd # Keyboard mouse control and movement emulation.
+        xsecurelock # For secure session locking.
 
       ]
       ++ (
@@ -64,6 +65,7 @@
       enable = true;
 
       # Configure the login screen.
+
       displayManager.lightdm = {
 
         enable = true;
