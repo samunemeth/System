@@ -12,12 +12,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # WSL support distribution.
-    nixos-wsl = {
-      url = "github:nix-community/nixos-wsl/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Sops for secrets.
     sops-nix = {
       url = "github:Mic92/sops-nix";
