@@ -117,7 +117,7 @@ keys = [
 
     # Rofi menu options
     Key([mod], "d", lazy.spawn("rofi -show drun")),
-    Key([mod], "s", lazy.spawn(f"rofi -show power-menu -modi \"power-menu:{qtile_home_path}/rofi/rofi-power-plugin --choices shutdown/reboot/suspend/hibernate/logout\"")),
+    Key([mod], "s", lazy.spawn(f"rofi -show power-menu -modi \"power-menu:{qtile_home_path}/rofi/rofi-power-plugin --choices shutdown/reboot/suspend/hibernate/logout/lockscreen\"")),
     Key([mod], "c", lazy.spawn("rofi -show calc -modi calc")),
     Key([mod], "n", lazy.spawn("networkmanager_dmenu")),
     Key([mod], "b", lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained")),

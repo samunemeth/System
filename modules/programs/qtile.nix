@@ -44,6 +44,7 @@
         libinput-gestures # For touchpad gestures.
         warpd # Keyboard mouse control and movement emulation.
         xsecurelock # For secure session locking.
+        xss-lock # Locking daemon.
 
       ]
       ++ (

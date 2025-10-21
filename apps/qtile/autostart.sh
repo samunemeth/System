@@ -14,6 +14,9 @@ warpd --move "$XC $YC"
 # Turn on NumLock
 numlockx on
 
+# Start xss-lock in the background.
+xss-lock xsecurelock &
+
 # Start a locker that has a password prompt already showing.
 # xsecurelock &
 # for i in {1..20}; do
