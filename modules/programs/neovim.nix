@@ -86,6 +86,7 @@
             p.markdown_inline
             p.nix
             p.yaml
+            p.bash
           ])) # Syntax highlighting
           conform-nvim # Formatting
 

@@ -25,6 +25,7 @@
     packages.lowPriority = true;
 
     # Enable Qtile as a window manager.
+    kmscon.enable = true;
     qtile = {
       enable = true;
       processorTemperatureName = "Package id 0";
