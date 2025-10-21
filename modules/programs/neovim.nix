@@ -28,6 +28,7 @@
           treefmt # Recursive formatter for projects.
           stylua # Lua formatter.
           nixfmt-rfc-style # Nix formatter.
+          beautysh  # Bash formatter.
 
         ]
       else

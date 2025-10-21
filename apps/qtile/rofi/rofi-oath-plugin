@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
-
 LANG="en_US.utf8"
 
-if [ "$@" ]
+if [[ "$@" ]]
 then
 
-    selection=$* 
+    selection=$*
 
     if [[ "$selection" == "No YubiKey Inserted!" ]]; then
-      exit
+        exit
     fi
 
     name=${selection% -*}
@@ -24,9 +23,9 @@ else
     codes=$(ykman oath accounts code || echo "ERROR")
 
     if [[ "$codes" == "ERROR" ]]; then
-      dunstify -t 5000 -u high "No YubiKey Inserted!" "Please plug in your security key to access OATH codes."
-      echo "No YubiKey Inserted!"
-      exit
+        dunstify -t 5000 -u high "No YubiKey Inserted!" "Please plug in your security key to access OATH codes."
+        echo "No YubiKey Inserted!"
+        exit
     fi
 
     for x in $(echo "$codes" | rg '^(.+?):.*\s(\d{6})$' -r '$1:$2' -o --color=never)

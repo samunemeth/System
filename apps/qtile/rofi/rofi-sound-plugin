@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 LANG="en_US.utf8"
+
 # Outputs have spaces in them, so let's make \n the IFS
 IFS=$'\n'
 

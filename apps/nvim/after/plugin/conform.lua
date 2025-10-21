@@ -7,6 +7,7 @@ if conform then
 		formatters_by_ft = {
 			lua = { "stylua" },
 			nix = { "nixfmt" },
+			sh = { "beautysh" },
 		},
 	})
 
