@@ -88,6 +88,8 @@
             p.nix
             p.yaml
             p.bash
+            p.latex
+            p.java
           ])) # Syntax highlighting
           conform-nvim # Formatting
 
