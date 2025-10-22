@@ -111,14 +111,16 @@
     };
 
     # Enable Qtile.
-    services.xserver.windowManager.qtile = {
-      enable = true;
-      extraPackages =
-        python3Packages: with python3Packages; [
-          qtile-extras
-          iwlib
-        ];
-    };
+    services.xserver.windowManager.qtile =
+      assert (!(config.modules.qtile.enable && config.modules.gnome.enable));
+      {
+        enable = true;
+        extraPackages =
+          python3Packages: with python3Packages; [
+            qtile-extras
+            iwlib
+          ];
+      };
 
     # Add rules so Qtile can adjust screen brightness.
     security.sudo.extraRules = lib.mkAfter [

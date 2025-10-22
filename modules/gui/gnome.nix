@@ -26,7 +26,11 @@
     services.xserver = {
       enable = true;
       displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
+      desktopManager.gnome =
+        assert (!(config.modules.qtile.enable && config.modules.gnome.enable));
+        {
+          enable = true;
+        };
     };
 
     # Disable default bloat.
