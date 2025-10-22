@@ -23,6 +23,12 @@
 
         enable = true;
 
+        nativeMessagingHosts = [
+
+          pkgs.tridactyl-native # Package for Firefox extension.
+
+        ];
+
         policies = {
 
           # Simple policies.
@@ -59,7 +65,7 @@
           ExtensionSettings = {
 
             # Block installation of other extensions.
-            # "*".installation_mode = "blocked";
+            "*".installation_mode = "blocked";
 
             # uBlock Origin
             "uBlock0@raymondhill.net" = {
@@ -70,6 +76,12 @@
             # Cameleon
             "{3579f63b-d8ee-424f-bbb6-6d0ce3285e6a}" = {
               install_url = "https://addons.mozilla.org/firefox/downloads/latest/cameleon-ext/latest.xpi";
+              installation_mode = "force_installed";
+            };
+
+            # Tridactyl
+            "tridactyl.vim@cmcaine.co.uk" = {
+              install_url = "https://addons.mozilla.org/firefox/downloads/latest/tridactyl-vim/latest.xpi";
               installation_mode = "force_installed";
             };
 
@@ -109,6 +121,10 @@
         };
 
       };
+
+      # Configuration file for Tridactyl extension.
+      home.file.".tridactylrc".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/firefox/tridactylrc";
 
     };
 }

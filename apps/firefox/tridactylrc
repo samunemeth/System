@@ -1,0 +1,22 @@
+# Simple settings.
+set newtab about:blank
+set theme shydactyl
+
+# Unbind the leader key.
+unbind <space>
+unbind <S-space>
+
+# Some simple bindings.
+bind <C-C> echo "This does nothing."
+bind e tabnext
+bind q tabprev
+
+# Bindings for searching.
+bind <space>/ fillcmdline find 
+bind <space>, nohlsearch
+bind n findnext
+bind N findnext -?
+
+bind <space><space> fillcmdline bmarks
+bind <space>t fillcmdline tab
+bind <space>f tabopen file:///home/
