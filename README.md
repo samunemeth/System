@@ -28,6 +28,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
         [More Info](https://www.reddit.com/r/NixOS/comments/zneyil/using_sopsnix_to_amange_wireless_secrets/)
   - [x] *Set Up:* A script for enterprise WPA networks, or check why
         user interfaces do not work with it.
+  - [x] *Look Into:* A cleaner way of generating host ssh keys.
+      *Maybe just manually create them on install?*
   - [ ] *Set Up:* Host keys on other machines.
   - [ ] *Fix:* The *mini greeter* seems to act up on first boot.
   - [ ] *Fix:* Alacritty not handling dynamic window titles.
@@ -37,13 +39,15 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Set Up:* Trashcan in Lf.
   - [ ] *Set Up:* Openers in Lf.
   - [ ] *Set Up:* Password prompt after hibernation.
-  - [ ] *Look Into:* A cleaner way of generating host ssh keys.
-      *Maybe just manually create them on install?*
+  - [ ] *Look Into:* Hibernation and Sleep fucking with YubiKey authentication.
+  - [ ] *Look Into:* [Luakit](https://luakit.github.io/) browser.
+  - [ ] *Set Up:* Automatic locking.
+  - [ ] *Look Into:* Using lock screen for login.
 
 **Declarative Wonderland**
 
-  - [ ] *Set Up:* Automatically initialize Seafile on system rebuild.
   - [x] *Set Up:* Declarative user ssh keys.
+  - [ ] *Set Up:* Automatically initialize Seafile on system rebuild.
   - [ ] *Look Into:* Impermanence. [More Info](https://grahamc.com/blog/erase-your-darlings/)
   - [ ] *Look Into:* Adding even more preset Firefox options.
 
