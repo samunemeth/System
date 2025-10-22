@@ -144,6 +144,16 @@
       };
     };
 
+    # send SIGUSR2 to xsecurelock on resume (post)
+    environment.etc."systemd/system-sleep/xsecurelock".text = ''
+      #!/bin/sh
+      if [ "$1" = "post" ]; then
+        pkill -x -USR2 xsecurelock
+      fi
+      exit 0
+    '';
+    environment.etc."systemd/system-sleep/xsecurelock".mode = "0755";
+
     # --- Home Manager Part ---
     home-manager.users.${globals.user} =
       let
