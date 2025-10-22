@@ -41,9 +41,6 @@
     ./programs/java.nix
     ./programs/gnome.nix
 
-    # Configurations for specializations.
-    ./specialisations/lite.nix
-
   ];
 
   options = {
