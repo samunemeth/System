@@ -8,6 +8,7 @@
   ...
 }:
 {
+
   options = {
     modules.qtile.enable = lib.mkOption {
       type = lib.types.bool;

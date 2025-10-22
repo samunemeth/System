@@ -8,6 +8,7 @@
   ...
 }:
 {
+
   options = {
     modules.gnome.enable = lib.mkOption {
       type = lib.types.bool;

@@ -20,26 +20,29 @@
     ./common/packages.nix
     ./common/ssh.nix
     ./common/audio.nix
-    ./common/files.nix
     ./common/network.nix
     ./common/users.nix
     ./common/sops.nix
     ./common/yubikey.nix
+    ./common/bash.nix
 
     # Program specific configurations.
     ./programs/neovim.nix
     ./programs/alacritty.nix
-    ./programs/bash.nix
     ./programs/firefox.nix
     ./programs/git.nix
     ./programs/rofi.nix
     ./programs/zathura.nix
-    ./programs/qtile.nix
     ./programs/lf.nix
     ./programs/latex.nix
     ./programs/vscode.nix
     ./programs/java.nix
-    ./programs/gnome.nix
+    ./programs/seafile.nix
+
+    # User interfaces.
+    ./gui/gnome.nix
+    ./gui/kmscon.nix
+    ./gui/qtile.nix
 
   ];
 
