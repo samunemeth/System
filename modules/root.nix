@@ -38,6 +38,7 @@
     ./programs/vscode.nix
     ./programs/java.nix
     ./programs/seafile.nix
+    ./programs/rust.nix
 
     # User interfaces.
     ./gui/gnome.nix

@@ -8,6 +8,7 @@ if conform then
 			lua = { "stylua" },
 			nix = { "nixfmt" },
 			sh = { "beautysh" },
+			rust = { "rustfmt" },
 		},
 	})
 

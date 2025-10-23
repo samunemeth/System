@@ -28,7 +28,7 @@
           treefmt # Recursive formatter for projects.
           stylua # Lua formatter.
           nixfmt-rfc-style # Nix formatter.
-          beautysh  # Bash formatter.
+          beautysh # Bash formatter.
 
         ]
       else
@@ -37,6 +37,9 @@
 
   # --- Home Manager Part ---
   home-manager.users.${globals.user} =
+    let
+      hasRust = config.modules.programming.rust;
+    in
     {
       config,
       pkgs,
@@ -54,46 +57,57 @@
         viAlias = false;
         vimAlias = false;
 
-        plugins = with pkgs.vimPlugins; [
+        plugins =
+          with pkgs.vimPlugins;
+          [
 
-          # LaTeX related
-          vimtex # LaTeX language support
-          knap # Live LaTeX and markdown compilation
-          nabla-nvim # Equation previews
-          ultisnips # For snippets mainly in LaTeX
+            # LaTeX related
+            vimtex # LaTeX language support
+            knap # Live LaTeX and markdown compilation
+            nabla-nvim # Equation previews
+            ultisnips # For snippets mainly in LaTeX
 
-          # File management
-          nvim-tree-lua # File tree
-          plenary-nvim
-          telescope-nvim # For quick file access
+            # File management
+            nvim-tree-lua # File tree
+            plenary-nvim
+            telescope-nvim # For quick file access
 
-          # Visuals
-          lightline-vim # Fancy status bar
+            # Visuals
+            lightline-vim # Fancy status bar
 
-          # Change tracking
-          undotree # For an undo tree
-          vim-fugitive # For git
+            # Change tracking
+            undotree # For an undo tree
+            vim-fugitive # For git
 
-          # LSP and syntax
-          (nvim-treesitter.withPlugins (p: [
-            p.javascript
-            p.html
-            p.c
-            p.lua
-            p.vim
-            p.vimdoc
-            p.query
-            p.markdown
-            p.markdown_inline
-            p.nix
-            p.yaml
-            p.bash
-            p.latex
-            p.java
-          ])) # Syntax highlighting
-          conform-nvim # Formatting
+            # LSP and syntax
+            (nvim-treesitter.withPlugins (p: [
+              p.javascript
+              p.html
+              p.c
+              p.lua
+              p.vim
+              p.vimdoc
+              p.query
+              p.markdown
+              p.markdown_inline
+              p.nix
+              p.yaml
+              p.bash
+              p.latex
+              p.java
+              p.rust
+            ])) # Syntax highlighting
+            conform-nvim # Formatting
 
-        ];
+          ]
+          ++ (
+            if hasRust then
+              [
+                rustaceanvim
+              ]
+            else
+              [ ]
+          );
 
       };
 

@@ -40,6 +40,7 @@
     programming = {
       vscode = false;
       java = false;
+      rust = false;
     };
 
     # Enable support for YubiKeys, logging in and using sudo with them.
