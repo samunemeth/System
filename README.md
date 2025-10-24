@@ -40,9 +40,9 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Set Up:* Openers in Lf.
   - [ ] *Set Up:* Password prompt after hibernation.
   - [ ] *Look Into:* Hibernation and Sleep fucking with YubiKey authentication.
-  - [ ] *Look Into:* [Luakit](https://luakit.github.io/) browser.
   - [ ] *Set Up:* Automatic locking.
   - [ ] *Look Into:* Using lock screen for login.
+  - [ ] *Look Into:* Better practice of setting up ssh keys for correct privileges.
 
 **Declarative Wonderland**
 
