@@ -12,6 +12,7 @@
   environment.systemPackages = with pkgs; [
 
     sops # For secret management.
+    ssh-to-age # For editing the secrets with the host key.
 
   ];
 

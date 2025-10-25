@@ -31,7 +31,6 @@
           shellAliases = {
 
             "nec" = "( cd ~/System ; nvim flake.nix )";
-            "nes" = "( cd ~/System ; sops secrets.yaml )";
             "nfu" = "( cd ~/System ; nix flake update )";
             "ncg" = "sudo nix-collect-garbage -d";
 
@@ -44,6 +43,11 @@
           # Alias for building NixOS and custom bash prompt.
           initExtra = # bash
             ''
+
+              nes () {
+                cd ~/System
+                SOPS_AGE_KEY=$(sudo ssh-to-age -private-key -i /etc/ssh/ssh_host_ed25519_key) sops $1 secrets.yaml
+              }
 
               nrs () {
                 sudo nixos-rebuild switch --flake ~/System/#$1
