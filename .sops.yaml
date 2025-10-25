@@ -4,6 +4,7 @@ keys:
   - &hosts:
     - &joseph-system age1qa43nn7cd70ydew8csgxawc9rsn2z0nqfh0lwp2e6qzu2cyr8fsq2a6289
     - &sulfur-system age1lsfh32ceclj9lcrfuzvwrl2znyd7efhgza9fpzp8c67t3yg5du2sdyc9ju
+    - &edmund-system age14659cxwykw06skk590l9udmfeh8q8m6gu58pr86s9rjfnjra3q7qj8anf0
 creation_rules:
   - path_regex: secrets.yaml$
     key_groups:
@@ -11,3 +12,4 @@ creation_rules:
       - *joseph-admin
       - *joseph-system
       - *sulfur-system
+      - *edmund-system
