@@ -30,7 +30,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
         user interfaces do not work with it.
   - [x] *Look Into:* A cleaner way of generating host ssh keys.
       *Maybe just manually create them on install?*
-  - [ ] *Set Up:* Host keys on other machines.
+  - [x] *Set Up:* Host keys on other machines.
   - [ ] *Fix:* The *mini greeter* seems to act up on first boot.
   - [ ] *Fix:* Alacritty not handling dynamic window titles.
         [More Info](https://github.com/alacritty/alacritty/issues/1636)
@@ -60,7 +60,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     *Not worth it!*
   - [x] *Look Into:* More accurate battery remaining time calculation.
     *Pretty accurate after all...*
-  - [ ] *Validate:* That automatic settings based on `/sys` are working.
+  - [x] *Validate:* That automatic settings based on `/sys` are working.
+  - [ ] *Look Into* What the fuck is going on with multiple monitors.
 
 **Nvim**
 
