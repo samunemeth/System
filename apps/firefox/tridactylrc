@@ -9,7 +9,7 @@ unbind <S-space>
 # Some simple bindings.
 bind <C-C> echo "This does nothing."
 bind e tabnext
-bind q tabprev
+bind E tabprev
 
 # Bindings for searching.
 bind <space>/ fillcmdline find 
