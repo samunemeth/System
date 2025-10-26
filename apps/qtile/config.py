@@ -82,6 +82,10 @@ def autostart():
 
 # --- Keyboard Shortcuts ---
 
+def go_to_next_screen(qtile):
+    next_index = (qtile.current_screen.index + 1) % len(qtile.screens)
+    qtile.cmd_to_screen(next_index)
+
 keys = [
 
     # Switching and moving windows.
@@ -114,6 +118,10 @@ keys = [
     # Application quick launch
     Key([mod], "semicolon", lazy.spawn(terminal), desc="Terminal"),
     Key([mod], "w", lazy.spawn("firefox"), desc="Firefox"),
+
+    # Move to next screen. Both on y and z to avoid confusion on qwertz keyboards.
+    Key([mod], "y", lazy.next_screen(), desc="Next screen"),
+    Key([mod], "z", lazy.next_screen(), desc="Next screen"),
 
     # Rofi menu options
     Key([mod], "d", lazy.spawn("rofi -show drun")),
@@ -231,11 +239,23 @@ for i in groups:
 
 # --- Layout Settings ---
 
+def get_connected_monitors() -> int:
+    """Return number of connected outputs reported by xrandr."""
+    try:
+        out = subprocess.check_output(["xrandr", "--query"], stderr=subprocess.DEVNULL)
+        out = out.decode("utf-8", errors="ignore")
+    except Exception:
+        return 1
+    lines = [L for L in out.splitlines() if " connected" in L]
+    return max(1, len(lines))
+
 layouts = [
     layout.Columns(
         border_width = 2,
         border_focus = parametric.foreground_soft,
         border_normal = parametric.background_contrast,
+        border_on_single = get_connected_monitors() > 1,
+        single_border_width = 2,
     ),
 ]
 
@@ -245,11 +265,8 @@ floating_layout = layout.Floating(
     border_normal = parametric.background_contrast,
     float_rules = [
         *layout.Floating.default_float_rules,
-        Match(wm_class='SnakeGame'),
-        Match(wm_class='ChessGame'),
     ]
 )
-
 
 # --- Widget Settings ---
 

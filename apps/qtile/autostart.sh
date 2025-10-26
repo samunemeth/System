@@ -14,6 +14,11 @@ warpd --move "$XC $YC"
 # Turn on NumLock
 numlockx on
 
+# Configure monitors.
+# For an additional display above.
+# xrandr --output HDMI-1 --mode 2560x1440 --rate 120.00 --pos 0x0 --noprimary --above eDP-1
+# xrandr --output eDP-1 --mode 1920x1200 --pos 320x1440 --primary
+
 # Start xss-lock in the background.
 # xss-lock -l -- xsecurelock &
 
