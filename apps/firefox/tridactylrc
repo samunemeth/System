@@ -1,6 +1,11 @@
 # Simple settings.
-set newtab about:blank
+set newtab https://blackscreen.app/
 set theme shydactyl
+
+# Set custom search patterns.
+set searchurls.pkgs https://search.nixos.org/packages?query=
+set searchurls.mynixos https://mynixos.com/search?q=
+set searchurls.wiki https://en.wikipedia.org/w/index.php?search=
 
 # Unbind the leader key.
 unbind <space>
