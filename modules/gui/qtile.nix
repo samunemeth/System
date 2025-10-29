@@ -122,12 +122,22 @@
           ];
       };
 
-    # Add rules so Qtile can adjust screen brightness.
+    # Add rules for no sudo password.
     security.sudo.extraRules = lib.mkAfter [
       {
         commands = [
+          # Changing monitor brightness.
           {
             command = "/run/current-system/sw/bin/xbacklight";
+            options = [ "NOPASSWD" ];
+          }
+          # Mounting and unmounting.
+          {
+            command = "/run/wrappers/bin/mount";
+            options = [ "NOPASSWD" ];
+          }
+          {
+            command = "/run/wrappers/bin/umount";
             options = [ "NOPASSWD" ];
           }
         ];

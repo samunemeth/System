@@ -131,6 +131,7 @@ keys = [
     Key([mod], "b", lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained")),
     Key([mod], "x", lazy.spawn(f"rofi -show rofi-sound -modi \"rofi-sound:{qtile_home_path}/rofi/rofi-sound-plugin\"")),
     Key([mod, "shift"], "w", lazy.spawn(f"rofi -show rofi-oath -modi \"rofi-oath:{qtile_home_path}/rofi/rofi-oath-plugin\"")),
+    Key([mod, "shift"], "d", lazy.spawn(f"rofi -show rofi-mount -modi \"rofi-mount:{qtile_home_path}/rofi/rofi-mount-plugin\"")),
 
     # Keyboard layout switching.
     Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard()),
@@ -139,8 +140,14 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload Config"),
 
     # Screenshot.
-    Key([mod, "shift"], "s", lazy.spawn("scrot ~/Downloads/screenshot-%Y-%m-%d-%H%M%S.png", shell=True)),
-    Key([], "Print", lazy.spawn("scrot ~/Downloads/screenshot-%Y-%m-%d-%H%M%S.png", shell=True)),
+    Key([mod, "shift"], "s", lazy.spawn("""
+                                        scrot ~/Downloads/screenshot-%Y-%m-%d-%H%M%S.png
+                                        dunstify -u low "Screenshot saved to downloads."
+                                        """, shell=True)),
+    Key([], "Print", lazy.spawn("""
+                                scrot ~/Downloads/screenshot-%Y-%m-%d-%H%M%S.png
+                                dunstify -u low "Screenshot saved to downloads."
+                                """, shell=True)),
 
     # Color picker that copies to clipboard.
     Key([mod, "shift"], "c", lazy.spawn("""
