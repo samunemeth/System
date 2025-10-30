@@ -37,6 +37,7 @@
   };
 
   config = lib.mkIf config.modules.yubikey.enable {
+
     environment.systemPackages = with pkgs; [
 
       pam_u2f # Enables pam to use u2f authentication.
@@ -47,6 +48,23 @@
     # Smart card service.
     services.pcscd.enable = true;
     services.yubikey-agent.enable = true;
+
+    # Request u2f keys.
+    sops.secrets.u2f-keys = {
+      owner = globals.user;
+      group = "users";
+    };
+
+    # Request the "yubi" ssh key from nix.
+    # Similar to what happens in `ssh.nix` with "pass".
+    sops.secrets.user-ssh-yubi-public = {
+      owner = globals.user;
+      group = "users";
+    };
+    sops.secrets.user-ssh-yubi-private = {
+      owner = globals.user;
+      group = "users";
+    };
 
     # YubiKey for login and sudo.
     security.pam = {
@@ -69,27 +87,13 @@
       Defaults env_keep+=SSH_AUTH_SOCK
     '';
 
-    # Extract u2f keys into correct place.
-    sops.secrets.u2f-keys = {
-      owner = globals.user;
-      group = "users";
-      path = "/home/${globals.user}/.config/Yubico/u2f_keys";
-    };
-
-    # Add `yubi` ssh keys to the users `.ssh` folder.
-    sops.secrets.user-ssh-yubi-public = {
-      owner = globals.user;
-      group = "users";
-      path = "/home/${globals.user}/.ssh/id_yubi.pub";
-    };
-    sops.secrets.user-ssh-yubi-private = {
-      owner = globals.user;
-      group = "users";
-      path = "/home/${globals.user}/.ssh/id_yubi";
-    };
-
     # --- Home Manager Part ---
     home-manager.users.${globals.user} =
+      let
+        user-ssh-yubi-public-path = config.sops.secrets.user-ssh-yubi-public.path;
+        user-ssh-yubi-private-path = config.sops.secrets.user-ssh-yubi-private.path;
+        u2f-keys-path = config.sops.secrets.u2f-keys.path;
+      in
       {
         config,
         pkgs,
@@ -98,7 +102,19 @@
       }:
       {
 
+        home.file = {
 
+          # Link the "yubi" ssh keys into place.
+          "/home/${globals.user}/.ssh/id_yubi.pub".source =
+            config.lib.file.mkOutOfStoreSymlink user-ssh-yubi-public-path;
+          "/home/${globals.user}/.ssh/id_yubi".source =
+            config.lib.file.mkOutOfStoreSymlink user-ssh-yubi-private-path;
+
+          # Link u2f keys into place.
+          "/home/${globals.user}/.config/Yubico/u2f_keys".source =
+            config.lib.file.mkOutOfStoreSymlink u2f-keys-path;
+
+        };
 
         # Touch detection
         # home.packages = with pkgs; [

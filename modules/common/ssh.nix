@@ -9,16 +9,17 @@
 }:
 {
 
-  # Add default password protected ssh key to the .ssh folder.
+  # Request "pass" ssh key from sops, and place them in the default location.
+  # Create a symlink to these later, as despite being owned by the user, when
+  # placing these files, the parent directory gets owned by root. Because of
+  # this, directly placing them in place is unreliable.
   sops.secrets.user-ssh-pass-public = {
     owner = globals.user;
     group = "users";
-    path = "/home/${globals.user}/.ssh/id_pass.pub";
   };
   sops.secrets.user-ssh-pass-private = {
     owner = globals.user;
     group = "users";
-    path = "/home/${globals.user}/.ssh/id_pass";
   };
 
   # Machine ssh settings.
@@ -58,6 +59,10 @@
 
   # --- Home Manager Part ---
   home-manager.users.${globals.user} =
+    let
+      user-ssh-pass-public-path = config.sops.secrets.user-ssh-pass-public.path;
+      user-ssh-pass-private-path = config.sops.secrets.user-ssh-pass-private.path;
+    in
     {
       config,
       pkgs,
@@ -65,6 +70,16 @@
       ...
     }:
     {
+
+      home.file = {
+
+        # Link the "pass" ssh keys into place.
+        "/home/${globals.user}/.ssh/id_pass.pub".source =
+          config.lib.file.mkOutOfStoreSymlink user-ssh-pass-public-path;
+        "/home/${globals.user}/.ssh/id_pass".source =
+          config.lib.file.mkOutOfStoreSymlink user-ssh-pass-private-path;
+
+      };
 
       # User ssh settings.
       programs.ssh = {
