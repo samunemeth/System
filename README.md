@@ -273,7 +273,6 @@ To generate Nix snippets from your saved networks, check out
 
 There are some things that are still missing form the declarative configuration:
 
-  - SSH keys.
   - Seafile configuration.
   - Some parts of Firefox.
   - Basically VSCode as a whole.
