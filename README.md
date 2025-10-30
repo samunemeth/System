@@ -31,6 +31,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [x] *Look Into:* A cleaner way of generating host ssh keys.
       *Maybe just manually create them on install?*
   - [x] *Set Up:* Host keys on other machines.
+  - [x] *Look Into:* Better practice of setting up ssh keys for correct privileges.
   - [ ] *Fix:* The *mini greeter* seems to act up on first boot.
   - [ ] *Fix:* Alacritty not handling dynamic window titles.
         [More Info](https://github.com/alacritty/alacritty/issues/1636)
@@ -42,7 +43,6 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Look Into:* Hibernation and Sleep fucking with YubiKey authentication.
   - [ ] *Set Up:* Automatic locking.
   - [ ] *Look Into:* Using lock screen for login.
-  - [ ] *Look Into:* Better practice of setting up ssh keys for correct privileges.
 
 **Declarative Wonderland**
 

@@ -57,7 +57,7 @@
     };
 
     # Enable Seafile file syncing.
-    seafile.enable = false;
+    seafile.enable = true;
 
   };
 

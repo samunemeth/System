@@ -39,6 +39,24 @@
       };
     };
 
+    # --- Home Manager Part ---
+    home-manager.users.${globals.user} =
+      {
+        config,
+        pkgs,
+        lib,
+        ...
+      }:
+      {
+
+        # Create folder structure for Seafile.
+        home.file = {
+          ".ccnet/seafile.ini".text = "${config.home.homeDirectory}/.seafile-client/seafile-data";
+          ".seafile-client/seafile-data/.keep".text = "";
+        };
+
+      };
+
   };
 
 }
