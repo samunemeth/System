@@ -27,7 +27,7 @@ vim.opt.scrolloff = 8
 
 -- Spell configuration
 vim.opt.spell = true
-vim.opt.spelllang = { "hu", "en" }
+vim.opt.spelllang = { "en" }
 vim.opt.spellcapcheck = ""
 
 -- Clipboard configuration
