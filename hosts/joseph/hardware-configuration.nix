@@ -26,23 +26,51 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/5435301f-006f-4168-8e35-ac4bdb4821da";
-    fsType = "ext4";
-  };
+  boot.supportedFilesystems = [ "btrfs" ];
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/52F3-676C";
-    fsType = "vfat";
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/178fff0e-352d-48fc-9362-de1dde571f1f";
+    fsType = "btrfs";
     options = [
-      "fmask=0077"
-      "dmask=0077"
+      "subvol=root"
+      "compress=zstd"
     ];
   };
 
-  swapDevices = [
-    { device = "/dev/disk/by-uuid/1cc45472-828d-4956-a04e-200cdfd3cc19"; }
-  ];
+  boot.initrd.luks.devices.enc = {
+    device = "/dev/disk/by-uuid/04846c62-499a-4508-a4f2-a86e820173ee";
+    preLVM = true;
+  };
+
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/178fff0e-352d-48fc-9362-de1dde571f1f";
+    fsType = "btrfs";
+    options = [
+      "subvol=home"
+      "compress=zstd"
+    ];
+  };
+
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/178fff0e-352d-48fc-9362-de1dde571f1f";
+    fsType = "btrfs";
+    options = [
+      "subvol=nix"
+      "compress=zstd"
+      "noatime"
+    ];
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/12CE-A600";
+    fsType = "vfat";
+    options = [
+      "fmask=0022"
+      "dmask=0022"
+    ];
+  };
+
+  swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

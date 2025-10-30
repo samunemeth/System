@@ -15,6 +15,12 @@
     # This is a laptop.
     isDesktop = false;
 
+    # It has luks encryption.
+    boot = {
+      silentBoot = true;
+      luksPrompt = true;
+    };
+
     # Configure keyboard layouts. The first one becomes the default.
     local.keyboardLayouts = [
       "us"
@@ -29,6 +35,7 @@
     qtile = {
       enable = true;
       processorTemperatureName = "Tctl";
+      autoLogin = true;
     };
     gnome.enable = false;
 
@@ -48,6 +55,9 @@
       login = true;
       sudo = true;
     };
+
+    # Enable Seafile file syncing.
+    seafile.enable = false;
 
   };
 

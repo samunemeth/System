@@ -27,6 +27,14 @@
         Usually `Package id 0` for Intel or `Tctl` for AMD processors.
       '';
     };
+    modules.qtile.autoLogin = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      example = true;
+      description = ''
+        Enables automatic login instead of lightdm.
+      '';
+    };
   };
 
   config = lib.mkIf config.modules.qtile.enable {
@@ -44,8 +52,8 @@
         numlockx # To enable NumLock by default.
         libinput-gestures # For touchpad gestures.
         warpd # Keyboard mouse control and movement emulation.
-        xsecurelock # For secure session locking.
-        xss-lock # Locking daemon.
+        # xsecurelock # For secure session locking.
+        # xss-lock # Locking daemon.
 
       ]
       ++ (
@@ -61,17 +69,20 @@
           [ ]
       );
 
+    # Set up auto login if required.
+    services.displayManager.autoLogin = lib.mkIf config.modules.qtile.autoLogin {
+      enable = config.modules.qtile.autoLogin;
+      user = globals.user;
+    };
+
     # Enable the X11 windowing system.
     services.xserver = {
 
       enable = true;
 
-      # Configure the login screen.
-
-      displayManager.lightdm = {
-
+      # Set up lightdm if there is no auto login.
+      displayManager.lightdm = lib.mkIf (!config.modules.qtile.autoLogin) {
         enable = true;
-
         greeters.mini = {
           enable = true;
           user = globals.user;
@@ -132,14 +143,14 @@
             options = [ "NOPASSWD" ];
           }
           # Mounting and unmounting.
-          {
-            command = "/run/wrappers/bin/mount";
-            options = [ "NOPASSWD" ];
-          }
-          {
-            command = "/run/wrappers/bin/umount";
-            options = [ "NOPASSWD" ];
-          }
+          # {
+          #   command = "/run/wrappers/bin/mount";
+          #   options = [ "NOPASSWD" ];
+          # }
+          # {
+          #   command = "/run/wrappers/bin/umount";
+          #   options = [ "NOPASSWD" ];
+          # }
         ];
         groups = [ "wheel" ];
       }
@@ -158,14 +169,14 @@
     };
 
     # send SIGUSR2 to xsecurelock on resume (post)
-    environment.etc."systemd/system-sleep/xsecurelock".text = ''
-      #!/bin/sh
-      if [ "$1" = "post" ]; then
-        pkill -x -USR2 xsecurelock
-      fi
-      exit 0
-    '';
-    environment.etc."systemd/system-sleep/xsecurelock".mode = "0755";
+    # environment.etc."systemd/system-sleep/xsecurelock".text = ''
+    #   #!/bin/sh
+    #   if [ "$1" = "post" ]; then
+    #     pkill -x -USR2 xsecurelock
+    #   fi
+    #   exit 0
+    # '';
+    # environment.etc."systemd/system-sleep/xsecurelock".mode = "0755";
 
     # --- Home Manager Part ---
     home-manager.users.${globals.user} =

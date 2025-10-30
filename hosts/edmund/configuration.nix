@@ -15,6 +15,12 @@
     # This is a desktop.
     isDesktop = true;
 
+    # It has no encryption.
+    boot = {
+      silentBoot = true;
+      luksPrompt = false;
+    };
+
     # Configure keyboard layouts. The first one becomes the default.
     local.keyboardLayouts = [
       "us"
@@ -29,6 +35,7 @@
     qtile = {
       enable = true;
       processorTemperatureName = "Package id 0";
+      autoLogin = false;
     };
     gnome.enable = false;
 
@@ -48,6 +55,9 @@
       login = true;
       sudo = true;
     };
+
+    # Enable Seafile file syncing.
+    seafile.enable = true;
 
   };
 
