@@ -229,6 +229,9 @@
             gesture swipe up 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o group U -f toscreen
           '';
 
+          # Screenshots need a downloads directory
+          "Downloads/.keep".text = "";
+
         };
 
       };
