@@ -96,8 +96,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     ```
     sudo -i
     ```
-  - If you are using a wired internet connection, you can skip the next step.
-  - Connect to a WiFi network with these commands:
+  - *If* you don't have a wired connection, connect to a WiFi network with the
+    following commands:
     ```
     sudo systemctl start wpa_supplicant
     wpa_cli
@@ -114,55 +114,55 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     ping google.com
     ```
   - If you want some program to help you with the installation, you can install
-    it now. I suggest using `lf` for easier file management, but it is not necessary:
+    it now. `git` is needed, and I suggest using `lf` for easier file management,
+    but the latter is not necessary:
     ```
-    nix-shell -p lf <YOUR-PACKAGES>
+    nix-shell -p git lf <YOUR-PACKAGES>
     ```
   - **Create your partitions.**
+    - I usually use `cfdisk`. MISSINGSTEPS
   - **Format your partitions.**
+    - Just follow the instruction on the [NixOS wiki on btrfs with encryption](https://nixos.wiki/wiki/Btrfs#Installation_with_encryption)
+      while omitting the parts for `/mnt/var/log` and `/mnt/persist`. MISSINGSTEPS
   - **Mount your partitions.**
-  - Generate some host ssh keys for your new machine:
-    ```
-    ssh-keygen -A -f /mnt
-    ```
+    - Follow the same guide as above. MISSINGSTEPS
+  - Get some host ssh keys for your machine. This can be done in two different
+    ways:
+    - Generate some **new** host ssh keys for your new machine:
+      ```
+      ssh-keygen -A -f /mnt
+      ```
+      In this case, the new keys need to be added to the `.sops.yaml` file,
+      and the keys need to be updated. MISSINGSTEPS
+    - Copy some existing keys from an external drive. MISSINGSTEPS
   - Clone this repository into the installers home directory, and change into it:
     ```
     cd ~
     git clone https://github.com/samunemeth/System.git
     cd System
     ```
+    The following commands are all run from the working directory.
   - Create a new host is most easily done by coping an existing host's
     directory and adapting it:
     ```
     cp -r ~/System/hosts/<SOURCE-HOST> ~/System/hosts/<YOUR-HOST>
     ```
+    MISSINGSTEPS
   - Generate the hardware configuration for the system directly to the new host's
     directory:
     ```
     nixos-generate-config --root /mnt --dir ~/System/hosts/<YOUR-HOST>/
     ```
-  - *You do not have to add anything to the `flake.nix` file
-    as it scans the `hosts` directory automatically!*
-  - *Make sure that your hosts folder includes a `configuration.nix` file, as
-    this is the entry point. Also make sure that this file enables settings 
-    that make other common and program specific modules available!*
-  - You will have to
-    commit your changes, as nix does not like a dirty git tree. You will also
-    need to set up your git identity temporarily:
+    MISSINGSTEPS
+  - You will have to add these changes in git:
     ```
-    git config --global user.email "<YOUR-EMAIL>"
-    git config --global user.name "<YOUR-NAME>"
-
     git add .
-    git commit -m "Added changes to accomodate new host."
     ```
-    *MAYBE JUST ADD?*
   - After all the changes are made and committed, you can finally install the
     system from the flake:
     ```
     nixos-install --flake .#<YOUR-HOST>
     ```
-    *NEED HOST SSH KEYS?*
   - As the changes are still not pushed to GitHub, you will need to move the
     current git repository to the new users home:
     ```
@@ -172,44 +172,40 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     ```
     reboot
     ```
-  - If the login screen does not work, you can
-    switch to a virtual terminal by pressing `ctrl+shift+f2`, logging in and disabling
-    the greeter with the configuration suggested above.
-    You can set up a network connection with the help of `nmtui` from the
-    console if needed.
-    *IS DISABLING REQUIRED OR JUST LOGIN?*
+  - *If* the login screen does not work, you can switch to a virtual terminal by
+    pressing `ctrl+shift+f2`, logging in and disabling the mini greeter with the
+    following in your host's `configuration.nix`:
+    ```nix
+    services.xserver.displayManager.lightdm.greeters.mini.enable = lib.mkForce false;
+    ```
   - Get the ownership of the repository, as it was copied by a root user
     during installation.
     ```
     sudo chown -R <YOUR-USER>:users ~/System
     ```
-  - Generate an ssh key:
-    ```
-    ssh-keygen -t ed25519 -C "nemeth.samu.0202@gmail.com"
-    ```
-  - Add your ssh key into your GitHub account, so you can push the new
-    changes to your repository. This is needed as NixOS does not like dirty
-    git trees. For this, you have
-    to change the origin URL of the repository:
+    TODO: Move to live medium phase?
+  - Change the remote URL of the repository to use ssh:
     ```
     cd ~/System
     git remote set-url origin git@github.com:samunemeth/System.git
-    git push
-    ```
-  - For system rebuilds to work correctly, you need to at least initialize Seafile.
-    The sync configurations are not strictly required in the beginning.
-    ```
-    mkdir /home/samu/.seafile-client
-    seaf-cli init -d /home/samu/.seafile-client
-
-    mkdir /home/samu/Documents
-    seaf-cli sync -l 411830eb-158e-4aa5-9333-869e7dfa7d99 -s https://seafile.samunemeth.hu -d /home/samu/Documents -u "nemeth.samu.0202@gmail.com"
-
-    mkdir /home/samu/Notes
-    seaf-cli sync -l 734b3f5b-7bd0-49c2-a1df-65f1cbb201a4 -s https://seafile.samunemeth.hu -d /home/samu/Notes -u "nemeth.samu.0202@gmail.com"
     ```
   - Everything should be set! Rebuild with `nrs` and reboot to see if everything
     works as expected.
+
+
+## Seafile
+
+```
+mkdir /home/samu/.seafile-client
+seaf-cli init -d /home/samu/.seafile-client
+
+mkdir /home/samu/Documents
+seaf-cli sync -l 411830eb-158e-4aa5-9333-869e7dfa7d99 -s https://seafile.samunemeth.hu -d /home/samu/Documents -u "nemeth.samu.0202@gmail.com"
+
+mkdir /home/samu/Notes
+seaf-cli sync -l 734b3f5b-7bd0-49c2-a1df-65f1cbb201a4 -s https://seafile.samunemeth.hu -d /home/samu/Notes -u "nemeth.samu.0202@gmail.com"
+```
+MISSINGSTEPS
 
 
 ## Sops
@@ -218,6 +214,7 @@ Get an *age* public key of your machines host ssh key:
 ```bash
 nix-shell -p ssh-to-age --run 'cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'
 ```
+MISSINGSTEPS
 
 
 ## WiFi
@@ -239,6 +236,7 @@ Where `<MGMT-METHOD>` is usually either `wpa-psk` or `sae`. You can find out the
 exact value by saving the network imperatively and looking at the generated configuration.
 
 **If *WORK* is an enterprise network:**
+
 
 Then add it to the `normal_networks` list in the `networks.yaml` file, than append
 the following to the `wireless-env` key in the `secrets.yaml` file:
@@ -279,7 +277,7 @@ NixOS in your boot partition.
     ```bash
     sudo -i
     ```
-  - Do the steps from the [setup](#Setup) for mounting all the partitions in the
+  - Do the steps from the [setup](#Setup) guide for mounting all the partitions in the
     correct places.
   - Enter the mounted system:
     ```bash
