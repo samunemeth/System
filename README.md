@@ -20,18 +20,6 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **General**
 
-  - [x] *Set Up:* [sops-nix](https://github.com/Mic92/sops-nix) for secret management.
-  - [x] *Set Up:* Separate VSCode configuration form Java.
-  - [x] *Look Into:* Cleaner module organization.
-  - [x] *Set Up:* Low Priority packages.
-  - [x] *Set Up:* Some declarative WiFi networks with sops.
-        [More Info](https://www.reddit.com/r/NixOS/comments/zneyil/using_sopsnix_to_amange_wireless_secrets/)
-  - [x] *Set Up:* A script for enterprise WPA networks, or check why
-        user interfaces do not work with it.
-  - [x] *Look Into:* A cleaner way of generating host ssh keys.
-      *Maybe just manually create them on install?*
-  - [x] *Set Up:* Host keys on other machines.
-  - [x] *Look Into:* Better practice of setting up ssh keys for correct privileges.
   - [ ] *Fix:* The *mini greeter* seems to act up on first boot.
   - [ ] *Fix:* Alacritty not handling dynamic window titles.
         [More Info](https://github.com/alacritty/alacritty/issues/1636)
@@ -46,30 +34,17 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **Declarative Wonderland**
 
-  - [x] *Set Up:* Declarative user ssh keys.
   - [ ] *Set Up:* Automatically initialize Seafile on system rebuild.
   - [ ] *Look Into:* Impermanence. [More Info](https://grahamc.com/blog/erase-your-darlings/)
   - [ ] *Look Into:* Adding even more preset Firefox options.
 
 **Qtile**
 
-  - [x] *Set Up:* Machine specific options with nix options.
-  - [x] *Look Into:* Automatically determining network devices.
-  - [x] *Set Up:* Only use key available in 34 key layout.
-  - [x] *Look Into:* Creating a visualization for Qtile key mapping.
-    *Not worth it!*
-  - [x] *Look Into:* More accurate battery remaining time calculation.
-    *Pretty accurate after all...*
-  - [x] *Validate:* That automatic settings based on `/sys` are working.
-  - [ ] *Look Into* What the fuck is going on with multiple monitors.
+  - [ ] *Look Into:* Automatic monitor detection, and saved layouts.
 
-**Nvim**
+**Neovim**
 
-  - [x] *Set Up:* Keybindings for VSCode
-  - [x] *Set Up:* Automatic formatting with [conform.nvim](https://github.com/stevearc/conform.nvim).
-  - [x] *Set Up:* Automatically decrypt `secrets.yaml` if key is available.
-    *Not implemented as it messes with the file diff and just overrides everything,
-    although correct, not pretty or git-friendly.*
+  - [ ] *Look Into:* Python grammar, formatter and LSP.
 
 **Documentation**
 
