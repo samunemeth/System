@@ -61,10 +61,12 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 # Setup
 
 > [!NOTE]
-> For further guidance, look at the [official installation documentation](https://nixos.org/manual/nixos/stable/#sec-installation).
+> For further guidance, look at the [official installation documentation](https://nixos.org/manual/nixos/stable/#sec-installation),
+> the [NixOS wiki on btrfs with encryption](https://nixos.wiki/wiki/Btrfs#Installation_with_encryption),
+> and [this helpful video](https://www.youtube.com/watch?v=lUB2rwDUm5A).
 
 > [!WARNING]
-> This is pretty outdated at this point.
+> There are missing steps in this guide at the moment, marked with "MISSINGSTEP".
 
 
   - Get an install media to boot, then switch to the root user with:
