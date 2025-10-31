@@ -70,7 +70,7 @@
       );
 
     # Set up auto login if required.
-    services.displayManager.autoLogin = lib.mkIf config.modules.qtile.autoLogin {
+    services.displayManager.autoLogin = {
       enable = config.modules.qtile.autoLogin;
       user = globals.user;
     };
@@ -81,7 +81,7 @@
       enable = true;
 
       # Set up lightdm if there is no auto login.
-      displayManager.lightdm = lib.mkIf (!config.modules.qtile.autoLogin) {
+      displayManager.lightdm = lib.optionalAttrs (!config.modules.qtile.autoLogin) {
         enable = true;
         greeters.mini = {
           enable = true;
