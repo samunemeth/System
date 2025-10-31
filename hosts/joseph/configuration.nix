@@ -44,9 +44,9 @@
 
     # Enable tools for programming.
     programming = {
-      vscode = true;
-      java = true;
-      rust = true;
+      vscode = false;
+      java = false;
+      rust = false;
     };
 
     # Enable support for YubiKeys, logging in and using sudo with them.
