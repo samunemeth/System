@@ -20,6 +20,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **General**
 
+  - [ ] *Fix:* Seafile errors if rebuilding from scratch.
   - [ ] *Fix:* The *mini greeter* seems to act up on first boot.
   - [ ] *Fix:* Alacritty not handling dynamic window titles.
         [More Info](https://github.com/alacritty/alacritty/issues/1636)
@@ -34,7 +35,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **Declarative Wonderland**
 
-  - [ ] *Set Up:* Automatically initialize Seafile on system rebuild.
+  - [x] *Set Up:* Automatically initialize Seafile on system rebuild.
   - [ ] *Look Into:* Impermanence. [More Info](https://grahamc.com/blog/erase-your-darlings/)
   - [ ] *Look Into:* Adding even more preset Firefox options.
 
@@ -170,21 +171,6 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     works as expected.
 
 
-## Seafile
-
-```
-mkdir /home/samu/.seafile-client
-seaf-cli init -d /home/samu/.seafile-client
-
-mkdir /home/samu/Documents
-seaf-cli sync -l 411830eb-158e-4aa5-9333-869e7dfa7d99 -s https://seafile.samunemeth.hu -d /home/samu/Documents -u "nemeth.samu.0202@gmail.com"
-
-mkdir /home/samu/Notes
-seaf-cli sync -l 734b3f5b-7bd0-49c2-a1df-65f1cbb201a4 -s https://seafile.samunemeth.hu -d /home/samu/Notes -u "nemeth.samu.0202@gmail.com"
-```
-MISSINGSTEPS
-
-
 ## Sops
 
 Get an *age* public key of your machines host ssh key:
@@ -274,6 +260,16 @@ NixOS in your boot partition.
     ```
 
 *Based on the [NixOS wiki's bootloader page](https://nixos.wiki/wiki/Bootloader#From_an_installation_media).*
+
+
+## Other Fixes
+
+Sometimes stuff gets stuck in `/tmp`, and prevents packages from being garbage
+collected. Just clear the `/tmp` directory and reboot:
+```bash
+sudo rm -rf /tmp/*
+sudo reboot
+```
 
 
 # Imperative Parts
