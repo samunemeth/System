@@ -269,6 +269,38 @@ To generate Nix snippets from your saved networks, check out
 [this tool](https://github.com/janik-haag/nm2nix).
 
 
+## Fix for Missing Bootloader
+
+Say that you accidentally deleted your boot partition, or the boot entries for
+NixOS in your boot partition.
+
+  - Boot a live medium that you would use for installing a new system.
+  - Make sure you are running as root:
+    ```bash
+    sudo -i
+    ```
+  - Do the steps from the [setup](#Setup) for mounting all the partitions in the
+    correct places.
+  - Enter the mounted system:
+    ```bash
+    nixos-enter
+    ```
+  - Run the command for installing a bootloader for a new system:
+    ```bash
+    NIXOS_INSTALL_BOOTLOADER=1 /nix/var/nix/profiles/system/bin/switch-to-configuration boot --flake /home/<USER>/System#<HOST>
+    ```
+    The path to the flake is relative to the root of the machine entered, so the
+    `/mnt` prefix needs to be omitted. Replace the path with the path to your
+    flake.
+  - Exit and reboot:
+    ```bash
+    exit
+    reboot
+    ```
+
+*Based on the [NixOS wiki's bootloader page](https://nixos.wiki/wiki/Bootloader#From_an_installation_media).*
+
+
 # Imperative Parts
 
 There are some things that are still missing form the declarative configuration:
