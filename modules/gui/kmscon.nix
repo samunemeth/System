@@ -33,6 +33,7 @@
       ];
       hwRender = true;
       useXkbConfig = true;
+      autologinUser = lib.mkIf config.modules.boot.autoLogin globals.user;
       extraConfig = ''
 
         login=/bin/bash -i

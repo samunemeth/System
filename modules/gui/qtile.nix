@@ -27,14 +27,6 @@
         Usually `Package id 0` for Intel or `Tctl` for AMD processors.
       '';
     };
-    modules.qtile.autoLogin = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      example = true;
-      description = ''
-        Enables automatic login instead of lightdm.
-      '';
-    };
   };
 
   config = lib.mkIf config.modules.qtile.enable {
@@ -71,7 +63,7 @@
 
     # Set up auto login if required.
     services.displayManager.autoLogin = {
-      enable = config.modules.qtile.autoLogin;
+      enable = config.modules.boot.autoLogin;
       user = globals.user;
     };
 
@@ -81,30 +73,38 @@
       enable = true;
 
       # Set up lightdm if there is no auto login.
-      displayManager.lightdm = lib.optionalAttrs (!config.modules.qtile.autoLogin) {
-        enable = true;
-        greeters.mini = {
-          enable = true;
-          user = globals.user;
-          extraConfig = ''
-            [greeter]
-            show-password-label = false
-            password-alignment = center
-            show-input-cursor = false
-            [greeter-theme]
-            background-image = ""
-            background-color = "${globals.colors.background.main}"
-            window-color = "${globals.colors.foreground.main}"
-            border-width = 0px
-            layout-space = 4
-            password-color = "${globals.colors.foreground.main}"
-            password-background-color = "${globals.colors.background.main}"
-            password-border-radius = 0em
-            error-color = "${globals.colors.background.main}"
-            password-character = ■
-          '';
-        };
-      };
+      displayManager.lightdm =
+        if config.modules.boot.autoLogin then
+          {
+            enable = true;
+            greeter.enable = false;
+            autoLogin.timeout = 0;
+          }
+        else
+          {
+            enable = true;
+            greeters.mini = {
+              enable = true;
+              user = globals.user;
+              extraConfig = ''
+                [greeter]
+                show-password-label = false
+                password-alignment = center
+                show-input-cursor = false
+                [greeter-theme]
+                background-image = ""
+                background-color = "${globals.colors.background.main}"
+                window-color = "${globals.colors.foreground.main}"
+                border-width = 0px
+                layout-space = 4
+                password-color = "${globals.colors.foreground.main}"
+                password-background-color = "${globals.colors.background.main}"
+                password-border-radius = 0em
+                error-color = "${globals.colors.background.main}"
+                password-character = ■
+              '';
+            };
+          };
 
       # Remove XTerm
       desktopManager.xterm.enable = false;

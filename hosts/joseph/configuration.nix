@@ -19,6 +19,7 @@
     boot = {
       silentBoot = true;
       luksPrompt = true;
+      autoLogin = true;
     };
 
     # Configure keyboard layouts. The first one becomes the default.
@@ -35,7 +36,6 @@
     qtile = {
       enable = true;
       processorTemperatureName = "Tctl";
-      autoLogin = true;
     };
     gnome.enable = false;
 
@@ -47,6 +47,7 @@
       vscode = false;
       java = false;
       rust = false;
+      python = true;
     };
 
     # Enable support for YubiKeys, logging in and using sudo with them.

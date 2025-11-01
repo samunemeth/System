@@ -27,6 +27,14 @@
         Reduces the logging removed by a silent boot.
       '';
     };
+    modules.boot.autoLogin = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      example = true;
+      description = ''
+        Enables automatic login.
+      '';
+    };
   };
 
   config = {
