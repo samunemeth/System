@@ -39,6 +39,7 @@
     ./programs/java.nix
     ./programs/seafile.nix
     ./programs/rust.nix
+    ./programs/python.nix
 
     # User interfaces.
     ./gui/gnome.nix
