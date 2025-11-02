@@ -4,7 +4,7 @@ set hiddenfiles ".*:desktop.ini:main.out:main.log:main.aux:main.synctex.gz:/home
 set icons "true"
 set ignorecase "true"
 set info "size"
-set previewer "~/.config/lf/previewer.sh"
+set previewer "~/.config/lf/previewer.sh" # This is overwritten when wrapping.
 
 cmd add %{{
   printf "New: "
@@ -27,8 +27,13 @@ cmd open &{{
     unzip "$f" -d "$todir"
     printf "Unzipped contents."
   elif [[ $filetype == "application/pdf" ]] then
-    zathura "$f" --fork -l error
-    printf "Opened with Zathura."
+    if [[ $f == *main.pdf ]] then
+      alacritty -e $EDITOR "${f%*pdf}tex"
+      printf "Opened LaTeX source with text editor."
+    else 
+      zathura "$f" --fork -l error
+      printf "Opened with Zathura."
+    fi
   else
     alacritty -e $EDITOR "$f"
     printf "Unknown filetype, opened with text editor."
