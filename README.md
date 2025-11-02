@@ -317,6 +317,15 @@ Wiki's for Nix language basics.
 
   - [Blog Post](https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/)
 
+## Hibernation
+
+https://nixos.wiki/wiki/Hibernation
+https://blog.tiserbox.com/posts/2025-03-10-enable-hibernation-on-nix-os.html
+https://sawyershepherd.org/post/hibernating-to-an-encrypted-swapfile-on-btrfs-with-nixos/
+https://discourse.nixos.org/t/btrfs-swap-not-enough-swap-space-for-hibernation/36805
+https://github.com/NixOS/nixpkgs/issues/276374
+https://haseebmajid.dev/posts/2024-07-30-how-i-setup-btrfs-and-luks-on-nixos-using-disko/
+
 ## Firefox
 
 Resources for configuring Firefox with Nix.
