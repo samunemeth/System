@@ -41,25 +41,20 @@
         pulseaudio-ctl # Command line volume control.
         hsetroot # For background setting.
         dunst # Notification agent.
-        numlockx # To enable NumLock by default.
         libinput-gestures # For touchpad gestures.
-        warpd # Keyboard mouse control and movement emulation.
         # xsecurelock # For secure session locking.
         # xss-lock # Locking daemon.
 
       ]
-      ++ (
-        if config.modules.packages.lowPriority then
-          [
+      ++ lib.lists.optionals config.modules.packages.lowPriority [
 
-            playerctl # For media control (play/pause).
-            scrot # For screenshots.
-            xcolor # For color picking.
+        numlockx # To enable NumLock by default.
+        warpd # Keyboard mouse control and movement emulation.
+        playerctl # For media control (play/pause).
+        scrot # For screenshots.
+        xcolor # For color picking.
 
-          ]
-        else
-          [ ]
-      );
+      ];
 
     # Set up auto login if required.
     services.displayManager.autoLogin = {

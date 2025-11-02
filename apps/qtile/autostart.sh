@@ -9,10 +9,10 @@ YC="$3"
 hsetroot -solid "$BG_COLOR" &
 
 # Move the cursor to the middle of the screen.
-warpd --move "$XC $YC"
+warpd --move "$XC $YC" || true
 
 # Turn on NumLock
-numlockx on
+numlockx on || true
 
 # Configure monitors.
 # For an additional display above.

@@ -16,24 +16,17 @@
       tree-sitter # Neovim parser generator.
       ripgrep # Recursive command line search command.
       fd # A user friendly file search engine.
-      gcc # C code compilation.
-      nodejs_24 # Node.js distribution.
       xclip # Command line clipboard tool.
 
     ]
-    ++ (
-      if config.modules.packages.lowPriority then
-        [
+    ++ lib.lists.optionals config.modules.packages.lowPriority [
 
-          treefmt # Recursive formatter for projects.
-          stylua # Lua formatter.
-          nixfmt-rfc-style # Nix formatter.
-          beautysh # Bash formatter.
+      treefmt # Recursive formatter for projects.
+      stylua # Lua formatter.
+      nixfmt-rfc-style # Nix formatter.
+      beautysh # Bash formatter.
 
-        ]
-      else
-        [ ]
-    );
+    ];
 
   # --- Home Manager Part ---
   home-manager.users.${globals.user} =

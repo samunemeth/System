@@ -28,8 +28,11 @@
       "us dvp"
     ];
 
-    # Enable low priority packages.
-    packages.lowPriority = true;
+    # Enable low priority packages and manuals.
+    packages = {
+      lowPriority = true;
+      manuals = true;
+    };
 
     # Enable Qtile as a window manager.
     kmscon.enable = true;

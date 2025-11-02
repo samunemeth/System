@@ -28,8 +28,11 @@
       "hu"
     ];
 
-    # Enable low priority packages.
-    packages.lowPriority = true;
+    # Enable low priority packages, disable manuals.
+    packages = {
+      lowPriority = true;
+      manuals = false;
+    };
 
     # Enable Qtile as a window manager.
     kmscon.enable = true;
