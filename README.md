@@ -42,7 +42,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **Neovim**
 
-  - [ ] *Set Up:* Migrating custom word list to English.
+  - [x] *Set Up:* Migrating custom word list to English.
+  - [ ] *Look Into:* Including spelling dictionaries declaratively.
   - [ ] *Look Into:* Python grammar, formatter and LSP.
 
 **Documentation**
