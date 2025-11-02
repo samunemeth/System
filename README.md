@@ -39,6 +39,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
   - [ ] *Look Into:* Automatic monitor detection, and saved layouts.
   - [ ] *Fix:* Firefox opening in the wrong group.
+  - [ ] *Set Up:* Widget for Seafile.
 
 **Neovim**
 
