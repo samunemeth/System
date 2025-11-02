@@ -1,0 +1,62 @@
+
+set filesep ";"
+set hiddenfiles ".*:desktop.ini:main.out:main.log:main.aux:main.synctex.gz:/home/samu/texmf:lost+found"
+set icons "true"
+set ignorecase "true"
+set info "size"
+set previewer "~/.config/lf/previewer.sh"
+
+cmd add %{{
+  printf "New: "
+  read ans
+  if [[ $ans == */ ]]; then
+    mkdir -p $ans
+  elif [[ $ans == */* ]]; then
+    mkdir -p ${ans%/*}
+    touch $ans
+  else
+    touch $ans
+  fi
+}}
+
+cmd open &{{
+  filetype=$(xdg-mime query filetype "$f")
+  if [[ $filetype == "application/zip" ]] then
+    todir="${f%.*}-unzip/"
+    mkdir -p "$todir"
+    unzip "$f" -d "$todir"
+    printf "Unzipped contents."
+  elif [[ $filetype == "application/pdf" ]] then
+    zathura "$f" --fork -l error
+    printf "Opened with Zathura."
+  else
+    alacritty -e $EDITOR "$f"
+    printf "Unknown filetype, opened with text editor."
+  fi
+}}
+
+cmd type %xdg-mime query filetype "$f"
+cmd zip %{{
+  printf "ZIP file name [NewZip.zip]: "
+  read name
+  name=${name:-NewZip.zip}
+  IFS=';' read -ra filesarray <<< "$fx"
+  filelist=""
+  for absfile in "${filesarray[@]}"; do
+    relfile=${absfile##"$PWD"/}
+    filelist="$filelist $relfile"
+  done
+  zip -r "$PWD/$name" $filelist
+  printf "Zipped selection."
+}}
+
+map . set hidden!
+map <enter> open
+map <esc> quit
+map DD delete
+map a add
+map gc cd ~/.config
+map gd cd ~/Documents
+map gn cd ~/Notes
+map zz zip
+

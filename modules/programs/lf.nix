@@ -1,4 +1,4 @@
-# --- Terminal File Manager ---
+# --- Lf ---
 
 {
   config,
@@ -7,10 +7,55 @@
   globals,
   ...
 }:
+let
+
+  wrapped-lf = pkgs.symlinkJoin {
+    name = "wrapped-lf";
+    buildInputs = [ pkgs.makeWrapper ];
+    paths = [ pkgs.lf ];
+    postBuild =
+      let
+
+        # A script for previewing files.
+        previewerScript = pkgs.writers.writeBash "lfprev" (builtins.readFile ../../apps/lf/previewer.sh);
+
+        # Program configuration, with the location of the previewer script.
+        configFile = pkgs.writers.writeText "lfrc" (
+          (builtins.readFile ../../apps/lf/lfrc)
+          + ''
+            set previewer "${previewerScript}"
+          ''
+        );
+
+        # Configuration file for icons. This needs to be inside a directory structure.
+        configHome = pkgs.stdenv.mkDerivation {
+          name = "lfhome";
+          unpackPhase = "true";
+          installPhase = ''
+            mkdir -p $out/lf
+            cat > $out/lf/icons <<EOF
+            ${builtins.readFile ../../apps/lf/icons}
+            EOF
+            chmod 644 $out/lf/icons
+          '';
+        };
+      in
+      ''
+        wrapProgram $out/bin/lf \
+          --append-flags "-config ${configFile}" \
+          --set LF_CONFIG_HOME ${configHome}
+      '';
+
+  };
+
+in
 {
 
   # Packages for previewing files, and some other tasks.
+  # TODO: Move some to low priority?
   environment.systemPackages = with pkgs; [
+
+    wrapped-lf # Terminal file manager with configuration.
 
     highlight # Text file highlighting.
     poppler-utils # Pdf to text conversion.
@@ -21,119 +66,12 @@
 
   ];
 
-  # --- Home Manager Part ---
-  home-manager.users.${globals.user} =
-    {
-      config,
-      pkgs,
-      lib,
-      ...
-    }:
-    {
+  # Add a command to change directories with Lf.
+  programs.bash.interactiveShellInit = # bash
+    ''
+      lfcd () {
+        cd "$(command lf -print-last-dir "$@")"
+      }
+    '';
 
-      # Configuration files.
-      home.file = {
-        ".config/lf/icons".source =
-          config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/lf/icons";
-        ".config/lf/previewer.sh".source =
-          config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/lf/previewer.sh";
-      };
-
-      programs.lf = {
-
-        enable = true;
-
-        keybindings = {
-          "<enter>" = "open";
-          "<esc>" = "quit";
-          "." = "set hidden!";
-          "gd" = "cd ~/Documents";
-          "gn" = "cd ~/Notes";
-          "gc" = "cd ~/.config";
-          "DD" = "delete";
-          "a" = "add";
-          "zz" = "zip";
-        };
-
-        settings = {
-          "icons" = "true";
-          "info" = "size";
-          "ignorecase" = "true";
-          "hiddenfiles" =
-            ".*:desktop.ini:main.out:main.log:main.aux:main.synctex.gz:/home/${globals.user}/texmf:lost+found";
-          "previewer" = "~/.config/lf/previewer.sh";
-          "filesep" = ";"; # This is needed for commands.
-        };
-
-        commands = {
-
-          # Output the selected file's type.
-          "type" = "%xdg-mime query filetype \"$f\"";
-
-          # Add a new folder or file, similar implementation to nvim-tree.
-          "add" = # bash
-            ''
-              %{{
-                printf "New: "
-                read ans
-                if [[ $ans == */ ]]; then
-                  mkdir -p $ans
-                elif [[ $ans == */* ]]; then
-                  mkdir -p ''${ans%/*}
-                  touch $ans
-                else
-                  touch $ans
-                fi
-              }}
-            '';
-
-          # Override the default open command to be able to implement unzipping.
-          "open" = # bash
-            ''
-              &{{
-                filetype=$(xdg-mime query filetype "$f")
-                if [[ $filetype == "application/zip" ]] then
-                  todir="''${f%.*}-unzip/"
-                  mkdir -p "$todir"
-                  unzip "$f" -d "$todir"
-                  printf "Unzipped contents."
-                elif [[ $filetype == "application/pdf" ]] then
-                  zathura "$f" --fork -l error
-                  printf "Opened with Zathura."
-                else
-                  alacritty -e $EDITOR "$f"
-                  printf "Unknown filetype, opened with text editor."
-                fi
-              }}
-            '';
-
-          # Zip selected files into one zip file.
-          "zip" = # bash
-            ''
-              %{{
-                printf "ZIP file name [NewZip.zip]: "
-                read name
-                name=''${name:-NewZip.zip}
-                IFS=';' read -ra filesarray <<< "$fx"
-                filelist=""
-                for absfile in "''${filesarray[@]}"; do
-                  relfile=''${absfile##"$PWD"/}
-                  filelist="$filelist $relfile"
-                done 
-                zip -r "$PWD/$name" $filelist
-                printf "Zipped selection."
-              }}
-            '';
-        };
-      };
-
-      # Add a command to change directories with Lf.
-      programs.bash.initExtra = # bash
-        ''
-          lfcd () {
-            cd "$(command lf -print-last-dir "$@")"
-          }
-        '';
-
-    };
 }
