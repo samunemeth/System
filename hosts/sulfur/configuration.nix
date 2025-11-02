@@ -18,15 +18,14 @@
     # It has no encryption.
     boot = {
       silentBoot = true;
-      luksPrompt = false;
-      autoLogin = false;
+      luksPrompt = true;
+      autoLogin = true;
     };
 
     # Configure keyboard layouts. The first one becomes the default.
     local.keyboardLayouts = [
       "us"
       "hu"
-      "us dvp"
     ];
 
     # Enable low priority packages.
@@ -71,6 +70,9 @@
 
   # Shorten boot loader timeout as NixOS is not used frequently.
   boot.loader.timeout = 1;
+
+  # Needs different scaling in the boot loader.
+  boot.loader.systemd-boot.consoleMode = "keep";
 
   # Set time zone to CET.
   time.timeZone = "Europe/Budapest";
