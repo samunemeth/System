@@ -236,6 +236,9 @@ To generate Nix snippets from your saved networks, check out
 Say that you accidentally deleted your boot partition, or the boot entries for
 NixOS in your boot partition.
 
+You could also perform other fixes, in a similar manner, for example a missing
+root password for example. Of course, the disk has to be decrypted for it.
+
   - Boot a live medium that you would use for installing a new system.
   - Make sure you are running as root:
     ```bash
@@ -271,6 +274,7 @@ collected. Just clear the `/tmp` directory and reboot:
 sudo rm -rf /tmp/*
 sudo reboot
 ```
+*This should be solved later with impermanence.*
 
 
 # Imperative Parts
