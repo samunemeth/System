@@ -20,31 +20,29 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **General**
 
-  - [ ] *Fix:* Seafile errors if rebuilding from scratch.
-  - [ ] *Fix:* The *mini greeter* seems to act up on first boot.
-  - [ ] *Fix:* Alacritty not handling dynamic window titles.
-        [More Info](https://github.com/alacritty/alacritty/issues/1636)
-  - [ ] *Fix:* Firefox opening in the wrong group.
   - [ ] *Set Up:* Tar unpacking.
-  - [ ] *Set Up:* Trashcan in Lf.
   - [ ] *Set Up:* Openers in Lf.
+  - [ ] *Set Up:* Option to disable hibernation completely.
   - [ ] *Set Up:* Password prompt after hibernation.
-  - [ ] *Look Into:* Hibernation and Sleep fucking with YubiKey authentication.
   - [ ] *Set Up:* Automatic locking.
-  - [ ] *Look Into:* Using lock screen for login.
+  - [ ] *Look Into:* Hibernation and Sleep fucking with YubiKey authentication.
+  - [ ] *Look Into:* The *mini greeter* seems to act up on first boot.
+        *Maybe just ditch the mini greeter?*
 
 **Declarative Wonderland**
 
-  - [x] *Set Up:* Automatically initialize Seafile on system rebuild.
+  - [ ] *Look Into:* Wrappers. [More Info](https://www.youtube.com/watch?v=Zzvn9uYjQJY)
   - [ ] *Look Into:* Impermanence. [More Info](https://grahamc.com/blog/erase-your-darlings/)
   - [ ] *Look Into:* Adding even more preset Firefox options.
 
 **Qtile**
 
   - [ ] *Look Into:* Automatic monitor detection, and saved layouts.
+  - [ ] *Fix:* Firefox opening in the wrong group.
 
 **Neovim**
 
+  - [ ] *Set Up:* Migrating custom word list to English.
   - [ ] *Look Into:* Python grammar, formatter and LSP.
 
 **Documentation**
@@ -54,7 +52,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **Long Term**
 
-  - [ ] *Look Into:* Creating a custom ISO.
+  - [ ] *Look Into:* Other file systems, encryption and compression methods.
+  - [ ] *Look Into:* Creating a custom installation (and/or full system) ISO.
   - [ ] *Set Up:* A configuration for minimal installation.
   - [ ] *Set Up:* Gnome with declarative settings.
 
@@ -67,7 +66,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 > and [this helpful video](https://www.youtube.com/watch?v=lUB2rwDUm5A).
 
 > [!WARNING]
-> There are missing steps in this guide at the moment, marked with "MISSINGSTEP".
+> There are missing steps in this guide at the moment, marked with "**MISSINGSTEPS**".
 
 
   - Get an install media to boot, then switch to the root user with:
@@ -81,8 +80,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     wpa_cli
 
     add_network
-    set_network 0 ssid "<YOUR-SSID>"
-    set_network 0 psk "<YOUR-PASSWORD>"
+    set_network 0 ssid "<SSID>"
+    set_network 0 psk "<PASSWORD>"
     enable_network 0
 
     quit
@@ -95,24 +94,15 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     it now. `git` is needed, and I suggest using `lf` for easier file management,
     but the latter is not necessary:
     ```
-    nix-shell -p git lf <YOUR-PACKAGES>
+    nix-shell -p git lf <PACKAGES>
     ```
   - **Create your partitions.**
-    - I usually use `cfdisk`. MISSINGSTEPS
+    - I usually use `cfdisk`. **MISSINGSTEPS**
   - **Format your partitions.**
     - Just follow the instruction on the [NixOS wiki on btrfs with encryption](https://nixos.wiki/wiki/Btrfs#Installation_with_encryption)
-      while omitting the parts for `/mnt/var/log` and `/mnt/persist`. MISSINGSTEPS
+      while omitting the parts for `/mnt/var/log` and `/mnt/persist`. **MISSINGSTEPS**
   - **Mount your partitions.**
-    - Follow the same guide as above. MISSINGSTEPS
-  - Get some host ssh keys for your machine. This can be done in two different
-    ways:
-    - Generate some **new** host ssh keys for your new machine:
-      ```
-      ssh-keygen -A -f /mnt
-      ```
-      In this case, the new keys need to be added to the `.sops.yaml` file,
-      and the keys need to be updated. MISSINGSTEPS
-    - Copy some existing keys from an external drive. MISSINGSTEPS
+    - Follow the same guide as above. **MISSINGSTEPS**
   - Clone this repository into the installers home directory, and change into it:
     ```
     cd ~
@@ -123,15 +113,16 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - Create a new host is most easily done by coping an existing host's
     directory and adapting it:
     ```
-    cp -r ~/System/hosts/<SOURCE-HOST> ~/System/hosts/<YOUR-HOST>
+    cp -r ~/System/hosts/<SOURCE-HOST> ~/System/hosts/<HOST>
     ```
-    MISSINGSTEPS
+    **MISSINGSTEPS**
   - Generate the hardware configuration for the system directly to the new host's
     directory:
     ```
-    nixos-generate-config --root /mnt --dir ~/System/hosts/<YOUR-HOST>/
+    mv ~/System/hosts/<HOST>/hardware-configuration.nix hardware-configuration.nix.old
+    nixos-generate-config --root /mnt --dir ~/System/hosts/<HOST>/
     ```
-    MISSINGSTEPS
+    **MISSINGSTEPS**
   - You will have to add these changes in git:
     ```
     git add .
@@ -139,12 +130,21 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - After all the changes are made and committed, you can finally install the
     system from the flake:
     ```
-    nixos-install --flake .#<YOUR-HOST>
+    nixos-install --flake .#<HOST>
     ```
+  - Get some host ssh keys for your machine. This can be done in two different
+    ways:
+    - Generate some **new** host ssh keys for your new machine:
+      ```
+      ssh-keygen -A -f /mnt
+      ```
+      In this case, the new keys need to be added to the `.sops.yaml` file,
+      and the keys need to be updated. **MISSINGSTEPS**
+    - Copy some existing keys from an external drive. **MISSINGSTEPS**
   - As the changes are still not pushed to GitHub, you will need to move the
     current git repository to the new users home:
     ```
-    cp -r ~/System /mnt/home/<YOUR-USER>/
+    cp -r ~/System /mnt/home/<USER>/
     ```
   - Everything should be ready to use, you can boot into the installation.
     ```
@@ -159,7 +159,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - Get the ownership of the repository, as it was copied by a root user
     during installation.
     ```
-    sudo chown -R <YOUR-USER>:users ~/System
+    sudo chown -R <USER>:users ~/System
     ```
     TODO: Move to live medium phase?
   - Change the remote URL of the repository to use ssh:
@@ -177,7 +177,7 @@ Get an *age* public key of your machines host ssh key:
 ```bash
 nix-shell -p ssh-to-age --run 'cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'
 ```
-MISSINGSTEPS
+**MISSINGSTEPS**
 
 
 ## WiFi
