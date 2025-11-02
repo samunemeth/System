@@ -13,6 +13,19 @@
 
   config = {
 
+    programs.bash = {
+
+      # Set the bash prompt depending on the user and environment.
+      promptInit = # bash
+        ''
+          if [[ $(whoami) == "root" ]]; then
+            export PS1='\[\e[91m\]\u\[\e[2;3m\]@\h\[\e[0;1m\]:\[\e[96m\]\w\[\e[97m\]\$\[\e[0m\] '
+          else
+            export PS1='\[\e[92m\]\u\[\e[2;3m\]@\h\[\e[0;1m\]:\[\e[96m\]\w\[\e[97m\]\$\[\e[0m\] '
+          fi
+        '';
+    };
+
     # --- Home Manager Part ---
     home-manager.users.${globals.user} =
       {
@@ -53,8 +66,6 @@
               nrs () {
                 sudo nixos-rebuild switch --flake ~/System/#$1
               }
-
-              export PS1='\[\e[92m\]\u\[\e[2;3m\]@\h\[\e[0;1m\]:\[\e[96m\]\w\[\e[39m\]\$\[\e[0m\] '
 
               pkgs () {
                 nix-shell --command "PS1='\[\e[95;2m\][nix-shell]\[\e[0m\] $PS1'; return" -p "$@"
