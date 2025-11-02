@@ -42,7 +42,7 @@ in
 {
 
   options = {
-    modules.latex.enable = lib.mkOption {
+    modules.programming.latex = lib.mkOption {
       type = lib.types.bool;
       default = true;
       example = false;
@@ -53,7 +53,7 @@ in
     };
   };
 
-  config = lib.mkIf config.modules.latex.enable {
+  config = lib.mkIf config.modules.programming.latex {
 
     environment.systemPackages = with pkgs; [
 

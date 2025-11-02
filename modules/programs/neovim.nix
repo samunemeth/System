@@ -31,7 +31,7 @@
   # --- Home Manager Part ---
   home-manager.users.${globals.user} =
     let
-      hasRust = config.modules.programming.rust;
+      hasLang = config.modules.programming;
     in
     {
       config,
@@ -54,12 +54,6 @@
           with pkgs.vimPlugins;
           [
 
-            # LaTeX related
-            vimtex # LaTeX language support
-            knap # Live LaTeX and markdown compilation
-            nabla-nvim # Equation previews
-            ultisnips # For snippets mainly in LaTeX
-
             # File management
             nvim-tree-lua # File tree
             plenary-nvim
@@ -73,34 +67,40 @@
             vim-fugitive # For git
 
             # LSP and syntax
-            (nvim-treesitter.withPlugins (p: [
-              p.javascript
-              p.html
-              p.c
-              p.lua
-              p.vim
-              p.vimdoc
-              p.query
-              p.markdown
-              p.markdown_inline
-              p.nix
-              p.yaml
-              p.bash
-              p.latex
-              p.java
-              p.rust
-            ])) # Syntax highlighting
+            (nvim-treesitter.withPlugins (
+              p:
+              [
+                # p.javascript
+                # p.html
+                # p.c
+                p.lua
+                p.vim
+                p.vimdoc
+                # p.query
+                p.markdown
+                p.markdown_inline
+                p.nix
+                p.yaml
+                p.bash
+              ]
+              ++ lib.lists.optional hasLang.latex p.latex
+              ++ lib.lists.optional hasLang.python p.python
+              ++ lib.lists.optional hasLang.java p.java
+              ++ lib.lists.optional hasLang.rust p.rust
+            )) # Syntax highlighting
             conform-nvim # Formatting
 
           ]
-          ++ (
-            if hasRust then
-              [
-                rustaceanvim
-              ]
-            else
-              [ ]
-          );
+          ++ lib.lists.optionals hasLang.latex [
+
+            # LaTeX related
+            vimtex # LaTeX language support
+            knap # Live LaTeX and markdown compilation
+            nabla-nvim # Equation previews
+            ultisnips # For snippets mainly in LaTeX
+
+          ]
+          ++ lib.lists.optional hasLang.rust rustaceanvim;
 
       };
 

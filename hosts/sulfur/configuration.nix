@@ -42,12 +42,9 @@
     };
     gnome.enable = false;
 
-    # Disable latex tools and packages.
-    latex.enable = false;
-
     # Disable tools for programming.
     programming = {
-      vscode = false;
+      latex = false;
       java = false;
       rust = false;
       python = false;

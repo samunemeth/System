@@ -10,7 +10,7 @@
 {
 
   options = {
-    modules.programming.vscode = lib.mkOption {
+    modules.vscode.enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
       example = true;
@@ -20,7 +20,7 @@
     };
   };
 
-  config = lib.mkIf config.modules.programming.vscode {
+  config = lib.mkIf config.modules.vscode.enable {
 
     environment.systemPackages = with pkgs; [
 
