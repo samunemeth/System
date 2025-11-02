@@ -52,16 +52,33 @@
       sops.secrets.seafile-user = userOwnedSecret;
       sops.secrets.seafile-pass = userOwnedSecret;
 
-      # Start the Seafile daemon automatically.
+      # Start and set up the Seafile daemon automatically.
       systemd.services.seafile-daemon = {
-        wantedBy = [ "multi-user.target" ];
-        path = [ pkgs.seafile-shared ];
+
+        # Check for a network connection by trying to resolve google.com
+        preStart = "${pkgs.host}/bin/host google.com";
+
+        # Run after a network connection is available.
+        wantedBy = [ "default.target" ];
+        after = [ "network-online.target" ];
+        wants = [ "network-online.target" ];
+
+        # `seaf-cli` and `host` commands needed in path.
+        path = [ pkgs.seafile-shared pkgs.host ];
+
+        # Script for setting up Seafile.
         script = ''
 
+          # Stop for good measure. It may not work however...
+          seaf-cli stop || true
+
+          # Create and initialize if not yet done. If already initialised,
+          # nothing happens. Run the daemon after that.
           mkdir -p /home/${globals.user}/.seafile-client
           seaf-cli init -d /home/${globals.user}/.seafile-client
           seaf-cli start
 
+          # Black magic with repos.
           repoids=(${seafile-repoids})
           repolocs=(${seafile-repolocs})
 
@@ -78,7 +95,7 @@
             else
               echo "Adding $repoid to sync."
               mkdir -p "$repoloc"
-              seaf-cli sync -l "$repoid" -s "$remoteurl" -d "$repoloc" -u "$remoteuser" -p "$remotepass"
+              seaf-cli sync -l "$repoid" -s "$remoteurl" -d "$repoloc" -u "$remoteuser" -p "$remotepass" || true
             fi
           done
 
@@ -87,6 +104,10 @@
         serviceConfig = {
           Type = "forking";
           User = globals.user;
+
+          # Restart if there is no network connection yet.
+          Restart = "on-failure";
+          RestartSec = "10sec";
         };
       };
 
