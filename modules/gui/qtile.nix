@@ -109,7 +109,7 @@
 
     # Enable Qtile.
     services.xserver.windowManager.qtile =
-      assert !config.modules.gnome.enable;
+      assert (!(config.modules.qtile.enable && config.modules.gnome.enable));
       {
         enable = true;
         extraPackages =
