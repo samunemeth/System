@@ -27,7 +27,7 @@
       enable = true;
       displayManager.gdm.enable = true;
       desktopManager.gnome =
-        assert (!(config.modules.qtile.enable && config.modules.gnome.enable));
+        assert !config.modules.qtile.enable;
         {
           enable = true;
         };
