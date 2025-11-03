@@ -9,6 +9,7 @@
 }:
 let
 
+  # TODO: Programs used by the previewer are not linked to the store.
   wrapped-lf = pkgs.symlinkJoin {
     name = "wrapped-lf";
     buildInputs = [ pkgs.makeWrapper ];
@@ -16,34 +17,24 @@ let
     postBuild =
       let
 
-        # A script for previewing files.
-        previewerScript = pkgs.writers.writeBash "lfprev" (builtins.readFile ../../apps/lf/previewer.sh);
-
-        # Program configuration, with the location of the previewer script.
-        configFile = pkgs.writers.writeText "lfrc" (
-          (builtins.readFile ../../apps/lf/lfrc)
-          + ''
-            set previewer "${previewerScript}"
-          ''
-        );
-
-        # Configuration file for icons. This needs to be inside a directory structure.
-        configHome = pkgs.stdenv.mkDerivation {
+        lfhome = pkgs.stdenv.mkDerivation {
           name = "lfhome";
-          unpackPhase = "true";
+          src = ../../apps/lf;
           installPhase = ''
+            # Append the location of the previewer script to the configuration.
+            echo "set previewer \"$out/lf/previewer.sh\"" >> ./lfrc
+            # Make the previewer script executable.
+            chmod +x ./previewer.sh
+            # Copy contents to output.
             mkdir -p $out/lf
-            cat > $out/lf/icons <<EOF
-            ${builtins.readFile ../../apps/lf/icons}
-            EOF
-            chmod 644 $out/lf/icons
+            cp -r * $out/lf/
           '';
         };
+
       in
       ''
         wrapProgram $out/bin/lf \
-          --append-flags "-config ${configFile}" \
-          --set LF_CONFIG_HOME ${configHome}
+          --set LF_CONFIG_HOME ${lfhome}
       '';
 
   };
