@@ -57,6 +57,22 @@ except:
     has_battery = False
 
 
+# --- Guess Processor Temperature Sensor ---
+
+try:
+    temperature_sensors = subprocess.check_output(["sensors"]).decode("utf-8").split("\n")
+    has_packageid = len(list(filter(lambda e: "Package id 0" in e, temperature_sensors)))
+    has_tctl = len(list(filter(lambda e: "Tctl" in e, temperature_sensors)))
+    if has_packageid:
+        processor_temperature_name = "Package id 0"
+    elif has_tctl:
+        processor_temperature_name = "Tctl"
+    else:
+        processor_temperature_name = ""
+except:
+    processor_temperature_name = ""
+
+
 # --- Global Settings ---
 
 mod = "mod4"
@@ -415,7 +431,7 @@ widgets = [
     ),
     widget.ThermalSensor(
         format = " {temp:.0f}{unit}",
-        tag_sensor = parametric.processor_temperature_name,
+        tag_sensor = processor_temperature_name,
         mouse_callbacks = {
             "Button1": lambda: qtile.spawn("alacritty -e btop"),
         },

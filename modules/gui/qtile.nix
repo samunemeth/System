@@ -18,15 +18,6 @@
         Enables Qtile with all of it's dependencies.
       '';
     };
-    modules.qtile.processorTemperatureName = lib.mkOption {
-      type = lib.types.str;
-      default = "Package id 0";
-      example = "Tctl";
-      description = ''
-        Name of the temperature sensor that shows processor temperature.
-        Usually `Package id 0` for Intel or `Tctl` for AMD processors.
-      '';
-    };
   };
 
   config = lib.mkIf config.modules.qtile.enable {
@@ -177,8 +168,7 @@
     home-manager.users.${globals.user} =
       let
 
-        qtile_processort_temperature_name = config.modules.qtile.processorTemperatureName;
-        qtile_available_layouts =
+        qtileAvailableLayouts =
           "["
           + (builtins.foldl' (acc: elem: acc + "\"" + elem + "\",") "" config.modules.local.keyboardLayouts)
           + "]";
@@ -211,8 +201,7 @@
               foreground_soft = "${globals.colors.foreground.soft}"
               foreground_error = "${globals.colors.foreground.error}"
 
-              processor_temperature_name = "${qtile_processort_temperature_name}"
-              available_layouts = ${qtile_available_layouts}
+              available_layouts = ${qtileAvailableLayouts}
 
             '';
 

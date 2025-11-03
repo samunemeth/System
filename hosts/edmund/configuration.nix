@@ -36,10 +36,7 @@
 
     # Enable Qtile as a window manager.
     kmscon.enable = true;
-    qtile = {
-      enable = true;
-      processorTemperatureName = "Package id 0";
-    };
+    qtile.enable = true;
     gnome.enable = false;
 
     # Disable tools for programming.

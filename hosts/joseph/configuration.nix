@@ -36,10 +36,7 @@
 
     # Enable Qtile as a window manager.
     kmscon.enable = true;
-    qtile = {
-      enable = true;
-      processorTemperatureName = "Tctl";
-    };
+    qtile.enable = true;
     gnome.enable = false;
 
     # Enable tools for programming.
