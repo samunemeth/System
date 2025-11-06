@@ -18,8 +18,6 @@
     "xhci_pci"
     "ahci"
     "nvme"
-    "usb_storage"
-    "sd_mod"
     "rtsx_pci_sdmmc"
   ];
   boot.initrd.kernelModules = [ ];
@@ -29,7 +27,7 @@
   boot.supportedFilesystems = [ "btrfs" ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/72954a43-1cfb-4a24-8f57-affa99fdec9e";
+    device = "/dev/disk/by-uuid/807818ec-e807-415f-8fbd-a00a546aea6c";
     fsType = "btrfs";
     options = [
       "subvol=root"
@@ -38,21 +36,12 @@
   };
 
   boot.initrd.luks.devices.enc = {
-    device = "/dev/disk/by-uuid/f09c922a-204c-49c4-9138-5913609dd05b";
+    device = "/dev/disk/by-uuid/dbe94e31-2e5d-4e55-91c1-3a39855a8008";
     preLVM = true;
   };
 
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/72954a43-1cfb-4a24-8f57-affa99fdec9e";
-    fsType = "btrfs";
-    options = [
-      "subvol=home"
-      "compress=zstd"
-    ];
-  };
-
   fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/72954a43-1cfb-4a24-8f57-affa99fdec9e";
+    device = "/dev/disk/by-uuid/807818ec-e807-415f-8fbd-a00a546aea6c";
     fsType = "btrfs";
     options = [
       "subvol=nix"
@@ -61,8 +50,17 @@
     ];
   };
 
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/807818ec-e807-415f-8fbd-a00a546aea6c";
+    fsType = "btrfs";
+    options = [
+      "subvol=home"
+      "compress=zstd"
+    ];
+  };
+
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/327C-EAF5";
+    device = "/dev/disk/by-uuid/12CE-A600";
     fsType = "vfat";
     options = [
       "fmask=0022"
