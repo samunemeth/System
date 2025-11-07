@@ -187,6 +187,10 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
       In this case, the new keys need to be added to the `.sops.yaml` file,
       and the keys need to be updated. **MISSINGSTEPS**
     - Copy some existing keys from an external drive. **MISSINGSTEPS**
+    - Make sure that the keys have the correct permissions:
+      ```
+      chmod 0400 /etc/ssh/ssh_host_*
+      ```
   - As the changes are still not pushed to GitHub, you will need to move the
     current git repository to the new users home.
     Give the user ownership of the repository, and change remote URL:
