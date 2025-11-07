@@ -94,17 +94,62 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     ```
   - If you want some program to help you with the installation, you can install
     it now. `git` is needed, and I suggest using `lf` for easier file management,
-    but the latter is not necessary:
+    and `vim` for text editing, but the latter two is not necessary. Also select
+    the editor of your choice for `lf`:
     ```
-    nix-shell -p git lf <PACKAGES>
+    nix-shell -p git lf vim <PACKAGES>
+    export EDITOR=vim
     ```
-  - **Create your partitions.**
-    - I usually use `cfdisk`. **MISSINGSTEPS**
-  - **Format your partitions.**
-    - Just follow the instruction on the [NixOS wiki on btrfs with encryption](https://nixos.wiki/wiki/Btrfs#Installation_with_encryption)
-      while omitting the parts for `/mnt/var/log` and `/mnt/persist`. **MISSINGSTEPS**
-  - **Mount your partitions.**
-    - Follow the same guide as above. **MISSINGSTEPS**
+  - Check disk and partition names, mount points with the first, and file system
+    information with the second command at any time during the installation:
+    ```
+    lsblk
+    lsblk -f
+    ```
+  - Create the needed partitions:
+    ```
+    cfdisk /dev/<OS-DISK>
+    ```
+    If asked, select `GPT` partition table.
+    I recommend a boot partition between 512MiB and 1GiB, and a main partition
+    of at least 8GiB.
+    (A swap partition can also be created, but it is not
+    mentioned in the rest of this guide.)
+  - *If* you just created your boot partition, format it now:
+    ```
+    mkfs.fat -F 32 -n boot /dev/<BOOT-PART>
+    ```
+    *If* you already have one on your disk, it should work just fine as long
+    as it **has enough space**. (Windows usually creates a really small boot
+    partition, and resizing it is not the easiest or safest thing to do, so I
+    recommend installing Linux before Windows for dual booting setups.)
+  - Create a Luks encrypted Btrfs main partition:
+    ```
+    cryptsetup --verify-passphrase -v luksFormat /dev/<LINUX-PART>
+    cryptsetup open /dev/<LINUX-PART> enc
+    mkfs.btrfs /dev/mapper/enc
+    ```
+  - Create the needed sub volumes on the Btrfs partition:
+    ```
+    mount -t btrfs /dev/mapper/enc /mnt
+    btrfs subvolume create /mnt/root
+    btrfs subvolume create /mnt/home
+    btrfs subvolume create /mnt/nix
+    umount /mnt
+    ```
+  - Mount the boot partition:
+    ```
+    mkdir -p /mnt/boot
+    mount /dev/<BOOT-PART> /mnt/boot
+    ```
+  - Mount the Btrfs sub volumes to the appropriate places, with compression:
+    ```
+    mkdir -p /mnt/{home,nix}
+    mount -o subvol=root,compress=zstd /dev/mapper/enc /mnt 
+    mount -o subvol=home,compress=zstd /dev/mapper/enc /mnt/home
+    mount -o subvol=nix,compress=zstd,noatime /dev/mapper/enc /mnt/nix
+    ```
+  - Check mount points, and file systems now for good measure.
   - Clone this repository into the installers home directory, and change into it:
     ```
     cd ~
@@ -112,12 +157,12 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     cd System
     ```
     The following commands are all run from the working directory.
-  - Create a new host is most easily done by coping an existing host's
-    directory and adapting it:
+  - *If* your creating a new host, it is most easily done by coping an existing
+    host's directory and adapting it:
     ```
     cp -r ~/System/hosts/<SOURCE-HOST> ~/System/hosts/<HOST>
     ```
-    **MISSINGSTEPS**
+    Otherwise, you can override an existing one if reinstalling.
   - Generate the hardware configuration for the system directly to the new host's
     directory:
     ```
@@ -125,6 +170,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     nixos-generate-config --root /mnt --dir ~/System/hosts/<HOST>/
     ```
     **MISSINGSTEPS**
+    *You need to add all the extra mount options, and file system support.*
   - You will have to add these changes in git:
     ```
     git add .
@@ -144,9 +190,18 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
       and the keys need to be updated. **MISSINGSTEPS**
     - Copy some existing keys from an external drive. **MISSINGSTEPS**
   - As the changes are still not pushed to GitHub, you will need to move the
-    current git repository to the new users home:
+    current git repository to the new users home.
+    Give the user ownership of the repository, and change remote URL:
     ```
     cp -r ~/System /mnt/home/<USER>/
+
+    nixos-enter
+
+    cd /home/<USER>
+    sudo chown -R <USER>:users ~/System
+
+    cd System
+    git remote set-url origin git@github.com:samunemeth/System.git
     ```
   - Everything should be ready to use, you can boot into the installation.
     ```
@@ -157,17 +212,6 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     following in your host's `configuration.nix`:
     ```nix
     services.xserver.displayManager.lightdm.greeters.mini.enable = lib.mkForce false;
-    ```
-  - Get the ownership of the repository, as it was copied by a root user
-    during installation.
-    ```
-    sudo chown -R <USER>:users ~/System
-    ```
-    TODO: Move to live medium phase?
-  - Change the remote URL of the repository to use ssh:
-    ```
-    cd ~/System
-    git remote set-url origin git@github.com:samunemeth/System.git
     ```
   - Everything should be set! Rebuild with `nrs` and reboot to see if everything
     works as expected.
