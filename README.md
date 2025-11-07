@@ -132,22 +132,20 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - Create the needed sub volumes on the Btrfs partition:
     ```
     mount -t btrfs /dev/mapper/enc /mnt
-    btrfs subvolume create /mnt/root
-    btrfs subvolume create /mnt/home
-    btrfs subvolume create /mnt/nix
+    btrfs subvolume create /mnt/root /mnt/home /mnt/nix
     umount /mnt
+    ```
+  - Mount the Btrfs sub volumes to the appropriate places, with compression:
+    ```
+    mount -o subvol=root,compress=zstd /dev/mapper/enc /mnt 
+    mkdir -p /mnt/{home,nix}
+    mount -o subvol=home,compress=zstd /dev/mapper/enc /mnt/home
+    mount -o subvol=nix,compress=zstd,noatime /dev/mapper/enc /mnt/nix
     ```
   - Mount the boot partition:
     ```
     mkdir -p /mnt/boot
     mount /dev/<BOOT-PART> /mnt/boot
-    ```
-  - Mount the Btrfs sub volumes to the appropriate places, with compression:
-    ```
-    mkdir -p /mnt/{home,nix}
-    mount -o subvol=root,compress=zstd /dev/mapper/enc /mnt 
-    mount -o subvol=home,compress=zstd /dev/mapper/enc /mnt/home
-    mount -o subvol=nix,compress=zstd,noatime /dev/mapper/enc /mnt/nix
     ```
   - Check mount points, and file systems now for good measure.
   - Clone this repository into the installers home directory, and change into it:
@@ -178,7 +176,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - After all the changes are made and committed, you can finally install the
     system from the flake:
     ```
-    nixos-install --flake .#<HOST>
+    nixos-install --flake ~/System#<HOST>
     ```
   - Get some host ssh keys for your machine. This can be done in two different
     ways:
@@ -198,9 +196,10 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     nixos-enter
 
     cd /home/<USER>
-    sudo chown -R <USER>:users ~/System
+    chown -R <USER>:users System
 
-    cd System
+    su <USER>
+    cd ~/System
     git remote set-url origin git@github.com:samunemeth/System.git
     ```
   - Everything should be ready to use, you can boot into the installation.
