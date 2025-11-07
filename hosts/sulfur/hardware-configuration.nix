@@ -27,7 +27,7 @@
   boot.supportedFilesystems = [ "btrfs" ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/807818ec-e807-415f-8fbd-a00a546aea6c";
+    device = "/dev/disk/by-uuid/477ecaa7-a166-4de0-9da8-0ecd74f20330";
     fsType = "btrfs";
     options = [
       "subvol=root"
@@ -35,27 +35,24 @@
     ];
   };
 
-  boot.initrd.luks.devices.enc = {
-    device = "/dev/disk/by-uuid/dbe94e31-2e5d-4e55-91c1-3a39855a8008";
-    preLVM = true;
+  boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/dbe94e31-2e5d-4e55-91c1-3a39855a8008";
+
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/477ecaa7-a166-4de0-9da8-0ecd74f20330";
+    fsType = "btrfs";
+    options = [
+      "subvol=home"
+      "compress=zstd"
+    ];
   };
 
   fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/807818ec-e807-415f-8fbd-a00a546aea6c";
+    device = "/dev/disk/by-uuid/477ecaa7-a166-4de0-9da8-0ecd74f20330";
     fsType = "btrfs";
     options = [
       "subvol=nix"
       "compress=zstd"
       "noatime"
-    ];
-  };
-
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/807818ec-e807-415f-8fbd-a00a546aea6c";
-    fsType = "btrfs";
-    options = [
-      "subvol=home"
-      "compress=zstd"
     ];
   };
 
