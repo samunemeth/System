@@ -12,8 +12,8 @@
   options = {
     modules.seafile.enable = lib.mkOption {
       type = lib.types.bool;
-      default = true;
-      example = false;
+      default = false;
+      example = true;
       description = ''
         Enables the seafile daemon for file scncing.
       '';
