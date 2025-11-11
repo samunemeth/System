@@ -1,4 +1,4 @@
---- Configuration for nix files ---
+--- Configuration for Nix Files ---
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2

@@ -22,3 +22,6 @@ vim.keymap.set("v", "<leader>d", '"_d')
 -- Correct spelling mistakes
 vim.keymap.set({ "n", "v" }, "<C-l>", "[s1z=``")
 vim.keymap.set({ "i" }, "<C-l>", "<C-g>u<Esc>[s1z=`]a<C-g>u")
+
+-- Completion suggestions
+vim.keymap.set("i", "<C-.>", "<C-x><C-o>", { noremap = true, silent = true })

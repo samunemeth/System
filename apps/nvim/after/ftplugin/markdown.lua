@@ -1,4 +1,4 @@
---- Configuration for markdown files ---
+--- Configuration for Markdown Files ---
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2

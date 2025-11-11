@@ -1,4 +1,4 @@
---- Configuration for lua files ---
+--- Configuration for Lua Files ---
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2

@@ -15,7 +15,7 @@ vim.opt.smartindent = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 
--- Unod
+-- Undo
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
@@ -23,7 +23,7 @@ vim.opt.undofile = true
 vim.opt.termguicolors = true
 
 -- Scrolling
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 12
 
 -- Spell configuration
 vim.opt.spell = true
@@ -52,3 +52,34 @@ vim.opt.autoread = true
 
 -- Disable mouse input.
 vim.opt.mouse = ""
+
+-- Completion settings.
+vim.o.completeopt = "fuzzy,menuone,noinsert"
+
+-- Ensure all LSP floating windows are rounded.
+do
+	local orig = vim.lsp.util.open_floating_preview
+	vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
+		opts = opts or {}
+		opts.border = opts.border or "rounded"
+		return orig(contents, syntax, opts, ...)
+	end
+end
+
+-- Make floating windows have a consistent color.
+vim.cmd([[
+  highlight! link FloatBorder TelescopeBorder
+  highlight! link NormalFloat TelescopeNormal
+]])
+
+-- Enable and configure inlay hints.
+vim.lsp.inlay_hint.enable(true)
+vim.diagnostic.config({
+	virtual_text = {
+		spacing = 4,
+		prefix = "",
+	},
+	signs = false,
+	underline = true,
+	severity_sort = true,
+})

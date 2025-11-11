@@ -3,7 +3,7 @@
 local telescope = safe_require("telescope")
 
 if telescope then
-	local builtin = require("telescope.builtin")
+	local builtin = safe_require("telescope.builtin")
 
 	-- Settings
 	telescope.setup({
@@ -29,6 +29,6 @@ if telescope then
 	})
 
 	-- Keymaps
-	vim.keymap.set("n", "<leader><leader>", builtin.find_files, {})
-	vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
+	vim.keymap.set("n", "<leader><leader>", builtin.find_files)
+	vim.keymap.set("n", "<leader>/", builtin.live_grep)
 end

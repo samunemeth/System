@@ -3,7 +3,6 @@
 local treesitter = safe_require("nvim-treesitter.configs")
 
 if treesitter then
-	-- Settings
 	treesitter.setup({
 		parser_install_dir = "/dev/null",
 		sync_install = false,

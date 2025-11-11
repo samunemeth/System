@@ -1,9 +1,9 @@
 --- Configuration for Knap ---
+
 local knap = safe_require("knap")
 
 if knap then
-	-- Knap settings
-	local gknapsettings = {
+	vim.g.knap_settings = {
 
 		-- Options for compiling and previewing LaTeX.
 		textopdfviewerlaunch = "zathura "
@@ -22,7 +22,6 @@ if knap then
 		mdtopdfviewerlaunch = "zathura %outputfile%",
 		mdtopdfviewerrefresh = "none",
 	}
-	vim.g.knap_settings = gknapsettings
 
 	-- Start compilation when a LaTeX file is opened
 	vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile", "BufWrite" }, {

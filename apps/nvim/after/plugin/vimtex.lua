@@ -1,16 +1,19 @@
 --- Configuration for Vimtex ---
 
+-- TODO: Is there a way to detect weather the plugin is present?
+-- TODO: Add a way to open table of contents with `:VimtexTocOpen`
+
 -- Settings
 vim.opt.conceallevel = 1
 vim.g.tex_flavor = "latex"
 vim.g.vimtex_view_method = "zathura"
-vim.g.tex_conceal = "abdmg"
+vim.g.tex_conceal = "abdmg" -- NOTE: This is probably not needed?
 vim.g.vimtex_indent_lists = {}
 vim.g.vimtex_mappings_enabled = true
-vim.g.vimtex_imaps_enabled = 0
+vim.g.vimtex_imaps_enabled = 0 -- NOTE: Why is this 0 if the above is true?
 
 -- Sterilise the plugin so that it does not complain if latexmk is
--- not available. (We are not using it anyways...)
+-- not available; it is not used.
 vim.g.vimtex_compiler_method = "generic"
 vim.g.vimtex_compiler_generic = { ["command"] = ":" }
 

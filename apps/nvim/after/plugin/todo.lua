@@ -6,16 +6,17 @@ if todo then
 	todo.setup({
 		signs = false,
 		highlight = {
-			before = "fg",
+			before = "",
 			keyword = "bg",
 			after = "fg",
+			multiline_pattern = "^.*>.*$",
 		},
 		gui_style = {
 			fg = "ITALIC",
 			bg = "BOLDITALIC",
 		},
 		colors = {
-			hint = { "String" },
+			hint = { "Comment" },
 		},
 	})
 end
