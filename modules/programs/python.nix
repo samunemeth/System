@@ -24,6 +24,9 @@
 
     environment.systemPackages = with pkgs; [
 
+      sqlite
+      # conda
+
       (python312.withPackages (
         p: with p; [
 
