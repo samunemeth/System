@@ -20,6 +20,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **General**
 
+  - [ ] *Look Into:* Syncthing instead of Seafile.
+  - [ ] *Look Into:* Hibernation onto encrypted Btrfs subvolume.
   - [ ] *Set Up:* Tar unpacking.
   - [ ] *Set Up:* Openers in Lf.
   - [ ] *Set Up:* Option to disable hibernation completely.
@@ -46,6 +48,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [x] *Set Up:* Migrating custom word list to English.
   - [ ] *Look Into:* Including spelling dictionaries declaratively.
   - [ ] *Look Into:* Python grammar, formatter and LSP.
+  - [ ] *Look Into:* Wrapping Neovim. [More Info](https://ayats.org/blog/neovim-wrapper)
 
 **Documentation**
 
@@ -59,16 +62,18 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Set Up:* A configuration for minimal installation.
   - [ ] *Set Up:* Gnome with declarative settings.
 
+There are also small items marked with *TODO* inside comments. There are also
+*NOTE*, *WARN* and *BUG* labels used.
 
 # Setup
 
 > [!NOTE]
 > For further guidance, look at the [official installation documentation](https://nixos.org/manual/nixos/stable/#sec-installation),
-> the [NixOS wiki on btrfs with encryption](https://nixos.wiki/wiki/Btrfs#Installation_with_encryption),
+> the [NixOS wiki on Btrfs with encryption](https://nixos.wiki/wiki/Btrfs#Installation_with_encryption),
 > and [this helpful video](https://www.youtube.com/watch?v=lUB2rwDUm5A).
 
 > [!WARNING]
-> There are missing steps in this guide at the moment, marked with "**MISSINGSTEPS**".
+> There are missing steps in this guide at the moment, marked with "**MISSING STEPS**".
 
 
   - Get an install media to boot, then switch to the root user with:
@@ -167,7 +172,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
     mv ~/System/hosts/<HOST>/hardware-configuration.nix hardware-configuration.nix.old
     nixos-generate-config --root /mnt --dir ~/System/hosts/<HOST>/
     ```
-    **MISSINGSTEPS**
+    **MISSING STEPS**
     *You need to add all the extra mount options, and file system support.*
   - You will have to add these changes in git:
     ```
@@ -185,8 +190,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
       ssh-keygen -A -f /mnt
       ```
       In this case, the new keys need to be added to the `.sops.yaml` file,
-      and the keys need to be updated. **MISSINGSTEPS**
-    - Copy some existing keys from an external drive. **MISSINGSTEPS**
+      and the keys need to be updated. **MISSING STEPS**
+    - Copy some existing keys from an external drive. **MISSING STEPS**
     - Make sure that the keys have the correct permissions:
       ```
       chmod 0400 /etc/ssh/ssh_host_*
@@ -226,7 +231,7 @@ Get an *age* public key of your machines host ssh key:
 ```bash
 nix-shell -p ssh-to-age --run 'cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'
 ```
-**MISSINGSTEPS**
+**MISSING STEPS**
 
 
 ## WiFi
@@ -366,12 +371,12 @@ Wiki's for Nix language basics.
 
 ## Hibernation
 
-https://nixos.wiki/wiki/Hibernation
-https://blog.tiserbox.com/posts/2025-03-10-enable-hibernation-on-nix-os.html
-https://sawyershepherd.org/post/hibernating-to-an-encrypted-swapfile-on-btrfs-with-nixos/
-https://discourse.nixos.org/t/btrfs-swap-not-enough-swap-space-for-hibernation/36805
-https://github.com/NixOS/nixpkgs/issues/276374
-https://haseebmajid.dev/posts/2024-07-30-how-i-setup-btrfs-and-luks-on-nixos-using-disko/
+  - https://nixos.wiki/wiki/Hibernation
+  - https://blog.tiserbox.com/posts/2025-03-10-enable-hibernation-on-nix-os.html
+  - https://sawyershepherd.org/post/hibernating-to-an-encrypted-swapfile-on-btrfs-with-nixos/
+  - https://discourse.nixos.org/t/btrfs-swap-not-enough-swap-space-for-hibernation/36805
+  - https://github.com/NixOS/nixpkgs/issues/276374
+  - https://haseebmajid.dev/posts/2024-07-30-how-i-setup-btrfs-and-luks-on-nixos-using-disko/
 
 ## Firefox
 
