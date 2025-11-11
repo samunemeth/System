@@ -66,6 +66,10 @@
             undotree # For an undo tree
             vim-fugitive # For git
 
+            # Small improvements
+            flash-nvim # For faster navigation with 'f'
+            nvim-colorizer-lua # For visual color codes
+
             # LSP and syntax
             (nvim-treesitter.withPlugins (
               p:
