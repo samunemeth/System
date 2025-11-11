@@ -69,6 +69,7 @@
             # Small improvements
             flash-nvim # For faster navigation with 'f'
             nvim-colorizer-lua # For visual color codes
+            todo-comments-nvim # Special comment highlighting
 
             # LSP and syntax
             (nvim-treesitter.withPlugins (
