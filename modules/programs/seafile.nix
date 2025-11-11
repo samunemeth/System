@@ -20,8 +20,8 @@
     };
     modules.seafile.repos = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = {};
-      example = {};
+      default = { };
+      example = { };
       description = '''';
     };
   };
@@ -64,7 +64,10 @@
         wants = [ "network-online.target" ];
 
         # `seaf-cli` and `host` commands needed in path.
-        path = [ pkgs.seafile-shared pkgs.host ];
+        path = [
+          pkgs.seafile-shared
+          pkgs.host
+        ];
 
         # Script for setting up Seafile.
         script = ''

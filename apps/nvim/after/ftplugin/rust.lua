@@ -10,7 +10,7 @@ vim.keymap.set("i", ".", function()
 	local line = vim.api.nvim_get_current_line()
 	local prev = (col >= 1) and line:sub(col, col) or ""
 	if prev == "." then
-	  return "."
+		return "."
 	end
 	return vim.api.nvim_replace_termcodes(".<C-g>u<C-x><C-o>", true, false, true)
 end, { expr = true, noremap = true, buffer = bufnr })

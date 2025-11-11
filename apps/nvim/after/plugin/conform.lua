@@ -3,7 +3,7 @@
 local conform = safe_require("conform")
 
 if conform then
-	require("conform").setup({
+	conform.setup({
 		formatters_by_ft = {
 			lua = { "stylua" },
 			nix = { "nixfmt" },
