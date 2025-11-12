@@ -55,13 +55,14 @@
     };
 
     # Enable Seafile file syncing.
-    seafile = {
-      enable = true;
-      repos = {
-        "411830eb-158e-4aa5-9333-869e7dfa7d99" = "Documents";
-        "734b3f5b-7bd0-49c2-a1df-65f1cbb201a4" = "Notes";
-      };
-    };
+    # seafile = {
+    #   enable = true;
+    #   repos = {
+    #     "411830eb-158e-4aa5-9333-869e7dfa7d99" = "Documents";
+    #     "734b3f5b-7bd0-49c2-a1df-65f1cbb201a4" = "Notes";
+    #   };
+    # };
+    syncthing.enable = true;
 
   };
 
