@@ -1,5 +1,5 @@
 # Simple settings.
-set newtab https://blackscreen.app/
+set newtab about:blank
 set theme shydactyl
 
 # Set custom search patterns.
