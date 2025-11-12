@@ -9,18 +9,26 @@
 }:
 {
 
-  # Request "pass" ssh key from sops, and place them in the default location.
-  # Create a symlink to these later, as despite being owned by the user, when
-  # placing these files, the parent directory gets owned by root. Because of
-  # this, directly placing them in place is unreliable.
-  sops.secrets.user-ssh-pass-public = {
-    owner = globals.user;
-    group = "users";
-  };
-  sops.secrets.user-ssh-pass-private = {
-    owner = globals.user;
-    group = "users";
-  };
+  sops.secrets =
+    let
+      userOwned = {
+        owner = globals.user;
+        group = "users";
+      };
+    in
+    {
+
+      # Request "pass" ssh key from sops, and place them in the default location.
+      # NOTE: Create a symlink to these later, as despite being owned by the user,
+      # > when placing these files, the parent directory gets owned by root.
+      # > Because of this, directly placing them in place is unreliable.
+      user-ssh-pass-public = userOwned;
+      user-ssh-pass-private = userOwned;
+
+      # Request ssh destination shortcuts.
+      ssh-destinations = userOwned;
+
+    };
 
   # Machine ssh settings.
   programs.ssh = {
@@ -32,6 +40,7 @@
     knownHosts = {
 
       # GitHub public keys.
+      # TODO: Check if this is actually needed / good practice.
       "github.com/ed25519" = {
         hostNames = [
           "github.com"

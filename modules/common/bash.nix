@@ -28,6 +28,9 @@
 
     # --- Home Manager Part ---
     home-manager.users.${globals.user} =
+      let
+        sshDestinations = config.sops.secrets.ssh-destinations.path;
+      in
       {
         config,
         pkgs,
@@ -78,6 +81,12 @@
               where () {
                 cat $(which $1)
               }
+
+              # ssh () {
+              #   destinations=$(cat ${sshDestinations})
+              #   echo "''${destinations[@]}"
+              #   command ssh "$@"
+              # }
 
             '';
 
