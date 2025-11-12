@@ -94,10 +94,8 @@
         # Define what keys to use
         matchBlocks = {
 
-          # Use `yubi` as the primary, `pass` for fallback for GitHub.
-          "git" = {
-            host = "github.com";
-            user = "git";
+          # Identity for all connections.
+          "*" = {
             identityFile = [
               "~/.ssh/id_yubi"
               "~/.ssh/id_pass"
