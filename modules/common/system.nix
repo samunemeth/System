@@ -1,4 +1,4 @@
-# --- System ---
+# --- System and Power Management ---
 
 {
   config,
