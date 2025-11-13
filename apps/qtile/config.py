@@ -293,7 +293,22 @@ floating_layout = layout.Floating(
     border_focus = parametric.foreground_soft,
     border_normal = parametric.background_contrast,
     float_rules = [
-        *layout.Floating.default_float_rules,
+        Match(wm_type="utility"),
+        Match(wm_type="notification"),
+        Match(wm_type="toolbar"),
+        Match(wm_type="splash"),
+        Match(wm_type="dialog"),
+        Match(wm_class="file_progress"),
+        Match(wm_class="confirm"),
+        Match(wm_class="dialog"),
+        Match(wm_class="download"),
+        Match(wm_class="error"),
+        Match(wm_class="notification"),
+        Match(wm_class="splash"),
+        Match(wm_class="toolbar"),
+        Match(func=lambda c: c.has_fixed_size()),
+        # Disabled for mpv, so it does not float.
+        # Match(func=lambda c: c.has_fixed_ratio()),
     ]
 )
 

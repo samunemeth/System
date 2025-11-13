@@ -32,8 +32,14 @@ cmd open &{{
       printf "Opened LaTeX source with text editor."
     else 
       zathura "$f" --fork -l error
-      printf "Opened with Zathura."
+      printf "Opened pdf with Zathura."
     fi
+  elif [[ $filetype == "image"* ]] then
+    mpv --image-display-duration=inf "$f"
+    printf "Opened image with Mpv."
+  elif [[ $filetype == "video"* ]] then
+    mpv "$f"
+    printf "Opened video with Mpv."
   else
     alacritty -e $EDITOR "$f"
     printf "Unknown filetype, opened with text editor."

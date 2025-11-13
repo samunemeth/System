@@ -128,15 +128,6 @@
             command = "/run/current-system/sw/bin/xbacklight";
             options = [ "NOPASSWD" ];
           }
-          # Mounting and unmounting.
-          # {
-          #   command = "/run/wrappers/bin/mount";
-          #   options = [ "NOPASSWD" ];
-          # }
-          # {
-          #   command = "/run/wrappers/bin/umount";
-          #   options = [ "NOPASSWD" ];
-          # }
         ];
         groups = [ "wheel" ];
       }
