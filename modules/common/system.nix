@@ -11,7 +11,6 @@
 
   options = {
     # TODO: Affect the actual ability of hibernation.
-    # TODO: Check if there is actually swap to hibernate to?
     modules.system.hibernation = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -62,13 +61,20 @@
     services.power-profiles-daemon.enable = true;
     services.upower.enable = !config.modules.isDesktop;
 
-    # Configure power actions on different events.
-    services.logind = {
-      lidSwitch = if config.modules.system.hibernation then "suspend-then-hibernate" else "suspend";
-      lidSwitchExternalPower = "ignore";
-      powerKey = "ignore";
-      powerKeyLongPress = "poweroff";
-    };
+    services.logind =
+
+      # Assert that if hibernation is allowed, there has to be a swap device.
+      assert lib.assertMsg (
+        !(config.modules.system.hibernation) || (lib.lists.length config.swapDevices != 0)
+      ) "Hibernation without a swap device is not possible.";
+
+      # Configure power actions on different events.
+      {
+        lidSwitch = if config.modules.system.hibernation then "suspend-then-hibernate" else "suspend";
+        lidSwitchExternalPower = "ignore";
+        powerKey = "ignore";
+        powerKeyLongPress = "poweroff";
+      };
 
     # Set delay to hibernate after sleeping in the corresponding mode.
     # Your system might have an option to enter a slightly deeper sleep mode.
