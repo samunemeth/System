@@ -11,7 +11,6 @@
 
   options = {
     # TODO: Affect the actual ability of hibernation.
-    # TODO: Remove hibernation option from Rofi.
     # TODO: Check if there is actually swap to hibernate to?
     modules.system.hibernation = lib.mkOption {
       type = lib.types.bool;

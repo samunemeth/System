@@ -21,6 +21,7 @@
       luksPrompt = false;
       autoLogin = false;
     };
+    system.hibernation = false;
 
     # Configure keyboard layouts. The first one becomes the default.
     local.keyboardLayouts = [

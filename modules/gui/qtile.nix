@@ -172,6 +172,8 @@
           "["
           + (builtins.foldl' (acc: elem: acc + "\"" + elem + "\",") "" config.modules.local.keyboardLayouts)
           + "]";
+        hasHibernation = config.modules.system.hibernation;
+        hasAutoLogin = config.modules.boot.autoLogin;
 
       in
       {
@@ -202,6 +204,9 @@
               foreground_error = "${globals.colors.foreground.error}"
 
               available_layouts = ${qtileAvailableLayouts}
+              
+              has_hibernation = ${if hasHibernation then "True" else "False"}
+              has_auto_login = ${if hasAutoLogin then "True" else "False"}
 
             '';
 
