@@ -39,6 +39,12 @@
     qtile.enable = true;
     gnome.enable = false;
 
+    # Enable Firefox browser.
+    firefox = {
+      enable = true;
+      tridactyl = false;
+    };
+
     # Disable tools for programming.
     programming = {
       latex = false;
