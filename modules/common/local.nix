@@ -104,8 +104,22 @@
               "m" = "macro(compose o \")";
               "[" = "macro(compose = u)";
               "]" = "macro(compose = o)";
+            }
+            // {
+              "f1" = "A-C-f1";
+              "f2" = "A-C-f2";
+              "f3" = "A-C-f3";
+              "f4" = "A-C-f4";
+              "f5" = "A-C-f5";
+              "f6" = "A-C-f6";
+              "f7" = "A-C-f7";
+              "f8" = "A-C-f8";
+              "f9" = "A-C-f9";
+              "f10" = "A-C-f10";
+              "f11" = "A-C-f11";
+              "f12" = "A-C-f12";
             };
-            "alt+shift" = {
+            "special+shift" = {
               "e" = "macro(compose E ')";
               "a" = "macro(compose A ')";
               "i" = "macro(compose I ')";
