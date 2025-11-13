@@ -20,8 +20,11 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **General**
 
-  - [ ] *Look Into:* Hibernation onto encrypted Btrfs subvolume.
-  - [ ] *Set Up:* Option to disable hibernation completely.
+  - [x] *Look Into:* Hibernation onto encrypted Btrfs subvolume.
+        *Possible, but there has to be more fixes before using.*
+        [More Info](https://sawyershepherd.org/post/hibernating-to-an-encrypted-swapfile-on-btrfs-with-nixos/)
+  - [x] *Set Up:* Option to disable hibernation completely.
+  - [x] *Set Up:* Automatic mounting and unmounting for removable media.
   - [ ] *Set Up:* Password prompt after hibernation.
   - [ ] *Look Into:* Hibernation and Sleep fucking with YubiKey authentication.
   - [ ] *Set Up:* Tar unpacking.
