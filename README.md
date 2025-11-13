@@ -20,14 +20,15 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **General**
 
-  - [ ] *Look Into:* Syncthing instead of Seafile.
   - [ ] *Look Into:* Hibernation onto encrypted Btrfs subvolume.
-  - [ ] *Set Up:* Tar unpacking.
-  - [ ] *Set Up:* Openers in Lf.
   - [ ] *Set Up:* Option to disable hibernation completely.
   - [ ] *Set Up:* Password prompt after hibernation.
-  - [ ] *Set Up:* Automatic locking.
   - [ ] *Look Into:* Hibernation and Sleep fucking with YubiKey authentication.
+
+  - [ ] *Set Up:* Tar unpacking.
+  - [ ] *Set Up:* Openers in Lf.
+
+  - [ ] *Set Up:* Automatic locking.
   - [ ] *Look Into:* The *mini greeter* seems to act up on first boot.
         *Maybe just ditch the mini greeter?*
 
@@ -356,13 +357,14 @@ For looking for packages or configuration options respectively.
 
   - [Nix Packages](https://search.nixos.org/packages) for looking up packages.
   - [MyNixOS](https://mynixos.com/) for looking up configuration options.
+  - [Noogle](https://noogle.dev/) for looking up `pkgs` and `lib` functions.
 
 ## Nix Language
 
 Wiki's for Nix language basics.
 
   - [Language Basics](https://nix.dev/tutorials/nix-language.html)
-  - [Builtin](https://nix.dev/manual/nix/2.28/language/builtins.html)
+  - [Builtins](https://nix.dev/manual/nix/2.28/language/builtins.html)
   - [Nix Pills](https://nixos.org/guides/nix-pills/00-preface.html)
 
 ## Impermanence
