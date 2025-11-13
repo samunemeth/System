@@ -10,7 +10,6 @@
 {
 
   options = {
-    # TODO: Affect the actual ability of hibernation.
     modules.system.hibernation = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -55,11 +54,8 @@
 
     # --- Power Management ---
 
-    # Enable power management packages for sleep and hibernation.
-    # Upower for keeping battery statistics, but only on laptops.
+    # Enable power management option for sleep and hibernation.
     powerManagement.enable = true;
-    services.power-profiles-daemon.enable = true;
-    services.upower.enable = !config.modules.isDesktop;
 
     services.logind =
 
@@ -76,12 +72,20 @@
         powerKeyLongPress = "poweroff";
       };
 
-    # Set delay to hibernate after sleeping in the corresponding mode.
-    # Your system might have an option to enter a slightly deeper sleep mode.
-    systemd.sleep.extraConfig = ''
-      HibernateDelaySec=10m
-      SuspendState=mem
-    '';
+    systemd.sleep.extraConfig = (
+
+      # NOTE: Your system might have an option to enter a deeper sleep mode.
+      ''
+        HibernateDelaySec=10m
+        SuspendState=mem
+      ''
+
+      # Disable hibernation if not enabled explicitly.
+      + lib.strings.optionalString (!config.modules.system.hibernation) ''
+        AllowHibernation=no
+        AllowSuspendThenHibernate=no
+      ''
+    );
 
   };
 }
