@@ -84,8 +84,9 @@
 
               # Copilot key remapping.
               "f23+leftshift+leftmeta" = "M-a";
+              "leftalt" = "layer(special)";
             };
-            "alt" = {
+            "special" = {
               "h" = "left";
               "k" = "up";
               "j" = "down";
