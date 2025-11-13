@@ -59,4 +59,27 @@
     '';
   };
 
+  # --- Mounting ---
+
+  # Enable service for mounting as a user.
+  services.udisks2.enable = true;
+
+  home-manager.users.${globals.user} =
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
+    {
+
+      # Enable automatic mounting service.
+      services.udiskie = {
+        enable = true;
+        automount = true;
+        notify = true;
+      };
+
+    };
+
 }

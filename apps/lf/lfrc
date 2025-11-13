@@ -63,5 +63,6 @@ map a add
 map gc cd ~/.config
 map gd cd ~/Documents
 map gn cd ~/Notes
+map gm cd /run/media/
 map zz zip
 
