@@ -36,7 +36,7 @@
     };
 
     # Enable Qtile as a window manager.
-    kmscon.enable = true;
+    kmscon.enable = false;
     qtile.enable = true;
     gnome.enable = false;
 
@@ -72,11 +72,9 @@
 
   };
 
-  # This machine has a big battery, so it is fine to stay in sleep longer.
-  # Still no deeper sleep state however.
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=30m
-    SuspendState=mem
-  '';
+  # Only enable integrated graphics, as it suffices for most tasks, and has
+  # greatly reduced power usage.
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
 }
