@@ -314,6 +314,15 @@ floating_layout = layout.Floating(
 
 # --- Widget Settings ---
 
+def get_nvidia_status_icon():
+    current_status = subprocess.check_output(["cat", f"{parametric.dgpu_path}/power/runtime_status"]).decode("utf-8").strip()
+    if current_status == "active":
+        return "󰨇"
+    elif current_status == "suspended":
+        return "󰍹"
+    else:
+        return "󰷜"
+
 widget_defaults = dict(
     font = "Hack Nerd Font",
     fontsize = 14,
@@ -375,9 +384,25 @@ widgets = [
     #     size_percent = 70
     # ),
 
-
     # --------------------------
 
+] + ([
+    widget.Sep(
+        linewidth = 2,
+        padding = 10,
+        size_percent = 70,
+    ),
+    widget.GenPollText(
+        func = get_nvidia_status_icon,
+        fmt = "{}",
+        shell = True,
+        update_interval = 1,
+        padding = 10,
+    ),
+    widget.Spacer(
+        length = 4,
+    ),
+] if not parametric.dgpu_path == "" else []) + [
     widget.Sep(
         linewidth = 2,
         padding = 10,
@@ -465,7 +490,7 @@ widgets = [
         size_percent = 70
     ),
     widget.Battery(
-        format="{char} {percent:2.1%}  󱧦 {hour:02d}:{min:02d}",
+        format="{char} {watt:.0f}W  󰂎 {percent:2.1%}  󱧦 {hour:02d}:{min:02d} ",
         charge_char = "",
         discharge_char = "",
         full_char = "=",

@@ -18,6 +18,15 @@
         Enables Qtile with all of it's dependencies.
       '';
     };
+    # NOTE: This could be calculated from the value in Nvidia prime.
+    modules.qtile.dgpuPath = lib.mkOption {
+      type = lib.types.string;
+      default = "";
+      example = "/sys/bus/pci/devices/0000:01:00.0";
+      description = ''
+        Supply a path to the dedicated gpu device to show an icon of it's status.
+      '';
+    };
   };
 
   config = lib.mkIf config.modules.qtile.enable {
@@ -166,6 +175,8 @@
         hasHibernation = config.modules.system.hibernation;
         hasAutoLogin = config.modules.boot.autoLogin;
 
+        dgpuPath = config.modules.qtile.dgpuPath;
+
       in
       {
         config,
@@ -198,6 +209,8 @@
               
               has_hibernation = ${if hasHibernation then "True" else "False"}
               has_auto_login = ${if hasAutoLogin then "True" else "False"}
+
+              dgpu_path = "${dgpuPath}"
 
             '';
 
