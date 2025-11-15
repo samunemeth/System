@@ -20,7 +20,7 @@
     };
     # NOTE: This could be calculated from the value in Nvidia prime.
     modules.qtile.dgpuPath = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
       default = "";
       example = "/sys/bus/pci/devices/0000:01:00.0";
       description = ''
