@@ -321,6 +321,35 @@ root password for example. Of course, the disk has to be decrypted for it.
 *Based on the [NixOS wiki's bootloader page](https://nixos.wiki/wiki/Bootloader#From_an_installation_media).*
 
 
+## Nvidia GPU
+
+There are a plethora of versions for Nvidia drivers depending on the GPU type,
+and they all take up a few GiB of space. When using a laptop that has a dual GPU
+setup, there are different option for sharing the load, but in the end, using
+only the integrated graphics might be beneficial for power usage while doing
+everyday tasks. Power usage improved from 33W to 20W during video playback
+when disabling the dedicated GPU, without a measurable loss in speed or quality.
+
+If the offloading option was stricter,
+such that would really only allows specific programs to use the dedicated GPU,
+generally keep it more in a suspended state (now the dGPU wakes up
+sometimes for no apparent reason), it would be probably better to use that
+option, but in this state, it just increases power usage too much to be worth
+keeping it on all the time. Using a specialization may be a good idea if the
+dGPU is sometimes required.
+
+I have tried investigating what is causing the dGPU wakeup, but have found to
+definite answer. *Kmscon* definitely runs on the dGPU if available, but without
+*Kmscon* wakeup still happen. Investigating this in detail would be a nice
+side quest for the future.
+
+
+Look at [modules/nvidia.template.nix](./modules/nvidia.template.nix) for information on the settings.
+The template is based on the following sources:
+  - [Community NixOS Wiki](https://nixos.wiki/wiki/Nvidia)
+  - [Official NixOS Wiki](https://wiki.nixos.org/wiki/NVIDIA)
+
+
 ## Other Fixes
 
 Sometimes stuff gets stuck in `/tmp`, and prevents packages from being garbage
