@@ -27,20 +27,22 @@
     ./common/bash.nix
 
     # Program specific configurations.
-    ./programs/neovim.nix
-    ./programs/alacritty.nix
-    ./programs/firefox.nix
-    ./programs/git.nix
-    ./programs/rofi.nix
-    ./programs/zathura.nix
-    ./programs/lf.nix
-    ./programs/latex.nix
-    ./programs/vscode.nix
-    ./programs/java.nix
-    ./programs/seafile.nix
-    ./programs/rust.nix
-    ./programs/python.nix
-    ./programs/mpv.nix
+    ./apps/neovim.nix
+    ./apps/alacritty.nix
+    ./apps/firefox.nix
+    ./apps/git.nix
+    ./apps/rofi.nix
+    ./apps/zathura.nix
+    ./apps/lf.nix
+    ./apps/vscode.nix
+    ./apps/seafile.nix
+    ./apps/mpv.nix
+
+    # Programming language supports
+    ./programming/latex.nix
+    ./programming/java.nix
+    ./programming/rust.nix
+    ./programming/python.nix
 
     # User interfaces.
     ./gui/gnome.nix

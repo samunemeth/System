@@ -22,11 +22,7 @@
 
   config = lib.mkIf config.modules.vscode.enable {
 
-    environment.systemPackages = with pkgs; [
-
-      vscode-fhs
-
-    ];
+    environment.systemPackages = with pkgs; [ vscode-fhs ];
 
   };
 }
