@@ -22,10 +22,12 @@
 
   config = lib.mkIf config.modules.gui.kmscon {
 
+    # Require fonts used.
+    fonts.packages = [ pkgs.nerd-fonts.hack ];
+
     # A nicer terminal only interface if needed.
     services.kmscon = {
       enable = true;
-      # TODO: Make sure font is available.
       fonts = [
         {
           name = "Hack Nerd Font Mono";

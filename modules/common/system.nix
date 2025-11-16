@@ -34,6 +34,11 @@
     # Set host name default.
     networking.hostName = globals.host;
 
+    # Enable sound with Pulse Audio by default.
+    services.pulseaudio.enable = true;
+    services.pipewire.enable = false;
+    security.rtkit.enable = true;
+
     # Enable flakes.
     nix.settings.experimental-features = [
       "nix-command"

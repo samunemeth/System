@@ -33,8 +33,6 @@
         hsetroot # For background setting.
         dunst # Notification agent.
         libinput-gestures # For touchpad gestures.
-        # xsecurelock # For secure session locking.
-        # xss-lock # Locking daemon.
 
       ]
       ++ lib.lists.optionals config.modules.packages.lowPriority [
@@ -46,6 +44,9 @@
         xcolor # For color picking.
 
       ];
+
+    # Require fonts used.
+    fonts.packages = [ pkgs.nerd-fonts.hack ];
 
     # Set up auto login if required.
     services.displayManager.autoLogin = {
@@ -113,11 +114,10 @@
           ];
       };
 
-    # Add rules for no sudo password.
+    # Rules for no sudo password while changing monitor brightness.
     security.sudo.extraRules = lib.mkAfter [
       {
         commands = [
-          # Changing monitor brightness.
           {
             command = "/run/current-system/sw/bin/xbacklight";
             options = [ "NOPASSWD" ];
@@ -127,7 +127,7 @@
       }
     ];
 
-    # Start the libinput-gestures daemon to handle touchpad gestures.
+    # Start the daemon to handle touchpad gestures.
     systemd.services.libinput-gestures = {
       enable = lib.mkDefault (if config.modules.system.isDesktop then false else true);
       wantedBy = [ "multi-user.target" ];
@@ -138,16 +138,6 @@
         ExecStart = "${pkgs.libinput-gestures}/bin/libinput-gestures -c /home/${globals.user}/.config/libinput-gestures.conf";
       };
     };
-
-    # send SIGUSR2 to xsecurelock on resume (post)
-    # environment.etc."systemd/system-sleep/xsecurelock".text = ''
-    #   #!/bin/sh
-    #   if [ "$1" = "post" ]; then
-    #     pkill -x -USR2 xsecurelock
-    #   fi
-    #   exit 0
-    # '';
-    # environment.etc."systemd/system-sleep/xsecurelock".mode = "0755";
 
     # --- Home Manager Part ---
     home-manager.users.${globals.user} =

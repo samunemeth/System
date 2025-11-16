@@ -16,17 +16,6 @@
 
   ];
 
-  # Generate host ssh keys.
-  services.openssh = {
-    enable = true;
-    ports = [ 2142 ];
-    settings = {
-      PasswordAuthentication = false;
-      PermitRootLogin = "no";
-      AllowUsers = lib.mkForce [ globals.user ];
-    };
-  };
-
   # Configuration for sops.
   sops = {
 

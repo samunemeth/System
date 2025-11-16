@@ -18,7 +18,6 @@
     ./common/locale.nix
     ./common/packages.nix
     ./common/ssh.nix
-    ./common/audio.nix
     ./common/network.nix
     ./common/users.nix
     ./common/sops.nix

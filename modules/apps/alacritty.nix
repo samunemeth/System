@@ -28,6 +28,9 @@
       excludePackages = [ pkgs.xterm ];
     };
 
+    # Require fonts used.
+    fonts.packages = [ pkgs.nerd-fonts.hack ];
+
     # --- Home Manager Part ---
     home-manager.users.${globals.user} =
       {
@@ -61,7 +64,6 @@
           scrolling.history = 1000;
 
           # Set fonts for each different style.
-          # TODO: Make font available on the machine here.
           font = {
             normal = {
               family = "Hack Nerd Font Mono";

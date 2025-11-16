@@ -53,13 +53,13 @@
     services.speechd.enable = lib.mkForce false;
     programs.nano.enable = false;
 
-    # Enable vim
+    # Enable vim, while Neovim in not wrapped.
     programs.vim.enable = true;
-
-    # Disable documentation by default, for space saving.
+  
+    # Set documentation availability in accordance with setting.
     documentation.enable = config.modules.packages.manuals;
 
-    # List of fonts.
+    # list of fonts.
     fonts.packages = with pkgs; [
       nerd-fonts.hack
     ];
