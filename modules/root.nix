@@ -38,11 +38,11 @@
     ./apps/seafile.nix
     ./apps/mpv.nix
 
-    # Programming language supports
-    ./programming/latex.nix
-    ./programming/java.nix
-    ./programming/rust.nix
-    ./programming/python.nix
+    # Programming languages.
+    ./code/latex.nix
+    ./code/java.nix
+    ./code/rust.nix
+    ./code/python.nix
 
     # User interfaces.
     ./gui/gnome.nix
