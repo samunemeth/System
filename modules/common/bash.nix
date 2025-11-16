@@ -93,6 +93,7 @@
         };
 
         # User session variables, for ease of user.
+        # BUG: This should not be done here actually!
         home.sessionVariables = {
           EDITOR = "nvim";
           BROWSER = "firefox";

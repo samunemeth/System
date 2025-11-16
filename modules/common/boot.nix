@@ -57,9 +57,8 @@
       # Set boot options to enable resuming from hibernation.
       initrd.systemd.enable = true;
 
-      # Silent boot implementation.
-      # This will interfere with tty if there is no window manager, so it is
-      # turned off in that case.
+      # Silent boot implementation. This will interfere with tty if there is
+      # no window manager, so it is turned off in that case.
       kernelParams =
         if !config.modules.boot.silentBoot then
           [ ]
@@ -69,7 +68,7 @@
             "boot.shell_on_fail"
             "udev.log_priority=3"
           ]
-        else if config.modules.qtile.enable || config.modules.gnome.enable then
+        else if config.modules.gui.qtile || config.modules.gui.gnome then
           [
             "quiet"
             "fbcon=vc:2-6"
