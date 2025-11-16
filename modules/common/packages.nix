@@ -45,7 +45,6 @@
         fastfetchMinimal # Displaying system data.
         nix-tree # Explore sizes of packages.
         toybox # Lightweight Unix utilities.
-        mpv # Light weight media player.
 
       ];
 

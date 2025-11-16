@@ -1,0 +1,43 @@
+# --- Mpv Media Player ---
+
+{
+  config,
+  pkgs,
+  lib,
+  globals,
+  ...
+}:
+let
+
+  wrapped-mpv = pkgs.symlinkJoin {
+    name = "wrapped-mpv";
+    buildInputs = [ pkgs.makeWrapper ];
+    paths = [ pkgs.mpv ];
+    postBuild = ''
+      wrapProgram $out/bin/mpv \
+        --add-flags "--hwdec=yes --gpu-api=opengl -v"
+    '';
+
+  };
+
+in
+{
+
+  options = {
+    modules.mpv.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      example = false;
+      description = ''
+        Enables the Mpv media player.
+      '';
+    };
+  };
+
+  config = lib.mkIf config.modules.mpv.enable {
+
+    environment.systemPackages = [ wrapped-mpv ];
+
+  };
+
+}

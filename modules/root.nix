@@ -40,6 +40,7 @@
     ./programs/seafile.nix
     ./programs/rust.nix
     ./programs/python.nix
+    ./programs/mpv.nix
 
     # User interfaces.
     ./gui/gnome.nix

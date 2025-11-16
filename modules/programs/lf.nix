@@ -42,27 +42,42 @@ let
 in
 {
 
-  # Packages for previewing files, and some other tasks.
-  # TODO: Move some to low priority?
-  environment.systemPackages = with pkgs; [
+  options = {
+    modules.lf.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      example = false;
+      description = ''
+        Enables the Lf file manager.
+      '';
+    };
+  };
 
-    wrapped-lf # Terminal file manager with configuration.
+  config = lib.mkIf config.modules.lf.enable {
 
-    highlight # Text file highlighting.
-    poppler-utils # Pdf to text conversion.
-    exiftool # Getting metadata.
-    zip # Creating zip files.
-    unzip # Unpacking zip files.
-    ripgrep # Recursive command line search command.
+    # Packages for previewing files, and some other tasks.
+    # TODO: Move some to low priority?
+    environment.systemPackages = with pkgs; [
 
-  ];
+      wrapped-lf
 
-  # Add a command to change directories with Lf.
-  programs.bash.interactiveShellInit = # bash
-    ''
-      lfcd () {
-        cd "$(command lf -print-last-dir "$@")"
-      }
-    '';
+      highlight # Text file highlighting.
+      poppler-utils # Pdf to text conversion.
+      exiftool # Getting metadata.
+      zip # Creating zip files.
+      unzip # Unpacking zip files.
+      ripgrep # Recursive command line search command.
+
+    ];
+
+    # Add a command to change directories with Lf.
+    programs.bash.interactiveShellInit = # bash
+      ''
+        lfcd () {
+          cd "$(command lf -print-last-dir "$@")"
+        }
+      '';
+
+  };
 
 }
