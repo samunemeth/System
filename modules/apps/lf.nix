@@ -13,10 +13,21 @@ let
   wrapped-lf = pkgs.symlinkJoin {
     name = "wrapped-lf";
     buildInputs = [ pkgs.makeWrapper ];
-    paths = [ pkgs.lf ];
+    paths = with pkgs; [
+
+      lf # Core.
+
+      # TODO: Move some to low priority?
+      highlight # Text file highlighting.
+      poppler-utils # Pdf to text conversion.
+      exiftool # Getting metadata.
+      zip # Creating zip files.
+      unzip # Unpacking zip files.
+      ripgrep # Recursive command line search command.
+
+    ];
     postBuild =
       let
-
         lfhome = pkgs.stdenv.mkDerivation {
           name = "lfhome";
           src = ../../apps/lf;
@@ -30,20 +41,18 @@ let
             cp -r * $out/lf/
           '';
         };
-
       in
       ''
         wrapProgram $out/bin/lf \
           --set LF_CONFIG_HOME ${lfhome}
       '';
-
   };
 
 in
 {
 
-  options = {
-    modules.lf.enable = lib.mkOption {
+  options.modules = {
+    apps.lf = lib.mkOption {
       type = lib.types.bool;
       default = true;
       example = false;
@@ -53,22 +62,9 @@ in
     };
   };
 
-  config = lib.mkIf config.modules.lf.enable {
+  config = lib.mkIf config.modules.apps.lf {
 
-    # Packages for previewing files, and some other tasks.
-    # TODO: Move some to low priority?
-    environment.systemPackages = with pkgs; [
-
-      wrapped-lf
-
-      highlight # Text file highlighting.
-      poppler-utils # Pdf to text conversion.
-      exiftool # Getting metadata.
-      zip # Creating zip files.
-      unzip # Unpacking zip files.
-      ripgrep # Recursive command line search command.
-
-    ];
+    environment.systemPackages = [ wrapped-lf ];
 
     # Add a command to change directories with Lf.
     programs.bash.interactiveShellInit = # bash

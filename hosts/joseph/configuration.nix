@@ -46,7 +46,13 @@
       tridactyl = false;
     };
 
-    # Select support for programming languages.
+    # Apps to install.
+    apps = {
+      mpv = true;
+      lf = true;
+    };
+
+    # Programming languages to install.
     code = {
       latex = true;
       java = false;

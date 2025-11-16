@@ -17,14 +17,13 @@ let
       wrapProgram $out/bin/mpv \
         --add-flags "--hwdec=yes --gpu-api=opengl -v"
     '';
-
   };
 
 in
 {
 
-  options = {
-    modules.mpv.enable = lib.mkOption {
+  options.modules = {
+    apps.mpv = lib.mkOption {
       type = lib.types.bool;
       default = true;
       example = false;
@@ -34,7 +33,7 @@ in
     };
   };
 
-  config = lib.mkIf config.modules.mpv.enable {
+  config = lib.mkIf config.modules.apps.mpv {
 
     environment.systemPackages = [ wrapped-mpv ];
 
