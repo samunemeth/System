@@ -10,7 +10,7 @@
 {
 
   options.modules = {
-    apps.alacritty = lib.mkoption {
+    apps.alacritty = lib.mkOption {
       type = lib.types.bool;
       default = true;
       example = false;

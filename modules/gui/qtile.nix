@@ -164,7 +164,7 @@
 
         qtileAvailableLayouts =
           "["
-          + (builtins.foldl' (acc: elem: acc + "\"" + elem + "\",") "" config.modules.local.keyboardLayouts)
+          + (builtins.foldl' (acc: elem: acc + "\"" + elem + "\",") "" config.modules.locale.keyboardLayouts)
           + "]";
         hasHibernation = config.modules.system.hibernation;
         hasAutoLogin = config.modules.boot.autoLogin;

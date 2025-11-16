@@ -9,25 +9,25 @@
 }:
 {
 
-  options = {
-    modules.boot.silentBoot = lib.mkOption {
+  options.modules = {
+    boot.silentBoot = lib.mkOption {
       type = lib.types.bool;
-      default = true;
-      example = false;
+      default = false;
+      example = true;
       description = ''
         Silences the boot sequence as much as possible.
       '';
     };
-    modules.boot.luksPrompt = lib.mkOption {
+    boot.luksPrompt = lib.mkOption {
       type = lib.types.bool;
-      default = false;
-      example = true;
+      default = true;
+      example = false;
       description = ''
         Indicates that a password prompt needs to show up during boot.
         Reduces the logging removed by a silent boot.
       '';
     };
-    modules.boot.autoLogin = lib.mkOption {
+    boot.autoLogin = lib.mkOption {
       type = lib.types.bool;
       default = false;
       example = true;

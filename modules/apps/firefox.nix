@@ -10,7 +10,7 @@
 {
 
   options.modules = {
-    apps.firefox = lib.mkoption {
+    apps.firefox = lib.mkOption {
       type = lib.types.bool;
       default = true;
       example = false;

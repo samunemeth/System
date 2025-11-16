@@ -18,24 +18,27 @@
       hibernation = false;
     };
 
-    # Boot options
+    # Boot options.
     boot = {
       silentBoot = true;
       luksPrompt = true;
       autoLogin = true;
     };
 
-    local.keyboardLayouts = [
-      "us"
-      "us dvp"
-    ];
+    # Locale options.
+    locale = {
+      timeZone = "Europe/Amsterdam";
+      keyboardLayouts = [ "us" ];
+    };
 
+    # YubiKey options.
     yubikey = {
       enable = true;
       login = true;
       sudo = true;
     };
-
+  
+    # Seafile options.
     seafile = {
       enable = true;
       repos = {
@@ -44,12 +47,13 @@
       };
     };
 
+    # TODO: Refactor this.
     # Enable Qtile as a window manager.
     kmscon.enable = false;
     qtile.enable = true;
     gnome.enable = false;
 
-    # Settings for general packages.
+    # General package options.
     packages = {
       lowPriority = true;
       manuals = true;

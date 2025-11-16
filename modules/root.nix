@@ -15,7 +15,7 @@
     # General Modules
     ./common/system.nix
     ./common/boot.nix
-    ./common/local.nix
+    ./common/locale.nix
     ./common/packages.nix
     ./common/ssh.nix
     ./common/audio.nix
