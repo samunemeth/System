@@ -37,7 +37,7 @@
       login = true;
       sudo = true;
     };
-  
+
     # Seafile options.
     seafile = {
       enable = true;
@@ -47,11 +47,12 @@
       };
     };
 
-    # TODO: Refactor this.
-    # Enable Qtile as a window manager.
-    kmscon.enable = false;
-    qtile.enable = true;
-    gnome.enable = false;
+    # GUIs to install and use.
+    gui = {
+      kmscon = true;
+      qtile = true;
+      gnome = false;
+    };
 
     # General package options.
     packages = {

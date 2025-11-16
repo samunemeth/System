@@ -9,8 +9,8 @@
 }:
 {
 
-  options = {
-    modules.gnome.enable = lib.mkOption {
+  options.modules = {
+    gui.gnome = lib.mkOption {
       type = lib.types.bool;
       default = false;
       example = true;
@@ -20,7 +20,7 @@
     };
   };
 
-  config = lib.mkIf config.modules.gnome.enable {
+  config = lib.mkIf config.modules.gui.gnome {
 
     # Enable Gnome
     services.xserver = {
@@ -29,7 +29,7 @@
       # Enable gdm and gnome.
       displayManager.gdm.enable = true;
       desktopManager.gnome =
-        assert (!(config.modules.qtile.enable && config.modules.gnome.enable));
+        assert (!(config.modules.gui.qtile && config.modules.gui.gnome));
         {
           enable = true;
         };
@@ -38,6 +38,10 @@
 
     # Disable default bloat.
     services.gnome.core-apps.enable = false;
+
+    # Enable sound with Pipe Wire instead.
+    services.pulseaudio.enable = lib.mkForce false;
+    services.pipewire.enable = lib.mkForce true;
 
     # System tray icons.
     environment.systemPackages = with pkgs; [ gnomeExtensions.appindicator ];

@@ -9,8 +9,8 @@
 }:
 {
 
-  options = {
-    modules.qtile.enable = lib.mkOption {
+  options.modules = {
+    gui.qtile = lib.mkOption {
       type = lib.types.bool;
       default = true;
       example = false;
@@ -18,18 +18,9 @@
         Enables Qtile with all of it's dependencies.
       '';
     };
-    # NOTE: This could be calculated from the value in Nvidia prime.
-    modules.qtile.dgpuPath = lib.mkOption {
-      type = lib.types.str;
-      default = "";
-      example = "/sys/bus/pci/devices/0000:01:00.0";
-      description = ''
-        Supply a path to the dedicated gpu device to show an icon of it's status.
-      '';
-    };
   };
 
-  config = lib.mkIf config.modules.qtile.enable {
+  config = lib.mkIf config.modules.gui.qtile {
 
     # Packages related to Qtile in some way.
     environment.systemPackages =
@@ -112,7 +103,7 @@
 
     # Enable Qtile.
     services.xserver.windowManager.qtile =
-      assert (!(config.modules.qtile.enable && config.modules.gnome.enable));
+      assert (!(config.modules.gui.qtile && config.modules.gui.gnome));
       {
         enable = true;
         extraPackages =
@@ -169,7 +160,7 @@
         hasHibernation = config.modules.system.hibernation;
         hasAutoLogin = config.modules.boot.autoLogin;
 
-        dgpuPath = config.modules.qtile.dgpuPath;
+        dgpuPath = "";
 
       in
       {

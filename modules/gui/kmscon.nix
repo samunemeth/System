@@ -1,4 +1,4 @@
-# --- Bash ---
+# --- Kmscon ---
 
 {
   config,
@@ -9,22 +9,23 @@
 }:
 {
 
-  options = {
-    modules.kmscon.enable = lib.mkOption {
+  options.modules = {
+    gui.kmscon = lib.mkOption {
       type = lib.types.bool;
-      default = true;
-      example = false;
+      default = false;
+      example = true;
       description = ''
         Enables Kmscon that replaces the kernel default virtual terminal.
       '';
     };
   };
 
-  config = lib.mkIf config.modules.kmscon.enable {
+  config = lib.mkIf config.modules.gui.kmscon {
 
     # A nicer terminal only interface if needed.
     services.kmscon = {
       enable = true;
+      # TODO: Make sure font is available.
       fonts = [
         {
           name = "Hack Nerd Font Mono";
