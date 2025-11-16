@@ -163,12 +163,14 @@ keys = [
 
     # Screenshot.
     Key([mod, "shift"], "s", lazy.spawn("""
-                                        scrot ~/Downloads/screenshot-%Y-%m-%d-%H%M%S.png
-                                        dunstify -u low "Screenshot saved to downloads."
+                                        mkdir -p ~/Screenshots
+                                        scrot ~/Screenshots/screenshot-%Y-%m-%d-%H%M%S.png
+                                        dunstify -u low "Screenshot saved."
                                         """, shell=True)),
     Key([], "Print", lazy.spawn("""
-                                scrot ~/Downloads/screenshot-%Y-%m-%d-%H%M%S.png
-                                dunstify -u low "Screenshot saved to downloads."
+                                mkdir -p ~/Screenshots
+                                scrot ~/Screenshots/screenshot-%Y-%m-%d-%H%M%S.png
+                                dunstify -u low "Screenshot saved."
                                 """, shell=True)),
 
     # Color picker that copies to clipboard.

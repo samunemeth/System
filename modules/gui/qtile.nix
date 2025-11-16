@@ -103,16 +103,11 @@
     };
 
     # Enable Qtile.
-    services.xserver.windowManager.qtile =
-      assert (!(config.modules.gui.qtile && config.modules.gui.gnome));
-      {
-        enable = true;
-        extraPackages =
-          python3Packages: with python3Packages; [
-            qtile-extras
-            iwlib
-          ];
-      };
+    services.xserver.windowManager.qtile.enable =
+      assert lib.assertMsg (
+        !(config.modules.gui.qtile && config.modules.gui.gnome)
+      ) "Multiple desktop managers are not supported.";
+      true;
 
     # Rules for no sudo password while changing monitor brightness.
     security.sudo.extraRules = lib.mkAfter [
@@ -196,9 +191,6 @@
             gesture swipe down 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o group P -f toscreen
             gesture swipe up 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o group U -f toscreen
           '';
-
-          # Screenshots need a downloads directory
-          "Downloads/.keep".text = "";
 
         };
 
