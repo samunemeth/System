@@ -9,7 +9,7 @@
 }:
 let
 
-  # TODO: Programs used by the previewer are not linked to the store.
+  # WARN: Programs used by the previewer are not linked to the store.
   wrapped-lf = pkgs.symlinkJoin {
     name = "wrapped-lf";
     buildInputs = [ pkgs.makeWrapper ];
