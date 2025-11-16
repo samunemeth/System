@@ -25,16 +25,24 @@
     # Enable Gnome
     services.xserver = {
       enable = true;
+
+      # Enable gdm and gnome.
       displayManager.gdm.enable = true;
       desktopManager.gnome =
         assert (!(config.modules.qtile.enable && config.modules.gnome.enable));
         {
           enable = true;
         };
+
+      # Remove XTerm
+      desktopManager.xterm.enable = false;
+      excludePackages = with pkgs; [
+        xterm
+      ];
     };
 
     # Disable default bloat.
-    services.gnome.core-utilities.enable = false;
+    services.gnome.core-apps.enable = false;
 
     # System tray icons.
     environment.systemPackages = with pkgs; [ gnomeExtensions.appindicator ];
@@ -54,6 +62,9 @@
           enable = true;
           settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
         };
+
+        # Add back borers to alacrity.
+        programs.alacritty.settings.window.decorations = lib.mkForce "full";
 
       };
   };
