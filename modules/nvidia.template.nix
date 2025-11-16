@@ -29,7 +29,7 @@
     # For inspecting power usage in detail. Not the fastest piece of software,
     # for a matter of fact, it is laggy as hell.
     powertop
-  
+
   ];
 
   # WARN: Kmscon may mess with GPU sleeping.
@@ -82,7 +82,7 @@
       # This mode uses the integrated graphics by default, and enables
       # offloading of applications to the dedicated GPU with a command.
       # Applications may call for use of the dGPU without using the offloading
-      # command, for example Furmark. (Furmark also does not even need the 
+      # command, for example Furmark. (Furmark also does not even need the
       # drivers; I am unsure how that is possible.)
       # Applications may disregard the offloading command, for example, I have
       # not managed to get Firefox working with it for example.

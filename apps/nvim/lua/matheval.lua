@@ -1,5 +1,3 @@
-
-
 -- Evaluates and input string into an output string.
 function eval_math(math_in, callback)
 	local calc = load("return " .. (math_in or ""))()
