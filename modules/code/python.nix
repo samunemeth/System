@@ -9,32 +9,31 @@
 }:
 {
 
-  options = {
-    modules.programming.python = lib.mkOption {
+  options.modules = {
+    code.python = lib.mkOption {
       type = lib.types.bool;
       default = false;
       example = true;
       description = ''
-        Enables Python.
+        Enables support for Python.
       '';
     };
   };
 
-  config = lib.mkIf config.modules.programming.python {
+  config = lib.mkIf config.modules.code.python {
 
     environment.systemPackages = with pkgs; [
 
-      sqlite
-      # conda
+      sqlite # Simple database, for data analytics.
 
       (python312.withPackages (
         p: with p; [
 
-          # Jupyter notebook.
+          # Jupyter Notebook
           jupyter
           ipython
 
-          # Other packages.
+          # Packages
           numpy
           pandas
           matplotlib

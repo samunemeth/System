@@ -7,57 +7,53 @@
   globals,
   ...
 }:
-let
-  tex =
-    with pkgs;
-    (texlive.combine {
-      inherit
-
-        # Root packages.
-        (texlive)
-        scheme-basic
-
-        # Math related packages.
-        amsmath
-        amsfonts
-        pgfplots
-        flagderiv
-
-        # Other packages.
-        dirtytalk
-        adjustbox
-        pgf
-        ragged2e
-        hyperref
-        graphics
-        listings
-
-        # Language packages.
-        babel
-        babel-hungarian
-
-        ;
-    });
-in
 {
 
-  options = {
-    modules.programming.latex = lib.mkOption {
+  options.modules = {
+    code.latex = lib.mkOption {
       type = lib.types.bool;
-      default = true;
-      example = false;
+      default = false;
+      example = true;
       description = ''
-        Adds LaTeX compiler and LaTeX packages. Adds pandoc for markdown
-        compilation.
+        Enables support for LaTeX.
       '';
     };
   };
 
-  config = lib.mkIf config.modules.programming.latex {
+  config = lib.mkIf config.modules.code.latex {
 
     environment.systemPackages = with pkgs; [
 
-      tex # The package set defined above.
+      # LaTeX base and packages.
+      (texlive.combine {
+        inherit
+
+          # Root packages.
+          (texlive)
+          scheme-basic
+
+          # Math related packages.
+          amsmath
+          amsfonts
+          pgfplots
+          flagderiv
+
+          # Other packages.
+          dirtytalk
+          adjustbox
+          pgf
+          ragged2e
+          hyperref
+          graphics
+          listings
+
+          # Language packages.
+          babel
+          babel-hungarian
+
+          ;
+      })
+
       rubber # Helper for latex building.
       pandoc # For markdown to pdf and some other LaTeX based conversions.
 

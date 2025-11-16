@@ -10,10 +10,9 @@
 }:
 {
 
-  # Import all modules.
   imports = [
 
-    # Common modules containing configuration.
+    # General Modules
     ./common/system.nix
     ./common/boot.nix
     ./common/local.nix
@@ -26,7 +25,7 @@
     ./common/yubikey.nix
     ./common/bash.nix
 
-    # Program specific configurations.
+    # Applications
     ./apps/neovim.nix
     ./apps/alacritty.nix
     ./apps/firefox.nix
@@ -38,13 +37,13 @@
     ./apps/seafile.nix
     ./apps/mpv.nix
 
-    # Programming languages.
+    # Programming Languages
     ./code/latex.nix
     ./code/java.nix
     ./code/rust.nix
     ./code/python.nix
 
-    # User interfaces.
+    # User Interfaces
     ./gui/gnome.nix
     ./gui/kmscon.nix
     ./gui/qtile.nix

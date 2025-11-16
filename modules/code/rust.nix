@@ -9,25 +9,25 @@
 }:
 {
 
-  options = {
-    modules.programming.rust = lib.mkOption {
+  options.modules = {
+    code.rust = lib.mkOption {
       type = lib.types.bool;
       default = false;
       example = true;
       description = ''
-        Enables Rust.
+        Enables support for Rust.
       '';
     };
   };
 
-  config = lib.mkIf config.modules.programming.rust {
+  config = lib.mkIf config.modules.code.rust {
 
     environment.systemPackages = with pkgs; [
 
-      cargo
-      rustfmt
-      rust-analyzer
-      rustc
+      cargo # Package manager for Rust.
+      rustfmt # Formatter for Rust files.
+      rust-analyzer # LSP for Rust.
+      rustc # Analytics for Rust.
 
     ];
 

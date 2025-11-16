@@ -46,9 +46,9 @@
       tridactyl = false;
     };
 
-    # Disable tools for programming.
-    programming = {
-      latex = true;
+    # Select support for programming languages.
+    code = {
+      latex = false;
       java = false;
       rust = false;
       python = false;

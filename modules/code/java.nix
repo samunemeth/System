@@ -9,8 +9,8 @@
 }:
 {
 
-  options = {
-    modules.programming.java = lib.mkOption {
+  options.modules = {
+    code.java = lib.mkOption {
       type = lib.types.bool;
       default = false;
       example = true;
@@ -20,7 +20,7 @@
     };
   };
 
-  config = lib.mkIf config.modules.programming.java {
+  config = lib.mkIf config.modules.code.java {
 
     environment.systemPackages = with pkgs; [ jdk17 ];
 

@@ -31,7 +31,7 @@
   # --- Home Manager Part ---
   home-manager.users.${globals.user} =
     let
-      hasLang = config.modules.programming;
+      hasLang = config.modules.code;
     in
     {
       config,
