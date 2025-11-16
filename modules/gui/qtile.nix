@@ -123,16 +123,25 @@
     ];
 
     # Start the daemon to handle touchpad gestures.
-    systemd.services.libinput-gestures = {
-      enable = lib.mkDefault (if config.modules.system.isDesktop then false else true);
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        Type = "simple";
-        User = globals.user;
-        Restart = "always";
-        ExecStart = "${pkgs.libinput-gestures}/bin/libinput-gestures -c /home/${globals.user}/.config/libinput-gestures.conf";
+    systemd.services.libinput-gestures =
+      let
+        libinput-config-file = pkgs.writers.writeText "libinput-gestures.conf" ''
+          gesture swipe left 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o screen -f next_group
+          gesture swipe right 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o screen -f prev_group
+          gesture swipe down 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o group P -f toscreen
+          gesture swipe up 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o group U -f toscreen
+        '';
+      in
+      {
+        enable = lib.mkDefault (if config.modules.system.isDesktop then false else true);
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          Type = "simple";
+          User = globals.user;
+          Restart = "always";
+          ExecStart = "${pkgs.libinput-gestures}/bin/libinput-gestures -c ${libinput-config-file}";
+        };
       };
-    };
 
     # --- Home Manager Part ---
     home-manager.users.${globals.user} =
@@ -166,34 +175,26 @@
           };
 
           # More settings for Qtile in the form of a python file containing settings.
-          ".config/qtileparametric.py".text = # python
-            ''
+          ".config/qtileparametric.py".text = ''
 
-              background_main = "${globals.colors.background.main}"
-              background_contrast = "${globals.colors.background.contrast}"
-              foreground_main = "${globals.colors.foreground.main}"
-              foreground_soft = "${globals.colors.foreground.soft}"
-              foreground_error = "${globals.colors.foreground.error}"
+            background_main = "${globals.colors.background.main}"
+            background_contrast = "${globals.colors.background.contrast}"
+            foreground_main = "${globals.colors.foreground.main}"
+            foreground_soft = "${globals.colors.foreground.soft}"
+            foreground_error = "${globals.colors.foreground.error}"
 
-              available_layouts = ${qtileAvailableLayouts}
+            available_layouts = ${qtileAvailableLayouts}
 
-              has_hibernation = ${if hasHibernation then "True" else "False"}
-              has_auto_login = ${if hasAutoLogin then "True" else "False"}
+            has_hibernation = ${if hasHibernation then "True" else "False"}
+            has_auto_login = ${if hasAutoLogin then "True" else "False"}
 
-              dgpu_path = "${dgpuPath}"
+            dgpu_path = "${dgpuPath}"
 
-            '';
-
-          # Settings for touchpad gestures.
-          ".config/libinput-gestures.conf".text = ''
-            gesture swipe left 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o screen -f next_group
-            gesture swipe right 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o screen -f prev_group
-            gesture swipe down 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o group P -f toscreen
-            gesture swipe up 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o group U -f toscreen
           '';
 
         };
 
       };
+
   };
 }
