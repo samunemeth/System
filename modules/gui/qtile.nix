@@ -101,12 +101,6 @@
             };
           };
 
-      # Remove XTerm
-      desktopManager.xterm.enable = false;
-      excludePackages = with pkgs; [
-        xterm
-      ];
-
     };
 
     # Compositor
@@ -144,7 +138,7 @@
 
     # Start the libinput-gestures daemon to handle touchpad gestures.
     systemd.services.libinput-gestures = {
-      enable = lib.mkDefault (if config.modules.isDesktop then false else true);
+      enable = lib.mkDefault (if config.modules.system.isDesktop then false else true);
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "simple";
@@ -206,7 +200,7 @@
               foreground_error = "${globals.colors.foreground.error}"
 
               available_layouts = ${qtileAvailableLayouts}
-              
+
               has_hibernation = ${if hasHibernation then "True" else "False"}
               has_auto_login = ${if hasAutoLogin then "True" else "False"}
 

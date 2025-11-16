@@ -34,11 +34,6 @@
           enable = true;
         };
 
-      # Remove XTerm
-      desktopManager.xterm.enable = false;
-      excludePackages = with pkgs; [
-        xterm
-      ];
     };
 
     # Disable default bloat.

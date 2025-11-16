@@ -9,32 +9,21 @@
 }:
 {
 
-  options = {
-    modules.firefox.enable = lib.mkOption {
+  options.modules = {
+    apps.firefox = lib.mkoption {
       type = lib.types.bool;
       default = true;
       example = false;
       description = ''
-        Enables Firefox.
-      '';
-    };
-    modules.firefox.tridactyl = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      example = true;
-      description = ''
-        Enables the Tridactyl extension for Firefox.
+        Enables the Firefox browser.
       '';
     };
   };
 
-  config = lib.mkIf config.modules.firefox.enable {
+  config = lib.mkIf config.modules.apps.firefox {
 
     # --- Home Manager Part ---
     home-manager.users.${globals.user} =
-      let
-        hasTridactyl = config.modules.firefox.tridactyl;
-      in
       {
         config,
         pkgs,
@@ -43,117 +32,75 @@
       }:
       {
 
-        programs.firefox = {
+        programs.firefox.enable = true;
 
-          enable = true;
+        programs.firefox.policies = {
 
-          nativeMessagingHosts = (
-            [ ]
-            # Package for Firefox extension.
-            ++ lib.lists.optional hasTridactyl pkgs.tridactyl-native
-          );
+          # Simple policies.
+          DisableTelemetry = true;
+          DisableFirefoxStudies = true;
+          EnableTrackingProtection = {
+            Value = true;
+            Locked = true;
+            Cryptomining = true;
+            Fingerprinting = true;
+          };
+          DisablePocket = true;
+          DisplayBookmarksToolbar = "always";
+          Cookies = {
+            Behavior = "reject-tracker-and-partition-foreign";
+            Locked = true;
+          };
+          SanitizeOnShutdown = {
+            Cache = true;
+            Cookies = false;
+            FormData = false;
+            History = false;
+            Sessions = false;
+            SiteSettings = false;
+            Locked = true;
+          };
+          AutofillCreditCardEnabled = false;
+          SearchEngines = {
+            Default = "DuckDuckGo";
+          };
+          ShowHomeButton = false;
 
-          policies = {
+          # Extensions.
+          ExtensionSettings = {
 
-            # Simple policies.
-            DisableTelemetry = true;
-            DisableFirefoxStudies = true;
-            EnableTrackingProtection = {
-              Value = true;
-              Locked = true;
-              Cryptomining = true;
-              Fingerprinting = true;
+            # Block installation of other extensions.
+            "*".installation_mode = "blocked";
+
+            # uBlock Origin
+            "uBlock0@raymondhill.net" = {
+              install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+              installation_mode = "force_installed";
             };
-            DisablePocket = true;
-            DisplayBookmarksToolbar = "always";
-            Cookies = {
-              Behavior = "reject-tracker-and-partition-foreign";
-              Locked = true;
+
+          };
+
+          # Preferences that control the browser behaviour.
+          Preferences = {
+            "extensions.pocket.enabled" = {
+              Value = false;
+              Status = "locked";
             };
-            SanitizeOnShutdown = {
-              Cache = true;
-              Cookies = false;
-              FormData = false;
-              History = false;
-              Sessions = false;
-              SiteSettings = false;
-              Locked = true;
+            "browser.theme.toolbar-theme" = {
+              Value = if globals.colors.dark then 0 else 1;
+              Type = "number";
+              Status = "locked";
             };
-            AutofillCreditCardEnabled = false;
-            SearchEngines = {
-              Default = "DuckDuckGo";
+            "browser.theme.content-theme" = {
+              Value = if globals.colors.dark then 0 else 1;
+              Type = "number";
+              Status = "locked";
             };
-            ShowHomeButton = false;
-
-            # Extensions.
-            ExtensionSettings = (
-              {
-
-                # Block installation of other extensions.
-                "*".installation_mode = "blocked";
-
-                # uBlock Origin
-                "uBlock0@raymondhill.net" = {
-                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-                  installation_mode = "force_installed";
-                };
-
-                # Cameleon
-                "{3579f63b-d8ee-424f-bbb6-6d0ce3285e6a}" = {
-                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/cameleon-ext/latest.xpi";
-                  installation_mode = "force_installed";
-                };
-              }
-
-              # Tridactyl
-              // lib.attrsets.optionalAttrs hasTridactyl {
-                "tridactyl.vim@cmcaine.co.uk" = {
-                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/tridactyl-vim/latest.xpi";
-                  installation_mode = "force_installed";
-                };
-              }
-            );
-
-            # Preferences that control the browser behaviour.
-            Preferences =
-              let
-
-                # Define some useful data types.
-                lock-false = {
-                  Value = false;
-                  Status = "locked";
-                };
-                lock-true = {
-                  Value = true;
-                  Status = "locked";
-                };
-
-              in
-              {
-
-                # List all the settings here.
-                "extensions.pocket.enabled" = lock-false;
-                "browser.theme.toolbar-theme" = {
-                  Value = if globals.colors.dark then 0 else 1;
-                  Type = "number";
-                  Status = "locked";
-                };
-                "browser.theme.content-theme" = {
-                  Value = if globals.colors.dark then 0 else 1;
-                  Type = "number";
-                  Status = "locked";
-                };
-
-              };
           };
 
         };
 
-        # Configuration file for Tridactyl extension.
-        # TODO: Only create if Tridactyl enabled.
-        home.file.".tridactylrc".source =
-          config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/firefox/tridactylrc";
-
       };
+
   };
 }

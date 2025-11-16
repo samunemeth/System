@@ -9,13 +9,22 @@
 }:
 {
 
-  options = {
-    modules.system.hibernation = lib.mkOption {
+  options.modules = {
+    system.hibernation = lib.mkOption {
       type = lib.types.bool;
       default = false;
       example = true;
       description = ''
         Allows the machine to hibernate.
+      '';
+    };
+    system.isDesktop = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      example = true;
+      description = ''
+        Weather the machine is a desktop machine. If true, disables touch
+        input gestures.
       '';
     };
   };

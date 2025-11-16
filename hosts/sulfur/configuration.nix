@@ -10,6 +10,7 @@
 {
 
   # Configuration for custom modules.
+  # BUG: OUTDATED!
   modules = {
 
     # This is a laptop.

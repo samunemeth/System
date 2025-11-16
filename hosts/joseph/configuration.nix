@@ -9,30 +9,39 @@
 }:
 {
 
-  # Configuration for custom modules.
+  # High-level modularised configuration.
   modules = {
 
-    # This is a laptop.
-    isDesktop = false;
+    # System options.
+    system = {
+      isDesktop = false;
+      hibernation = false;
+    };
 
-    # It has luks encryption.
+    # Boot options
     boot = {
       silentBoot = true;
       luksPrompt = true;
       autoLogin = true;
     };
-    system.hibernation = false;
 
-    # Configure keyboard layouts. The first one becomes the default.
     local.keyboardLayouts = [
       "us"
       "us dvp"
     ];
 
-    # Enable low priority packages and manuals.
-    packages = {
-      lowPriority = true;
-      manuals = true;
+    yubikey = {
+      enable = true;
+      login = true;
+      sudo = true;
+    };
+
+    seafile = {
+      enable = true;
+      repos = {
+        "411830eb-158e-4aa5-9333-869e7dfa7d99" = "Documents";
+        "734b3f5b-7bd0-49c2-a1df-65f1cbb201a4" = "Notes";
+      };
     };
 
     # Enable Qtile as a window manager.
@@ -40,16 +49,18 @@
     qtile.enable = true;
     gnome.enable = false;
 
-    # Enable Firefox browser.
-    firefox = {
-      enable = true;
-      tridactyl = false;
+    # Settings for general packages.
+    packages = {
+      lowPriority = true;
+      manuals = true;
     };
 
     # Apps to install.
     apps = {
-      mpv = true;
+      alacritty = true;
       lf = true;
+      firefox = true;
+      mpv = true;
     };
 
     # Programming languages to install.
@@ -58,22 +69,6 @@
       java = false;
       rust = false;
       python = true;
-    };
-
-    # Enable support for YubiKeys, logging in and using sudo with them.
-    yubikey = {
-      enable = true;
-      login = true;
-      sudo = true;
-    };
-
-    # Enable Seafile file syncing.
-    seafile = {
-      enable = true;
-      repos = {
-        "411830eb-158e-4aa5-9333-869e7dfa7d99" = "Documents";
-        "734b3f5b-7bd0-49c2-a1df-65f1cbb201a4" = "Notes";
-      };
     };
 
   };

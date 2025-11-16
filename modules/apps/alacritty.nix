@@ -9,28 +9,42 @@
 }:
 {
 
-  # --- Home Manager Part ---
-  home-manager.users.${globals.user} =
-    {
-      config,
-      pkgs,
-      lib,
-      ...
-    }:
-    {
+  options.modules = {
+    apps.alacritty = lib.mkoption {
+      type = lib.types.bool;
+      default = true;
+      example = false;
+      description = ''
+        Enables the Alacritty Terminal emulator.
+      '';
+    };
+  };
 
-      programs.alacritty = {
+  config = lib.mkIf config.modules.apps.alacritty {
 
-        enable = true;
+    # Remove xterm, as Alacritty becomes default.
+    services.xserver = {
+      desktopManager.xterm.enable = false;
+      excludePackages = [ pkgs.xterm ];
+    };
 
-        # Configure Alacritty, the default terminal emulator.
-        settings = {
+    # --- Home Manager Part ---
+    home-manager.users.${globals.user} =
+      {
+        config,
+        pkgs,
+        lib,
+        ...
+      }:
+      {
 
-          # This may not be supported everywhere, but this system does not have
-          # xterm, and does not want to use it in any way. Some programs work
-          # better with this option.
+        programs.alacritty.enable = true;
+        programs.alacritty.settings = {
+
+          # Set as default terminal emulator.
           env.TERM = "alacritty";
 
+          # Configure a minimalistic GUI.
           window = {
             padding = {
               x = 6;
@@ -40,12 +54,14 @@
             dynamic_title = true;
           };
 
-          # Override the background color of the default theme.
+          # Set background to global setting.
           colors.primary.background = globals.colors.background.main;
 
+          # Scroll back history size.
           scrolling.history = 1000;
 
           # Set fonts for each different style.
+          # TODO: Make font available on the machine here.
           font = {
             normal = {
               family = "Hack Nerd Font Mono";
@@ -66,7 +82,8 @@
             size = 8;
           };
         };
+
       };
 
-    };
+  };
 }
