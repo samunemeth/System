@@ -112,14 +112,6 @@
       # Configuration files from the web.
       home.file = {
 
-        # Plug plugin manager for Neovim.
-        # ".local/share/nvim/site/autoload/plug.vim" = {
-        #   source = pkgs.fetchurl {
-        #     url = "https://raw.githubusercontent.com/junegunn/vim-plug/refs/tags/0.14.0/plug.vim";
-        #     hash = "sha256-ILTIlfmNE4SCBGmAaMTdAxcw1OfJxLYw1ic7m5r83Ns=";
-        #   };
-        # };
-
         # Neovim configuration files.
         ".config/nvim" = {
           source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/nvim";
