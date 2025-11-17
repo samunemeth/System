@@ -46,6 +46,7 @@ vim.opt.splitbelow = true
 
 -- Show color column
 vim.opt.colorcolumn = "80"
+vim.opt.textwidth = 80
 
 -- Auto reload on external change
 vim.opt.autoread = true
