@@ -47,6 +47,10 @@
           graphics
           listings
 
+          # Packages for markdown.
+          booktabs
+          mdwtools
+
           # Language packages.
           babel
           babel-hungarian
