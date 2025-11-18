@@ -20,11 +20,6 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **General**
 
-  - [x] *Look Into:* Hibernation onto encrypted Btrfs subvolume.
-        *Possible, but there has to be more fixes before using.*
-        [More Info](https://sawyershepherd.org/post/hibernating-to-an-encrypted-swapfile-on-btrfs-with-nixos/)
-  - [x] *Set Up:* Option to disable hibernation completely.
-  - [x] *Set Up:* Automatic mounting and unmounting for removable media.
   - [ ] *Set Up:* Password prompt after hibernation.
   - [ ] *Look Into:* Hibernation and Sleep fucking with YubiKey authentication.
   - [ ] *Set Up:* Tar unpacking.
@@ -47,7 +42,6 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **Neovim**
 
-  - [x] *Set Up:* Migrating custom word list to English.
   - [ ] *Look Into:* Including spelling dictionaries declaratively.
   - [ ] *Look Into:* Python grammar, formatter and LSP.
   - [ ] *Look Into:* Wrapping Neovim. [More Info](https://ayats.org/blog/neovim-wrapper)
@@ -63,6 +57,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Look Into:* Creating a custom installation (and/or full system) ISO.
   - [ ] *Set Up:* A configuration for minimal installation.
   - [ ] *Set Up:* Gnome with declarative settings.
+  - [ ] *Check Out:* Installing to a virtual machine for testing.
 
 There are also small items marked with *TODO* inside comments. There are also
 *NOTE*, *WARN* and *BUG* labels used.
@@ -350,7 +345,7 @@ The template is based on the following sources:
   - [Official NixOS Wiki](https://wiki.nixos.org/wiki/NVIDIA)
 
 
-## Other Fixes
+## Sticky Derivations
 
 Sometimes stuff gets stuck in `/tmp`, and prevents packages from being garbage
 collected. Just clear the `/tmp` directory and reboot:
@@ -359,6 +354,33 @@ sudo rm -rf /tmp/*
 sudo reboot
 ```
 *This should be solved later with impermanence.*
+
+
+## Secure Boot
+
+Using [Lanzaboot](https://github.com/nix-community/lanzaboote),
+secure boot is possible with this configuration. There are general
+[instructions for installation](https://github.com/nix-community/lanzaboote/blob/master/docs/QUICK_START.md),
+that coves almost everything needed for installation. It is important that you
+**cannot have Lanzaboot enabled for the first boot**. This means, that you have
+to enable it later in the setup cycle. This is why it is not included in the
+above setup instructions.
+
+In addition, some extra information how to get secure boot keys enrolled on
+machines that I used:
+
+  - On my *HP ZBook*, secure boot setup mode is enabled while having
+    *"Secure Boot"* disabled and after enabling *"Clear Secure Boot keys"*.
+    After enrolling, secure boot is enabled automatically.
+
+
+## Miscellaneous
+
+Installing Windows after NixOS can cause the bootloader to become darker,
+but this usually goes away after a few reboots. No idea what causes it.
+
+On HP laptops the BIOS option *"Verify Boot Block on every boot"* causes issues,
+as NixOS modifies the boot partition a lot.
 
 
 # Imperative Parts
