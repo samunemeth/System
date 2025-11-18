@@ -5,29 +5,9 @@
   pkgs,
   lib,
   globals,
-  inputs,
   ...
 }:
 {
-
-  # WARN: Lanzaboote start.
-
-  imports = [
-    inputs.lanzaboote.nixosModules.lanzaboote
-  ];
-
-  environment.systemPackages = [
-    pkgs.sbctl
-  ];
-
-  boot.loader.systemd-boot.enable = lib.mkForce false;
-
-  boot.lanzaboote = {
-    enable = true;
-    pkiBundle = "/var/lib/sbctl";
-  };
-
-  # WARN: Lanzaboote end.
 
   # High-level modularised configuration.
   modules = {
@@ -43,6 +23,7 @@
       silentBoot = true;
       luksPrompt = true;
       autoLogin = true;
+      secureboot = true; # Turn off before first boot!
     };
 
     # Locale options.

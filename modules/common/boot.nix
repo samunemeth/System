@@ -5,6 +5,7 @@
   pkgs,
   lib,
   globals,
+  inputs, # Required for importing Lanzaboote.
   ...
 }:
 {
@@ -35,9 +36,25 @@
         Enables automatic login.
       '';
     };
+    boot.secureboot = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      example = true;
+      description = ''
+        Enables secure boot via Lanzaboot.
+        IMPORTANT: This option cannot be enabled for the first boot!
+        Extra setup is required for rolling in the keys; consult the readme.
+      '';
+    };
   };
 
+  # Import the Lanzaboote module. Later only enabled if needed.
+  imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
+
   config = {
+
+    # Install tools for managing secure boot.
+    environment.systemPackages = lib.mkIf config.modules.boot.secureboot ([ pkgs.sbctl ]);
 
     # Boot options.
     boot = {
@@ -47,9 +64,13 @@
       loader = {
         efi.canTouchEfiVariables = true;
         systemd-boot = {
-          enable = true;
+
+          # Disable systemd boot if it is replace by Lanzaboote.
+          enable = !config.modules.boot.secureboot;
+
           configurationLimit = lib.mkDefault 3;
           consoleMode = lib.mkDefault "max";
+
         };
         timeout = lib.mkDefault 3;
       };
@@ -79,6 +100,14 @@
             "quiet"
             "udev.log_priority=3"
           ];
+
+      loader.systemd-boot.enable = lib.mkIf config.modules.boot.secureboot (lib.mkForce false);
+
+      # Enable Lanzaboote on the system if needed.
+      lanzaboote = lib.mkIf config.modules.boot.secureboot {
+        enable = true;
+        pkiBundle = "/var/lib/sbctl";
+      };
 
     };
 
