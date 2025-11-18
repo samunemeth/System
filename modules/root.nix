@@ -41,6 +41,7 @@
     ./code/java.nix
     ./code/rust.nix
     ./code/python.nix
+    ./code/julia.nix
 
     # User Interfaces
     ./gui/gnome.nix

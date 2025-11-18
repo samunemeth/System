@@ -92,6 +92,7 @@
               ++ lib.lists.optional hasLang.python p.python
               ++ lib.lists.optional hasLang.java p.java
               ++ lib.lists.optional hasLang.rust p.rust
+              ++ lib.lists.optional hasLang.julia p.julia
             )) # Syntax highlighting
             conform-nvim # Formatting
 

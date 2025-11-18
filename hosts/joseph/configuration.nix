@@ -74,6 +74,7 @@
       java = false;
       rust = false;
       python = true;
+      julia = true;
     };
 
   };
