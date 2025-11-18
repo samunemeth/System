@@ -9,66 +9,76 @@
 }:
 {
 
-  # Configuration for custom modules.
-  # BUG: OUTDATED!
+  # High-level modularised configuration.
   modules = {
 
-    # This is a laptop.
-    isDesktop = false;
+    # System options.
+    system = {
+      isDesktop = false;
+      hibernation = false;
+    };
 
-    # It has no encryption.
+    # Boot options.
     boot = {
       silentBoot = true;
       luksPrompt = true;
       autoLogin = true;
-    };
-    system.hibernation = false;
-
-    # Configure keyboard layouts. The first one becomes the default.
-    local.keyboardLayouts = [
-      "us"
-      "hu"
-    ];
-
-    # Enable low priority packages, disable manuals.
-    packages = {
-      lowPriority = true;
-      manuals = false;
+      secureboot = false; # Turn off before first boot!
     };
 
-    # Enable Qtile as a window manager.
-    kmscon.enable = true;
-    qtile.enable = true;
-    gnome.enable = false;
-
-    # Enable Firefox browser.
-    firefox = {
-      enable = true;
-      tridactyl = false;
+    # Locale options.
+    locale = {
+      timeZone = "Europe/Budapest";
+      keyboardLayouts = [
+        "us"
+        "hu"
+      ];
     };
 
-    # Select support for programming languages.
-    code = {
-      latex = false;
-      java = false;
-      rust = false;
-      python = false;
-    };
-
-    # Enable support for YubiKeys, logging in and using sudo with them.
+    # YubiKey options.
     yubikey = {
       enable = true;
       login = true;
       sudo = true;
     };
 
-    # Enable Seafile file syncing.
+    # Seafile options.
     seafile = {
       enable = true;
       repos = {
         "411830eb-158e-4aa5-9333-869e7dfa7d99" = "Documents";
         "734b3f5b-7bd0-49c2-a1df-65f1cbb201a4" = "Notes";
       };
+    };
+
+    # GUIs to install and use.
+    gui = {
+      kmscon = true;
+      qtile = true;
+      gnome = false;
+    };
+
+    # General package options.
+    packages = {
+      lowPriority = true;
+      manuals = false;
+    };
+
+    # Apps to install.
+    apps = {
+      alacritty = true;
+      lf = true;
+      firefox = true;
+      mpv = true;
+    };
+
+    # Programming languages to install.
+    code = {
+      latex = false;
+      java = false;
+      rust = false;
+      python = false;
+      julia = false;
     };
 
   };
@@ -78,8 +88,5 @@
 
   # Needs different scaling in the boot loader.
   boot.loader.systemd-boot.consoleMode = "keep";
-
-  # Set time zone to CET.
-  time.timeZone = "Europe/Budapest";
 
 }
