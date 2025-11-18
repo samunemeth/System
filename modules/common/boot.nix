@@ -54,7 +54,7 @@
   config = {
 
     # Install tools for managing secure boot.
-    environment.systemPackages = lib.mkIf config.modules.boot.secureboot ([ pkgs.sbctl ]);
+    environment.systemPackages = lib.lists.optional config.modules.boot.secureboot pkgs.sbctl;
 
     # Boot options.
     boot = {
@@ -101,11 +101,9 @@
             "udev.log_priority=3"
           ];
 
-      loader.systemd-boot.enable = lib.mkIf config.modules.boot.secureboot (lib.mkForce false);
-
       # Enable Lanzaboote on the system if needed.
-      lanzaboote = lib.mkIf config.modules.boot.secureboot {
-        enable = true;
+      lanzaboote = {
+        enable = config.modules.boot.secureboot;
         pkiBundle = "/var/lib/sbctl";
       };
 
