@@ -15,7 +15,11 @@ let
     paths = [ pkgs.mpv ];
     postBuild = ''
       wrapProgram $out/bin/mpv \
-        --add-flags "--hwdec=yes --gpu-api=opengl -v"
+        --add-flags "\
+          --hwdec=yes \
+          --gpu-api=opengl \
+          --image-display-duration=inf \
+        "
     '';
   };
 
