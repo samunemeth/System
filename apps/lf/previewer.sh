@@ -2,39 +2,43 @@
 
 case "$1" in
 
-  *.pdf)
-    printf "\033[30;47;1mPDF\033[0m "
-    data=$(exiftool "$1")
-    author=$(echo "$data" | rg 'Author\s*:\s(\w.*)$' -r '$1' -o --color=never)
-    title=$(echo "$data" | rg 'Title\s*:\s(\w.*)$' -r '$1' -o --color=never)
-    if [[ -n "$author" && -n "$title" ]]; then
-      printf "\033[39;49;3;4m$author: \033[0m\033[39;49;4;1m$title\033[0m\n\n"
-    elif [[ -n "$author" ]]; then
-      printf "\033[39;49;3;4m$author\033[0m\n\n"
-    elif [[ -n "$title" ]]; then
-      printf "\033[39;49;4;1m$title\033[0m\n\n"
-    else
-      printf "\n\n"
-    fi
-    pdftotext -l 5 "$1" -;;
+    *.pdf)
+        author=$(exiftool -Author -T -f "$1"); [[ $author == "-" ]] && author=""
+        title=$(exiftool -Title -T -f "$1"); [[ $title == "-" ]] && title=""
+        printf "\033[30;47;1mPDF\033[0m "
+        if [[ -n $author && -n $title ]]; then
+            printf "\033[0;3;4m$author: \033[0m\033[0;4;1m$title\033[0m"
+        elif [[ -n $author ]]; then
+            printf "\033[0;3;4m$author\033[0m"
+        elif [[ -n $title ]]; then
+            printf "\033[0;4;1m$title\033[0m"
+        fi
+        printf "\n\n"
+        pdftotext -l 5 "$1" - ;;
 
-  *.png | *.jpg | *.jpeg | *.webp)
-    printf "\033[30;47;1mIMAGE\033[0m";;
+    *.png | *.jpg | *.jpeg | *.webp | *.svg | *.gif)
+        printf "\033[30;47;1mIMAGE\033[0m\n\n"
+        exiftool -FileType -ImageSize -Megapixels -Compression "$1" ;;
 
-  *.mp4 | *.mkv)
-    printf "\033[30;47;1mVIDEO\033[0m";;
+    *.mp4 | *.mkv | *.mov)
+        printf "\033[30;47;1mVIDEO\033[0m\n\n"
+        exiftool -FileType -Duration -ImageSize -CompressorID -AudioFormat \
+            -AvgBitrate "$1" ;;
 
-  *.zip)
-    printf "\033[30;47;1mZIP\033[0m \033[39;49;3;4mOpen to Extract\033[0m\n\n"
-    unzip -l "$1" | tail -n +2;;
+    *.mp3 | *.wav | *.m4a | *.flac | *.opus)
+        printf "\033[30;47;1mAUDIO\033[0m\n\n"
+        exiftool -Artist -Title -Year -Album -Genre -Comment -Duration \
+            -FileType -SampleRate -ChannelMode -AudioBitrate "$1" ;;
 
-  *.tar*)
-    printf "\033[30;47;1mTAR\033[0m";;
+    *.zip)
+        printf "\033[30;47;1mZIP\033[0m \033[0;3;4mOpen to Extract\033[0m\n\n"
+        unzip -l "$1" | tail -n +2 ;;
 
-  *.mp3 | *.wav)
-    printf "\033[30;47;1mAUDIO\033[0m\n\n"
-    exiftool "$1" | rg '^(Audio Bitrate|Sample Rate|Channel Mode|Artist|Album|Title|Year|Comment|Genre|Duration)\s*:\s(\w.*)$' --color=never;;
+    *.tar* | *.rar | *.7z | *.gz | *.tgz)
+        printf "\033[30;47;1mARCHIVE\033[0m" ;;
 
-  *) highlight -O ansi "$1";;
+    *)
+        printf "\033[30;47;1mTEXT\033[0m\n\n"
+        highlight -O ansi --max-size 64M --line-length=60 --wrap-simple "$1" ;;
 
 esac

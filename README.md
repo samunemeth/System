@@ -23,10 +23,10 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Set Up:* Password prompt after hibernation.
   - [ ] *Look Into:* Hibernation and Sleep fucking with YubiKey authentication.
   - [ ] *Set Up:* Tar unpacking.
-  - [ ] *Set Up:* Openers in Lf.
   - [ ] *Set Up:* Automatic locking.
   - [ ] *Look Into:* The *mini greeter* seems to act up on first boot.
         *Maybe just ditch the mini greeter?*
+  - [ ] *Fix:* Opening .svg files.
 
 **Declarative Wonderland**
 

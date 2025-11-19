@@ -13,28 +13,61 @@ sg      g       # SETGID
 ex             # EXEC
 fi             # FILE
 
+*.old               x
+
+# CODING
+
+*.py                
+*.ipynb             
+*.lua               
 *.tex               
-*.pdf                   00;38;2;179;11;0
+*.sty               
+*.nix               󱄅
+*.hs                
+*.txt               󰦨
+*.sh                $
+*.jl                
 
 *.md                
 *.mdx               
 *.markdown          
 *.rmd               
 
-*.py                
-*.lua               
-
 *.gitconfig         
 *.gitignore         
 *.gitattributes     
+
+*.log               
+*.lock              
+
+*.json              
+*.toml              
+*.yaml              
+
+*.db                󰆼
+*.sql               󰆼
+*.sqlite3           󰆼
+*.dump              󰆼
+
+
+# MEDIA
 
 *.png               󰋩
 *.jpg               󰋩
 *.jpeg              󰋩
 *.webp              󰋩
+*.svg               󰋩
+*.gif               󰋩
 
 *.mp4               
 *.mkv               
+*.mov               
 
 *.mp3               
 *.wav               
+*.m4a               
+*.flac              
+*.opus              
+
+*.pdf               
+

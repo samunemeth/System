@@ -4,7 +4,6 @@ set hiddenfiles ".*:desktop.ini:main.out:main.log:main.aux:main.synctex.gz:/home
 set icons "true"
 set ignorecase "true"
 set info "size"
-set previewer "~/.config/lf/previewer.sh" # This is overwritten when wrapping.
 
 cmd add %{{
   printf "New: "
@@ -35,9 +34,12 @@ cmd open &{{
       printf "Opened pdf with Zathura."
     fi
   elif [[ $filetype == "image"* ]] then
-    mpv --image-display-duration=inf "$f"
+    mpv "$f"
     printf "Opened image with Mpv."
   elif [[ $filetype == "video"* ]] then
+    mpv "$f"
+    printf "Opened video with Mpv."
+  elif [[ $filetype == "audio"* ]] then
     mpv "$f"
     printf "Opened video with Mpv."
   else
