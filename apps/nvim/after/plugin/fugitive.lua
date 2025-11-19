@@ -4,4 +4,4 @@
 
 -- Keymaps
 vim.keymap.set("n", "<leader>g", vim.cmd.Git)
-vim.keymap.set("n", "<leader>c", '<cmd>Git log --pretty=format:"%h %as %an: %s"<cr>')
+-- vim.keymap.set("n", "<leader>c", '<cmd>Git log --pretty=format:"%h %as %an: %s" -n 20<cr>')
