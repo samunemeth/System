@@ -114,7 +114,7 @@ There are also small items marked with *TODO* inside comments. There are also
     ```
     If asked, select `GPT` partition table.
     I recommend a boot partition between 512MiB and 1GiB, and a main partition
-    of at least 8GiB.
+    of at least 8GiB, but preferable at least 16GiB.
     (A swap partition can also be created, but it is not
     mentioned in the rest of this guide.)
   - *If* you just created your boot partition, format it now:
