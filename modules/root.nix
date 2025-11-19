@@ -42,6 +42,7 @@
     ./code/rust.nix
     ./code/python.nix
     ./code/julia.nix
+    ./code/haskell.nix
 
     # User Interfaces
     ./gui/gnome.nix

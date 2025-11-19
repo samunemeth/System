@@ -93,6 +93,7 @@
               ++ lib.lists.optional hasLang.java p.java
               ++ lib.lists.optional hasLang.rust p.rust
               ++ lib.lists.optional hasLang.julia p.julia
+              ++ lib.lists.optional hasLang.haskell p.haskell
             )) # Syntax highlighting
             conform-nvim # Formatting
 
@@ -106,7 +107,8 @@
             ultisnips # For snippets mainly in LaTeX
 
           ]
-          ++ lib.lists.optional hasLang.rust rustaceanvim;
+          ++ lib.lists.optional hasLang.rust rustaceanvim
+          ++ lib.lists.optional hasLang.haskell haskell-tools-nvim;
 
       };
 

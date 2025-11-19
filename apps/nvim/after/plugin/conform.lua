@@ -9,6 +9,7 @@ if conform then
 			nix = { "nixfmt" },
 			sh = { "beautysh" },
 			rust = { "rustfmt" },
+			haskell = { "ormolu" },
 		},
 	})
 

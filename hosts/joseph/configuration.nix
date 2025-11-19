@@ -76,6 +76,7 @@
       rust = false;
       python = true;
       julia = true;
+      haskell = true;
     };
 
   };
