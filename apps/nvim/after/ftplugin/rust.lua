@@ -3,6 +3,7 @@
 -- Completion
 local bufnr = vim.api.nvim_get_current_buf()
 vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+local buffspec = { buffer = bufnr }
 
 -- Open auto completion on '.'
 vim.keymap.set("i", ".", function()
@@ -28,27 +29,22 @@ end, { expr = true, noremap = true, buffer = bufnr })
 
 -- Remaps
 
--- Actions with code.
+-- Actions with code
 vim.keymap.set("n", "<leader>a", function()
 	vim.cmd.RustLsp("codeAction")
-end, { silent = true, buffer = bufnr })
+end, buffspec)
 
 -- Hover menu.
 vim.keymap.set("n", "<C-.>", function()
 	vim.cmd.RustLsp({ "hover", "actions" })
-end, { silent = true, buffer = bufnr })
+end, buffspec)
 
 -- Detailed errors.
 vim.keymap.set("n", "<leader>e", function()
 	vim.cmd.RustLsp({ "renderDiagnostic", "cycle" })
-end, { silent = true, buffer = bufnr })
+end, buffspec)
 
 -- Run program.
 vim.keymap.set("n", "<leader>r", function()
 	vim.cmd.RustLsp({ "runnables", bang = true })
-end, { silent = true, buffer = bufnr })
-
--- Toggle inlays.
-vim.keymap.set("n", "<leader>i", function()
-	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-end, { silent = true, buffer = bufnr })
+end, buffspec)

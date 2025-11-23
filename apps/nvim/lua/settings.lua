@@ -73,13 +73,25 @@ vim.cmd([[
   highlight! link NormalFloat TelescopeNormal
 ]])
 
--- Enable and configure inlay hints.
-vim.lsp.inlay_hint.enable(true)
+-- Disable inlay hints by default.
+vim.lsp.inlay_hint.enable(false)
+
+-- Configure diagnostic text appearing at the end of lines.
 vim.diagnostic.config({
+
 	virtual_text = {
-		spacing = 4,
+
+    -- Remove extra white space inside the messages.
+		format = function(d)
+			local msg = d.message:gsub("\r", ""):gsub("\n", " "):gsub("\t", " ")
+			msg = msg:gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
+			return msg
+		end,
+
 		prefix = "",
+		spacing = 1,
 	},
+
 	signs = false,
 	underline = true,
 	severity_sort = true,

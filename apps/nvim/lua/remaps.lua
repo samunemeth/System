@@ -21,7 +21,25 @@ vim.keymap.set("v", "<leader>d", '"_d')
 
 -- Correct spelling mistakes
 vim.keymap.set({ "n", "v" }, "<C-l>", "[s1z=``")
-vim.keymap.set({ "i" }, "<C-l>", "<C-g>u<Esc>[s1z=`]a<C-g>u")
+vim.keymap.set("i", "<C-l>", "<C-g>u<Esc>[s1z=`]a<C-g>u")
 
--- Completion suggestions
-vim.keymap.set("i", "<C-.>", "<C-x><C-o>", { noremap = true, silent = true })
+-- LSP Related
+
+-- Code completion in insert mode, hover menu otherwise.
+vim.keymap.set("i", "<C-.>", "<C-x><C-o>")
+vim.keymap.set({ "n", "v" }, "<C-.>", vim.lsp.buf.hover)
+
+-- Display virtual text in a floating window.
+vim.keymap.set({ "n", "v" }, "<C-,>", function()
+	vim.diagnostic.open_float(0, { scope = "line", focus = false })
+end)
+
+-- Toggle inlays
+vim.keymap.set("n", "<leader>i", function()
+	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end)
+
+-- Conventions for LSP mappings, all starting with <leader>:
+--   a   -> Action with code under the cursor.
+--   r   -> Running the current file. / Evaluating all expressions.
+--   e   -> Something to do with errors. Preferably explain them.
