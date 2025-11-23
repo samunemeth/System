@@ -31,16 +31,7 @@ if knap then
 		end,
 	})
 
-	-- Remaps to useful commands
-	vim.keymap.set({ "n", "v" }, "<leader>x", function()
-		knap.close_viewer()
-	end)
-	vim.keymap.set({ "n", "v" }, "<leader>a", function()
-		knap.toggle_autopreviewing()
-	end)
-	vim.keymap.set({ "n", "v" }, "<leader>y", function()
-		knap.forward_jump()
-	end)
+	-- Process the document into a pdf.
 	vim.keymap.set({ "n", "v" }, "<leader>p", function()
 		knap.process_once()
 	end)

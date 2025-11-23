@@ -1,5 +1,9 @@
 --- VSCode Settings ---
 
+-- TODO: These are all conflicting with stuff...
+-- > Would be nice to override them if needed.
+-- > There is cleanup needed here.
+
 -- Only apply these settings if inside VSCode.
 if vim.g.vscode then
 	-- Refactor and format.
