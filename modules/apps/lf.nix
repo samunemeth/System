@@ -21,6 +21,7 @@ let
       highlight # Text file highlighting.
       poppler-utils # Pdf to text conversion.
       exiftool # Getting metadata.
+      fzf # For fuzzy finding.
 
       zip # Creating zip files.
       unzip # Unpacking zip files.

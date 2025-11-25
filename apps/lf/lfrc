@@ -63,6 +63,25 @@ cmd zip %{{
   printf "Zipped selection."
 }}
 
+# fzf --smart-case --preview '/nix/store/v8fz617iw22vqg9jjc5hh6sybwgmg2bg-lfhome/lf/previewer.sh {}' --style full
+cmd fzf_jump ${{
+  res="$(fd | fzf --smart-case --style full)"
+  if [ -n "$res" ]; then
+    if [ -d "$res" ]; then
+      res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+      lf -remote "send $id cd \"$res\""
+    else
+      dir=$(dirname -- "$res")
+      dir="$(printf '%s' "$dir" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+      lf -remote "send $id cd \"$dir\""
+      file=$(basename -- "$res")
+      file="$(printf '%s' "$file" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+      lf -remote "send $id select \"$file\""
+    fi
+  fi
+}}
+map f fzf_jump
+
 map . set hidden!
 map <enter> open
 map <esc> quit
