@@ -63,9 +63,10 @@ cmd zip %{{
   printf "Zipped selection."
 }}
 
-# fzf --smart-case --preview '/nix/store/v8fz617iw22vqg9jjc5hh6sybwgmg2bg-lfhome/lf/previewer.sh {}' --style full
 cmd fzf_jump ${{
-  res="$(fd | fzf --smart-case --style full)"
+  res="$(fd | fzf --smart-case --style=minimal \
+    --color="pointer:magenta,hl:magenta,hl+:magenta,separator:grey,info:grey:bold,prompt:white" \
+    --info=right --pointer="█" --separator="━")"
   if [ -n "$res" ]; then
     if [ -d "$res" ]; then
       res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"

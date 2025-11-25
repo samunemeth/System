@@ -13,14 +13,15 @@ let
   wrapped-lf = pkgs.symlinkJoin {
     name = "wrapped-lf";
     buildInputs = [ pkgs.makeWrapper ];
-    paths = with pkgs; [
+    paths = with pkgs; [ # TODO: Move some to low priority?
 
       lf # Core.
 
-      # TODO: Move some to low priority?
       highlight # Text file highlighting.
       poppler-utils # Pdf to text conversion.
       exiftool # Getting metadata.
+
+      fd # For recursive funding of files and directories.
       fzf # For fuzzy finding.
 
       zip # Creating zip files.
