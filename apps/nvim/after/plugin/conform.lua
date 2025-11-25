@@ -10,6 +10,7 @@ if conform then
 			sh = { "beautysh" },
 			rust = { "rustfmt" },
 			haskell = { "ormolu" },
+			tex = { "tex-fmt" },
 		},
 	})
 

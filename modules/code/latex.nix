@@ -46,6 +46,8 @@
           hyperref
           graphics
           listings
+          wasysym
+          wasy-type1
 
           # Packages for markdown.
           booktabs
@@ -58,8 +60,9 @@
           ;
       })
 
-      rubber # Helper for latex building.
+      rubber # Helper for LaTeX building.
       pandoc # For markdown to pdf and some other LaTeX based conversions.
+      tex-fmt # LaTeX formatter.
 
     ];
 
