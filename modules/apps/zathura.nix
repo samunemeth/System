@@ -60,6 +60,10 @@
           "h" = "feedkeys \"<C-Left>\"";
           "l" = "feedkeys \"<C-Right>\"";
 
+          # Better page navigation
+          "<Space>" = "feedkeys \"<PageDown>\"";
+          "<S-Space>" = "feedkeys \"<PageUp>\"";
+
         };
 
       };
