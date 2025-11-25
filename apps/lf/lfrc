@@ -1,9 +1,27 @@
+# Settings
 
 set filesep ";"
 set hiddenfiles ".*:desktop.ini:main.out:main.log:main.aux:main.synctex.gz:/home/samu/texmf:lost+found"
 set icons "true"
 set ignorecase "true"
 set info "size"
+
+# Mappings
+
+map . set hidden!
+map <enter> open
+map <esc> quit
+map DD delete
+map a add
+map zz zip
+
+map gc cd ~/.config
+map gd cd ~/Documents
+map gn cd ~/Notes
+map gm cd /run/media/
+map gr cd /
+
+# Commands and Related Mappings
 
 cmd add %{{
   printf "New: "
@@ -49,6 +67,7 @@ cmd open &{{
 }}
 
 cmd type %xdg-mime query filetype "$f"
+
 cmd zip %{{
   printf "ZIP file name [NewZip.zip]: "
   read name
@@ -63,7 +82,8 @@ cmd zip %{{
   printf "Zipped selection."
 }}
 
-cmd fzf_jump ${{
+map / fzf-normal
+cmd fzf-normal ${{
   res="$(fd | fzf --smart-case --style=minimal \
     --color="pointer:magenta,hl:magenta,hl+:magenta,separator:grey,info:grey:bold,prompt:white" \
     --info=right --pointer="█" --separator="━")"
@@ -81,16 +101,23 @@ cmd fzf_jump ${{
     fi
   fi
 }}
-map f fzf_jump
-
-map . set hidden!
-map <enter> open
-map <esc> quit
-map DD delete
-map a add
-map gc cd ~/.config
-map gd cd ~/Documents
-map gn cd ~/Notes
-map gm cd /run/media/
-map zz zip
+map ? fzf-hidden
+cmd fzf-hidden ${{
+  res="$(fd -I -H | fzf --smart-case --style=minimal \
+    --color="pointer:magenta,hl:magenta,hl+:magenta,separator:grey,info:grey:bold,prompt:white" \
+    --info=right --pointer="█" --separator="━")"
+  if [ -n "$res" ]; then
+    if [ -d "$res" ]; then
+      res="$(printf '%s' "$res" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+      lf -remote "send $id cd \"$res\""
+    else
+      dir=$(dirname -- "$res")
+      dir="$(printf '%s' "$dir" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+      lf -remote "send $id cd \"$dir\""
+      file=$(basename -- "$res")
+      file="$(printf '%s' "$file" | sed 's/\\/\\\\/g;s/"/\\"/g')"
+      lf -remote "send $id select \"$file\""
+    fi
+  fi
+}}
 
