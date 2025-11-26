@@ -6,6 +6,7 @@ import re
 
 import subprocess
 import importlib.util
+from libqtile.log_utils import logger
 
 from libqtile import bar, layout, qtile, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown
@@ -339,8 +340,11 @@ def get_seafile_status():
                 return " "
             if status_text == "initializing":
                 return "󰓦 "
+            if status_text == "waiting":
+                return "󰓦 "
             if status_text == "committing":
                 return " "
+            logger.warning(f"Unrecognised Seafile status: '{status_text}'. Raw content: '{content_raw}'")
             return status_text[0]
         content = [
             f"{
@@ -348,7 +352,7 @@ def get_seafile_status():
             }: {
                 get_status_icon(lib[1])
             }{
-                '' if len(lib) < 3 else f' {lib[3 if lib[2] == "files" else 2]}'
+                '' if len(lib) < 3 else f' {lib[3 if lib[2] == "files" else 2]}' if lib[2] != 'for' else ''
             }"
             for lib in content_raw if lib[1] != "synchronized"]
         return " ".join(content)[:-1]
