@@ -41,7 +41,7 @@
       default = false;
       example = true;
       description = ''
-        Enables secure boot via Lanzaboot.
+        Enables secure boot via Lanzaboote.
         IMPORTANT: This option cannot be enabled for the first boot!
         Extra setup is required for rolling in the keys; consult the readme.
       '';

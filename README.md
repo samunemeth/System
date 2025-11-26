@@ -358,11 +358,11 @@ sudo reboot
 
 ## Secure Boot
 
-Using [Lanzaboot](https://github.com/nix-community/lanzaboote),
+Using [Lanzaboote](https://github.com/nix-community/lanzaboote),
 secure boot is possible with this configuration. There are general
 [instructions for installation](https://github.com/nix-community/lanzaboote/blob/master/docs/QUICK_START.md),
 that coves almost everything needed for installation. It is important that you
-**cannot have Lanzaboot enabled for the first boot**. This means, that you have
+**cannot have Lanzaboote enabled for the first boot**. This means, that you have
 to enable it later in the setup cycle. This is why it is not included in the
 above setup instructions.
 
