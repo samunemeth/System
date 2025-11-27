@@ -131,7 +131,7 @@ keys = [
 
     # Toggle scratchpads.
     Key([mod], "f", lazy.group["scratchpad"].dropdown_toggle("lf")),
-    Key([mod], "g", lazy.group["scratchpad"].dropdown_toggle("term")),
+    Key([mod], "d", lazy.group["scratchpad"].dropdown_toggle("term")),
 
     # Application quick launch
     Key([mod], "semicolon", lazy.spawn(terminal), desc="Terminal"),
@@ -142,7 +142,7 @@ keys = [
     Key([mod], "z", lazy.next_screen(), desc="Next screen"),
 
     # Rofi menu options
-    Key([mod], "d", lazy.spawn("rofi -show drun")),
+    Key([mod], "g", lazy.spawn("rofi -show drun")),
     Key([mod], "s", lazy.spawn((
         f"rofi -show power-menu -modi "
         f"\"power-menu:{qtile_home_path}/rofi/rofi-power-plugin "
