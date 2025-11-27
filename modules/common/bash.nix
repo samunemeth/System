@@ -79,6 +79,10 @@
               }
 
               where () {
+                readlink -f $(which $1)
+              }
+
+              inspect () {
                 cat $(which $1)
               }
 
