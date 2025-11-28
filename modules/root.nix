@@ -24,12 +24,12 @@
     ./common/yubikey.nix
     ./common/bash.nix
     ./common/seafile.nix
+    ./common/git.nix
 
     # Applications
     ./apps/neovim.nix
     ./apps/alacritty.nix
     ./apps/firefox.nix
-    ./apps/git.nix
     ./apps/rofi.nix
     ./apps/zathura.nix
     ./apps/lf.nix
