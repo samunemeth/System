@@ -23,6 +23,7 @@
     ./common/sops.nix
     ./common/yubikey.nix
     ./common/bash.nix
+    ./common/seafile.nix
 
     # Applications
     ./apps/neovim.nix
@@ -33,7 +34,6 @@
     ./apps/zathura.nix
     ./apps/lf.nix
     ./apps/vscode.nix
-    ./apps/seafile.nix
     ./apps/mpv.nix
 
     # Programming Languages
