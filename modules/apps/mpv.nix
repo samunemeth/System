@@ -13,6 +13,9 @@ let
     name = "wrapped-mpv";
     buildInputs = [ pkgs.makeWrapper ];
     paths = [ pkgs.mpv ];
+    # NOTE: This is actually kind of hardware dependent...
+    # > This is ideal for AMD integrated graphics, the OpenGL part should
+    # > probably be removed if used on Nvidia.
     postBuild = ''
       wrapProgram $out/bin/mpv \
         --add-flags "\
