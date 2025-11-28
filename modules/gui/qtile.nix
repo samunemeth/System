@@ -31,7 +31,8 @@
         acpilight # Brightness controller.
         pulseaudio-ctl # Command line volume control.
         hsetroot # For background setting.
-        dunst # Notification agent.
+        libnotify # Notification handling library.
+        dunst # Notification daemon.
         libinput-gestures # For touchpad gestures.
 
       ]
