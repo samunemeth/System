@@ -51,7 +51,6 @@
             "ncg" = "sudo nix-collect-garbage -d";
 
             "snvim" = "sudo -E nvim";
-            "clip" = "xclip -selection clipboard";
             "fetch" = "fastfetch";
 
           };
@@ -103,7 +102,6 @@
           BROWSER = "firefox";
           TERMINAL = "alacritty";
           NOTIFY = "dunstify";
-          CLIP = "xclip -selection clipboard";
         };
 
       };
