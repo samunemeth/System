@@ -22,6 +22,12 @@
 
   config = lib.mkIf config.modules.apps.alacritty {
 
+    # Update environment settings.
+    environment.sessionVariables = {
+      TERM = "alacritty";
+      TERMINAL = "alacritty";
+    };
+
     # Remove xterm, as Alacritty becomes default.
     services.xserver = {
       desktopManager.xterm.enable = false;
@@ -43,9 +49,6 @@
 
         programs.alacritty.enable = true;
         programs.alacritty.settings = {
-
-          # Set as default terminal emulator.
-          env.TERM = "alacritty";
 
           # Configure a minimalistic GUI.
           window = {

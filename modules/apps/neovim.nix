@@ -28,6 +28,20 @@
 
     ];
 
+  # Update environment settings.
+  environment = {
+
+    # Set Neovim as the default editor.
+    sessionVariables.EDITOR = "nvim";
+
+    # Add alias for using Neovim with sudo.
+    # NOTE: This should not be necessary if Neovim is custom wrapped.
+    shellAliases = {
+      "snvim" = "sudo -E nvim";
+    };
+
+  };
+
   # --- Home Manager Part ---
   home-manager.users.${globals.user} =
     let
@@ -46,6 +60,7 @@
         enable = true;
 
         # Set Neovim as default, but do not set aliases.
+        # NOTE: This is probably not needed at all.
         defaultEditor = true;
         viAlias = false;
         vimAlias = false;

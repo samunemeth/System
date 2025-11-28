@@ -22,6 +22,9 @@
 
   config = lib.mkIf config.modules.apps.firefox {
 
+    # Update environment settings.
+    environment.sessionVariables.BROWSER = "firefox";
+
     # --- Home Manager Part ---
     home-manager.users.${globals.user} =
       {
