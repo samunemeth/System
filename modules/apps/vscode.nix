@@ -9,8 +9,8 @@
 }:
 {
 
-  options = {
-    modules.vscode.enable = lib.mkOption {
+  options.modules = {
+    apps.vscode = lib.mkOption {
       type = lib.types.bool;
       default = false;
       example = true;
@@ -20,7 +20,7 @@
     };
   };
 
-  config = lib.mkIf config.modules.vscode.enable {
+  config = lib.mkIf config.modules.apps.vscode {
 
     environment.systemPackages = with pkgs; [ vscode-fhs ];
 

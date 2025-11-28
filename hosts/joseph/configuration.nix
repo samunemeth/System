@@ -67,6 +67,7 @@
       lf = true;
       firefox = true;
       mpv = true;
+      vscode = false;
     };
 
     # Programming languages to install.
