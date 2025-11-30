@@ -22,7 +22,7 @@ let
           --hwdec=yes \
           --gpu-api=opengl \
           --image-display-duration=inf \
-          --force-window
+          --force-window \
         "
     '';
   };
