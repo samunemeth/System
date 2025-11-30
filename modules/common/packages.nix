@@ -45,9 +45,6 @@
         fastfetchMinimal # Displaying system data.
         nix-tree # Explore sizes of packages.
 
-        # WARN: This package probably messes some stuff up.
-        #toybox # Lightweight Unix utilities.
-
       ];
 
     # Remove unused packages enabled my default.
