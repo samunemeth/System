@@ -29,6 +29,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Look Into:* Impermanence. [More Info](https://grahamc.com/blog/erase-your-darlings/)
         *Maybe just on the root at first, not home?*
   - [ ] *Look Into:* Automatic monitor detection, and saved layouts.
+  - [ ] *Look Into:* What is actually good in Rofi? Remove some bloat from it?
 
 **Documentation**
 
