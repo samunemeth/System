@@ -150,7 +150,6 @@ keys = [
         f"{"/hibernate" if parametric.has_hibernation else ""}"
         f"{"/logout" if not parametric.has_auto_login else ""}\""
     ))),
-    Key([mod], "c", lazy.spawn("rofi -show calc -modi calc")),
     Key([mod], "n", lazy.spawn("networkmanager_dmenu")),
     Key([mod], "b", lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained")),
     Key([mod], "x", lazy.spawn(f"rofi -show rofi-sound -modi \"rofi-sound:{qtile_home_path}/rofi/rofi-sound-plugin\"")),

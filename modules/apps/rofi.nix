@@ -69,7 +69,6 @@ let
 in
 {
 
-  # BUG: The rofi-calc plugin is missing.
   environment.systemPackages = with pkgs; [
 
     wrapped-rofi # Simple command running interface with configuration.

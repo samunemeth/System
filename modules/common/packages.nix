@@ -35,7 +35,10 @@
     # List of low priority packages.
     environment.systemPackages =
       with pkgs;
-      lib.lists.optionals config.modules.packages.lowPriority [
+      [
+        bc # Basic calculator. Already installed, just put it into path.
+      ]
+      ++ lib.lists.optionals config.modules.packages.lowPriority [
 
         ripgrep # Recursive command line search command.
         fd # A user friendly file search engine.
@@ -54,7 +57,7 @@
 
     # Enable vim, while Neovim in not wrapped.
     programs.vim.enable = true;
-  
+
     # Set documentation availability in accordance with setting.
     documentation.enable = config.modules.packages.manuals;
 
