@@ -51,6 +51,10 @@ cmd open &{{
       zathura "$f" --fork -l error
       printf "Opened pdf with Zathura."
     fi
+  # Open SVG files with the browser instead of MPV.
+  elif [[ $filetype == "image/svg"* ]] then
+    $BROWSER --new-window "$f"
+    printf "Opened image with browser."
   elif [[ $filetype == "image"* ]] then
     mpv "$f"
     printf "Opened image with Mpv."
