@@ -20,31 +20,15 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **General**
 
-  - [ ] *Set Up:* Password prompt after hibernation.
-  - [ ] *Look Into:* Hibernation and Sleep fucking with YubiKey authentication.
-  - [ ] *Set Up:* Tar unpacking.
-  - [ ] *Set Up:* Automatic locking.
+  - [ ] *Set Up:* Make all apps use wrappers. [More Info](https://www.youtube.com/watch?v=Zzvn9uYjQJY)
+  - [ ] *Look Into:* Wrapping Neovim. [More Info](https://ayats.org/blog/neovim-wrapper)
+  - [ ] *Set Up:* hibernation with the new partition setup.
+  - [ ] *Set Up:* Automatic locking, password prompt after hibernation.
   - [ ] *Look Into:* The *mini greeter* seems to act up on first boot.
         *Maybe just ditch the mini greeter?*
-  - [ ] *Fix:* Opening .svg files.
-
-**Declarative Wonderland**
-
-  - [ ] *Look Into:* Wrappers. [More Info](https://www.youtube.com/watch?v=Zzvn9uYjQJY)
   - [ ] *Look Into:* Impermanence. [More Info](https://grahamc.com/blog/erase-your-darlings/)
-  - [ ] *Look Into:* Adding even more preset Firefox options.
-
-**Qtile**
-
+        *Maybe just on the root at first, not home?*
   - [ ] *Look Into:* Automatic monitor detection, and saved layouts.
-  - [ ] *Fix:* Firefox opening in the wrong group.
-  - [ ] *Set Up:* Widget for Seafile.
-
-**Neovim**
-
-  - [ ] *Look Into:* Including spelling dictionaries declaratively.
-  - [ ] *Look Into:* Python grammar, formatter and LSP.
-  - [ ] *Look Into:* Wrapping Neovim. [More Info](https://ayats.org/blog/neovim-wrapper)
 
 **Documentation**
 
@@ -57,7 +41,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Look Into:* Creating a custom installation (and/or full system) ISO.
   - [ ] *Set Up:* A configuration for minimal installation.
   - [ ] *Set Up:* Gnome with declarative settings.
-  - [ ] *Check Out:* Installing to a virtual machine for testing.
+  - [ ] *Look Into:* Installing to a virtual machine for testing.
 
 There are also small items marked with *TODO* inside comments. There are also
 *NOTE*, *WARN* and *BUG* labels used.
