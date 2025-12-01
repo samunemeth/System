@@ -49,6 +49,8 @@
     ./gui/kmscon.nix
     ./gui/qtile.nix
 
+    ./common/virtual.nix
+
   ];
 
   options = { };
