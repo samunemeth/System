@@ -25,6 +25,7 @@
     ./common/ssh.nix
     ./common/system.nix
     ./common/users.nix
+    ./common/virtual.nix
     ./common/yubikey.nix
 
     # Applications
