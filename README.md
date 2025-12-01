@@ -30,6 +30,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
         *Maybe just on the root at first, not home?*
   - [ ] *Look Into:* Automatic monitor detection, and saved layouts.
   - [ ] *Look Into:* What is actually good in Rofi? Remove some bloat from it?
+  - [ ] *Fix:* There is no transparency possible in Zathura.
 
 **Documentation**
 
