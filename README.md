@@ -34,7 +34,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 **Documentation**
 
   - [ ] *Update:* Installation documentation.
-  - [ ] *Add:* Documentation for sops and sops-nix.
+  - [x] *Add:* Documentation for sops and sops-nix.
 
 **Long Term**
 
@@ -209,11 +209,46 @@ There are also small items marked with *TODO* inside comments. There are also
 
 ## Sops
 
-Get an *age* public key of your machines host ssh key:
+
+To use sops encrypted secrets while rebuilding your machine, or editing the
+secrets file, you will need an *age* key that is authorized in the `.sops.yaml`
+file. You can either:
+  - Use a *standalone age key* placed in the location `~/.config/sops/age/keys.txt`.
+    This is practical when using a master key for a file, during installation
+    or temporarily.
+    Sops and sops-nix both automatically detect them.
+  - Use an *age key derived from an SSH host key*.
+    This way, your machine only
+    needs it's host keys to persist. This is probably better for everyday use,
+    as the host keys are owned by root, and therefore harder to 'peek' at.
+    Sops-nix automatically derives the age keys from the host SSH keys, however
+    sops needs them supplied directly. For this purpose, a `nes` shell function
+    is provided for convenience.
+
+Get an *age* **public** key of your machines host ssh key:
 ```bash
-nix-shell -p ssh-to-age --run 'cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'
+# With ssh-to-age installed:
+sudo ssh-to-age -i /etc/ssh/ssh_host_ed25519_key.pub
+# With ssh-to-age not installed yet:
+nix-shell -p ssh-to-age --run 'sudo ssh-to-age -i /etc/ssh/ssh_host_ed25519_key.pub'
 ```
-**MISSING STEPS**
+This is useful when adding the key to `.sops.yaml` for example.
+
+To get a **private** key, add the `-private-key` flag to the previous `ssh-to-age`
+commands. Sops checks the `SOPS_AGE_KEY` environment variable for additional
+or derived age keys to use for editing.
+The following snippet adds a host ssh key derived age key to sops:
+```bash
+export SOPS_AGE_KEY=$(sudo ssh-to-age -private-key -i /etc/ssh/ssh_host_ed25519_key)
+```
+This is the same snippet used in the `nes` shell function.
+
+Note that you may need to prefix the paths in the snippets above with
+`/mnt` if you are running them during the installation.
+To update the `secrets.yaml` file with new keys or settings, use the
+`updatekeys` option with the `sops` or `nes` commands.
+SSH host keys can also be transferred, if the operating system needs to be
+reinstalled. This way, there is no need to modify `.sops.yaml`.
 
 
 ## WiFi
@@ -438,4 +473,8 @@ Guides, threads, wiki's that I have found useful.
   - [How to Dual Boot Windows and NixOS](https://drakerossman.com/blog/how-to-dualboot-windows-and-nixos)
   - [YubiKeys on NixOS](https://youtu.be/3CeXbONjIgE)
   - [Reference for Writers](https://nixos.wiki/wiki/Nix-writers)
+  - [Using Wrappers](https://www.youtube.com/watch?v=Zzvn9uYjQJY)
+  - [Wrapping Neovim](https://ayats.org/blog/neovim-wrapper)
+  - [Erase Your Darlings](https://grahamc.com/blog/erase-your-darlings/)
+
 
