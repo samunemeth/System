@@ -32,13 +32,6 @@
       interactiveShellInit = # bash
         ''
 
-          # Edit NixOS secrets, with the machines host ssh key.
-          nes () {
-            cd ~/System
-            SOPS_AGE_KEY=$(sudo ssh-to-age -private-key -i /etc/ssh/ssh_host_ed25519_key) sops $1 secrets.yaml
-            cd -
-          }
-
           # Rebuild NixOS from a flake.
           nrs () {
             sudo nixos-rebuild switch --flake ~/System/#$1
