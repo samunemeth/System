@@ -64,6 +64,12 @@
       nerd-fonts.hack
     ];
 
+    # Enable fingerprint based authentication.
+    # TODO: Make this an option, as it is not needed on all systems,
+    # > or maybe not wanted for security reasons. No other config
+    # > is needed other than this line.
+    services.fprintd.enable = true;
+
   };
 
 }

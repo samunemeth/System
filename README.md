@@ -204,6 +204,10 @@ There are also small items marked with *TODO* inside comments. There are also
     ```nix
     services.xserver.displayManager.lightdm.greeters.mini.enable = lib.mkForce false;
     ```
+  - *If* you have a fingerprint reader, enroll a fingerprint to your user:
+    ```
+    sudo fprintd-enroll $USER
+    ```
   - Everything should be set! Rebuild with `nrs` and reboot to see if everything
     works as expected.
 
