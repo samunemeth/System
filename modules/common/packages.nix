@@ -35,10 +35,7 @@
     # List of low priority packages.
     environment.systemPackages =
       with pkgs;
-      [
-        bc # Basic calculator. Already installed, just put it into path.
-      ]
-      ++ lib.lists.optionals config.modules.packages.lowPriority [
+      lib.lists.optionals config.modules.packages.lowPriority [
 
         ripgrep # Recursive command line search command.
         fd # A user friendly file search engine.
@@ -47,6 +44,7 @@
         btop # System monitoring and testing.
         fastfetchMinimal # Displaying system data.
         nix-tree # Explore sizes of packages.
+        calc # Arbitrary precision calculator.
 
       ];
 
@@ -65,6 +63,8 @@
     fonts.packages = with pkgs; [
       nerd-fonts.hack
     ];
+
+    services.fprintd.enable = true;
 
   };
 

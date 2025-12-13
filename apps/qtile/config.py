@@ -132,6 +132,7 @@ keys = [
     # Toggle scratchpads.
     Key([mod], "f", lazy.group["scratchpad"].dropdown_toggle("lf")),
     Key([mod], "d", lazy.group["scratchpad"].dropdown_toggle("term")),
+    Key([mod], "c", lazy.group["scratchpad"].dropdown_toggle("calc")),
 
     # Application quick launch
     Key([mod], "semicolon", lazy.spawn(terminal), desc="Terminal"),
@@ -190,7 +191,7 @@ keys = [
     Key([], "XF86AudioMicMute", lazy.spawn("pulseaudio-ctl mute-input")),
     Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
 
-    Key([], "XF86Calculator", lazy.spawn("rofi -show calc -modi calc")),
+    Key([], "XF86Calculator", lazy.group["scratchpad"].dropdown_toggle("calc")),
 
 ]
 
@@ -209,7 +210,6 @@ groups = [
     Group("/"),
 
     ScratchPad("scratchpad", [
-
         DropDown(
             "term",
             terminal,
@@ -219,7 +219,6 @@ groups = [
             y = 0.15,
             opacity = 1,
         ),
-
         DropDown(
             "lf",
             "alacritty -e lf",
@@ -229,7 +228,15 @@ groups = [
             y = 0.15,
             opacity = 1,
         ),
-
+        DropDown(
+            "calc",
+            "alacritty -e calc",
+            width = 0.8,
+            height = 0.601,
+            x = 0.1,
+            y = 0.15,
+            opacity = 1,
+        ),
     ]),
 
 ]
