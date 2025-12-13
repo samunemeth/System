@@ -71,6 +71,7 @@
       firefox = true;
       mpv = true;
       vscode = false;
+      ipycalc = false;
     };
 
     # Programming languages to install.

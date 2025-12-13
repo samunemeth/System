@@ -35,6 +35,7 @@
     ./apps/lf.nix
     ./apps/vscode.nix
     ./apps/mpv.nix
+    ./apps/ipycalc.nix
 
     # Programming Languages
     ./code/latex.nix

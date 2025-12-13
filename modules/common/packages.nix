@@ -44,9 +44,9 @@
         btop # System monitoring and testing.
         fastfetchMinimal # Displaying system data.
         nix-tree # Explore sizes of packages.
-        calc # Arbitrary precision calculator.
 
-      ];
+      ]
+      ++ lib.lists.optional (!config.modules.apps.ipycalc) calc;
 
     # Remove unused packages enabled my default.
     environment.defaultPackages = lib.mkForce [ ];
