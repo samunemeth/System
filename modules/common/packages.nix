@@ -64,8 +64,6 @@
       nerd-fonts.hack
     ];
 
-    services.fprintd.enable = true;
-
   };
 
 }
