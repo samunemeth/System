@@ -27,9 +27,11 @@
       # Haskell with packages.
       (haskellPackages.ghcWithPackages (pkgs: with pkgs; [
 
-        turtle # Running Haskell as a shell script.
-        cabal-install # Project manager for Haskell.
+        # turtle # Running Haskell as a shell script.
+        # cabal-install # Project manager for Haskell.
         haskell-language-server # LSP server.
+
+        hmatrix # Matrix math package for Haskell.
 
       ]))
 
