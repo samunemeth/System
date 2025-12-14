@@ -30,6 +30,9 @@
 
     };
 
+  # Fixes a conflict with the ssh agent.
+  services.gnome.gcr-ssh-agent.enable = lib.mkForce false;
+
   # Machine ssh settings.
   programs.ssh = {
 
