@@ -26,7 +26,7 @@
 
       sqlite # Simple database, for data analytics.
 
-      (python312.withPackages (
+      (python3.withPackages (
         p: with p; [
 
           # Jupyter Notebook
