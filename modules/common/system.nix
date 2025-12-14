@@ -71,7 +71,7 @@
     # Enable power management option for sleep and hibernation.
     powerManagement.enable = true;
 
-    services.logind =
+    services.logind.settings.Login =
 
       # Assert that if hibernation is allowed, there has to be a swap device.
       assert lib.assertMsg (
@@ -80,10 +80,10 @@
 
       # Configure power actions on different events.
       {
-        lidSwitch = if config.modules.system.hibernation then "suspend-then-hibernate" else "suspend";
-        lidSwitchExternalPower = "ignore";
-        powerKey = "ignore";
-        powerKeyLongPress = "poweroff";
+        HandleLidSwitch = if config.modules.system.hibernation then "suspend-then-hibernate" else "suspend";
+        HandleLidSwitchExternalPower = "ignore";
+        HandlePowerKey = "ignore";
+        HandlePowerKeyLongPress = "poweroff";
       };
 
     systemd.sleep.extraConfig = (

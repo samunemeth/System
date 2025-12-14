@@ -97,6 +97,10 @@
       programs.ssh = {
 
         enable = true;
+        
+        # Remove default configuration. This is there for compatibility,
+        # and will need to be removed in the future.
+        enableDefaultConfig = false;
 
         # Pass keys to ssh agent. This is needed for YubiKey.
         extraConfig = ''
