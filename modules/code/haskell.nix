@@ -24,17 +24,14 @@
 
     environment.systemPackages = with pkgs; [
 
-      # Haskell with packages.
-      (haskellPackages.ghcWithPackages (pkgs: with pkgs; [
-
-        # turtle # Running Haskell as a shell script.
-        # cabal-install # Project manager for Haskell.
-        haskell-language-server # LSP server.
+      # Haskell with libraries.
+      (haskellPackages.ghcWithPackages (p: with p; [
 
         hmatrix # Matrix math package for Haskell.
 
       ]))
 
+      haskell-language-server # LSP server.
       ormolu # Code formatter for Haskell.
 
     ];
