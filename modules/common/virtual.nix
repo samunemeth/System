@@ -5,6 +5,7 @@
   pkgs,
   lib,
   globals,
+  inputs, # For custom flake inputs.
   ...
 }:
 {
@@ -13,7 +14,7 @@
   boot.kernelModules = [
     "kvm"
     "kvm_amd"
-    "kvm_intel"
+    # "kvm_intel"
   ];
   users.groups.kvm.members = [ globals.user ];
 
@@ -65,6 +66,13 @@
       hashedPasswordFile = lib.mkForce null;
     };
     users.groups.nixosvmtest = { };
+
+    # Remove Firefox to improve performance.
+    modules.apps.firefox = lib.mkForce false;
+
+    # --- Testing Configuration ---
+    # This is where you can put configuration settings that you want to test
+    # in the VM without messing with your whole machine.
 
   };
 
