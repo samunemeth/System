@@ -117,8 +117,8 @@ def power_action(cmd):
 
 @lazy.function
 def power_prompt(qtile):
-    prompt = qtile.widgets_map["prompt"]
-    prompt.start_input("[power]:", power_action)
+    qtile.widgets_map["response"].update("")
+    qtile.widgets_map["prompt"].start_input("[power]:", power_action)
 
 keys = [
 
@@ -159,15 +159,7 @@ keys = [
     Key([mod], "z", lazy.next_screen(), desc="Next screen"),
 
     # Rofi menu options
-    # Key([mod], "g", lazy.spawn("rofi -show drun")),
     Key([mod], "g", lazy.spawncmd(prompt="$")),
-    # Key([mod], "s", lazy.spawn((
-    #     f"rofi -show power-menu -modi "
-    #     f"\"power-menu:{qtile_home_path}/rofi/rofi-power-plugin "
-    #     f"--choices shutdown/reboot/suspend"
-    #     f"{"/hibernate" if parametric.has_hibernation else ""}"
-    #     f"{"/logout" if not parametric.has_auto_login else ""}\""
-    # ))),
     Key([mod], "s", power_prompt),
     Key([mod], "n", lazy.spawn("networkmanager_dmenu")),
     Key([mod], "b", lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained")),
@@ -218,7 +210,7 @@ keys = [
 
 groups = [
 
-    Group("U", spawn="alacritty"),
+    Group("U", spawn=terminal),
     Group("I"),
     Group("O"),
     Group("P", spawn="firefox"),
@@ -239,7 +231,7 @@ groups = [
         ),
         DropDown(
             "lf",
-            "alacritty -e lf",
+            f"{terminal} -e lf",
             width = 0.8,
             height = 0.601,
             x = 0.1,
@@ -248,7 +240,7 @@ groups = [
         ),
         DropDown(
             "calc",
-            "alacritty -e calc",
+            f"{terminal} -e calc",
             width = 0.8,
             height = 0.601,
             x = 0.1,
@@ -295,8 +287,9 @@ for i in groups:
 
 # --- Layout Settings ---
 
+
+# Return number of connected outputs reported by xrandr.
 def get_connected_monitors() -> int:
-    """Return number of connected outputs reported by xrandr."""
     try:
         out = subprocess.check_output(["xrandr", "--query"], stderr=subprocess.DEVNULL)
         out = out.decode("utf-8", errors="ignore")
@@ -334,12 +327,11 @@ floating_layout = layout.Floating(
         Match(wm_class="splash"),
         Match(wm_class="toolbar"),
         Match(func=lambda c: c.has_fixed_size()),
-        # Disabled for mpv, so it does not float.
-        # Match(func=lambda c: c.has_fixed_ratio()),
+        # Match(func=lambda c: c.has_fixed_ratio()), # Disabled for MPV.
     ]
 )
 
-# --- Widget Settings ---
+# --- Widgets ---
 
 def get_nvidia_status_icon():
     current_status = subprocess.check_output(["cat", f"{parametric.dgpu_path}/power/runtime_status"]).decode("utf-8").strip()
@@ -385,25 +377,35 @@ def get_seafile_status():
     except:
         return ""
 
+# The default widget settings.
 widget_defaults = dict(
     font = "Hack Nerd Font",
+    foreground = parametric.foreground_main,
     fontsize = 14,
-    padding = 3,
+    padding = 10,
 )
 extension_defaults = widget_defaults.copy()
 
+# The default separator.
+def add_sep():
+    return widget.Sep(
+        linewidth = 2,
+        size_percent = 70,
+        foreground = "#888888",
+        padding = 10,
+    )
+
 widgets = [
+
     widget.GroupBox(
         this_current_screen_border = parametric.foreground_main,
         this_screen_border = parametric.foreground_main,
         borderwidth = 2,
         disable_drag = True,
+        padding = 3,
     ),
-    widget.Sep(
-        linewidth = 2,
-        padding = 10,
-        size_percent = 70,
-    ),
+    add_sep(),
+
     widget.KeyboardLayout(
         configured_keyboards = parametric.available_layouts,
         display_map = {
@@ -412,29 +414,27 @@ widgets = [
             "us dvp": "DV",
             "us intl": "IN",
         },
-        padding = 10,
     ),
-    widget.Sep(
-        linewidth = 2,
-        padding = 10,
-        size_percent = 70
-    ),
+    add_sep(),
+
     widget.GenPollText(
         func = get_seafile_status,
         fmt = "{}",
         shell = True,
         update_interval = 3, # NOTE: I'm not sure how much resources this uses.
-        padding = 10,
     ),
     widget.Prompt(
         prompt = "{prompt} ",
         record_history = False,
         bell_style = None,
         cursor_color = parametric.foreground_main,
-        foreground = parametric.foreground_main,
         cursor_type = "bar",
-        padding = 7,
         cursorblink = .5,
+        padding = 7,
+    ),
+    widget.TextBox(
+        name = "response",
+        padding = 7,
     ),
 
     # --------------------------
@@ -448,45 +448,26 @@ widgets = [
 
     # widget.WindowName(
     #     parse_text = shorten_widow_title,
-    #     padding = 10,
-    # ),
+    #    # ),
 
     # --------------------------
 
     widget.Spacer(),
 
-    # --------------------------
-
-    # widget.Sep(
-    #     linewidth = 2,
-    #     padding = 10,
-    #     size_percent = 70
-    # ),
-
-    # --------------------------
-
 ] + ([
-    widget.Sep(
-        linewidth = 2,
-        padding = 10,
-        size_percent = 70,
-    ),
+
+    add_sep(),
     widget.GenPollText(
         func = get_nvidia_status_icon,
         fmt = "{}",
         shell = True,
         update_interval = 1,
-        padding = 10,
     ),
-    widget.Spacer(
-        length = 4,
-    ),
+    widget.Spacer(length=4),
+
 ] if not parametric.dgpu_path == "" else []) + [
-    widget.Sep(
-        linewidth = 2,
-        padding = 10,
-        size_percent = 70,
-    ),
+
+    add_sep(),
     widget.Bluetooth(
         default_show_battery = True,
         hide_unnamed_devices = True,
@@ -500,13 +481,9 @@ widgets = [
         mouse_callbacks = {
             "Button1": lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained"),
         },
-        padding = 10,
     ),
-    widget.Sep(
-        linewidth = 2,
-        padding = 10,
-        size_percent = 70
-    ),
+
+    add_sep(),
     widget.Wlan(
         interface = wireless_interface,
         format = "󰖩 {percent:2.0%}",
@@ -515,59 +492,45 @@ widgets = [
         use_ethernet = True,
         ethernet_interface = wired_interface,
         mouse_callbacks = {
-            "Button1": lambda: qtile.spawn("networkmanager_dmenu"),
+            "Button1": lazy.spawn("networkmanager_dmenu"),
         },
-        padding = 10,
     ),
-    widget.Sep(
-        linewidth = 2,
-        padding = 10,
-        size_percent = 70
-    ),
+
+    add_sep(),
     widget.PulseVolume(
         mute_format = "   ",
         unmute_format = " {volume}%",
         mute_foreground = parametric.foreground_error,
-        foreground = parametric.foreground_main,
-        padding = 10,
     ),
+
 ] + ([
-    widget.Sep(
-        linewidth = 2,
-        padding = 10,
-        size_percent = 70
-    ),
+
+    add_sep(),
     widget.Backlight(
         mouse_callbacks = {
-            "Button1": lambda: qtile.spawn("sudo xbacklight -set 75"),
-            "Button3": lambda: qtile.spawn("sudo xbacklight -set 25"),
-            "Button4": lambda: qtile.spawn("sudo xbacklight -inc 3"),
-            "Button5": lambda: qtile.spawn("sudo xbacklight -dec 3"),
+            "Button1": lazy.spawn("sudo xbacklight -set 75"),
+            "Button3": lazy.spawn("sudo xbacklight -set 25"),
+            "Button4": lazy.spawn("sudo xbacklight -inc 3"),
+            "Button5": lazy.spawn("sudo xbacklight -dec 3"),
         },
         fmt=" {}",
         backlight_name = backlight_name,
-        padding = 10,
     ),
+
 ] if backlight_name else []) + [
-    widget.Sep(
-        linewidth = 2,
-        padding = 10,
-        size_percent = 70
-    ),
+
+    add_sep(),
     widget.ThermalSensor(
         format = " {temp:.0f}{unit}",
         tag_sensor = processor_temperature_name,
         mouse_callbacks = {
-            "Button1": lambda: qtile.spawn("alacritty -e btop"),
+            "Button1": lazy.spawn(f"{terminal} -e btop"),
         },
-        padding = 10,
     ),
+
 ] + ([
-    widget.Sep(
-        linewidth = 2,
-        padding = 10,
-        size_percent = 70
-    ),
+
+    add_sep(),
     widget.Battery(
         format="{char} {watt:.0f}W  󰂎 {percent:2.1%}  󱧦 {hour:02d}:{min:02d}",
         charge_char = "",
@@ -577,18 +540,15 @@ widgets = [
         update_interval = 3,
         low_percentage = 0.2,
         low_foreground = parametric.foreground_error,
-        padding = 10
     ),
+
 ] if has_battery else []) + [
-    widget.Sep(
-        linewidth = 2,
-        padding = 10,
-        size_percent = 70
-    ),
+
+    add_sep(),
     widget.Clock(
         format = "%Y-%m-%d %H:%M:%S",
-        padding = 10,
     ),
+
 ]
 
 # --- Screen Settings ---
@@ -597,7 +557,7 @@ screens = [
     Screen(
         bottom=bar.Bar(
             widgets,
-            24,
+            26,
             background = parametric.background_contrast,
             opacity = 1.0,
         ),
