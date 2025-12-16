@@ -5,6 +5,7 @@
   pkgs,
   lib,
   globals,
+  inputs, # For possible local building.
   ...
 }:
 {
@@ -21,6 +22,21 @@
   };
 
   config = lib.mkIf config.modules.gui.qtile {
+
+    # The following code makes Qtile build from a local or personal repo.
+    # WARN: Make sure that the repo is based on Qtile v0.33.0 as this is the
+    # > version supported by Nix at the moment.
+    nixpkgs.overlays = [
+      (final: prev: {
+        python3 = prev.python3.override {
+          packageOverrides = pyFinal: pyPrev: {
+            qtile = pyPrev.qtile.overrideAttrs (old: {
+              src = inputs.qtile-src;
+            });
+          };
+        };
+      })
+    ];
 
     # Packages related to Qtile in some way.
     environment.systemPackages =

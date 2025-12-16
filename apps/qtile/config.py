@@ -432,7 +432,9 @@ widgets = [
         bell_style = None,
         cursor_color = parametric.foreground_main,
         foreground = parametric.foreground_main,
+        cursor_type = "bar",
         padding = 7,
+        cursorblink = .5,
     ),
 
     # --------------------------
