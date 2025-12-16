@@ -100,9 +100,25 @@ def autostart():
 
 # --- Keyboard Shortcuts ---
 
-def go_to_next_screen(qtile):
-    next_index = (qtile.current_screen.index + 1) % len(qtile.screens)
-    qtile.cmd_to_screen(next_index)
+def power_action(cmd):
+
+    action = ""
+    if cmd.startswith(("su", "sl")):
+        action = "suspend"
+    elif cmd.startswith("hi"):
+        action = "hibernate"
+    elif cmd.startswith("re"):
+        action = "reboot"
+    elif cmd.startswith(("po", "sh")):
+        action = "poweroff"
+
+    if action:
+        subprocess.Popen(["systemctl", action])
+
+@lazy.function
+def power_prompt(qtile):
+    prompt = qtile.widgets_map["prompt"]
+    prompt.start_input("[power]:", power_action)
 
 keys = [
 
@@ -143,14 +159,16 @@ keys = [
     Key([mod], "z", lazy.next_screen(), desc="Next screen"),
 
     # Rofi menu options
-    Key([mod], "g", lazy.spawn("rofi -show drun")),
-    Key([mod], "s", lazy.spawn((
-        f"rofi -show power-menu -modi "
-        f"\"power-menu:{qtile_home_path}/rofi/rofi-power-plugin "
-        f"--choices shutdown/reboot/suspend"
-        f"{"/hibernate" if parametric.has_hibernation else ""}"
-        f"{"/logout" if not parametric.has_auto_login else ""}\""
-    ))),
+    # Key([mod], "g", lazy.spawn("rofi -show drun")),
+    Key([mod], "g", lazy.spawncmd(prompt="$")),
+    # Key([mod], "s", lazy.spawn((
+    #     f"rofi -show power-menu -modi "
+    #     f"\"power-menu:{qtile_home_path}/rofi/rofi-power-plugin "
+    #     f"--choices shutdown/reboot/suspend"
+    #     f"{"/hibernate" if parametric.has_hibernation else ""}"
+    #     f"{"/logout" if not parametric.has_auto_login else ""}\""
+    # ))),
+    Key([mod], "s", power_prompt),
     Key([mod], "n", lazy.spawn("networkmanager_dmenu")),
     Key([mod], "b", lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained")),
     Key([mod], "x", lazy.spawn(f"rofi -show rofi-sound -modi \"rofi-sound:{qtile_home_path}/rofi/rofi-sound-plugin\"")),
@@ -407,6 +425,14 @@ widgets = [
         shell = True,
         update_interval = 3, # NOTE: I'm not sure how much resources this uses.
         padding = 10,
+    ),
+    widget.Prompt(
+        prompt = "{prompt} ",
+        record_history = False,
+        bell_style = None,
+        cursor_color = parametric.foreground_main,
+        foreground = parametric.foreground_main,
+        padding = 7,
     ),
 
     # --------------------------
