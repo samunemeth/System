@@ -31,6 +31,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Look Into:* Automatic monitor detection, and saved layouts.
   - [ ] *Look Into:* What is actually good in Rofi? Remove some bloat from it?
   - [ ] *Fix:* There is no transparency possible in Zathura.
+  - [ ] Sometimes there is a significant slowdown after the machine is powered
+        on for a long time and/or had been sleeping for a long/multiple times.
 
 **Documentation**
 
