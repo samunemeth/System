@@ -52,6 +52,7 @@
         libinput-gestures # For touchpad gestures.
 
       ]
+      # TODO: Handle errors if these are missing.
       ++ lib.lists.optionals config.modules.packages.lowPriority [
 
         numlockx # To enable NumLock by default.
