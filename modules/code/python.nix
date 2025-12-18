@@ -41,6 +41,7 @@
           seaborn
           statsmodels
           anysqlite
+          opencv4
 
         ]
       ))
