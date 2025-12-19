@@ -38,8 +38,8 @@
     # YubiKey options.
     yubikey = {
       enable = true;
-      login = true;
-      sudo = true;
+      login = false;
+      sudo = false;
     };
 
     # Seafile options.
@@ -53,7 +53,7 @@
 
     # GUIs to install and use.
     gui = {
-      kmscon = true;
+      kmscon = false;
       qtile = true;
       gnome = false;
     };
@@ -69,7 +69,7 @@
       alacritty = true;
       lf = true;
       firefox = true;
-      mpv = true;
+      mpv = false;
       vscode = false;
       ipycalc = false;
     };
@@ -79,15 +79,12 @@
       latex = false;
       java = false;
       rust = false;
-      python = false;
+      python = true;
       julia = false;
       haskell = false;
     };
 
   };
-
-  # Shorten boot loader timeout as NixOS is not used frequently.
-  boot.loader.timeout = 1;
 
   # Needs different scaling in the boot loader.
   boot.loader.systemd-boot.consoleMode = "keep";
