@@ -503,6 +503,13 @@ widgets = [
         mute_format = "   ",
         unmute_format = " {volume}%",
         mute_foreground = parametric.foreground_error,
+        mouse_callbacks = {
+            "Button1": lazy.widget["pulsevolume"].mute(),
+            # NOTE: This is acting a bit oddly.
+            "Button3": lazy.widget["pulsevolume"].decrease_vol(value=0.001),
+            "Button4": lazy.widget["pulsevolume"].decrease_vol(),
+            "Button5": lazy.widget["pulsevolume"].increase_vol(),
+        },
     ),
 
 ] + ([
@@ -512,8 +519,8 @@ widgets = [
         mouse_callbacks = {
             "Button1": lazy.spawn("sudo xbacklight -set 75"),
             "Button3": lazy.spawn("sudo xbacklight -set 25"),
-            "Button4": lazy.spawn("sudo xbacklight -inc 3"),
-            "Button5": lazy.spawn("sudo xbacklight -dec 3"),
+            "Button4": lazy.spawn("sudo xbacklight -dec 3"),
+            "Button5": lazy.spawn("sudo xbacklight -inc 3"),
         },
         fmt=" {}",
         backlight_name = backlight_name,
