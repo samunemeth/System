@@ -27,6 +27,9 @@
         # Collect NixOS garbage.
         "ncg" = "sudo nix-collect-garbage -d";
 
+        # Check NixOS roots.
+        "ncr" = "sudo -i nix-store --gc --print-roots | egrep -v '^(/nix/var|/run/current-system|/run/booted-system|/proc|{memory|{censored)'";
+
       };
 
       interactiveShellInit = # bash
