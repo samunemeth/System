@@ -13,7 +13,7 @@
   # Load kernel virtualisation modules.
   boot.kernelModules = [
     "kvm"
-    "kvm_amd"
+    # "kvm_amd"
     # "kvm_intel"
   ];
   users.groups.kvm.members = [ globals.user ];
