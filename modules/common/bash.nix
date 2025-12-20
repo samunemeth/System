@@ -28,7 +28,8 @@
         "ncg" = "sudo nix-collect-garbage -d";
 
         # Check NixOS roots.
-        "ncr" = "sudo -i nix-store --gc --print-roots | egrep -v '^(/nix/var|/run/current-system|/run/booted-system|/proc|{memory|{censored)'";
+        "ncr" =
+          "sudo -i nix-store --gc --print-roots | egrep -v '^(/nix/var|/run/current-system|/run/booted-system|/proc|{memory|{censored)'";
 
       };
 
@@ -47,7 +48,7 @@
 
           # Display disk usage information of directories.
           diskspace () {
-            du -cha --max-depth=1 $1 | sort -hr | head -n -1 | rg "^[\d\.]+[MG]" --color=never
+            du -cha --max-depth=1 $1 2> /dev/null | sort -hr | head -n -1 | rg "^[\d\.]+[MG]" --color=never
           }
 
           # Return the absolute NixOS store path origin of the executable.
