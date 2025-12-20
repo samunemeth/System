@@ -402,6 +402,8 @@ widgets = [
         this_screen_border = parametric.foreground_main,
         borderwidth = 2,
         disable_drag = True,
+        urgent_alert_method = "text",
+        urgent_text = parametric.foreground_main,
         padding = 3,
     ),
     add_sep(),
