@@ -8,6 +8,9 @@
   inputs, # For possible local building.
   ...
 }:
+let
+  qtile-package = inputs.qtile-flake.packages.${globals.system}.default;
+in
 {
 
   options.modules = {
@@ -22,21 +25,6 @@
   };
 
   config = lib.mkIf config.modules.gui.qtile {
-
-    # The following code makes Qtile build from a local or personal repo.
-    # WARN: Make sure that the repo is based on Qtile v0.33.0 as this is the
-    # > version supported by Nix at the moment.
-    nixpkgs.overlays = [
-      (final: prev: {
-        python3 = prev.python3.override {
-          packageOverrides = pyFinal: pyPrev: {
-            qtile = pyPrev.qtile.overrideAttrs (old: {
-              src = inputs.qtile-src;
-            });
-          };
-        };
-      })
-    ];
 
     # Packages related to Qtile in some way.
     environment.systemPackages =
@@ -126,6 +114,9 @@
         !(config.modules.gui.qtile && config.modules.gui.gnome)
       ) "Multiple desktop managers are not supported.";
       true;
+    
+    # Select the Qtile package.
+    services.xserver.windowManager.qtile.package = qtile-package;
 
     # Rules for no sudo password while changing monitor brightness.
     security.sudo.extraRules = lib.mkAfter [
@@ -144,10 +135,10 @@
     systemd.services.libinput-gestures =
       let
         libinput-config-file = pkgs.writers.writeText "libinput-gestures.conf" ''
-          gesture swipe left 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o screen -f next_group
-          gesture swipe right 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o screen -f prev_group
-          gesture swipe down 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o group P -f toscreen
-          gesture swipe up 3 ${pkgs.python3.pkgs.qtile}/bin/qtile cmd-obj -o group U -f toscreen
+          gesture swipe left 3 ${qtile-package}/bin/qtile cmd-obj -o screen -f next_group
+          gesture swipe right 3 ${qtile-package}/bin/qtile cmd-obj -o screen -f prev_group
+          gesture swipe down 3 ${qtile-package}/bin/qtile cmd-obj -o group P -f toscreen
+          gesture swipe up 3 ${qtile-package}/bin/qtile cmd-obj -o group U -f toscreen
         '';
       in
       {

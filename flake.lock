@@ -137,18 +137,18 @@
         "type": "github"
       }
     },
-    "qtile-src": {
+    "qtile-flake": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1766234081,
-        "narHash": "sha256-OkgasrtZ5TErg7eBgQ8dNWx4/xspLOPlZy5CFauSPiQ=",
+        "lastModified": 1766249731,
+        "narHash": "sha256-i0P8km2Iw1S8nJVnJ7FqDA8kA6G2V4kw4ZxXsg+PqrE=",
         "owner": "samunemeth",
         "repo": "qtile",
-        "rev": "f2a124c7beec52c36064c555e1061bc799a540d8",
+        "rev": "283680822c5d3635a3eaad323d2c0aabd7767ac9",
         "type": "github"
       },
       "original": {
@@ -163,7 +163,7 @@
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
         "nixpkgs": "nixpkgs",
-        "qtile-src": "qtile-src",
+        "qtile-flake": "qtile-flake",
         "sops-nix": "sops-nix"
       }
     },
