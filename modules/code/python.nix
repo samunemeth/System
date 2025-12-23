@@ -33,14 +33,18 @@
           jupyter
           ipython
 
-          # Packages
+          # General
           numpy
+
+          # Data Analytics
           pandas
           matplotlib
           scikit-learn
           seaborn
           statsmodels
           anysqlite
+
+          # Linear Algebra
           opencv4
 
         ]
