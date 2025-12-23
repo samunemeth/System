@@ -50,6 +50,16 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 There are also small items marked with *TODO* inside comments. There are also
 *NOTE*, *WARN* and *BUG* labels used.
 
+# Qtile Keybindings
+
+The images below are generated from the Qtile configuration with
+[this script](https://github.com/samunemeth/qtile/blob/layout-vis/scripts/gen-keybinding-img),
+that I am planning to have here as a GutHub action later.
+
+![Keybindings with Meta](/assets/qtile-layout/mod4.png)
+![Keybindings with Meta and Shift](/assets/qtile-layout/mod4-shift.png)
+![Keybindings with Meta and Control](/assets/qtile-layout/mod4-control.png)
+
 # Setup
 
 > [!NOTE]
