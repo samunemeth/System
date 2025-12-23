@@ -18,19 +18,25 @@ from libqtile.widget import base
 
 # --- Parametric Settings ---
 
+# Try to load parametric settings from a file if possible.
+# Load some defaults if the file does not exist.
+
 try:
-    spec = importlib.util.spec_from_file_location("qtileparametric", os.path.expanduser("~/.config/qtileparametric.py"))
+    spec = importlib.util.spec_from_file_location(
+        "qtileparametric",
+        os.path.expanduser("~/.config/qtileparametric.py")
+    )
     parametric = importlib.util.module_from_spec(spec)
     sys.modules["parametric"] = parametric
     spec.loader.exec_module(parametric)
 except:
     @dataclass
     class parametric:
-       background_main = "#000000"
+       background_main = "#222222"
        background_contrast = "#000000"
        foreground_main = "#FFFFFF"
-       foreground_soft = "#FFFFFF"
-       foreground_error = "#FF0000"
+       foreground_soft = "#DDDDDD"
+       foreground_error = "#FF2222"
        available_layouts = "US"
        has_hibernation = True
        has_auto_login = False
@@ -94,6 +100,7 @@ except:
 mod = "mod4"
 terminal = guess_terminal()
 qtile_home_path = os.path.expanduser("~/.config/qtile")
+rofi_path = qtile_home_path + "/rofi"
 
 
 # --- Startup Script ---
@@ -113,6 +120,17 @@ def autostart():
 
 
 # --- Keyboard Shortcuts ---
+
+screenshot_script = """
+mkdir -p ~/Screenshots
+scrot ~/Screenshots/screenshot-%Y-%m-%d-%H%M%S.png
+dunstify -u low "Screenshot saved."
+"""
+
+color_picker_script = """
+xcolor | xclip -selection clipboard
+dunstify -u low "Copied hex code to clipboard."
+"""
 
 def power_action(cmd):
 
@@ -172,13 +190,28 @@ keys = [
     Key([mod], "y", lazy.next_screen(), desc="Next Screen"),
     Key([mod], "z", lazy.next_screen(), desc="Next Screen"),
 
-    # Kofi menu options
+    # Rofi menu options
     Key([mod], "g", lazy.spawncmd(prompt="$"), desc="Spawn Prompt"),
     Key([mod], "s", power_prompt, desc="Power Prompt"),
     Key([mod], "n", lazy.spawn("networkmanager_dmenu"), desc="Rofi Network"),
-    Key([mod], "b", lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained"), desc="Rofi Bluetooth"),
-    Key([mod], "x", lazy.spawn(f"rofi -show rofi-sound -modi \"rofi-sound:{qtile_home_path}/rofi/rofi-sound-plugin\""), desc="Rofi Sound"),
-    Key([mod, "shift"], "w", lazy.spawn(f"rofi -show rofi-oath -modi \"rofi-oath:{qtile_home_path}/rofi/rofi-oath-plugin\""), desc="Rofi Yubikey Auth"),
+    Key(
+        [mod],
+        "b",
+        lazy.spawn(f"{rofi_path}/rofi-bluetooth-contained"),
+        desc="Rofi Bluetooth"
+    ),
+    Key(
+        [mod],
+        "x",
+        lazy.spawn(f'rofi -show sound -modi "sound:{rofi_path}/rofi-sound-plugin"'),
+        desc="Rofi Sound"
+    ),
+    Key(
+        [mod, "shift"],
+        "w",
+        lazy.spawn(f"rofi -show oath -modi \"oath:{rofi_path}/rofi-oath-plugin\""),
+        desc="Rofi Yubikey Auth"
+    ),
 
     # Keyboard layout switching.
     Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard(), desc="Keyboard Layout"),
@@ -187,22 +220,11 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload Config"),
 
     # Screenshot.
-    Key([mod, "shift"], "s", lazy.spawn("""
-                                        mkdir -p ~/Screenshots
-                                        scrot ~/Screenshots/screenshot-%Y-%m-%d-%H%M%S.png
-                                        dunstify -u low "Screenshot saved."
-                                        """, shell=True), desc="Screenshot"),
-    Key([], "Print", lazy.spawn("""
-                                mkdir -p ~/Screenshots
-                                scrot ~/Screenshots/screenshot-%Y-%m-%d-%H%M%S.png
-                                dunstify -u low "Screenshot saved."
-                                """, shell=True), desc="Screenshot"),
+    Key([mod, "shift"], "s", lazy.spawn(screenshot_script, shell=True), desc="Screenshot"),
+    Key([], "Print", lazy.spawn(screenshot_script, shell=True), desc="Screenshot"),
 
     # Color picker that copies to clipboard.
-    Key([mod, "shift"], "c", lazy.spawn("""
-                                        xcolor | xclip -selection clipboard
-                                        dunstify -u low "Copied hex code to clipboard."
-                                        """, shell=True), desc="Color Picker"),
+    Key([mod, "shift"], "c", lazy.spawn(color_picker_script, shell=True), desc="Color Picker"),
 
     # Hardware key maps to commands.
     Key([], "XF86MonBrightnessUp", lazy.spawn("sudo xbacklight -inc 5"), desc="Brightness Up"),
