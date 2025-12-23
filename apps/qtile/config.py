@@ -214,7 +214,7 @@ keys = [
     ),
 
     # Keyboard layout switching.
-    # Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard(), desc="Keyboard Layout"),
+    Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard(), desc="Keyboard Layout"),
 
     # Reload configuration.
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload Config"),
