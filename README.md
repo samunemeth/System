@@ -56,9 +56,9 @@ The images below are generated from the Qtile configuration with
 [this script](actions/qtile-layout.py). There is a GutHub action set up that
 regenerates the images if needed.
 
-![Keybindings with Meta](https://raw.githubusercontent.com/samunemeth/System/refs/heads/master/assets/qtile-layout/mod4.png)
-![Keybindings with Meta and Shift](https://raw.githubusercontent.com/samunemeth/System/refs/heads/master/assets/qtile-layout/mod4-shift.png)
-![Keybindings with Meta and Control](https://raw.githubusercontent.com/samunemeth/System/refs/heads/master/assets/qtile-layout/mod4-control.png)
+![Keybindings with Meta](/assets/qtile-layout/mod4.png)
+![Keybindings with Meta and Shift](/assets/qtile-layout/mod4-shift.png)
+![Keybindings with Meta and Control](/assets/qtile-layout/mod4-control.png)
 
 # Setup
 
