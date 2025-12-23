@@ -143,31 +143,31 @@ keys = [
     Key([mod], "q", lazy.next_layout(), desc="Toggle Layouts"),
     Key([mod], "r", lazy.window.toggle_fullscreen(), desc="Fullscreen"),
     Key([mod], "v", lazy.window.kill(), desc="Kill Window"),
-    Key([mod], "t", lazy.hide_show_bar(), desc="Hide/Show Bar"),
+    Key([mod], "t", lazy.hide_show_bar(), desc="Toggle Bar"),
 
     # Toggle scratchpads.
-    Key([mod], "f", lazy.group["scratchpad"].dropdown_toggle("lf")),
-    Key([mod], "d", lazy.group["scratchpad"].dropdown_toggle("term")),
-    Key([mod], "c", lazy.group["scratchpad"].dropdown_toggle("calc")),
+    Key([mod], "f", lazy.group["scratchpad"].dropdown_toggle("lf"), desc="Scratchpad Lf Files"),
+    Key([mod], "d", lazy.group["scratchpad"].dropdown_toggle("term"), desc="Scratchpad Terminal"),
+    Key([mod], "c", lazy.group["scratchpad"].dropdown_toggle("calc"), desc="Scratchpad Calculator"),
 
     # Application quick launch
     Key([mod], "semicolon", lazy.spawn(terminal), desc="Terminal"),
     Key([mod], "w", lazy.spawn("firefox"), desc="Firefox"),
 
     # Move to next screen. Both on y and z to avoid confusion on qwertz keyboards.
-    Key([mod], "y", lazy.next_screen(), desc="Next screen"),
-    Key([mod], "z", lazy.next_screen(), desc="Next screen"),
+    Key([mod], "y", lazy.next_screen(), desc="Next Screen"),
+    Key([mod], "z", lazy.next_screen(), desc="Next Screen"),
 
-    # Rofi menu options
-    Key([mod], "g", lazy.spawncmd(prompt="$")),
-    Key([mod], "s", power_prompt),
-    Key([mod], "n", lazy.spawn("networkmanager_dmenu")),
-    Key([mod], "b", lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained")),
-    Key([mod], "x", lazy.spawn(f"rofi -show rofi-sound -modi \"rofi-sound:{qtile_home_path}/rofi/rofi-sound-plugin\"")),
-    Key([mod, "shift"], "w", lazy.spawn(f"rofi -show rofi-oath -modi \"rofi-oath:{qtile_home_path}/rofi/rofi-oath-plugin\"")),
+    # Kofi menu options
+    Key([mod], "g", lazy.spawncmd(prompt="$"), desc="Spawn Prompt"),
+    Key([mod], "s", power_prompt, desc="Power Prompt"),
+    Key([mod], "n", lazy.spawn("networkmanager_dmenu"), desc="Rofi Network"),
+    Key([mod], "b", lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained"), desc="Rofi Bluetooth"),
+    Key([mod], "x", lazy.spawn(f"rofi -show rofi-sound -modi \"rofi-sound:{qtile_home_path}/rofi/rofi-sound-plugin\""), desc="Rofi Sound"),
+    Key([mod, "shift"], "w", lazy.spawn(f"rofi -show rofi-oath -modi \"rofi-oath:{qtile_home_path}/rofi/rofi-oath-plugin\""), desc="Rofi Yubikey Auth"),
 
     # Keyboard layout switching.
-    Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard()),
+    Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard(), desc="Keyboard Layout"),
 
     # Reload configuration.
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload Config"),
@@ -177,31 +177,31 @@ keys = [
                                         mkdir -p ~/Screenshots
                                         scrot ~/Screenshots/screenshot-%Y-%m-%d-%H%M%S.png
                                         dunstify -u low "Screenshot saved."
-                                        """, shell=True)),
+                                        """, shell=True), desc="Screenshot"),
     Key([], "Print", lazy.spawn("""
                                 mkdir -p ~/Screenshots
                                 scrot ~/Screenshots/screenshot-%Y-%m-%d-%H%M%S.png
                                 dunstify -u low "Screenshot saved."
-                                """, shell=True)),
+                                """, shell=True), desc="Screenshot"),
 
     # Color picker that copies to clipboard.
     Key([mod, "shift"], "c", lazy.spawn("""
                                         xcolor | xclip -selection clipboard
                                         dunstify -u low "Copied hex code to clipboard."
-                                        """, shell=True)),
+                                        """, shell=True), desc="Color Picker"),
 
     # Hardware key maps to commands.
-    Key([], "XF86MonBrightnessUp", lazy.spawn("sudo xbacklight -inc 5")),
-    Key([], "XF86MonBrightnessDown", lazy.spawn("sudo xbacklight -dec 5")),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("sudo xbacklight -inc 5"), desc="Brightness Up"),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("sudo xbacklight -dec 5"), desc="Brightness Down"),
 
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("pulseaudio-ctl up")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("pulseaudio-ctl down")),
-    Key([], "XF86AudioMute", lazy.spawn("pulseaudio-ctl mute")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("pulseaudio-ctl up"), desc="Volume Up"),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("pulseaudio-ctl down"), desc="Volume Down"),
+    Key([], "XF86AudioMute", lazy.spawn("pulseaudio-ctl mute"), desc="Volume Mute"),
 
-    Key([], "XF86AudioMicMute", lazy.spawn("pulseaudio-ctl mute-input")),
-    Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
+    Key([], "XF86AudioMicMute", lazy.spawn("pulseaudio-ctl mute-input"), desc="Microphone Mute"),
+    Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause"), desc="Play Pause"),
 
-    Key([], "XF86Calculator", lazy.group["scratchpad"].dropdown_toggle("calc")),
+    Key([], "XF86Calculator", lazy.group["scratchpad"].dropdown_toggle("calc"), desc="Scratchpad Calculator"),
 
 ]
 
@@ -252,36 +252,32 @@ groups = [
 ]
 
 group_key_lookup = {
-
-    "U": "U",
-    "I": "I",
-    "O": "O",
-    "P": "P",
-    "M": "M",
+    "U": "u",
+    "I": "i",
+    "O": "o",
+    "P": "p",
+    "M": "m",
     ",": "comma",
     ".": "period",
     "/": "slash",
-
 }
 
-for i in groups:
-    if i.name == "scratchpad":
-        continue
-    keys.extend(
-        [
-            Key(
-                [mod],
-                group_key_lookup[i.name],
-                lazy.group[i.name].toscreen(),
-                desc=f"Switch to group {i.name}",
-            ),
-            Key(
-                [mod, "shift"],
-                group_key_lookup[i.name],
-                lazy.window.togroup(i.name, switch_group=True),
-                desc=f"Switch to & move focused window to group {i.name}",
-            ),
-        ]
+for name, key in group_key_lookup.items():
+    keys.append(
+       Key(
+           [mod],
+           key,
+           lazy.group[name].toscreen(),
+           desc=f"Group {name}",
+       )
+    )
+    keys.append(
+       Key(
+           [mod, "shift"],
+           key,
+           lazy.window.togroup(name, switch_group=True),
+           desc=f"Move to {name}",
+       )
     )
 
 
@@ -346,7 +342,7 @@ def get_nvidia_status_icon():
 def get_seafile_status():
     try: 
         seaf_status = subprocess.check_output(["seaf-cli", "status"]).decode("utf-8").strip()
-        content_raw = [re.sub("\s+", " ", x.strip()).split(" ") for x in seaf_status.split("\n")[1:]]
+        content_raw = [re.sub(r"\s+", " ", x.strip()).split(" ") for x in seaf_status.split("\n")[1:]]
         def get_status_icon(status_text):
             if status_text == "synchronized":
                 return " "
