@@ -7,6 +7,7 @@ import re
 import subprocess
 import importlib.util
 from libqtile.log_utils import logger
+from dataclasses import dataclass
 
 from libqtile import bar, layout, qtile, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown
@@ -17,10 +18,23 @@ from libqtile.widget import base
 
 # --- Parametric Settings ---
 
-spec = importlib.util.spec_from_file_location("qtileparametric", os.path.expanduser("~/.config/qtileparametric.py"))
-parametric = importlib.util.module_from_spec(spec)
-sys.modules["parametric"] = parametric
-spec.loader.exec_module(parametric)
+try:
+    spec = importlib.util.spec_from_file_location("qtileparametric", os.path.expanduser("~/.config/qtileparametric.py"))
+    parametric = importlib.util.module_from_spec(spec)
+    sys.modules["parametric"] = parametric
+    spec.loader.exec_module(parametric)
+except:
+    @dataclass
+    class parametric:
+       background_main = "#000000"
+       background_contrast = "#000000"
+       foreground_main = "#FFFFFF"
+       foreground_soft = "#FFFFFF"
+       foreground_error = "#FF0000"
+       available_layouts = "US"
+       has_hibernation = True
+       has_auto_login = False
+       dgpu_path = ""
 
 
 # --- Guess Network Adapter Names ---

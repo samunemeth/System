@@ -1,0 +1,61 @@
+name: Qtile Layout Generator
+
+# Trigger only if one of the related files are changed.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "apps/qtile/config.py"
+      - "actions/qtile-layout.py"
+      - ".github/workflows/qtile-layout.yml"
+
+# Write permissions are needed for committing.
+permissions:
+  contents: write
+
+# Run the job of creating the images.
+jobs:
+  qtile-layout:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Set Up Actions
+        uses: actions/checkout@v3
+
+      - name: Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Python Dependencies
+        run: pip install cairocffi qtile
+
+      - name: Run Python Script
+        run: python actions/qtile-layout.py
+
+      - name: Upload Output Files as Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: qtile-layout-images
+          path: assets/qtile-layout
+
+      - name: Commit and Push Changes if Any
+        run: |
+
+          # Configure git.
+          git config --global user.name "qtile-layout-generator"
+          git config --global user.email "qtile-layout-generator@users.noreply.github.com"
+
+          # Add the changes.
+          git add assets/qtile-layout/
+
+          # If nothing changed, do not commit.
+          if git diff --cached --quiet; then
+            echo "No changes in generated, skipping commit."
+            exit 0
+          fi
+
+          # Commit and push changes.
+          git commit -m "generated qtile-layout images"
+          git push
+
