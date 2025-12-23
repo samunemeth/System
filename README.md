@@ -47,14 +47,14 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Set Up:* Gnome with declarative settings.
   - [ ] *Look Into:* Installing to a virtual machine for testing.
 
-There are also small items marked with *TODO* inside comments. There are also
-*NOTE*, *WARN* and *BUG* labels used.
+There are also small items marked with **TODO** inside comments. There are also
+**NOTE**, **WARN** and **BUG** labels used.
 
 # Qtile Keybindings
 
 The images below are generated from the Qtile configuration with
-[this script](https://github.com/samunemeth/qtile/blob/layout-vis/scripts/gen-keybinding-img),
-that I am planning to have here as a GutHub action later.
+[this script](actions/qtile-layout.py). There is a GutHub action set up that
+regenerates the images if needed.
 
 ![Keybindings with Meta](/assets/qtile-layout/mod4.png)
 ![Keybindings with Meta and Shift](/assets/qtile-layout/mod4-shift.png)
