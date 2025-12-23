@@ -69,7 +69,7 @@
       alacritty = true;
       lf = true;
       firefox = true;
-      mpv = false;
+      mpv = true;
       vscode = false;
       ipycalc = false;
     };
