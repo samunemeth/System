@@ -107,5 +107,18 @@
 
       ) (self.listToAttrs self.hosts);
 
+      # A development shell with python packages needed for running actions.
+      # TODO: Convert to a runnable.
+      devShells.${self.globals.system}.default =
+        let
+          pkgs = nixpkgs.legacyPackages.${self.globals.system};
+        in
+        pkgs.mkShell {
+          packages = with pkgs.python3Packages; [
+            qtile
+            cairocffi
+          ];
+        };
+
     };
 }
