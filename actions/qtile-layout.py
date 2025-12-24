@@ -1,27 +1,57 @@
-#######################################
-#  Qtile keybindings image generator  #
-#######################################
 
-# Ran with:
-# ./gen-keybinding-img -o /home/samu/System/assets/qtile-layout/ -c /home/samu/System/apps/qtile/config.py
+# --- Qtile Keybindings Image Generator ---
 
-import os
-import sys
 
+# This script is a modified version of the `gen-keybinding-img` script provided
+# by the official Qtile repository. You can find that script here:
+# https://github.com/qtile/qtile/blob/master/scripts/gen-keybinding-img
+# The licence of said project is provided here:
+
+# > Copyright (c) 2008-2025, the Qtile contributors. All rights reserved.
+# > 
+# > Permission is hereby granted, free of charge, to any person obtaining a copy
+# > of this software and associated documentation files (the "Software"), to deal
+# > in the Software without restriction, including without limitation the rights
+# > to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# > copies of the Software, and to permit persons to whom the Software is
+# > furnished to do so, subject to the following conditions:
+# > 
+# > The above copyright notice and this permission notice shall be included in
+# > all copies or substantial portions of the Software.
+# > 
+# > THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# > IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# > FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# > AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# > LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# > OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# > SOFTWARE.
+
+
+# --- Libraries ---
+
+from dataclasses import dataclass
+
+# Library for rendering the image.
 import cairocffi as cairo
 from cairocffi import ImageSurface
 
+# Part of Qtile for reading the configuration.
 from libqtile.confreader import Config
 
-BUTTON_NAME_Y = 65
-BUTTON_NAME_X = 10
 
-COMMAND_Y = 20
+# --- Constants ---
+
+
+BUTTON_NAME_X = 10
+BUTTON_NAME_Y = 65
+
 COMMAND_X = 10
+COMMAND_Y = 20
 
 LEGEND = ["modifiers", "layout", "group", "window", "other"]
 
-CUSTOM_KEYS = {
+SPECIAL_KEY_WIDTH = {
     "Backspace": 2,
     "Tab": 1.5,
     "\\": 1.5,
@@ -34,152 +64,143 @@ WIDTH = 78
 HEIGHT = 70
 GAP = 5
 
-# --- STYLE SETTINGS ---
+CHAR_LIMIT = 12 # This is for word warp.
 
-HAS_STROKE = False
+# --- Settings ---
+
+
+CONFIG_PATH = "apps/qtile/config.py"
+OUTPUT_DIR = "assets/qtile-layout/"
+
 
 SHOW_LEGEND = False
 SHOW_MOUSE = False
 SHOW_FN = False
 
+HAS_STROKE = False
 COLOR_STROKE = (.941, .965, .988)
+
 COLOR_TEXT = (0, 0, 0)
-# COLORA_BACKGROUND = (.051, .067, .09, 1)
+#COLORA_BACKGROUND = (.051, .067, .09, 1) # This is the GitHub dark background.
 COLORA_BACKGROUND = (0, 0, 0, 0)
 COLOR_GENERIC = (.7, .7, .7)
 
-# ---
+COLOR_RED = (0.843, 0.372, 0.372)
+COLOR_GREEN = (0.686, 0.686, 0)
+COLOR_YELLOW = (1, 0.686, 0)
+COLOR_CYAN = (0.513, 0.678, 0.678)
+COLOR_VIOLET = (0.831, 0.521, 0.678)
 
-lines = 1
 
+# --- Everything Else ---
+
+
+@dataclass
 class Button:
-    def __init__(self, key, x, y, width, height):
-        self.key = key
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
+    key: str
+    x: int
+    y: int
+    width: int
+    height: int
 
 
-class Pos:
+class ButtonArranger:
+
     def __init__(self, x, y):
         self.x = x
-        self.row_x = x
+        self.start_x = x
         self.y = y
-        self.custom_width = {}
-        global lines
-        lines = 1
-        for i, val in CUSTOM_KEYS.items():
-            self.custom_width[i] = val * WIDTH
+        self.lines = 1
 
-    def get_pos(self, name):
-        if name in self.custom_width:
-            width = self.custom_width[name]
-        else:
-            width = WIDTH
+    def add(self, name):
+        button_width = (SPECIAL_KEY_WIDTH[name] * WIDTH) if name in SPECIAL_KEY_WIDTH else WIDTH
+        button = Button(name, self.x, self.y, button_width, HEIGHT)
+        self.x = self.x + GAP + button_width
+        return button
 
-        info = Button(name, self.x, self.y, width, HEIGHT)
-
-        self.x = self.x + GAP + width
-
-        return info
-
-    def skip_x(self, times=1):
+    def skip(self, times=1):
         self.x = self.x + GAP + times * WIDTH
 
-    def next_row(self):
-        self.x = self.row_x
+    def newline(self):
+        self.x = self.start_x
         self.y = self.y + GAP + HEIGHT
-        global lines
-        lines += 1
+        self.lines += 1
 
 
 class KeyboardPNGFactory:
+
     def __init__(self, modifiers, keys):
         self.keys = keys
         self.modifiers = modifiers.split("-")
-        self.key_pos = self.calculate_pos(20, 20)
 
-    def rgb_red(self, context):
-        context.set_source_rgb(0.8431372549, 0.3725490196, 0.3725490196)
+        self.p = ButtonArranger(20, 20)
+        self.place_keys()
 
-    def rgb_green(self, context):
-        context.set_source_rgb(0.6862745098, 0.6862745098, 0)
 
-    def rgb_yellow(self, context):
-        context.set_source_rgb(1, 0.6862745098, 0)
+    def place(self, name):
+        self.key_pos[name] = self.p.add(name)
 
-    def rgb_cyan(self, context):
-        context.set_source_rgb(0.5137254902, 0.6784313725, 0.6784313725)
+    def place_keys(self):
+        self.key_pos = {}
 
-    def rgb_violet(self, context):
-        context.set_source_rgb(0.831372549, 0.5215686275, 0.6784313725)
-
-    def calculate_pos(self, x, y):
-        pos = Pos(x, y)
-
-        key_pos = {}
         for c in "`1234567890-=":
-            key_pos[c] = pos.get_pos(c)
+            self.place(c)
+        self.place("Backspace")
+        self.p.newline()
 
-        key_pos["Backspace"] = pos.get_pos("Backspace")
-        pos.next_row()
-
-        key_pos["Tab"] = pos.get_pos("Tab")
+        self.place("Tab")
         for c in "qwertyuiop[]\\":
-            key_pos[c] = pos.get_pos(c)
-        pos.next_row()
+            self.place(c)
+        self.p.newline()
 
-        pos.skip_x(1.6)
+        self.p.skip(1.6)
         for c in "asdfghjkl;'":
-            key_pos[c] = pos.get_pos(c)
-        key_pos["Return"] = pos.get_pos("Return")
-        pos.next_row()
+            self.place(c)
+        self.place("Return")
+        self.p.newline()
 
-        key_pos["shift"] = pos.get_pos("shift")
+        self.place("shift")
         for c in "zxcvbnm":
-            key_pos[c] = pos.get_pos(c)
-        key_pos["period"] = pos.get_pos("period")
-        key_pos["comma"] = pos.get_pos("comma")
-        key_pos["/"] = pos.get_pos("/")
-        pos.skip_x(.98)
-        key_pos["Up"] = pos.get_pos("Up")
-        pos.next_row()
+            self.place(c)
+        self.place("period")
+        self.place("comma")
+        self.place("/")
+        self.p.skip(.98)
+        self.place("Up")
+        self.p.newline()
 
-        key_pos["control"] = pos.get_pos("control")
-        pos.skip_x()
-        key_pos["mod4"] = pos.get_pos("mod4")
-        key_pos["mod1"] = pos.get_pos("mod1")
-        key_pos["space"] = pos.get_pos("space")
-        pos.skip_x(2.8)
-        key_pos["Left"] = pos.get_pos("Left")
-        key_pos["Down"] = pos.get_pos("Down")
-        key_pos["Right"] = pos.get_pos("Right")
+        self.place("control")
+        self.p.skip(1)
+        self.place("mod4")
+        self.place("mod1")
+        self.place("space")
+        self.p.skip(2.8)
+        self.place("Left")
+        self.place("Down")
+        self.place("Right")
 
         if SHOW_LEGEND or SHOW_MOUSE or SHOW_FN:
-            pos.next_row()
-            pos.next_row()
+            self.p.newline()
+            self.p.newline()
 
         if SHOW_FN:
-            key_pos["FN_KEYS"] = pos.get_pos("FN_KEYS")
+            self.place("FN_KEYS")
 
         if (SHOW_LEGEND or SHOW_MOUSE) and SHOW_FN:
-            pos.next_row()
+            self.p.newline()
 
         if SHOW_LEGEND:
             for legend in LEGEND:
-                key_pos[legend] = pos.get_pos(legend)
-            pos.skip_x(2)
+                self.place(legend)
+            self.p.skip(2)
 
         if SHOW_MOUSE:
-            key_pos["Button1"] = pos.get_pos("Button1")
-            key_pos["Button2"] = pos.get_pos("Button2")
-            key_pos["Button3"] = pos.get_pos("Button3")
-
-        return key_pos
+            self.place("Button1")
+            self.place("Button2")
+            self.place("Button3")
     
     def render(self, filename):
-        surface_height = lines * HEIGHT + (lines - 1) * GAP + 40
+        surface_height = self.p.lines * HEIGHT + (self.p.lines - 1) * GAP + 40
         surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, 1280, surface_height)
         context = cairo.Context(surface)
         with context:
@@ -211,21 +232,21 @@ class KeyboardPNGFactory:
 
         if key in LEGEND:
             if key == "modifiers":
-                self.rgb_red(context)
+                context.set_source_rgb(*COLOR_RED)
             elif key == "group":
-                self.rgb_green(context)
+                context.set_source_rgb(*COLOR_GREEN)
             elif key == "layout":
-                self.rgb_cyan(context)
+                context.set_source_rgb(*COLOR_CYAN)
             elif key == "window":
-                self.rgb_yellow(context)
+                context.set_source_rgb(*COLOR_YELLOW)
             else:
-                self.rgb_violet(context)
+                context.set_source_rgb(*COLOR_VIOLET)
             context.rectangle(x, y, width, height)
             context.fill()
 
         elif key in self.modifiers:
             context.rectangle(x, y, width, height)
-            self.rgb_red(context)
+            context.set_source_rgb(*COLOR_RED)
             context.fill()
 
         elif key in self.keys:
@@ -258,9 +279,9 @@ class KeyboardPNGFactory:
 
     def show_multiline(self, context, x, y, key):
         """Cairo doesn't support multiline. Added with word wrapping."""
-        c_width = 12
-        if key.key in CUSTOM_KEYS:
-            c_width *= CUSTOM_KEYS[key.key]
+        char_limit = CHAR_LIMIT
+        if key.key in SPECIAL_KEY_WIDTH:
+            char_limit *= SPECIAL_KEY_WIDTH[key.key]
 
         context.set_font_size(10)
         context.set_source_rgb(*COLOR_TEXT)
@@ -270,7 +291,7 @@ class KeyboardPNGFactory:
         printable = last_word = words.pop()
         while len(words):
             last_word = words.pop()
-            if len(printable + " " + last_word) < c_width:
+            if len(printable + " " + last_word) < char_limit:
                 printable += " " + last_word
                 continue
 
@@ -284,13 +305,13 @@ class KeyboardPNGFactory:
 
     def set_key_color(self, context, key):
         if key.scope == "group":
-            self.rgb_green(context)
+            context.set_source_rgb(*COLOR_GREEN)
         elif key.scope == "layout":
-            self.rgb_cyan(context)
+            context.set_source_rgb(*COLOR_CYAN)
         elif key.scope == "window":
-            self.rgb_yellow(context)
+            context.set_source_rgb(*COLOR_YELLOW)
         else:
-            self.rgb_violet(context)
+            context.set_source_rgb(*COLOR_VIOLET)
 
     def translate(self, text):
         dictionary = {
@@ -378,11 +399,10 @@ class MInfo(KInfo):
         self.scope = self.get_scope(mouse)
 
 
-def get_kb_map(config_path=None):
+def get_kb_map():
 
-    c = Config(config_path)
-    if config_path:
-        c.load()
+    c = Config(CONFIG_PATH)
+    c.load()
 
     kb_map = {}
     for key in c.keys:
@@ -403,20 +423,23 @@ def get_kb_map(config_path=None):
 
     return kb_map
 
+
+# --- Main Function ---
+
+
 def main():
-    config_path = "apps/qtile/config.py"
-    output_dir = "assets/qtile-layout/"
 
-    kb_map = get_kb_map(config_path)
+    # Get the keyboard map from the configuration file.
+    kb_map = get_kb_map()
+
+    # Loop through all the different modifier combinations.
     for modifier, keys in kb_map.items():
-        if not modifier:
-            filename = "no_modifier.png"
-        else:
-            filename = f"{modifier}.png"
 
-        output_file = output_dir + filename
+        # Create and object with the appropriate data.
         f = KeyboardPNGFactory(modifier, keys)
-        print(f"New file here: {output_file}")
+
+        output_file = OUTPUT_DIR + (modifier or "no_modifier") + ".png"
+        print(f"Generated image to: {output_file}")
         f.render(output_file)
 
 if __name__ == "__main__":
