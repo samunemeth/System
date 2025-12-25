@@ -19,7 +19,8 @@ vim.lsp.config["pylsp"] = {
 			plugins = {
 				rope = { enabled = true },
 				pyflakes = { enabled = true },
-				autopep8 = { enabled = true },
+				autopep8 = { enabled = false },
+				pycodestyle = { enabled = false },
 			},
 		},
 	},
