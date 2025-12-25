@@ -30,5 +30,6 @@ if telescope then
 
 	-- Keymaps
 	vim.keymap.set("n", "<leader><leader>", builtin.find_files)
+	vim.keymap.set("n", "<leader>h", builtin.help_tags)
 	vim.keymap.set("n", "<leader>/", builtin.live_grep)
 end
