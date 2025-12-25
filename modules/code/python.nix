@@ -29,6 +29,12 @@
       (python3.withPackages (
         p: with p; [
 
+          # Language Server
+          python-lsp-server
+          pylsp-rope
+          pyflakes
+          autopep8
+
           # Jupyter Notebook
           jupyter
           ipython

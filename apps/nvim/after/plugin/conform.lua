@@ -11,6 +11,7 @@ if conform then
 			rust = { "rustfmt" },
 			haskell = { "ormolu" },
 			tex = { "tex-fmt" },
+			python = { "autopep8" },
 		},
 	})
 

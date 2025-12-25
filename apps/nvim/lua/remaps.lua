@@ -40,6 +40,7 @@ vim.keymap.set("n", "<leader>i", function()
 end)
 
 -- Conventions for LSP mappings, all starting with <leader>:
+--   c   -> Rename variable.
 --   a   -> Action with code under the cursor.
 --   r   -> Running the current file. / Evaluating all expressions.
 --   e   -> Something to do with errors. Preferably explain them.
