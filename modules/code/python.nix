@@ -50,9 +50,6 @@
           statsmodels
           anysqlite
 
-          # Linear Algebra
-          opencv4
-
         ]
       ))
 
