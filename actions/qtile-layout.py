@@ -40,38 +40,10 @@ from cairocffi import ImageSurface
 from libqtile.confreader import Config
 
 
-# --- Constants ---
-
-
-BUTTON_NAME_X = 10
-BUTTON_NAME_Y = 65
-
-COMMAND_X = 10
-COMMAND_Y = 20
-
-LEGEND = ["modifiers", "layout", "group", "window", "other"]
-
-SPECIAL_KEY_WIDTH = {
-    "Backspace": 2,
-    "Tab": 1.5,
-    "\\": 1.5,
-    "Return": 2.45,
-    "shift": 2,
-    "space": 5.5,
-}
-
-WIDTH = 78
-HEIGHT = 70
-GAP = 5
-
-CHAR_LIMIT = 12 # This is for word warp.
-
 # --- Settings ---
-
 
 CONFIG_PATH = "apps/qtile/config.py"
 OUTPUT_DIR = "assets/qtile-layout/"
-
 
 SHOW_LEGEND = False
 SHOW_MOUSE = False
@@ -91,9 +63,66 @@ COLOR_YELLOW = (1, 0.686, 0)
 COLOR_CYAN = (0.513, 0.678, 0.678)
 COLOR_VIOLET = (0.831, 0.521, 0.678)
 
+# TODO: Make more inline constants settings.
+
+
+# --- Constants ---
+
+BUTTON_NAME_X = 10
+BUTTON_NAME_Y = 60
+
+COMMAND_X = 10
+COMMAND_Y = 20
+
+LEGEND = {
+    "modifiers": COLOR_RED,
+    "layout": COLOR_CYAN,
+    "group": COLOR_GREEN,
+    "window": COLOR_YELLOW,
+    "other": COLOR_VIOLET,
+}
+
+SPECIAL_KEY_WIDTH = {
+    "Backspace": 2,
+    "Tab": 1.5,
+    "\\": 1.5,
+    "Return": 2.45,
+    "shift": 2,
+    "space": 5.5,
+}
+
+DICTIONARY = {
+    "period": ",",
+    "comma": ".",
+    "Button1": "Left",
+    "Button2": "Middle",
+    "Button3": "Right",
+    "modifiers": "mod",
+    "mod4": "Meta",
+    "mod1": "Alt",
+    "control": "Ctrl",
+    "shift": "Shift",
+    "space": "Space",
+    "Left": "←",
+    "Down": "↓",
+    "Right": "→",
+    "Up": "↑",
+    "AudioRaiseVolume": "Vol Up",
+    "AudioLowerVolume": "Vol Down",
+    "AudioMute": "Vol Mute",
+    "AudioMicMute": "Mic Mute",
+    "MonBrightnessUp": "Bright. Up",
+    "MonBrightnessDown": "Bright. Down",
+}
+
+WIDTH = 78
+HEIGHT = 70
+GAP = 5
+
+CHAR_LIMIT = 12 # This is for word warp.
+
 
 # --- Everything Else ---
-
 
 @dataclass
 class Button:
@@ -106,186 +135,185 @@ class Button:
 
 class ButtonArranger:
 
-    def __init__(self, x, y):
+    def __init__(self, x: int, y: int):
         self.x = x
-        self.start_x = x
         self.y = y
+
+        self.key_pos = {}
+        self.start_x = x
         self.lines = 1
 
-    def add(self, name):
+    def add(self, name: str) -> None:
         button_width = (SPECIAL_KEY_WIDTH[name] * WIDTH) if name in SPECIAL_KEY_WIDTH else WIDTH
         button = Button(name, self.x, self.y, button_width, HEIGHT)
         self.x = self.x + GAP + button_width
-        return button
+        self.key_pos[name] = button
 
-    def skip(self, times=1):
+    def skip(self, times: int = 1) -> None:
         self.x = self.x + GAP + times * WIDTH
 
-    def newline(self):
+    def newline(self) -> None:
         self.x = self.start_x
         self.y = self.y + GAP + HEIGHT
         self.lines += 1
 
 
-class KeyboardPNGFactory:
+# TODO: Add type hints from here down.
+class KeyboardFactory:
 
     def __init__(self, modifiers, keys):
-        self.keys = keys
         self.modifiers = modifiers.split("-")
+        self.keys = keys
 
-        self.p = ButtonArranger(20, 20)
-        self.place_keys()
-
-
-    def place(self, name):
-        self.key_pos[name] = self.p.add(name)
-
-    def place_keys(self):
         self.key_pos = {}
+        self.lines = 0
+        self.surface = None
+        self.context = None
+
+    def arrange(self):
+        p = ButtonArranger(20, 20)
 
         for c in "`1234567890-=":
-            self.place(c)
-        self.place("Backspace")
-        self.p.newline()
+            p.add(c)
+        p.add("Backspace")
+        p.newline()
 
-        self.place("Tab")
+        p.add("Tab")
         for c in "qwertyuiop[]\\":
-            self.place(c)
-        self.p.newline()
+            p.add(c)
+        p.newline()
 
-        self.p.skip(1.6)
+        p.skip(1.6)
         for c in "asdfghjkl;'":
-            self.place(c)
-        self.place("Return")
-        self.p.newline()
+            p.add(c)
+        p.add("Return")
+        p.newline()
 
-        self.place("shift")
+        p.add("shift")
         for c in "zxcvbnm":
-            self.place(c)
-        self.place("period")
-        self.place("comma")
-        self.place("/")
-        self.p.skip(.98)
-        self.place("Up")
-        self.p.newline()
+            p.add(c)
+        p.add("period")
+        p.add("comma")
+        p.add("/")
+        p.skip(.98)
+        p.add("Up")
+        p.newline()
 
-        self.place("control")
-        self.p.skip(1)
-        self.place("mod4")
-        self.place("mod1")
-        self.place("space")
-        self.p.skip(2.8)
-        self.place("Left")
-        self.place("Down")
-        self.place("Right")
+        p.add("control")
+        p.skip(1)
+        p.add("mod4")
+        p.add("mod1")
+        p.add("space")
+        p.skip(2.8)
+        p.add("Left")
+        p.add("Down")
+        p.add("Right")
 
         if SHOW_LEGEND or SHOW_MOUSE or SHOW_FN:
-            self.p.newline()
-            self.p.newline()
+            p.newline()
+            p.newline()
 
         if SHOW_FN:
-            self.place("FN_KEYS")
+            p.add("FN_KEYS")
 
         if (SHOW_LEGEND or SHOW_MOUSE) and SHOW_FN:
-            self.p.newline()
+            p.newline()
 
         if SHOW_LEGEND:
-            for legend in LEGEND:
-                self.place(legend)
-            self.p.skip(2)
+            for legend in LEGEND.keys():
+                p.add(legend)
+            p.skip(2)
 
         if SHOW_MOUSE:
-            self.place("Button1")
-            self.place("Button2")
-            self.place("Button3")
+            p.add("Button1")
+            p.add("Button2")
+            p.add("Button3")
+
+        # Save resulting variables.
+        self.key_pos = p.key_pos
+        self.lines = p.lines
     
     def render(self, filename):
-        surface_height = self.p.lines * HEIGHT + (self.p.lines - 1) * GAP + 40
-        surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, 1280, surface_height)
-        context = cairo.Context(surface)
-        with context:
-            context.set_source_rgba(*COLORA_BACKGROUND)
-            context.paint()
 
-        for i in self.key_pos.values():
-            if i.key in ["FN_KEYS"]:
+        # Create a drawing surface of appropriate height.
+        surface_height = self.lines * HEIGHT + (self.lines - 1) * GAP + 40
+        self.surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, 1280, surface_height)
+        self.context = cairo.Context(self.surface)
+
+        # Fill in the background.
+        self.context.set_source_rgba(*COLORA_BACKGROUND)
+        self.context.paint()
+
+        # Draw regular keys.
+        for b in self.key_pos.values():
+            if b.key in ["FN_KEYS"]:
                 continue
+            self.draw_button(b.key, b.x, b.y, b.width, b.height)
 
-            self.draw_button(context, i.key, i.x, i.y, i.width, i.height)
-
-        # draw functional
-        fn = [i for i in self.keys.values() if i.key[:4] == "XF86"]
-        if len(fn) and SHOW_FN:
+        # Draw functional keys if needed.
+        # TODO: Clean this block up.
+        fn = (i for i in self.keys.values() if i.key[:4] == "XF86")
+        if fn and SHOW_FN:
             fn_pos = self.key_pos["FN_KEYS"]
             x = fn_pos.x
             for i in fn:
-                self.draw_button(context, i.key, x, fn_pos.y, fn_pos.width, fn_pos.height)
+                self.draw_button(i.key, x, fn_pos.y, fn_pos.width, fn_pos.height)
                 x += GAP + WIDTH
-        surface.set_device_offset(0, 0)
-        surface.set_mime_data("image/png", None)
-        surface.write_to_png(filename)
 
-    def draw_button(self, context, key, x, y, width, height):
-        fn = False
-        if key[:4] == "XF86":
-            fn = True
+        # Write to file with minimal metadata.
+        self.surface.set_device_offset(0, 0)
+        self.surface.set_mime_data("image/png", None)
+        self.surface.write_to_png(filename)
 
-        if key in LEGEND:
-            if key == "modifiers":
-                context.set_source_rgb(*COLOR_RED)
-            elif key == "group":
-                context.set_source_rgb(*COLOR_GREEN)
-            elif key == "layout":
-                context.set_source_rgb(*COLOR_CYAN)
-            elif key == "window":
-                context.set_source_rgb(*COLOR_YELLOW)
-            else:
-                context.set_source_rgb(*COLOR_VIOLET)
-            context.rectangle(x, y, width, height)
-            context.fill()
+    def draw_button(self, key, x, y, width, height):
 
+        # Fill in the background of the key depending on the kind of key.
+        self.context.rectangle(x, y, width, height)
+        if key in LEGEND.keys():
+            key_color = LEGEND[key]
         elif key in self.modifiers:
-            context.rectangle(x, y, width, height)
-            context.set_source_rgb(*COLOR_RED)
-            context.fill()
-
+            key_color = LEGEND["modifiers"]
         elif key in self.keys:
-            k = self.keys[key]
-            context.rectangle(x, y, width, height)
-            self.set_key_color(context, k)
-            context.fill()
-
-            self.show_multiline(context, x + COMMAND_X, y + COMMAND_Y, k)
-
+            info = self.keys[key]
+            color_index = info.scope if info.scope in ["group", "layout", "window"] else "other"
+            key_color = LEGEND[color_index]
         else:
-            context.rectangle(x, y, width, height)
-            context.set_source_rgb(*COLOR_GENERIC)
-            context.fill()
+            key_color = COLOR_GENERIC
+        self.context.set_source_rgb(*key_color)
+        self.context.fill()
 
+        # Show description of the key if needed.
+        if key in self.keys:
+            info = self.keys[key]
+            self.show_multiline(x + COMMAND_X, y + COMMAND_Y, info)
+
+        # Draw the outline of the key if needed.
         if HAS_STROKE:
-            context.rectangle(x, y, width, height)
-            context.set_source_rgb(*COLOR_STROKE)
-            context.stroke()
+            self.context.rectangle(x, y, width, height)
+            self.context.set_source_rgb(*COLOR_STROKE)
+            self.context.stroke()
 
-        context.set_source_rgb(*COLOR_TEXT)
-        if fn:
+        # Write the name of the button.
+        if key[:4] == "XF86":
             key = key[4:]
-            context.set_font_size(10)
+            self.context.set_font_size(10)
         else:
-            context.set_font_size(14)
+            self.context.set_font_size(20)
+        translation = DICTIONARY[key] if key in DICTIONARY else key
 
-        context.move_to(x + BUTTON_NAME_X, y + BUTTON_NAME_Y)
-        context.show_text(self.translate(key))
+        self.context.set_source_rgb(*COLOR_TEXT)
+        self.context.move_to(x + BUTTON_NAME_X, y + BUTTON_NAME_Y)
+        self.context.show_text(translation)
 
-    def show_multiline(self, context, x, y, key):
-        """Cairo doesn't support multiline. Added with word wrapping."""
+    # Cairo doesn't support multi line text. Added with word wrapping.
+    def show_multiline(self, x, y, key):
         char_limit = CHAR_LIMIT
         if key.key in SPECIAL_KEY_WIDTH:
             char_limit *= SPECIAL_KEY_WIDTH[key.key]
 
-        context.set_font_size(10)
-        context.set_source_rgb(*COLOR_TEXT)
-        context.move_to(x, y)
+        self.context.set_font_size(10)
+        self.context.set_source_rgb(*COLOR_TEXT)
+        self.context.move_to(x, y)
         words = key.command.split(" ")
         words.reverse()
         printable = last_word = words.pop()
@@ -295,55 +323,16 @@ class KeyboardPNGFactory:
                 printable += " " + last_word
                 continue
 
-            context.show_text(printable)
+            self.context.show_text(printable)
             y += 10
-            context.move_to(x, y)
+            self.context.move_to(x, y)
             printable = last_word
 
         if last_word is not None:
-            context.show_text(printable)
-
-    def set_key_color(self, context, key):
-        if key.scope == "group":
-            context.set_source_rgb(*COLOR_GREEN)
-        elif key.scope == "layout":
-            context.set_source_rgb(*COLOR_CYAN)
-        elif key.scope == "window":
-            context.set_source_rgb(*COLOR_YELLOW)
-        else:
-            context.set_source_rgb(*COLOR_VIOLET)
-
-    def translate(self, text):
-        dictionary = {
-            "period": ",",
-            "comma": ".",
-            "Button1": "Left",
-            "Button2": "Middle",
-            "Button3": "Right",
-            "modifiers": "mod",
-            "mod4": "Meta",
-            "mod1": "Alt",
-            "control": "Control",
-            "shift": "Shift",
-            "Left": "←",
-            "Down": "↓",
-            "Right": "→",
-            "Up": "↑",
-            "AudioRaiseVolume": "Vol Up",
-            "AudioLowerVolume": "Vol Down",
-            "AudioMute": "Vol Mute",
-            "AudioMicMute": "Mic Mute",
-            "MonBrightnessUp": "Bright. Up",
-            "MonBrightnessDown": "Bright. Down",
-        }
-
-        if text not in dictionary:
-            return text
-
-        return dictionary[text]
+            self.context.show_text(printable)
 
 
-class KInfo:
+class KeyInfo:
     NAME_MAP = {
         "togroup": "to group",
         "toscreen": "to screen",
@@ -392,25 +381,29 @@ class KInfo:
             return selectors[0][0]
 
 
-class MInfo(KInfo):
+class MouseInfo(KeyInfo):
     def __init__(self, mouse):
         self.key = mouse.button
         self.command = self.get_command(mouse)
         self.scope = self.get_scope(mouse)
 
 
-def get_kb_map():
+# --- Main Function ---
 
+def main():
+
+    # Load the configuration file.
     c = Config(CONFIG_PATH)
     c.load()
 
+    # Parse the configuration.
     kb_map = {}
     for key in c.keys:
         mod = "-".join(key.modifiers)
         if mod not in kb_map:
             kb_map[mod] = {}
 
-        info = KInfo(key)
+        info = KeyInfo(key)
         kb_map[mod][info.key] = info
 
     for mouse in c.mouse:
@@ -418,29 +411,20 @@ def get_kb_map():
         if mod not in kb_map:
             kb_map[mod] = {}
 
-        info = MInfo(mouse)
+        info = MouseInfo(mouse)
         kb_map[mod][info.key] = info
-
-    return kb_map
-
-
-# --- Main Function ---
-
-
-def main():
-
-    # Get the keyboard map from the configuration file.
-    kb_map = get_kb_map()
 
     # Loop through all the different modifier combinations.
     for modifier, keys in kb_map.items():
 
-        # Create and object with the appropriate data.
-        f = KeyboardPNGFactory(modifier, keys)
-
+        # Calculate the output path.
         output_file = OUTPUT_DIR + (modifier or "no_modifier") + ".png"
         print(f"Generated image to: {output_file}")
-        f.render(output_file)
+
+        # Create a keyboard factory and generate the output image.
+        factory = KeyboardFactory(modifier, keys)
+        factory.arrange()
+        factory.render(output_file)
 
 if __name__ == "__main__":
     main()
