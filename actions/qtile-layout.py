@@ -7,25 +7,27 @@
 # https://github.com/qtile/qtile/blob/master/scripts/gen-keybinding-img
 # The licence of said project is provided here:
 
-# > Copyright (c) 2008-2025, the Qtile contributors. All rights reserved.
-# > 
-# > Permission is hereby granted, free of charge, to any person obtaining a copy
-# > of this software and associated documentation files (the "Software"), to deal
-# > in the Software without restriction, including without limitation the rights
-# > to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# > copies of the Software, and to permit persons to whom the Software is
-# > furnished to do so, subject to the following conditions:
-# > 
-# > The above copyright notice and this permission notice shall be included in
-# > all copies or substantial portions of the Software.
-# > 
-# > THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# > IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# > FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# > AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# > LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# > OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# > SOFTWARE.
+"""
+Copyright (c) 2008-2025, the Qtile contributors. All rights reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
 
 
 # --- Libraries ---
@@ -34,7 +36,6 @@ from dataclasses import dataclass
 
 # Library for rendering the image.
 import cairocffi as cairo
-from cairocffi import ImageSurface
 
 # Part of Qtile for reading the configuration.
 from libqtile.confreader import Config
@@ -53,7 +54,7 @@ HAS_STROKE = False
 COLOR_STROKE = (.941, .965, .988)
 
 COLOR_TEXT = (0, 0, 0)
-#COLORA_BACKGROUND = (.051, .067, .09, 1) # This is the GitHub dark background.
+# COLORA_BACKGROUND = (.051, .067, .09, 1)
 COLORA_BACKGROUND = (0, 0, 0, 0)
 COLOR_GENERIC = (.7, .7, .7)
 
@@ -63,7 +64,7 @@ COLOR_YELLOW = (1, 0.686, 0)
 COLOR_CYAN = (0.513, 0.678, 0.678)
 COLOR_VIOLET = (0.831, 0.521, 0.678)
 
-# TODO: Make more inline constants settings.
+# TODO: Make more inline constants settings or predefined constants.
 
 
 # --- Constants ---
@@ -119,7 +120,7 @@ WIDTH = 78
 HEIGHT = 70
 GAP = 5
 
-CHAR_LIMIT = 12 # This is for word warp.
+CHAR_LIMIT = 12  # This is for word warp.
 
 
 # --- Everything Else ---
@@ -144,9 +145,9 @@ class ButtonArranger:
         self.lines = 1
 
     def add(self, name: str) -> None:
-        button_width = (SPECIAL_KEY_WIDTH[name] * WIDTH) if name in SPECIAL_KEY_WIDTH else WIDTH
-        button = Button(name, self.x, self.y, button_width, HEIGHT)
-        self.x = self.x + GAP + button_width
+        btn_width = SPECIAL_KEY_WIDTH[name] if name in SPECIAL_KEY_WIDTH else 1
+        button = Button(name, self.x, self.y, btn_width * WIDTH, HEIGHT)
+        self.x = self.x + GAP + btn_width * WIDTH
         self.key_pos[name] = button
 
     def skip(self, times: int = 1) -> None:
@@ -232,12 +233,13 @@ class KeyboardFactory:
         # Save resulting variables.
         self.key_pos = p.key_pos
         self.lines = p.lines
-    
+
     def render(self, filename):
 
         # Create a drawing surface of appropriate height.
         surface_height = self.lines * HEIGHT + (self.lines - 1) * GAP + 40
-        self.surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, 1280, surface_height)
+        self.surface = cairo.ImageSurface(
+            cairo.FORMAT_ARGB32, 1280, surface_height)
         self.context = cairo.Context(self.surface)
 
         # Fill in the background.
@@ -257,7 +259,8 @@ class KeyboardFactory:
             fn_pos = self.key_pos["FN_KEYS"]
             x = fn_pos.x
             for i in fn:
-                self.draw_button(i.key, x, fn_pos.y, fn_pos.width, fn_pos.height)
+                self.draw_button(i.key, x, fn_pos.y,
+                                 fn_pos.width, fn_pos.height)
                 x += GAP + WIDTH
 
         # Write to file with minimal metadata.
@@ -275,7 +278,8 @@ class KeyboardFactory:
             key_color = LEGEND["modifiers"]
         elif key in self.keys:
             info = self.keys[key]
-            color_index = info.scope if info.scope in ["group", "layout", "window"] else "other"
+            color_index = info.scope if info.scope in [
+                "group", "layout", "window"] else "other"
             key_color = LEGEND[color_index]
         else:
             key_color = COLOR_GENERIC
@@ -426,6 +430,6 @@ def main():
         factory.arrange()
         factory.render(output_file)
 
+
 if __name__ == "__main__":
     main()
-
