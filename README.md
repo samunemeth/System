@@ -33,6 +33,9 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Fix:* There is no transparency possible in Zathura.
   - [ ] Sometimes there is a significant slowdown after the machine is powered
         on for a long time and/or had been sleeping for a long/multiple times.
+  - [ ] *Set Up:* Installing to a virtual machine for testing.
+        *This just needs to be cleanly merged.*
+  - [ ] *Fix:* Clean up Python scripts.
 
 **Documentation**
 
@@ -41,11 +44,11 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **Long Term**
 
-  - [ ] *Look Into:* Other file systems, encryption and compression methods.
   - [ ] *Look Into:* Creating a custom installation (and/or full system) ISO.
   - [ ] *Set Up:* A configuration for minimal installation.
   - [ ] *Set Up:* Gnome with declarative settings.
-  - [ ] *Look Into:* Installing to a virtual machine for testing.
+  - [ ] *Look Into:* Clean handling of missing utilities that are not present.
+  - [ ] *Set Up:* Dev shells for different parts of development.
 
 There are also small items marked with **TODO** inside comments. There are also
 **NOTE**, **WARN** and **BUG** labels used.
