@@ -75,7 +75,7 @@
             telescope-nvim # For quick file access
 
             # Visuals
-            lightline-vim # Fancy status bar
+            lualine-nvim # Fancy status bar
 
             # Change tracking
             undotree # For an undo tree
