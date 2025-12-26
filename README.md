@@ -36,6 +36,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Set Up:* Installing to a virtual machine for testing.
         *This just needs to be cleanly merged.*
   - [ ] *Fix:* Clean up Python scripts.
+  - [ ] *Look Into:* Markdown table formatter for Neovim.
 
 **Documentation**
 
@@ -62,6 +63,32 @@ regenerates the images if needed.
 ![Keybindings with Meta](/assets/qtile-layout/mod4.png)
 ![Keybindings with Meta and Shift](/assets/qtile-layout/mod4-shift.png)
 ![Keybindings with Meta and Control](/assets/qtile-layout/mod4-control.png)
+
+# Language Support
+
+The table below summarises the support for programming languages.
+Syntax highlighting is handled by *tree-sitter*.
+The language server and formatter is primarily designed to be used with *Neovim*.
+
+| Language | Installed | Syntax | LSP | Formatter | Note
+|----------|-----------|--------|-----|-----------|:-
+| Lua      | ✓         | ✓      | X   | ✓         |
+| Nix      | ✓         | ✓      | X   | ✓         | Adds *Yaml* syntax.
+| Bash     | ✓         | ✓      | X   | ✓         |
+| Markdown | ✓         | ✓      | -   | X         | *Pandoc* comes with *LaTeX*.
+| LaTeX    | ○         | ✓      | ✓   | ✓         | (*Technically* not an LSP.)
+| Rust     | ○         | ✓      | ✓   | ✓         |
+| Python   | ○         | ✓      | ✓   | ✓         | I don't like the formatter.
+| Haskell  | ○         | ✓      | ✓   | ✓         |
+| Julia    | ○         | ✓      | -   | -         | 
+| Java     | ○         | ✓      | -   | -         | 
+
+|   | Description
+|---|:-
+| ✓ | Supported
+| X | Not Supported but Planned
+| - | No Planned Support
+| ○ | Enabled by Option
 
 # Setup
 
