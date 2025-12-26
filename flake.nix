@@ -74,6 +74,13 @@
         acc: elem: if builtins.getAttr elem dirContents == "directory" then acc ++ [ elem ] else acc
       ) [ ] (builtins.attrNames dirContents);
 
+      # Function for generating code for multiple architectures.
+      supportedSystems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (sys: f nixpkgs.legacyPackages.${sys});
+
     in
     {
 
@@ -110,18 +117,19 @@
 
       ) (listToAttrs hosts);
 
-      # A development shell with python packages needed for running actions.
-      # TODO: Convert to a runnable.
-      devShells.${globals.system}.default =
-        let
-          pkgs = nixpkgs.legacyPackages.${globals.system};
-        in
-        pkgs.mkShell {
+      # Development shells useful for these systems.
+      devShells = forAllSystems (pkgs: {
+
+        # A development shell with python packages needed for running actions,
+        # and working with Qtile locally.
+        qtile = pkgs.mkShell {
           packages = with pkgs.python3Packages; [
             qtile
             cairocffi
           ];
         };
+
+      });
 
     };
 }
