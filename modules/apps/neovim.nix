@@ -21,6 +21,7 @@
     ]
     ++ lib.lists.optionals config.modules.packages.lowPriority [
 
+      lua # Expose.
       treefmt # Recursive formatter for projects.
       stylua # Lua formatter.
       nixfmt-rfc-style # Nix formatter.
@@ -90,17 +91,13 @@
             (nvim-treesitter.withPlugins (
               p:
               [
-                # p.javascript
-                # p.html
-                # p.c
-                p.lua
                 p.vim
                 p.vimdoc
-                # p.query
-                p.markdown
-                p.markdown_inline
+                p.lua
                 p.nix
                 p.yaml
+                p.markdown
+                p.markdown_inline
                 p.bash
               ]
               ++ lib.lists.optional hasLang.latex p.latex
