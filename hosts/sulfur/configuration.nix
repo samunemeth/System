@@ -89,4 +89,10 @@
   # Needs different scaling in the boot loader.
   boot.loader.systemd-boot.consoleMode = "keep";
 
+  # Only enable integrated graphics, as it suffices for most tasks, and has
+  # greatly reduced power usage.
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "modesetting" ];
+  boot.blacklistedKernelModules = [ "nouveau" ];
+
 }
