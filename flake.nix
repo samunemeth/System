@@ -35,7 +35,7 @@
 
   outputs =
     { self, nixpkgs, ... }@inputs:
-    {
+    let
 
       # A global set of variables passed to all modules.
       globals = {
@@ -71,8 +71,11 @@
       # Get the directories in the hosts folder to get the host names.
       dirContents = builtins.readDir ./hosts;
       hosts = builtins.foldl' (
-        acc: elem: if builtins.getAttr elem self.dirContents == "directory" then acc ++ [ elem ] else acc
-      ) [ ] (builtins.attrNames self.dirContents);
+        acc: elem: if builtins.getAttr elem dirContents == "directory" then acc ++ [ elem ] else acc
+      ) [ ] (builtins.attrNames dirContents);
+
+    in
+    {
 
       # Generate NixOS configuration entries from host list.
       nixosConfigurations = builtins.mapAttrs (
@@ -82,7 +85,7 @@
 
           specialArgs = {
             inherit inputs;
-            globals = self.globals // {
+            globals = globals // {
               inherit host;
             };
           };
@@ -105,13 +108,13 @@
           ];
         }
 
-      ) (self.listToAttrs self.hosts);
+      ) (listToAttrs hosts);
 
       # A development shell with python packages needed for running actions.
       # TODO: Convert to a runnable.
-      devShells.${self.globals.system}.default =
+      devShells.${globals.system}.default =
         let
-          pkgs = nixpkgs.legacyPackages.${self.globals.system};
+          pkgs = nixpkgs.legacyPackages.${globals.system};
         in
         pkgs.mkShell {
           packages = with pkgs.python3Packages; [
