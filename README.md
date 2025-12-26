@@ -450,19 +450,6 @@ On HP laptops the BIOS option *"Verify Boot Block on every boot"* causes issues,
 as NixOS modifies the boot partition a lot.
 
 
-# Imperative Parts
-
-There are some things that are still missing form the declarative configuration:
-
-  - Seafile configuration.
-  - Some parts of Firefox.
-  - Basically VSCode as a whole.
-  - Gnome.
-  - Account Logins (Firefox, Google, VSCode, GitHub)
-
-*Everything else should be configured declaratively!*
-
-
 # Resources
 
 Here I have collected some useful resources I have used to create
