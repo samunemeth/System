@@ -373,26 +373,22 @@ def get_nvidia_status_icon():
     else:
         return "󰷜"
 
-# TODO: Refactor this to be clearer.
 def get_seafile_status():
     try: 
         seaf_status = subprocess.check_output(["seaf-cli", "status"]).decode("utf-8").strip()
         content_raw = [re.sub(r"\s+", " ", x.strip()).split(" ") for x in seaf_status.split("\n")[1:]]
         def get_status_icon(status_text):
-            if status_text == "synchronized":
-                return " "
-            if status_text == "uploading":
-                return " "
-            if status_text == "downloading":
-                return " "
-            if status_text == "initializing":
-                return "󰜝 "
-            if status_text == "committing":
-                return "󰜘 "
-            if status_text == "waiting":
-                return "󰔚 "
-            if status_text == "error":
-                return " "
+            icons = {
+                "synchronized": " ",
+                "uploading": " ",
+                "downloading": " ",
+                "initializing": "󰜝 ",
+                "committing": "󰜘 ",
+                "waiting": "󰔚 ",
+                "error": " ",
+            }
+            if status_text in icons:
+                return icons[status_text]
             logger.warning(f"Unrecognised Seafile status: '{status_text}'. Raw content: '{content_raw}'")
             return status_text[0]
         content = [
