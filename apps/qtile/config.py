@@ -9,11 +9,10 @@ import importlib.util
 from libqtile.log_utils import logger
 from dataclasses import dataclass
 
-from libqtile import bar, layout, qtile, widget, hook
-from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown
+from libqtile import bar, layout, widget, hook
+from libqtile.config import Group, Key, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-from libqtile.widget import base
 
 
 # --- Parametric Settings ---
@@ -191,7 +190,7 @@ keys = [
     Key([mod], "z", lazy.next_screen(), desc="Next Screen"),
 
     # Rofi menu options
-    Key([mod], "g", lazy.spawncmd(prompt="$"), desc="Spawn Prompt"),
+    Key([mod], "g", lazy.spawncmd(prompt="[app]:"), desc="Spawn Prompt"),
     Key([mod], "s", power_prompt, desc="Power Prompt"),
     Key([mod], "n", lazy.spawn("networkmanager_dmenu"), desc="Rofi Network"),
     Key(
