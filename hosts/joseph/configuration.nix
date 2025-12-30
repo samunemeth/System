@@ -79,6 +79,7 @@
       python = true;
       julia = false;
       haskell = true;
+      nix = true;
     };
 
   };
