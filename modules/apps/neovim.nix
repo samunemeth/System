@@ -22,7 +22,6 @@
     ++ lib.lists.optionals config.modules.packages.lowPriority [
 
       lua # Expose.
-      treefmt # Recursive formatter for projects.
       stylua # Lua formatter.
       nixfmt-rfc-style # Nix formatter.
       beautysh # Bash formatter.

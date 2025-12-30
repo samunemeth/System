@@ -30,17 +30,4 @@ if conform then
 		end)
 	end)
 
-	-- NOTE: Not dependent on conform, but probably only available if conform is.
-	vim.keymap.set("n", "<leader>=", function()
-		vim.fn.jobstart("treefmt", {
-			on_exit = function(job_id, exit_code)
-				if exit_code == 0 then
-					vim.cmd("checktime")
-					print("Formatted all saved files.")
-				else
-					print("There has been an error whlie formatting files in the project. Exit code: " .. exit_code)
-				end
-			end,
-		})
-	end)
 end
