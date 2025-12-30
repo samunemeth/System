@@ -39,6 +39,10 @@ vim.keymap.set("n", "<leader>i", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end)
 
+-- Code actions with LSP
+vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action)
+vim.keymap.set("n", "<leader>c", vim.lsp.buf.rename)
+
 -- Conventions for LSP mappings, all starting with <leader>:
 --   c   -> Rename variable.
 --   a   -> Action with code under the cursor.
