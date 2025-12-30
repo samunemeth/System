@@ -5,6 +5,7 @@
   pkgs,
   lib,
   globals,
+  inputs, # For setting the nix path.
   ...
 }:
 {
@@ -44,6 +45,9 @@
       "nix-command"
       "flakes"
     ];
+
+    # Add nixpkgs to the nix path. This is needed for nixd.
+    nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
     # Set state versions.
     system.stateVersion = globals.stateVersion;
