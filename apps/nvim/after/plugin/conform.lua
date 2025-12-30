@@ -5,13 +5,13 @@ local conform = safe_require("conform")
 if conform then
 	conform.setup({
 		formatters_by_ft = {
-			lua = { "stylua" },
 			nix = { "nixfmt" },
 			sh = { "beautysh" },
-			rust = { "rustfmt" },
+			lua = { "stylua" },
 			haskell = { "ormolu" },
 			tex = { "tex-fmt" },
 			python = { "autopep8" },
+			rust = { "rustfmt" },
 		},
 	})
 
@@ -29,5 +29,4 @@ if conform then
 			end
 		end)
 	end)
-
 end

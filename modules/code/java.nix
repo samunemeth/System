@@ -22,7 +22,7 @@
 
   config = lib.mkIf config.modules.code.java {
 
-    environment.systemPackages = with pkgs; [ jdk17 ];
+    environment.systemPackages = [ pkgs.jdk17 ];
 
   };
 }

@@ -22,7 +22,7 @@
 
   config = lib.mkIf config.modules.code.julia {
 
-    environment.systemPackages = with pkgs; [ julia ];
+    environment.systemPackages = [ pkgs.julia ];
 
   };
 }

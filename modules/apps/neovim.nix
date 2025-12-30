@@ -21,7 +21,7 @@
     ]
     ++ lib.lists.optionals config.modules.packages.lowPriority [
 
-      lua # Expose.
+      lua # Small, simple scripting language.
       stylua # Lua formatter.
       nixfmt-rfc-style # Nix formatter.
       beautysh # Bash formatter.
@@ -71,7 +71,6 @@
 
             # File management
             nvim-tree-lua # File tree
-            plenary-nvim
             telescope-nvim # For quick file access
 
             # Visuals
@@ -99,16 +98,17 @@
                 p.markdown_inline
                 p.bash
               ]
+              ++ lib.lists.optional hasLang.haskell p.haskell
+              ++ lib.lists.optional hasLang.java p.java
+              ++ lib.lists.optional hasLang.julia p.julia
               ++ lib.lists.optional hasLang.latex p.latex
               ++ lib.lists.optional hasLang.python p.python
-              ++ lib.lists.optional hasLang.java p.java
               ++ lib.lists.optional hasLang.rust p.rust
-              ++ lib.lists.optional hasLang.julia p.julia
-              ++ lib.lists.optional hasLang.haskell p.haskell
             )) # Syntax highlighting
             conform-nvim # Formatting
 
           ]
+          ++ lib.lists.optional hasLang.haskell haskell-tools-nvim
           ++ lib.lists.optionals hasLang.latex [
 
             # LaTeX related
@@ -118,8 +118,7 @@
             ultisnips # For snippets mainly in LaTeX
 
           ]
-          ++ lib.lists.optional hasLang.rust rustaceanvim
-          ++ lib.lists.optional hasLang.haskell haskell-tools-nvim;
+          ++ lib.lists.optional hasLang.rust rustaceanvim;
 
       };
 

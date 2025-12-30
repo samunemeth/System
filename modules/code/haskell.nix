@@ -16,6 +16,7 @@
       example = true;
       description = ''
         Enables support for Haskell.
+        Includes LSP server, formatter, and Neovim plugin.
       '';
     };
   };
@@ -32,7 +33,7 @@
       ]))
 
       haskell-language-server # LSP server.
-      ormolu # Code formatter for Haskell.
+      ormolu # Formatter.
 
     ];
 

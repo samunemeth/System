@@ -16,6 +16,8 @@
       example = true;
       description = ''
         Enables support for Rust.
+        Includes LSP server, formatter, Neovim plugin,
+        and Cargo for package management.
       '';
     };
   };

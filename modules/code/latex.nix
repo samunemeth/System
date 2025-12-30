@@ -16,6 +16,9 @@
       example = true;
       description = ''
         Enables support for LaTeX.
+        Includes formatter, Neovim plugin, markdown compilation,
+        LaTeX packages, and custom outlines.
+        Places outlines at expected location.
       '';
     };
   };

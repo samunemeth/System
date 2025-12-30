@@ -16,6 +16,8 @@
       example = true;
       description = ''
         Enables support for Python.
+        Includes LSP server, formatter, Jupyter Notebook,
+        and Python packages.
       '';
     };
   };
@@ -29,10 +31,12 @@
       (python3.withPackages (
         p: with p; [
 
-          # Language Server
+          # LSP server.
           python-lsp-server
           pylsp-rope
           pyflakes
+
+          # Formatter.
           autopep8
 
           # Jupyter Notebook

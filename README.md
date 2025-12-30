@@ -72,22 +72,22 @@ The language server and formatter is primarily designed to be used with *Neovim*
 
 | Language | Installed | Syntax | LSP | Formatter | Note
 |----------|-----------|--------|-----|-----------|:-
-| Lua      | ✓         | ✓      | X   | ✓         |
-| Nix      | ✓         | ✓      | X   | ✓         | Adds *Yaml* syntax.
-| Bash     | ✓         | ✓      | X   | ✓         |
 | Markdown | ✓         | ✓      | -   | X         | *Pandoc* comes with *LaTeX*.
-| LaTeX    | ○         | ✓      | ✓   | ✓         | (*Technically* not an LSP.)
-| Rust     | ○         | ✓      | ✓   | ✓         |
-| Python   | ○         | ✓      | ✓   | ✓         | I don't like the formatter.
+| Nix      | ✓         | ✓      | X   | ✓         | 
+| Bash     | ✓         | ✓      | X   | ✓         |
+| Lua      | ✓         | ✓      | X   | ✓         |
 | Haskell  | ○         | ✓      | ✓   | ✓         |
-| Julia    | ○         | ✓      | -   | -         | 
 | Java     | ○         | ✓      | -   | -         | 
+| Julia    | ○         | ✓      | -   | -         | 
+| LaTeX    | ○         | ✓      | -   | ✓         | 
+| Python   | ○         | ✓      | ✓   | ✓         | I don't like the formatter.
+| Rust     | ○         | ✓      | ✓   | ✓         |
 
 |   | Description
 |---|:-
 | ✓ | Supported
 | X | Not Supported but Planned
-| - | No Planned Support
+| - | No Planned Support / No possible support
 | ○ | Enabled by Option
 
 # Setup
