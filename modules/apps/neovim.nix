@@ -88,11 +88,8 @@
             (nvim-treesitter.withPlugins (
               p:
               [
-                p.vim
-                p.vimdoc
                 p.lua
                 p.nix
-                p.yaml
                 p.markdown
                 p.markdown_inline
                 p.bash
