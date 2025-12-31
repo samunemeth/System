@@ -70,25 +70,25 @@ The table below summarises the support for programming languages.
 Syntax highlighting is handled by *tree-sitter*.
 The language server and formatter is primarily designed to be used with *Neovim*.
 
-| Language | Installed | Syntax | LSP | Formatter | Note
-|----------|-----------|--------|-----|-----------|:-
-| Markdown | ✓         | ✓      | -   | X         | *Pandoc* comes with *LaTeX*.
-| Nix      | ✓         | ✓      | X   | ✓         | 
-| Bash     | ✓         | ✓      | X   | ✓         |
-| Lua      | ✓         | ✓      | X   | ✓         |
-| Haskell  | ○         | ✓      | ✓   | ✓         |
-| Java     | ○         | ✓      | -   | -         | 
-| Julia    | ○         | ✓      | -   | -         | 
-| LaTeX    | ○         | ✓      | -   | ✓         | 
-| Python   | ○         | ✓      | ✓   | ✓         | I don't like the formatter.
-| Rust     | ○         | ✓      | ✓   | ✓         |
+| Language | Installed | Syntax | Formatter | LSP | Note
+|----------|-----------|--------|-----------|-----|:-
+| Markdown | -         | B      | X         | -   | 
+| Nix      | B         | B      | ✓         | ✓   | 
+| Bash     | B         | B      | B         | X   | 
+| Lua      | B         | B      | B         | X   | 
+| Haskell  | ✓         | ✓      | ✓         | ✓   | 
+| Java     | ✓         | ✓      | -         | -   | 
+| Julia    | ✓         | ✓      | -         | -   |
+| LaTeX    | ✓         | ✓      | ✓         | -   | Adds *Markdown* compiling.
+| Python   | ✓         | ✓      | ✓         | ✓   | 
+| Rust     | ✓         | ✓      | ✓         | ✓   | 
 
-|   | Description
+|   | Legend
 |---|:-
-| ✓ | Supported
-| X | Not Supported but Planned
-| - | No Planned Support / No possible support
-| ○ | Enabled by Option
+| B | Part of the base configuration.
+| ✓ | Supported but needs to be enabled.
+| X | Not supported but planned.
+| - | No planned support. / No possible support.
 
 # Setup
 
