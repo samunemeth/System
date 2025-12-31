@@ -26,6 +26,7 @@
     environment.systemPackages = with pkgs; [
 
       nixd # LSP server.
+      nixfmt-rfc-style # Formatter.
 
     ];
 

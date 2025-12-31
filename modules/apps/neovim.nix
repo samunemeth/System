@@ -23,7 +23,6 @@
 
       lua # Small, simple scripting language.
       stylua # Lua formatter.
-      nixfmt-rfc-style # Nix formatter.
       beautysh # Bash formatter.
 
     ];
