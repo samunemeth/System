@@ -72,10 +72,10 @@ The language server and formatter is primarily designed to be used with *Neovim*
 
 | Language | Installed | Syntax | Formatter | LSP | Note
 |----------|-----------|--------|-----------|-----|:-
-| Markdown | -         | B      | X         | -   | 
-| Nix      | S         | B      | ✓         | ✓   | 
-| Bash     | S         | B      | B         | X   | 
-| Lua      | ✓         | B      | ✓         | ✓   | 
+| Markdown | -         | S      | X         | -   | 
+| Nix      | S         | ✓      | ✓         | ✓   | 
+| Bash     | S         | ✓      | ✓         | X   | 
+| Lua      | ✓         | ✓      | ✓         | ✓   | 
 | Haskell  | ✓         | ✓      | ✓         | ✓   | 
 | Java     | ✓         | ✓      | -         | -   | 
 | Julia    | ✓         | ✓      | -         | -   |
@@ -86,7 +86,6 @@ The language server and formatter is primarily designed to be used with *Neovim*
 |   | Legend
 |---|:-
 | S | Part of the system.
-| B | Part of the base configuration.
 | ✓ | Supported but needs to be enabled.
 | X | Not supported but planned.
 | - | No planned support. / No possible support.
