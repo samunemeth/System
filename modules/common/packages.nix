@@ -52,9 +52,7 @@
     environment.defaultPackages = lib.mkForce [ ];
     services.speechd.enable = lib.mkForce false;
     programs.nano.enable = false;
-
-    # Enable vim, while Neovim in not wrapped.
-    programs.vim.enable = true;
+    programs.vim.enable = false;
 
     # Set documentation availability in accordance with setting.
     documentation.enable = config.modules.packages.manuals;

@@ -24,10 +24,10 @@
     # Set Neovim as the default editor.
     sessionVariables.EDITOR = "nvim";
 
-    # Add alias for using Neovim with sudo.
-    # NOTE: This should not be necessary if Neovim is custom wrapped.
+    # Add alias for using Neovim.
     shellAliases = {
-      "snvim" = "sudo -E nvim";
+      "vim" = "nvim";
+      "vi" = "nvim";
     };
 
   };
@@ -50,12 +50,6 @@
       programs.neovim = {
 
         enable = true;
-
-        # Set Neovim as default, but do not set aliases.
-        # NOTE: This is probably not needed at all.
-        defaultEditor = true;
-        viAlias = false;
-        vimAlias = false;
 
         plugins =
           with pkgs.vimPlugins;
