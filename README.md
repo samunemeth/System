@@ -67,28 +67,30 @@ regenerates the images if needed.
 # Language Support
 
 The table below summarises the support for programming languages.
-Syntax highlighting is handled by *tree-sitter*.
-The language server and formatter is primarily designed to be used with *Neovim*.
+Syntax highlighting is handled by *tree-sitter*, and is enabled automatically.
+The language server and formatter is primarily designed and set up to be used
+with *Neovim*.
 
-| Language | Installed | Syntax | Formatter | LSP | Note
-|----------|-----------|--------|-----------|-----|:-
-| Markdown | -         | S      | X         | -   | 
-| Nix      | S         | ✓      | ✓         | ✓   | 
-| Bash     | S         | ✓      | ✓         | X   | 
-| Lua      | ✓         | ✓      | ✓         | ✓   | 
-| Haskell  | ✓         | ✓      | ✓         | ✓   | 
-| Java     | ✓         | ✓      | -         | -   | 
-| Julia    | ✓         | ✓      | -         | -   |
-| LaTeX    | ✓         | ✓      | ✓         | -   | Adds *Markdown* compiling.
-| Python   | ✓         | ✓      | ✓         | ✓   | 
-| Rust     | ✓         | ✓      | ✓         | ✓   | 
+| Language | Installed | Formatter | LSP Server |
+|----------|:---------:|:---------:|:----------:|
+| Bash     | S         | ✓         | X          |
+| Haskell  | ✓         | ✓         | ✓          |
+| Java     | ✓         | X         | X          |
+| Julia    | ✓         | X         | X          |
+| LaTeX    | ✓         | ✓         |            |
+| Lua      | ✓         | ✓         | ✓          |
+| Nix      | S         | ✓         | ✓          |
+| Python   | ✓         | ✓         | ✓          |
+| Rust     | ✓         | ✓         | ✓          |
 
-|   | Legend
-|---|:-
-| S | Part of the system.
-| ✓ | Supported but needs to be enabled.
-| X | Not supported but planned.
-| - | No planned support. / No possible support.
+A letter 'S' means that the feature is part of the root system.
+A tick means the feature is available but needs to be enabled with the
+configuration option of the language. Rows can only be enabled or disabled at
+once at the moment.
+A cross means that the feature is not present at the moment but may be
+implemented later.
+If there is no mark it means that that feature is not applicable.
+
 
 # Setup
 
