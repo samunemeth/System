@@ -52,7 +52,10 @@
     environment.defaultPackages = lib.mkForce [ ];
     services.speechd.enable = lib.mkForce false;
     programs.nano.enable = false;
-    programs.vim.enable = false;
+
+    # Enable Vim if Neovim is not enabled. Set it as default editor weakly.
+    programs.vim.enable = !config.modules.apps.neovim;
+    environment.sessionVariables.EDITOR = lib.mkDefault "vim";
 
     # Set documentation availability in accordance with setting.
     documentation.enable = config.modules.packages.manuals;
