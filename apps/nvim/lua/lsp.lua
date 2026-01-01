@@ -33,7 +33,7 @@ vim.lsp.config["nixd"] = {
 	root_markers = { "flake.nix", ".git" },
 	settings = {
 		nixd = {
-      -- Some magic such that the options are recognised.
+			-- Some magic such that the options are recognised.
 			options = {
 				nixos = {
 					expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.'
@@ -48,7 +48,7 @@ vim.lsp.config["nixd"] = {
 			},
 			diagnostic = {
 				suppress = {
-          -- Turn off unused argument warnings.
+					-- Turn off unused argument warnings.
 					"sema-unused-def-lambda-witharg-formal",
 					"sema-unused-def-lambda-noarg-formal",
 					"sema-unused-def-lambda-witharg-arg",
