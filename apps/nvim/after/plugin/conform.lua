@@ -1,6 +1,6 @@
 --- Configuration for Conform ---
 
-local conform = safe_require("conform")
+local conform = SafeRequire("conform")
 
 if conform then
 	conform.setup({

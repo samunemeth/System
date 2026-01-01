@@ -1,6 +1,6 @@
 --- Configuration for Lualine ---
 
-local lualine = safe_require("lualine")
+local lualine = SafeRequire("lualine")
 
 if lualine then
 	local function wide()

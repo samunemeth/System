@@ -1,6 +1,6 @@
 --- Central configuration ---
 
-function safe_require(module)
+function SafeRequire(module)
 	local ok, mod = pcall(require, module)
 	return ok and mod or nil
 end

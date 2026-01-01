@@ -1,6 +1,6 @@
 --- Configuration for Knap ---
 
-local knap = safe_require("knap")
+local knap = SafeRequire("knap")
 
 if knap then
 	vim.g.knap_settings = {

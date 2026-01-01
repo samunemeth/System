@@ -1,6 +1,6 @@
 --- Configuration for Flash ---
 
-local flash = safe_require("flash")
+local flash = SafeRequire("flash")
 
 if flash then
 	flash.setup({})

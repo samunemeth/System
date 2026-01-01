@@ -1,6 +1,6 @@
 --- Configuration for Treesitter ---
 
-local treesitter = safe_require("nvim-treesitter.configs")
+local treesitter = SafeRequire("nvim-treesitter.configs")
 
 if treesitter then
 	treesitter.setup({

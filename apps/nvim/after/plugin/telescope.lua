@@ -1,9 +1,9 @@
 --- Configuration for Telescope ---
 
-local telescope = safe_require("telescope")
+local telescope = SafeRequire("telescope")
 
 if telescope then
-	local builtin = safe_require("telescope.builtin")
+	local builtin = SafeRequire("telescope.builtin")
 
 	-- Settings
 	telescope.setup({

@@ -5,7 +5,7 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
-local ht = safe_require("haskell-tools")
+local ht = SafeRequire("haskell-tools")
 local bufnr = vim.api.nvim_get_current_buf()
 local buffspec = { buffer = bufnr }
 

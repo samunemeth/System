@@ -1,6 +1,6 @@
 --- Configuration for ToDo ---
 
-local todo = safe_require("todo-comments")
+local todo = SafeRequire("todo-comments")
 
 if todo then
 	todo.setup({

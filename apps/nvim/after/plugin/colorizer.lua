@@ -1,6 +1,6 @@
 --- Configuration for Colorizer ---
 
-local colorizer = safe_require("colorizer")
+local colorizer = SafeRequire("colorizer")
 
 if colorizer then
 	colorizer.setup({ user_default_options = { names = false } })
