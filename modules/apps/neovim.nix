@@ -21,8 +21,6 @@
     ]
     ++ lib.lists.optionals config.modules.packages.lowPriority [
 
-      lua # Small, simple scripting language.
-      stylua # Lua formatter.
       beautysh # Bash formatter.
 
     ];

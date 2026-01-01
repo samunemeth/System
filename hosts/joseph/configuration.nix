@@ -80,6 +80,7 @@
       julia = false;
       haskell = true;
       nix = true;
+      lua = true;
     };
 
   };

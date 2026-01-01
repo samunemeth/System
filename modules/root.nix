@@ -42,6 +42,7 @@
     ./code/java.nix
     ./code/julia.nix
     ./code/latex.nix
+    ./code/lua.nix
     ./code/nix.nix
     ./code/python.nix
     ./code/rust.nix

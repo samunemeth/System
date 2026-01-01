@@ -83,6 +83,7 @@
       julia = false;
       haskell = false;
       nix = true;
+      lua = true;
     };
 
   };
