@@ -16,7 +16,7 @@
       example = true;
       description = ''
         Enables additional support for Nix.
-        Includes LSP server.
+        Includes LSP server and formatter.
       '';
     };
   };
