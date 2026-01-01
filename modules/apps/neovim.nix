@@ -35,7 +35,9 @@
   # --- Home Manager Part ---
   home-manager.users.${globals.user} =
     let
-      hasLang = config.modules.code;
+      languageTable = config.modules.code;
+      languageList = lib.attrNames (lib.filterAttrs (n: v: v) languageTable);
+      grammars = p: builtins.map (x: p.${x}) (lib.remove "lua" languageList);
     in
     {
       config,
@@ -76,28 +78,12 @@
             todo-comments-nvim # Special comment highlighting
 
             # LSP and syntax
-            (nvim-treesitter.withPlugins (
-              p:
-              [
-                p.lua
-                p.nix
-                p.markdown
-                p.markdown_inline
-                p.bash
-              ]
-              ++ lib.lists.optional hasLang.haskell p.haskell
-              ++ lib.lists.optional hasLang.java p.java
-              ++ lib.lists.optional hasLang.julia p.julia
-              ++ lib.lists.optional hasLang.latex p.latex
-              ++ lib.lists.optional hasLang.python p.python
-              ++ lib.lists.optional hasLang.rust p.rust
-              ++ lib.lists.optional hasLang.bash p.bash
-            )) # Syntax highlighting
+            (nvim-treesitter.withPlugins grammars) # Syntax highlighting
             conform-nvim # Formatting
 
           ]
-          ++ lib.lists.optional hasLang.haskell haskell-tools-nvim
-          ++ lib.lists.optionals hasLang.latex [
+          ++ lib.lists.optional languageTable.haskell haskell-tools-nvim
+          ++ lib.lists.optionals languageTable.latex [
 
             # LaTeX related
             vimtex # LaTeX language support
@@ -106,7 +92,7 @@
             ultisnips # For snippets mainly in LaTeX
 
           ]
-          ++ lib.lists.optional hasLang.rust rustaceanvim;
+          ++ lib.lists.optional languageTable.rust rustaceanvim;
 
       };
 
