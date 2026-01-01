@@ -53,9 +53,9 @@
 
     # GUIs to install and use.
     gui = {
+      gnome = true;
       kmscon = true;
       qtile = false;
-      gnome = true;
     };
 
     # General package options.
@@ -67,23 +67,23 @@
     # Apps to install.
     apps = {
       alacritty = true;
-      lf = true;
       firefox = true;
+      ipycalc = false;
+      lf = true;
       mpv = true;
       vscode = false;
-      ipycalc = false;
     };
 
     # Programming languages to install.
     code = {
-      latex = false;
-      java = false;
-      rust = false;
-      python = false;
-      julia = false;
       haskell = false;
-      nix = true;
+      java = false;
+      julia = false;
+      latex = false;
       lua = true;
+      nix = true;
+      python = false;
+      rust = false;
     };
 
   };

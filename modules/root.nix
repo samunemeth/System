@@ -13,29 +13,29 @@
   imports = [
 
     # General Modules
-    ./common/system.nix
-    ./common/boot.nix
-    ./common/locale.nix
-    ./common/packages.nix
-    ./common/ssh.nix
-    ./common/network.nix
-    ./common/users.nix
-    ./common/sops.nix
-    ./common/yubikey.nix
     ./common/bash.nix
-    ./common/seafile.nix
+    ./common/boot.nix
     ./common/git.nix
+    ./common/locale.nix
+    ./common/network.nix
+    ./common/packages.nix
+    ./common/seafile.nix
+    ./common/sops.nix
+    ./common/ssh.nix
+    ./common/system.nix
+    ./common/users.nix
+    ./common/yubikey.nix
 
     # Applications
-    ./apps/neovim.nix
     ./apps/alacritty.nix
     ./apps/firefox.nix
-    ./apps/rofi.nix
-    ./apps/zathura.nix
-    ./apps/lf.nix
-    ./apps/vscode.nix
-    ./apps/mpv.nix
     ./apps/ipycalc.nix
+    ./apps/lf.nix
+    ./apps/mpv.nix
+    ./apps/neovim.nix
+    ./apps/rofi.nix
+    ./apps/vscode.nix
+    ./apps/zathura.nix
 
     # Programming Languages
     ./code/haskell.nix
