@@ -43,8 +43,12 @@ end)
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<leader>c", vim.lsp.buf.rename)
 
--- Conventions for LSP mappings, all starting with <leader>:
---   c   -> Rename variable.
---   a   -> Action with code under the cursor.
---   r   -> Running the current file. / Evaluating all expressions.
---   e   -> Something to do with errors. Preferably explain them.
+-- Conventions for LSP mappings:
+--   <leader>c   -> Rename variable.
+--   <leader>a   -> Action with code under the cursor.
+--   <leader>r   -> Running the current file. / Evaluating all expressions.
+--   <leader>e   -> Something to do with errors. Preferably explain them.
+--   <leader>i   -> Toggle inlays.
+--     <C-.>     -> Trigger autocompletion. Preferably in insert mode as well.
+--     <C-,>     -> Open floating diagnostics.
+
