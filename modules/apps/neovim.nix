@@ -9,21 +9,14 @@
 }:
 {
 
-  environment.systemPackages =
-    with pkgs;
-    [
+  environment.systemPackages = with pkgs; [
 
-      tree-sitter # Neovim parser generator.
-      ripgrep # Recursive command line search command.
-      fd # A user friendly file search engine.
-      xclip # Command line clipboard tool.
+    tree-sitter # Neovim parser generator.
+    ripgrep # Recursive command line search command.
+    fd # A user friendly file search engine.
+    xclip # Command line clipboard tool.
 
-    ]
-    ++ lib.lists.optionals config.modules.packages.lowPriority [
-
-      beautysh # Bash formatter.
-
-    ];
+  ];
 
   # Update environment settings.
   environment = {
@@ -98,6 +91,7 @@
               ++ lib.lists.optional hasLang.latex p.latex
               ++ lib.lists.optional hasLang.python p.python
               ++ lib.lists.optional hasLang.rust p.rust
+              ++ lib.lists.optional hasLang.bash p.bash
             )) # Syntax highlighting
             conform-nvim # Formatting
 

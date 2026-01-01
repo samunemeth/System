@@ -38,6 +38,7 @@
     ./apps/zathura.nix
 
     # Programming Languages
+    ./code/bash.nix
     ./code/haskell.nix
     ./code/java.nix
     ./code/julia.nix

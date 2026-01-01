@@ -76,6 +76,7 @@
 
     # Programming languages to install.
     code = {
+      bash = true;
       haskell = false;
       java = false;
       julia = false;
