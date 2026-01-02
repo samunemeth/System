@@ -473,6 +473,8 @@ Wiki's for Nix language basics.
   - [Language Basics](https://nix.dev/tutorials/nix-language.html)
   - [Builtins](https://nix.dev/manual/nix/2.28/language/builtins.html)
   - [Nix Pills](https://nixos.org/guides/nix-pills/00-preface.html)
+  - [Modules](https://nixos.wiki/wiki/NixOS_modules)
+  - [Custom Options](https://nixos.wiki/wiki/Declaration)
 
 ## Impermanence
 
