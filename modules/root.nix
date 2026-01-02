@@ -55,7 +55,16 @@
 
   ];
 
-  options = { };
+  options.modules = {
+    export-apps = lib.mkOption {
+      type = with lib.types; attrsOf package;
+      default = { };
+      example = "TODO";
+      description = ''
+        TODO
+      '';
+    };
+  };
 
   config = { };
 

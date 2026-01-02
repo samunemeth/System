@@ -13,7 +13,8 @@ let
   wrapped-lf = pkgs.symlinkJoin {
     name = "wrapped-lf";
     buildInputs = [ pkgs.makeWrapper ];
-    paths = with pkgs; [ # TODO: Move some to low priority?
+    paths = with pkgs; [
+      # TODO: Move some to low priority?
 
       lf # Core.
 
@@ -64,18 +65,23 @@ in
     };
   };
 
-  config = lib.mkIf config.modules.apps.lf {
+  config =
+    lib.mkAlwaysThenIf config.modules.apps.lf
+      {
+        modules.export-apps.lf = wrapped-lf;
+      }
+      {
 
-    environment.systemPackages = [ wrapped-lf ];
+        environment.systemPackages = [ wrapped-lf ];
 
-    # Add a command to change directories with Lf.
-    programs.bash.interactiveShellInit = # bash
-      ''
-        lfcd () {
-          cd "$(command lf -print-last-dir "$@")"
-        }
-      '';
+        # Add a command to change directories with Lf.
+        programs.bash.interactiveShellInit = # bash
+          ''
+            lfcd () {
+              cd "$(command lf -print-last-dir "$@")"
+            }
+          '';
 
-  };
+      };
 
 }

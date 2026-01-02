@@ -41,10 +41,13 @@ in
     };
   };
 
-  config = lib.mkIf config.modules.apps.mpv {
-
-    environment.systemPackages = [ wrapped-mpv ];
-
-  };
+  config =
+    lib.mkAlwaysThenIf config.modules.apps.mpv
+      {
+        modules.export-apps.mpv = wrapped-mpv;
+      }
+      {
+        environment.systemPackages = [ wrapped-mpv ];
+      };
 
 }

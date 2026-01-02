@@ -109,13 +109,18 @@ in
     };
   };
 
-  config = lib.mkIf config.modules.apps.neovim {
+  config =
+    lib.mkAlwaysThenIf config.modules.apps.neovim
+      {
+        modules.export-apps.neovim = wrapped-neovim;
+      }
+      {
 
-    environment.systemPackages = [ wrapped-neovim ];
+        environment.systemPackages = [ wrapped-neovim ];
 
-    # Set Neovim as the default editor.
-    environment.sessionVariables.EDITOR = "nvim";
+        # Set Neovim as the default editor.
+        environment.sessionVariables.EDITOR = "nvim";
 
-  };
+      };
 
 }

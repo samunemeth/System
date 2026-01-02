@@ -65,11 +65,20 @@
 
       };
 
-      # Define useful functions.
+      # Define useful functions that can be used anywhere.
+      # This is merged into `lib` for the configurations.
       utils = {
 
         # Convert a flat list to an attribute set.
         listToSimpleAttrs = builtins.foldl' (acc: elem: { "${elem}" = elem; } // acc) { };
+
+        # A version of `lib.mkIf` that always includes a part.
+        mkAlwaysThenIf =
+          condition: always: ifTrue:
+          nixpkgs.lib.mkMerge [
+            always
+            (nixpkgs.lib.mkIf condition ifTrue)
+          ];
 
       };
 
@@ -84,7 +93,15 @@
         "x86_64-linux"
         "aarch64-linux"
       ];
-      forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (sys: f nixpkgs.legacyPackages.${sys});
+      forAllSystems =
+        f:
+        nixpkgs.lib.genAttrs supportedSystems (
+          sys:
+          f {
+            pkgs = nixpkgs.legacyPackages.${sys};
+            system = sys;
+          }
+        );
 
     in
     {
@@ -100,6 +117,7 @@
             globals = globals // {
               inherit host;
             };
+            lib = nixpkgs.lib.extend (_: _: utils);
           };
 
           modules = [
@@ -123,18 +141,83 @@
       ) (utils.listToSimpleAttrs hosts);
 
       # Development shells useful for these systems.
-      devShells = forAllSystems (pkgs: {
+      devShells = forAllSystems (
+        { pkgs, system, ... }:
+        {
 
-        # A development shell with python packages needed for running actions,
-        # and working with Qtile locally.
-        qtile = pkgs.mkShell {
-          packages = with pkgs.python3Packages; [
-            qtile
-            cairocffi
-          ];
-        };
+          # A development shell with python packages needed for running actions,
+          # and working with Qtile locally.
+          qtile = pkgs.mkShell {
+            packages = with pkgs.python3Packages; [
+              qtile
+              cairocffi
+            ];
+          };
 
-      });
+          # A development shell for setting up a new system.
+          # Uses the configured apps that the system exposes, but there
+          # is also a generic option that uses stock packages.
+          # Usage:
+          #   nix develop <FLAKE>#setup.<HOST>
+          # Usage example:
+          #   nix develop github:samunemeth/System#setup.joseph
+          #   nix develop ./System#setup.generic
+          setup =
+            let
+
+              # Some packages that generally need to be there for setup.
+              setupPackagesBase = with pkgs; [
+                util-linux
+                cryptsetup
+                btrfs-progs
+                curl
+                git
+              ];
+
+            in
+            (builtins.mapAttrs (
+              host: _:
+
+              pkgs.mkShell {
+                packages =
+                  let
+                    exposed = self.packages.${system}.${host};
+                  in
+                  setupPackagesBase
+                  ++ [
+                    exposed.neovim # For editing some configuration files.
+                    exposed.lf # Navigating the file system.
+                  ];
+                EDITOR = "nvim";
+                shellHook = ''
+                  echo "You are in a setup environment for ${host}."
+                '';
+              }
+
+            ) (utils.listToSimpleAttrs hosts))
+            // {
+              generic = pkgs.mkShell {
+                packages =
+                  with pkgs;
+                  setupPackagesBase
+                  ++ [
+                    vim # No point in using Neovim without configuration.
+                    lf
+                  ];
+                EDITOR = "vim";
+                shellHook = ''
+                  echo "You are in a generic setup environment."
+                '';
+              };
+            };
+
+        }
+      );
+
+      # Expose preconfigured applications from all hosts.
+      packages = forAllSystems (
+        { ... }: builtins.mapAttrs (_: v: v.config.modules.export-apps) self.nixosConfigurations
+      );
 
     };
 }

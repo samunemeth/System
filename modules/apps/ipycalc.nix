@@ -67,10 +67,13 @@ in
     };
   };
 
-  config = lib.mkIf config.modules.apps.ipycalc {
-
-    environment.systemPackages = [ ipycalc ];
-
-  };
+  config =
+    lib.mkAlwaysThenIf config.modules.apps.ipycalc
+      {
+        modules.export-apps.ipycalc = ipycalc;
+      }
+      {
+        environment.systemPackages = [ ipycalc ];
+      };
 
 }
