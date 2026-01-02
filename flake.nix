@@ -66,7 +66,12 @@
       };
 
       # Define useful functions.
-      listToAttrs = builtins.foldl' (acc: elem: { "${elem}" = elem; } // acc) { };
+      utils = {
+
+        # Convert a flat list to an attribute set.
+        listToSimpleAttrs = builtins.foldl' (acc: elem: { "${elem}" = elem; } // acc) { };
+
+      };
 
       # Get the directories in the hosts folder to get the host names.
       dirContents = builtins.readDir ./hosts;
@@ -115,7 +120,7 @@
           ];
         }
 
-      ) (listToAttrs hosts);
+      ) (utils.listToSimpleAttrs hosts);
 
       # Development shells useful for these systems.
       devShells = forAllSystems (pkgs: {
