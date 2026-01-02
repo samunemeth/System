@@ -36,7 +36,10 @@
       ];
       hwRender = true;
       useXkbConfig = true;
-      autologinUser = lib.mkIf config.modules.boot.autoLogin globals.user;
+      # Check if option even exists, as the modules is used standalone in the ISO.
+      autologinUser = lib.mkIf (
+        if config ? modules.boot.autoLogin then config.modules.boot.autoLogin else false
+      ) globals.user;
       extraConfig = ''
 
         login=/bin/bash -i

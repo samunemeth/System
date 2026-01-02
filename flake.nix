@@ -80,6 +80,15 @@
             (nixpkgs.lib.mkIf condition ifTrue)
           ];
 
+        # Create the extra list of special arguments for system modules.
+        mkSpecialArgsFor = host: {
+          inherit inputs;
+          globals = globals // {
+            inherit host;
+          };
+          lib = nixpkgs.lib.extend (_: _: utils);
+        };
+
       };
 
       # Get the directories in the hosts folder to get the host names.
@@ -111,15 +120,7 @@
         host: _:
 
         nixpkgs.lib.nixosSystem {
-
-          specialArgs = {
-            inherit inputs;
-            globals = globals // {
-              inherit host;
-            };
-            lib = nixpkgs.lib.extend (_: _: utils);
-          };
-
+          specialArgs = utils.mkSpecialArgsFor host;
           modules = [
 
             # Home Manager
@@ -210,7 +211,14 @@
 
       # Expose preconfigured applications from all hosts.
       packages = forAllSystems (
-        { ... }: builtins.mapAttrs (_: v: v.config.modules.export-apps) self.nixosConfigurations
+        { ... }:
+        (builtins.mapAttrs (_: v: v.config.modules.export-apps) self.nixosConfigurations)
+        // {
+
+          # Expose the build command for the ISO image.
+          iso = (import ./iso/image.nix) { inherit nixpkgs utils; };
+
+        }
       );
 
     };
