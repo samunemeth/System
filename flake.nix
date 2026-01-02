@@ -157,11 +157,6 @@
           # A development shell for setting up a new system.
           # Uses the configured apps that the system exposes, but there
           # is also a generic option that uses stock packages.
-          # Usage:
-          #   nix develop <FLAKE>#setup.<HOST>
-          # Usage example:
-          #   nix develop github:samunemeth/System#setup.joseph
-          #   nix develop ./System#setup.generic
           setup =
             let
 
