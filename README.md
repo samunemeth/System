@@ -123,13 +123,12 @@ If there is no mark it means that that feature is not applicable.
     ```
     ping google.com
     ```
-  - If you want some program to help you with the installation, you can install
-    it now. `git` is needed, and I suggest using `lf` for easier file management,
-    and `vim` for text editing, but the latter two is not necessary. Also select
-    the editor of your choice for `lf`:
+  - Get some packages for the installation by generating a dev shell from this
+    flake. You can get host specific app configuration if you are setting
+    up a system again, or use `generic` as the host name to get a simpler
+    environment. A message should confirm that you are in a dev shell.
     ```
-    nix-shell -p git lf vim <PACKAGES>
-    export EDITOR=vim
+    nix develop github:samunemeth/System#setup.<HOST>
     ```
   - Check disk and partition names, mount points with the first, and file system
     information with the second command at any time during the installation:

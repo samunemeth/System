@@ -59,9 +59,9 @@
     export-apps = lib.mkOption {
       type = with lib.types; attrsOf package;
       default = { };
-      example = "TODO";
+      example = "{ neovim = wrapped-neovim; }";
       description = ''
-        TODO
+        A list of packages to expose under the specified name from the flake.
       '';
     };
   };
