@@ -21,13 +21,10 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 **General**
 
   - [ ] *Set Up:* Make all apps use wrappers. [More Info](https://www.youtube.com/watch?v=Zzvn9uYjQJY)
-  - [ ] *Look Into:* Wrapping Neovim. [More Info](https://ayats.org/blog/neovim-wrapper)
   - [ ] *Set Up:* hibernation with the new partition setup.
   - [ ] *Set Up:* Automatic locking, password prompt after hibernation.
   - [ ] *Look Into:* The *mini greeter* seems to act up on first boot.
         *Maybe just ditch the mini greeter?*
-  - [ ] *Look Into:* Impermanence. [More Info](https://grahamc.com/blog/erase-your-darlings/)
-        *Maybe just on the root at first, not home?*
   - [ ] *Look Into:* Automatic monitor detection, and saved layouts.
   - [ ] *Look Into:* What is actually good in Rofi? Remove some bloat from it?
   - [ ] *Fix:* There is no transparency possible in Zathura.
@@ -37,18 +34,20 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
         *This just needs to be cleanly merged.*
   - [ ] *Fix:* Clean up Python scripts.
   - [ ] *Look Into:* Markdown table formatter for Neovim.
+  - [ ] *Look Into:* Clean handling of missing utilities that are not present.
 
 **Documentation**
 
   - [ ] *Update:* Installation documentation.
-  - [x] *Add:* Documentation for sops and sops-nix.
 
 **Long Term**
 
+  - [ ] *Look Into:* Impermanence. [More Info](https://grahamc.com/blog/erase-your-darlings/)
+        *Maybe just on the root at first, not home?*
   - [ ] *Look Into:* Creating a custom installation (and/or full system) ISO.
+  - [ ] *Set Up:* Exporting wrapped applications directly from the flake.
   - [ ] *Set Up:* A configuration for minimal installation.
   - [ ] *Set Up:* Gnome with declarative settings.
-  - [ ] *Look Into:* Clean handling of missing utilities that are not present.
   - [ ] *Set Up:* Dev shells for different parts of development.
 
 There are also small items marked with **TODO** inside comments. There are also
@@ -510,7 +509,8 @@ Guides, threads, wiki's that I have found useful.
   - [YubiKeys on NixOS](https://youtu.be/3CeXbONjIgE)
   - [Reference for Writers](https://nixos.wiki/wiki/Nix-writers)
   - [Using Wrappers](https://www.youtube.com/watch?v=Zzvn9uYjQJY)
-  - [Wrapping Neovim](https://ayats.org/blog/neovim-wrapper)
+  - [Wrapping Neovim](https://primamateria.github.io/blog/neovim-nix/)
+  - [Neovim Wrapper Source](https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/neovim/wrapper.nix)
   - [Erase Your Darlings](https://grahamc.com/blog/erase-your-darlings/)
 
 
