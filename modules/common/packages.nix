@@ -44,6 +44,7 @@
         btop # System monitoring and testing.
         fastfetchMinimal # Displaying system data.
         nix-tree # Explore sizes of packages.
+        rsync # Powerful file copy tool.
 
       ]
       ++ lib.lists.optional (!config.modules.apps.ipycalc) calc;
