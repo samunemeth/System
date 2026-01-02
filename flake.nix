@@ -172,6 +172,7 @@
                 btrfs-progs
                 curl
                 git
+                vim
               ];
 
             in
@@ -185,10 +186,9 @@
                   in
                   setupPackagesBase
                   ++ [
-                    exposed.neovim # For editing some configuration files.
                     exposed.lf # Navigating the file system.
                   ];
-                EDITOR = "nvim";
+                EDITOR = "vim";
                 shellHook = ''
                   echo "You are in a setup environment for ${host}."
                 '';
@@ -201,7 +201,6 @@
                   with pkgs;
                   setupPackagesBase
                   ++ [
-                    vim # No point in using Neovim without configuration.
                     lf
                   ];
                 EDITOR = "vim";
