@@ -45,6 +45,7 @@
         fastfetchMinimal # Displaying system data.
         nix-tree # Explore sizes of packages.
         rsync # Powerful file copy tool.
+        # ncdu # Folder size explorer.
 
       ]
       ++ lib.lists.optional (!config.modules.apps.ipycalc) calc;
