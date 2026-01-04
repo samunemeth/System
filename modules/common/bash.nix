@@ -62,6 +62,24 @@
             cat $(which $1)
           }
 
+          # Look at a raw value and scale it continuously.
+          # Interesting for looking at raw device sensors that need scaling.
+          watch-sensor() {
+            local file=$1
+            local scale=''${2:-1}
+            local prev=
+            trap 'printf "\n"' EXIT
+            while sleep 0.1; do
+              local v scaled
+              v=$(cat -- "$file") || continue
+              scaled=$(awk -v v="$v" -v s="$scale" 'BEGIN{printf "%g", v*s}')
+              if [ "$scaled" != "$prev" ]; then
+                printf "\r\033[K%s" "$scaled"
+                prev=$scaled
+              fi
+            done
+          }
+
         '';
 
       # Set the bash prompt depending on the user and environment.
