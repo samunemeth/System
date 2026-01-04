@@ -515,3 +515,16 @@ Guides, threads, wiki's that I have found useful.
   - [Erase Your Darlings](https://grahamc.com/blog/erase-your-darlings/)
 
 
+# Fun
+
+## A full IMU
+
+My convertible HP laptop has a full IMU built in for whatever reason.
+The following command outputs the monitor orientation in degrees for example.
+```bash
+watch-sensor /sys/bus/iio/devices/iio:device2/in_incli_x_raw 0.00001
+```
+Would be fun to create a script that runs a compass or whatever.
+Note that the compass is not the best, considering the laptop has magnets in it.
+
+
