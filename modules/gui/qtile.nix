@@ -38,6 +38,8 @@ in
         libnotify # Notification handling library.
         dunst # Notification daemon.
         libinput-gestures # For touchpad gestures.
+        # libinput # Exposing for other system info.
+        # rot8 # Automatic display rotation helper.
 
       ]
       # TODO: Handle errors if these are missing.
@@ -50,6 +52,14 @@ in
         xcolor # For color picking.
 
       ];
+
+    # My convertible hp laptop has there messages when folding over and back:
+    # -event15 SWITCH_TOGGLE +4.283s	switch tablet-mode state 1
+    #  event15 SWITCH_TOGGLE +12.837s switch tablet-mode state 0
+
+    # Maybe add rot8 for automatic rotation?
+    # Needs a systemd service, and probably not supported by all laptops.
+    
 
     # Require fonts used.
     fonts.packages = [ pkgs.nerd-fonts.hack ];
@@ -114,7 +124,7 @@ in
         !(config.modules.gui.qtile && config.modules.gui.gnome)
       ) "Multiple desktop managers are not supported.";
       true;
-    
+
     # Select the Qtile package.
     services.xserver.windowManager.qtile.package = qtile-package;
 
