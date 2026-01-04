@@ -35,6 +35,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Fix:* Clean up Python scripts.
   - [ ] *Look Into:* Markdown table formatter for Neovim.
   - [ ] *Look Into:* Clean handling of missing utilities that are not present.
+  - [ ] *Fix:* Neovim custom spelling addition are not working.
+  - [ ] *Set Up:* Automatic display rotation for convertibles with `rot8`.
 
 **Documentation**
 
