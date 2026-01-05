@@ -40,6 +40,7 @@
       enable = true;
       login = true;
       sudo = true;
+      ssh = false;
     };
 
     # Seafile options.

@@ -105,6 +105,7 @@
         # Pass keys to ssh agent. This is needed for YubiKey.
         extraConfig = ''
           AddKeysToAgent yes
+          LogLevel ERROR
         '';
 
         # Define what keys to use

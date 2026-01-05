@@ -35,8 +35,9 @@
     # YubiKey options.
     yubikey = {
       enable = true;
-      login = true;
-      sudo = true;
+      login = false;
+      sudo = false;
+      ssh = false;
     };
 
     # Seafile options.
