@@ -80,6 +80,13 @@
             done
           }
 
+          # Reboot into windows.
+          # The boot loader entry ID is usually auto-window on NixOS,
+          # so no extra checks are needed there.
+          reboot-windows() {
+            systemctl reboot --boot-loader-entry=auto-windows --boot-loader-menu=1
+          }
+
         '';
 
       # Set the bash prompt depending on the user and environment.
