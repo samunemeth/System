@@ -20,7 +20,10 @@
   config = lib.mkIf config.modules.copyparty.enable {
 
     # Request secrets for Copyparty.
-    sops.secrets.copyparty-url = { };
+    sops.secrets.copyparty-url = {
+      owner = globals.user;
+      group = "users";
+    };
     sops.secrets.copyparty-user = { };
     sops.secrets.copyparty-pass = { };
 

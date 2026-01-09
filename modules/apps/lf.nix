@@ -18,6 +18,8 @@ let
 
       lf # Core.
 
+      jq # For URL encoding.
+      xclip # For copying to the clipboard.
       highlight # Text file highlighting.
       poppler-utils # Pdf to text conversion.
       exiftool # Getting metadata.

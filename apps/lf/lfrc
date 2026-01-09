@@ -14,10 +14,11 @@ map DD delete
 map a add
 map zz zip
 
-map gc cd ~/.config
-map gd cd ~/Documents
+map gh cd ~/
+map gd cd ~/Downloads
 map gn cd ~/Notes
 map gm cd /run/media/
+map gc cd /copyparty
 map gr cd /
 
 # Commands and Related Mappings
@@ -70,6 +71,18 @@ cmd open &{{
 }}
 
 cmd type %xdg-mime query filetype "$f"
+
+# Generate a URL if the file is inside the Copyparty cloned directory.
+cmd url %{{
+  if [[ $f == /copyparty* ]]; then
+    furl=$(jq -nr --arg p "${f#/copyparty}" '$p | split("/") | map(@uri) | join("/")')
+    burl=$(< /run/secrets/copyparty-url)
+    echo -n "$burl$furl" | xclip -selection clipboard &> /dev/null
+    echo "$burl$furl"
+  else
+    echo "Not available here."
+  fi
+}}
 
 cmd zip %{{
   printf "ZIP file name [NewZip.zip]: "
