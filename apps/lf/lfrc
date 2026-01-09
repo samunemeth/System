@@ -10,7 +10,6 @@ set info "size"
 
 map . set hidden!
 map <enter> open
-map <esc> quit
 map DD delete
 map a add
 map zz zip
