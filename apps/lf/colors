@@ -31,8 +31,11 @@ fi  00     # FILE
 *.mp3   01;35
 *.wav   01;35
 *.m4a   01;35
+*.m4b   01;35
 *.flac  01;35
 *.opus  01;35
 
 *.pdf   00;91
+*.epub  00;91
+# MOBI is not colored on purpose, as it can not be opened with Zathura.
 

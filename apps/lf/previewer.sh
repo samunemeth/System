@@ -25,10 +25,13 @@ case "$1" in
         exiftool -FileType -Duration -ImageSize -CompressorID -AudioFormat \
             -AvgBitrate "$1" ;;
 
-    *.mp3 | *.wav | *.m4a | *.flac | *.opus)
+    *.mp3 | *.wav | *.m4a | *.m4b | *.flac | *.opus)
         printf "\033[30;47;1mAUDIO\033[0m\n\n"
         exiftool -Artist -Title -Year -Album -Genre -Comment -Duration \
             -FileType -SampleRate -ChannelMode -AudioBitrate "$1" ;;
+
+    *.mobi | *.epub)
+        printf "\033[30;47;1mBOOK\033[0m\n\n" ;;
 
     *.zip)
         printf "\033[30;47;1mZIP\033[0m \033[0;3;4mOpen to Extract\033[0m\n\n"

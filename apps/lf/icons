@@ -66,8 +66,11 @@ fi             # FILE
 *.mp3               
 *.wav               
 *.m4a               
+*.m4b               
 *.flac              
 *.opus              
 
 *.pdf               
 
+*.epub              󰂺
+*.mobi              󰂺
