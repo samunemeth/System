@@ -41,7 +41,7 @@ let
       '';
 
       # Python distribution with needed packages.
-      calcpython = pkgs.python312.withPackages (p: [
+      calcpython = pkgs.python3.withPackages (p: [
         p.sympy
         p.ipython
       ]);
