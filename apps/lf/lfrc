@@ -76,10 +76,10 @@ cmd open &{{
     unzip "$f" -d "$todir"
     echo "Unzipped contents."
 
-  # PDF files are opened with Zathura. EPUB file can also be opened.
+  # PDF files are opened with Zathura. 
   # There is an extra check for LaTeX documents.
   # BUG: If there is no LaTeX support on the system you can open them.
-  elif [[ $filetype =~ ^application/(pdf|epub) ]] then
+  elif [[ $filetype == "application/pdf"* ]] then
     if [[ $f == *main.pdf ]] then
       alacritty -e $EDITOR "${f%*pdf}tex"
       echo "Opened LaTeX source with text editor."
@@ -105,6 +105,11 @@ cmd open &{{
       mpv "$f"
       printf "Opened media with Mpv."
     fi
+
+  # E-book formats are handled by Epy.
+  elif [[ $filetype =~ ^application/(epub|x-mobi) ]] then
+    alacritty -e epy "$f"
+    printf "Opened book with Epy."
 
   # Anything other than this just falls through to the default editor.
   else
