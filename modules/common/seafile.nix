@@ -43,6 +43,7 @@
     in
     {
 
+      # TODO: Do we need this here?
       environment.systemPackages = with pkgs; [
         seafile-shared
       ];
