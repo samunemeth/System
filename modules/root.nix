@@ -29,6 +29,7 @@
 
     # Applications
     ./apps/alacritty.nix
+    ./apps/epy.nix
     ./apps/firefox.nix
     ./apps/ipycalc.nix
     ./apps/lf.nix
