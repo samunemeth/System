@@ -40,7 +40,7 @@
       ssh = false;
     };
 
-    # Seafile options.
+    # File options.
     seafile = {
       enable = true;
       repos = {
@@ -48,6 +48,7 @@
         "734b3f5b-7bd0-49c2-a1df-65f1cbb201a4" = "Notes";
       };
     };
+    copyparty.enable = true;
 
     # GUIs to install and use.
     gui = {

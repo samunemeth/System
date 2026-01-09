@@ -15,6 +15,7 @@
     # General Modules
     ./common/bash.nix
     ./common/boot.nix
+    ./common/copyparty.nix
     ./common/git.nix
     ./common/locale.nix
     ./common/network.nix
