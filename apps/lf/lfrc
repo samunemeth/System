@@ -42,6 +42,13 @@ cmd path %{{
   echo "$f"
 }}
 
+# Get the size of the selected items.
+cmd size %{{
+  IFS=';' read -r -a files <<< "$fx"
+  [ ${#files[@]} -eq 0 ] && exit 0
+  du -shc -- "${files[@]}" | awk '/total/{print $1}'
+}}
+
 # A simple add menu. Inspired by nvim-tree.
 # If the input ends in a slash, a folder is created. Otherwise a file is
 # created. Nested paths are also cleanly handled.
