@@ -98,6 +98,7 @@
       ) [ ] (builtins.attrNames dirContents);
 
       # Function for generating code for multiple architectures.
+      # Used for packages not for system configurations.
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -149,75 +150,50 @@
           # A development shell with python packages needed for running actions,
           # and working with Qtile locally.
           qtile = pkgs.mkShell {
-            packages = with pkgs.python3Packages; [
-              qtile
-              cairocffi
+            packages = with pkgs; [
+              python3Packages.qtile
+              python3Packages.cairocffi
             ];
           };
 
           # A development shell for setting up a new system.
-          # Uses the configured apps that the system exposes, but there
-          # is also a generic option that uses stock packages.
-          setup =
-            let
+          setup = pkgs.mkShell {
+            packages = with pkgs; [
+              git
+              vim
+              lf
 
-              # Some packages that generally need to be there for setup.
-              setupPackagesBase = with pkgs; [
-                util-linux
-                cryptsetup
-                btrfs-progs
-                curl
-                git
-                vim
-              ];
+              # For faster finding.
+              ripgrep
+              fd
 
-            in
-            (builtins.mapAttrs (
-              host: _:
+              # For some system info.
+              lm_sensors
+              fastfetchMinimal
+              btop
+              nix-tree
 
-              pkgs.mkShell {
-                packages =
-                  let
-                    exposed = self.packages.${system}.${host};
-                  in
-                  setupPackagesBase
-                  ++ [
-                    exposed.lf # Navigating the file system.
-                  ];
-                EDITOR = "vim";
-                shellHook = ''
-                  echo "You are in a setup environment for ${host}."
-                '';
-              }
-
-            ) (utils.listToSimpleAttrs hosts))
-            // {
-              generic = pkgs.mkShell {
-                packages =
-                  with pkgs;
-                  setupPackagesBase
-                  ++ [
-                    lf
-                  ];
-                EDITOR = "vim";
-                shellHook = ''
-                  echo "You are in a generic setup environment."
-                '';
-              };
-            };
+              # All of the packages below should be there by default.
+              util-linux
+              cryptsetup
+              btrfs-progs
+              curl
+            ];
+          };
 
         }
       );
 
-      # Expose preconfigured applications from all hosts.
+      # Expose packages accessed with `nix build` on the flake.
       packages = forAllSystems (
         { ... }:
+
+        # Expose preconfigured applications from all hosts.
         (builtins.mapAttrs (_: v: v.config.modules.export-apps) self.nixosConfigurations)
+
+        # Expose the build command for the ISO image.
         // {
-
-          # Expose the build command for the ISO image.
           iso = (import ./iso/image.nix) { inherit nixpkgs utils; };
-
         }
       );
 

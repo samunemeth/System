@@ -147,11 +147,9 @@ partition on a pen drive without the need to erase the drive and burn the image.
     ```
   - *If* you are using the **official ISO**, get some packages for the
     installation by generating a dev shell from this flake.
-    You can get host specific app configuration if you are setting
-    up a system again, or use `generic` as the host name to get a simpler
-    environment. A message should confirm that you are in a dev shell.
+    A message should confirm that you are in a dev shell.
     ```
-    nix develop github:samunemeth/System#setup.<HOST>
+    nix develop github:samunemeth/System#setup
     ```
   - Check disk and partition names, mount points with the first, and file system
     information with the second command at any time during the installation:
