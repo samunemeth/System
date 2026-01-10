@@ -46,11 +46,11 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
   - [ ] *Look Into:* Impermanence. [More Info](https://grahamc.com/blog/erase-your-darlings/)
         *Maybe just on the root at first, not home?*
-  - [ ] *Look Into:* Creating a custom installation (and/or full system) ISO.
-  - [ ] *Set Up:* Exporting wrapped applications directly from the flake.
+  - [x] *Look Into:* Creating a custom installation (and/or full system) ISO.
+  - [x] *Set Up:* Exporting wrapped applications directly from the flake.
   - [ ] *Set Up:* A configuration for minimal installation.
   - [ ] *Set Up:* Gnome with declarative settings.
-  - [ ] *Set Up:* Dev shells for different parts of development.
+  - [x] *Set Up:* Dev shells for different parts of development.
 
 There are also small items marked with **TODO** inside comments. There are also
 **NOTE**, **WARN** and **BUG** labels used.
@@ -100,33 +100,54 @@ If there is no mark it means that that feature is not applicable.
 > the [NixOS wiki on Btrfs with encryption](https://nixos.wiki/wiki/Btrfs#Installation_with_encryption),
 > and [this helpful video](https://www.youtube.com/watch?v=lUB2rwDUm5A).
 
+For the installation it is recommended to use the ISO image generated from this
+configuration with:
+```
+nix build github:samunemeth/System#iso
+```
+An ISO image will be generated into`./result/iso/`. The size should be about
+~1.5GiB.
+
+Alternatively, you can also get the [official minimal ISO image](https://nixos.org/download/#minimal-iso-image).
+In this case you might need to install some packages during the setup process.
+
+I recommend using [Ventoy](https://www.ventoy.net/en/index.html) for booting
+either of the ISO images. It makes it so you only have to copy the ISO onto a
+partition on a pen drive without the need to erase the drive and burn the image.
+
 > [!WARNING]
-> There are missing steps in this guide at the moment, marked with "**MISSING STEPS**".
+> There are missing steps in this guide at the moment,
+> marked with "**MISSING STEPS**".
 
-
-  - Get an install media to boot, then switch to the root user with:
+  - Boot the installation media, then switch to the root user with:
     ```
     sudo -i
     ```
-  - *If* you don't have a wired connection, connect to a WiFi network with the
-    following commands:
-    ```
-    sudo systemctl start wpa_supplicant
-    wpa_cli
+  - *If* you only have a **wireless connection** do one of the following:
+    - *If* you are using the **custom ISO** image use network manager's tui:
+      ```
+      nmtui
+      ```
+    - *If* you are using the **official ISO** image,
+      connect to a WiFi network with the following commands:
+      ```
+      sudo systemctl start wpa_supplicant
+      wpa_cli
 
-    add_network
-    set_network 0 ssid "<SSID>"
-    set_network 0 psk "<PASSWORD>"
-    enable_network 0
+      add_network
+      set_network 0 ssid "<SSID>"
+      set_network 0 psk "<PASSWORD>"
+      enable_network 0
 
-    quit
-    ```
+      quit
+      ```
   - Do a network sanity check with `ping`:
     ```
     ping google.com
     ```
-  - Get some packages for the installation by generating a dev shell from this
-    flake. You can get host specific app configuration if you are setting
+  - *If* you are using the **official ISO**, get some packages for the
+    installation by generating a dev shell from this flake.
+    You can get host specific app configuration if you are setting
     up a system again, or use `generic` as the host name to get a simpler
     environment. A message should confirm that you are in a dev shell.
     ```
@@ -144,17 +165,18 @@ If there is no mark it means that that feature is not applicable.
     ```
     If asked, select `GPT` partition table.
     I recommend a boot partition between 512MiB and 1GiB, and a main partition
-    of at least 8GiB, but preferable at least 16GiB.
+    preferable at least 16GiB.
     (A swap partition can also be created, but it is not
     mentioned in the rest of this guide.)
-  - *If* you just created your boot partition, format it now:
+  - *If* you just **created a boot partition**, format it now:
     ```
     mkfs.fat -F 32 -n boot /dev/<BOOT-PART>
     ```
-    *If* you already have one on your disk, it should work just fine as long
-    as it **has enough space**. (Windows usually creates a really small boot
-    partition, and resizing it is not the easiest or safest thing to do, so I
-    recommend installing Linux before Windows for dual booting setups.)
+    *If* you already **have a boot partition** on your disk, it should work
+    just fine as long as it **has enough space**.
+    (Windows usually creates a really small boot partition, and resizing it is
+    not the easiest or safest thing to do, so I recommend installing Linux
+    before Windows for dual booting setups.)
   - Create a Luks encrypted Btrfs main partition:
     ```
     cryptsetup --verify-passphrase -v luksFormat /dev/<LINUX-PART>
@@ -187,8 +209,8 @@ If there is no mark it means that that feature is not applicable.
     cd System
     ```
     The following commands are all run from the working directory.
-  - *If* your creating a new host, it is most easily done by coping an existing
-    host's directory and adapting it:
+  - *If* you are creating a **new host**, it is most easily done by coping an
+    existing host's directory and adapting it:
     ```
     cp -r ~/System/hosts/<SOURCE-HOST> ~/System/hosts/<HOST>
     ```
@@ -218,11 +240,11 @@ If there is no mark it means that that feature is not applicable.
       ```
       In this case, the new keys need to be added to the `.sops.yaml` file,
       and the keys need to be updated. **MISSING STEPS**
-    - Copy some existing keys from an external drive. **MISSING STEPS**
-    - Make sure that the keys have the correct permissions:
-      ```
-      chmod 0400 /etc/ssh/ssh_host_*
-      ```
+    - Copy some **existing** keys from an external drive. **MISSING STEPS**
+  - Make sure that the keys have the correct permissions:
+    ```
+    chmod 0400 /etc/ssh/ssh_host_*
+    ```
   - As the changes are still not pushed to GitHub, you will need to move the
     current git repository to the new users home.
     Give the user ownership of the repository, and change remote URL:
@@ -242,13 +264,13 @@ If there is no mark it means that that feature is not applicable.
     ```
     reboot
     ```
-  - *If* the login screen does not work, you can switch to a virtual terminal by
-    pressing `ctrl+shift+f2`, logging in and disabling the mini greeter with the
-    following in your host's `configuration.nix`:
+  - *If* the **login screen does not work**, you can switch to a virtual
+    terminal by pressing `ctrl+alt+f2`, logging in and disabling the mini
+    greeter with the following in your host's `configuration.nix`:
     ```nix
     services.xserver.displayManager.lightdm.greeters.mini.enable = lib.mkForce false;
     ```
-  - *If* you have a fingerprint reader, enroll a fingerprint to your user:
+  - *If* you have a **fingerprint reader**, enroll a fingerprint to your user:
     ```
     sudo fprintd-enroll $USER
     ```
