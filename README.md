@@ -33,7 +33,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Set Up:* Installing to a virtual machine for testing.
         *This just needs to be cleanly merged.*
   - [ ] *Fix:* Clean up Python scripts.
-  - [ ] *Look Into:* Markdown table formatter for Neovim.
+  - [x] *Look Into:* Markdown table formatter for Neovim.
   - [ ] *Look Into:* Clean handling of missing utilities that are not present.
   - [x] *Fix:* Neovim custom spelling addition are not working.
   - [ ] *Set Up:* Automatic display rotation for convertibles with `rot8`.
