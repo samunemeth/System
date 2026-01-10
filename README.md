@@ -101,12 +101,12 @@ If there is no mark it means that that feature is not applicable.
 > and [this helpful video](https://www.youtube.com/watch?v=lUB2rwDUm5A).
 
 For the installation it is recommended to use the ISO image generated from this
-configuration with:
+configuration with using the command below.
+An ISO image will be generated into`./result/iso/`. The size should be about
+~1.5GiB.
 ```
 nix build github:samunemeth/System#iso
 ```
-An ISO image will be generated into`./result/iso/`. The size should be about
-~1.5GiB.
 
 Alternatively, you can also get the [official minimal ISO image](https://nixos.org/download/#minimal-iso-image).
 In this case you might need to install some packages during the setup process.
