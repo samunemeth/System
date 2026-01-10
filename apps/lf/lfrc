@@ -5,6 +5,7 @@ set hiddenfiles ".*:desktop.ini:main.out:main.log:main.aux:main.synctex.gz:/home
 set icons "true"
 set ignorecase "true"
 set info "size"
+set timefmt "2006-01-02 15:04:05"
 
 
 # --- Mappings ---
@@ -23,9 +24,6 @@ map gr cd /
 
 
 # --- Commands and Related Mappings ---
-
-# TODO: There are a bit too much uses of `printf`. I think most of them are not
-# > needed.
 
 # Get the current files file type.
 cmd type %xdg-mime query filetype "$f"
@@ -87,18 +85,11 @@ cmd open &{{
   # There is an extra check for LaTeX documents.
   # BUG: If there is no LaTeX support on the system you can open them.
   elif [[ $filetype == "application/pdf"* ]] then
-    if [[ $f == *main.pdf ]] then
-      alacritty -e $EDITOR "${f%*pdf}tex"
-      echo "Opened LaTeX source with text editor."
-    else 
-      zathura "$f" --fork -l error
-      echo "Opened pdf with Zathura."
-    fi
+    zathura "$f" --fork -l error
 
   # SVG images are not handled by Mpv.
   elif [[ $filetype == "image/svg"* ]] then
     $BROWSER --new-window "$f"
-    printf "Opened image with browser."
 
   # Basically any other multimedia is possible to open with Mpv.
   # If we can get a direct URL, use that rather than the extra abstraction.
@@ -107,21 +98,17 @@ cmd open &{{
       furl=$(jq -nr --arg p "${f#/copyparty}" '$p | split("/") | map(@uri) | join("/")')
       burl=$(< /run/secrets/copyparty-url)
       mpv "$burl$furl"
-      printf "Opened media with Mpv with the web URL."
     else
       mpv "$f"
-      printf "Opened media with Mpv."
     fi
 
   # E-book formats are handled by Epy.
   elif [[ $filetype =~ ^application/(epub|x-mobi) ]] then
     alacritty -e epy "$f"
-    printf "Opened book with Epy."
 
   # Anything other than this just falls through to the default editor.
   else
     alacritty -e $EDITOR "$f"
-    printf "Opened with text editor."
   fi
 }}
 
@@ -152,7 +139,7 @@ cmd zip %{{
     filelist="$filelist $relfile"
   done
   zip -r "$PWD/$name" $filelist
-  printf "Zipped selection."
+  echo "Zipped selection."
 }}
 
 # Initiate a recursive fuzzy find with fzf. There is some configuration
