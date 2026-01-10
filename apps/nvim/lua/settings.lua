@@ -25,8 +25,32 @@ vim.opt.termguicolors = true
 -- Scrolling
 vim.opt.scrolloff = 12
 
--- Spell configuration
+-- Spell Configuration
+
+vim.opt.spell = false
+
+local src_spellfile = vim.fs.joinpath(vim.fn.stdpath("config"), "spell", "en.utf-8.add")
+local usr_spelldir = vim.fs.joinpath(vim.fn.stdpath("state"), "spell")
+local usr_spellfile = vim.fs.joinpath(usr_spelldir, "en.utf-8.add")
+local spl_spellfile = usr_spellfile .. ".spl"
+
+local src_mtime = vim.fn.getftime(src_spellfile)
+local usr_mtime = vim.fn.getftime(usr_spellfile)
+local spl_mtime = vim.fn.getftime(spl_spellfile)
+
+vim.fn.mkdir(usr_spelldir, "p")
+
+if src_mtime > usr_mtime then
+	vim.fn.writefile(vim.fn.readfile(src_spellfile), usr_spellfile)
+	usr_mtime = vim.fn.getftime(usr_spellfile)
+end
+
+if usr_mtime > spl_mtime then
+	vim.cmd("silent! mkspell! " .. spl_spellfile .. " " .. usr_spellfile)
+end
+
 vim.opt.spell = true
+vim.opt.spellfile = usr_spellfile
 vim.opt.spelllang = { "en" }
 vim.opt.spellcapcheck = ""
 
@@ -81,7 +105,7 @@ vim.diagnostic.config({
 
 	virtual_text = {
 
-    -- Remove extra white space inside the messages.
+		-- Remove extra white space inside the messages.
 		format = function(d)
 			local msg = d.message:gsub("\r", ""):gsub("\n", " "):gsub("\t", " ")
 			msg = msg:gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")

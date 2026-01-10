@@ -35,7 +35,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Fix:* Clean up Python scripts.
   - [ ] *Look Into:* Markdown table formatter for Neovim.
   - [ ] *Look Into:* Clean handling of missing utilities that are not present.
-  - [ ] *Fix:* Neovim custom spelling addition are not working.
+  - [x] *Fix:* Neovim custom spelling addition are not working.
   - [ ] *Set Up:* Automatic display rotation for convertibles with `rot8`.
 
 **Documentation**
@@ -58,7 +58,7 @@ There are also small items marked with **TODO** inside comments. There are also
 # Qtile Keybindings
 
 The images below are generated from the Qtile configuration with
-[this script](actions/qtile-layout.py). There is a GutHub action set up that
+[this script](actions/qtile-layout.py). There is a GitHub action set up that
 regenerates the images if needed.
 
 ![Keybindings with Meta](/assets/qtile-layout/mod4.png)
