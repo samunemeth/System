@@ -30,12 +30,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] *Fix:* There is no transparency possible in Zathura.
   - [ ] Sometimes there is a significant slowdown after the machine is powered
         on for a long time and/or had been sleeping for a long/multiple times.
-  - [ ] *Set Up:* Installing to a virtual machine for testing.
-        *This just needs to be cleanly merged.*
   - [ ] *Fix:* Clean up Python scripts.
-  - [x] *Look Into:* Markdown table formatter for Neovim.
   - [ ] *Look Into:* Clean handling of missing utilities that are not present.
-  - [x] *Fix:* Neovim custom spelling addition are not working.
   - [ ] *Set Up:* Automatic display rotation for convertibles with `rot8`.
 
 **Documentation**
@@ -46,11 +42,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
   - [ ] *Look Into:* Impermanence. [More Info](https://grahamc.com/blog/erase-your-darlings/)
         *Maybe just on the root at first, not home?*
-  - [x] *Look Into:* Creating a custom installation (and/or full system) ISO.
-  - [x] *Set Up:* Exporting wrapped applications directly from the flake.
   - [ ] *Set Up:* A configuration for minimal installation.
   - [ ] *Set Up:* Gnome with declarative settings.
-  - [x] *Set Up:* Dev shells for different parts of development.
 
 There are also small items marked with **TODO** inside comments. There are also
 **NOTE**, **WARN** and **BUG** labels used.
