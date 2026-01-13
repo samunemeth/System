@@ -26,8 +26,7 @@
 
     # Local or personal repo for Qtile.
     qtile-flake = {
-      # url = "git+file:///home/samu/qtile?ref=new-prompt-cursor";
-      url = "github:samunemeth/qtile?ref=new-prompt-cursor";
+      url = "github:samunemeth/qtile?ref=unstable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
