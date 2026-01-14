@@ -69,14 +69,28 @@ let
 in
 {
 
-  environment.systemPackages = with pkgs; [
+  options.modules = {
+    apps.rofi = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      example = true;
+      description = ''
+        Enables the Rofi.
+      '';
+    };
+  };
 
-    wrapped-rofi # Simple command running interface with configuration.
-    wrapped-networkmanager-dmenu # Network manager plugin for Rofi with configuration.
+  config = lib.mkIf config.modules.apps.rofi {
 
-  ];
+    environment.systemPackages = [
 
-  # Require fonts used.
-  fonts.packages = [ pkgs.nerd-fonts.hack ];
+      wrapped-rofi # Simple command running interface with configuration.
+      wrapped-networkmanager-dmenu # Network manager plugin for Rofi with configuration.
+
+    ];
+
+    # Require fonts used.
+    fonts.packages = [ pkgs.nerd-fonts.hack ];
+  };
 
 }

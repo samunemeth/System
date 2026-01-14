@@ -71,6 +71,7 @@
       ipycalc = true;
       lf = true;
       mpv = true;
+      rofi = true;
       neovim = true;
       vscode = false;
     };
