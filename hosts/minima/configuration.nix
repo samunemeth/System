@@ -85,4 +85,22 @@
 
   };
 
+
+  services.fprintd.enable = lib.mkForce false;
+  services.keyd.enable = lib.mkForce false;
+  networking.networkmanager.enable = lib.mkForce false;
+  services.udisks2.enable = lib.mkForce false;
+
+  home-manager.users.${globals.user} =
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
+    {
+      services.udiskie.enable = lib.mkForce false;
+
+    };
+
 }
