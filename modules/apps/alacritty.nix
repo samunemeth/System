@@ -53,11 +53,12 @@
           # Configure a minimalistic GUI.
           window = {
             padding = {
-              x = 6;
-              y = 6;
+              x = 5;
+              y = 5;
             };
             decorations = "none";
             dynamic_title = true;
+            dynamic_padding = true;
           };
 
           # Set background to global setting.
