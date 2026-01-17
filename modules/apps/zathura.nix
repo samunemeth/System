@@ -24,28 +24,33 @@
         enable = true;
         package = (pkgs.zathura.override { plugins = with pkgs.zathuraPkgs; [ zathura_pdf_mupdf ]; });
 
-        options = {
+        options = with globals.colors; {
+
+          # Configure some colors.
+          "default-bg" = background.main;
+          "default-fg" = foreground.main;
+          "statusbar-bg" = background.soft;
+          "statusbar-fg" = foreground.main;
+          "inputbar-bg" = background.main;
+          "inputbar-fg" = foreground.main;
+          "notification-error-bg" = foreground.error;
 
           # Configure status bar
           "guioptions" = "s";
-          "statusbar-bg" = globals.colors.background.contrast;
-          "statusbar-fg" = globals.colors.foreground.main;
           "statusbar-basename" = "true";
-
-          # Configure notifications
-          "notification-bg" = globals.colors.foreground.soft;
-          "notification-fg" = globals.colors.background.contrast;
 
           # Configure window title
           "window-title-home-tilde" = "true";
 
           # Copy selection to system clipboard
           "selection-clipboard" = "clipboard";
+          "selection-notification" = "false";
 
+          # Configure recoloring.
           "recolor-keephue" = "true";
           "recolor-reverse-video" = "false";
-          "recolor-lightcolor" = globals.colors.background.main;
-          "recolor-darkcolor" = globals.colors.foreground.main;
+          "recolor-lightcolor" = background.contrast;
+          "recolor-darkcolor" = foreground.soft;
 
         };
 

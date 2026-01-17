@@ -54,6 +54,7 @@
           background = {
             main = "#14161B";
             contrast = "#0A0B0E";
+            soft = "#303030";
           };
           foreground = {
             main = "#F2F4F3";
