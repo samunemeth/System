@@ -59,7 +59,6 @@ in
 
     # Maybe add rot8 for automatic rotation?
     # Needs a systemd service, and probably not supported by all laptops.
-    
 
     # Require fonts used.
     fonts.packages = [ pkgs.nerd-fonts.hack ];
@@ -111,12 +110,12 @@ in
 
     };
 
-    # Compositor
-    services.picom = {
-      enable = true;
-      backend = "xrender";
-      vSync = true;
-    };
+    # compositor
+    # services.picom = {
+    #   enable = true;
+    #   backend = "glx";
+    #   vSync = true;
+    # };
 
     # Enable Qtile.
     services.xserver.windowManager.qtile.enable =
