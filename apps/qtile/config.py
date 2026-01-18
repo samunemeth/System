@@ -410,7 +410,7 @@ def get_seafile_status():
         return ""
 
 
-def get_next_calendar_event():
+def get_next_calendar_event(link_only=False):
 
     with open("/run/secrets/google-cal-id", "r", encoding="utf-8") as f:
         cal_id = f.read().strip()
@@ -439,6 +439,9 @@ def get_next_calendar_event():
     events = filter(lambda e: e["start"].get("date") is None, events)
     next_event = next(events, None)
 
+    if link_only:
+        return next_event["htmlLink"]
+
     time_format = "%H:%M"
 
     start_str = next_event["start"]["dateTime"]
@@ -450,10 +453,19 @@ def get_next_calendar_event():
 
     time = ("󰃭 " + start) if start_dt > time_now else ("󰃰 " + end)
 
-    title = next_event.get("summary", "")
+    title = next_event.get("summary", "(No Title)")
     location = next_event.get("location", "")
     
     return f"{time} - <i>{title}</i>" + (f" - {location}" if location else "")
+
+@lazy.function
+def calendar_clicked(qtile):
+    subprocess.Popen(["firefox", get_next_calendar_event(link_only=True)])
+
+    firefox_window = next(filter(lambda e: "Firefox" in e["name"], qtile.windows()))
+    firefox_group_name = firefox_window["group"]
+    firefox_group_object = next(filter(lambda e: e.info()["name"] == firefox_group_name, qtile.groups))
+    firefox_group_object.toscreen()
 
 # The default widget settings.
 widget_defaults = dict(
@@ -498,9 +510,14 @@ widgets = [
     add_sep(),
 
     widget.GenPollText(
+        name = "calendar",
         func = get_next_calendar_event,
         fmt = "{}",
         update_interval = 60,
+        mouse_callbacks = {
+            "Button1": calendar_clicked,
+        },
+        
     ),
     add_sep(),
 
