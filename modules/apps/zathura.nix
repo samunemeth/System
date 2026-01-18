@@ -35,14 +35,14 @@
           "inputbar-fg" = foreground.main;
           "notification-error-bg" = foreground.error;
 
-          # Configure status bar
+          # Configure status bar.
           "guioptions" = "s";
           "statusbar-basename" = "true";
 
-          # Configure window title
+          # Configure window title.
           "window-title-home-tilde" = "true";
 
-          # Copy selection to system clipboard
+          # Copy selection to system clipboard>
           "selection-clipboard" = "clipboard";
           "selection-notification" = "false";
 
@@ -51,6 +51,11 @@
           "recolor-reverse-video" = "false";
           "recolor-lightcolor" = background.contrast;
           "recolor-darkcolor" = foreground.soft;
+
+          # Space between pages.
+          "page-v-padding" = "5";
+          "page-h-padding" = "5";
+
 
         };
 
