@@ -69,6 +69,19 @@ in
       user = globals.user;
     };
 
+    # Request Google API key.
+    sops.secrets =
+      let
+        userOwned = {
+          owner = globals.user;
+          group = "users";
+        };
+      in
+      {
+        google-api-key = userOwned;
+        google-cal-id = userOwned;
+      };
+
     # Enable the X11 windowing system.
     services.xserver = {
 
@@ -111,11 +124,11 @@ in
     };
 
     # compositor
-    # services.picom = {
-    #   enable = true;
-    #   backend = "glx";
-    #   vSync = true;
-    # };
+    services.picom = {
+      enable = true;
+      backend = "glx";
+      vSync = true;
+    };
 
     # Enable Qtile.
     services.xserver.windowManager.qtile.enable =

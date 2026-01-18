@@ -8,6 +8,9 @@ import subprocess
 import importlib.util
 from libqtile.log_utils import logger
 from dataclasses import dataclass
+import urllib.request, urllib.parse
+import json
+import datetime
 
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Group, Key, Match, Screen, ScratchPad, DropDown
@@ -406,6 +409,52 @@ def get_seafile_status():
     except:
         return ""
 
+
+def get_next_calendar_event():
+
+    with open("/run/secrets/google-cal-id", "r", encoding="utf-8") as f:
+        cal_id = f.read().strip()
+        cal_id_enc = urllib.parse.quote(cal_id)
+
+    with open("/run/secrets/google-api-key", "r", encoding="utf-8") as f:
+        api_key = f.read().strip()
+
+    time_now = datetime.datetime.now(datetime.UTC)
+
+    params = {
+        "key": api_key,
+        "singleEvents": "true",
+        "orderBy": "startTime",
+        "timeMin": time_now.isoformat(),
+        "maxResults": "5",
+        "showDeleted": "false",
+    }
+    params_enc = urllib.parse.urlencode(params)
+    url = f"https://www.googleapis.com/calendar/v3/calendars/{cal_id_enc}/events?{params_enc}"
+
+    with urllib.request.urlopen(url) as resp:
+        data = json.load(resp)
+
+    events = data.get("items", [])
+    events = filter(lambda e: e["start"].get("date") is None, events)
+    next_event = next(events, None)
+
+    time_format = "%H:%M"
+
+    start_str = next_event["start"]["dateTime"]
+    start_dt = datetime.datetime.fromisoformat(start_str).astimezone()
+    start = start_dt.strftime(time_format)
+    end_str = next_event["end"]["dateTime"]
+    end_dt = datetime.datetime.fromisoformat(end_str).astimezone()
+    end = end_dt.strftime(time_format)
+
+    time = ("󰃭 " + start) if start_dt > time_now else ("󰃰 " + end)
+
+    title = next_event.get("summary", "")
+    location = next_event.get("location", "")
+    
+    return f"{time} - <i>{title}</i>" + (f" - {location}" if location else "")
+
 # The default widget settings.
 widget_defaults = dict(
     font = "Hack Nerd Font",
@@ -449,9 +498,15 @@ widgets = [
     add_sep(),
 
     widget.GenPollText(
+        func = get_next_calendar_event,
+        fmt = "{}",
+        update_interval = 60,
+    ),
+    add_sep(),
+
+    widget.GenPollText(
         func = get_seafile_status,
         fmt = "{}",
-        shell = True,
         update_interval = 3, # NOTE: I'm not sure how much resources this uses.
     ),
     widget.Prompt(
