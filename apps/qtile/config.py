@@ -98,7 +98,7 @@ except:
 
 mod = "mod4"
 terminal = guess_terminal()
-qtile_home_path = os.path.expanduser("~/.config/qtile")
+qtile_home_path = os.path.dirname(__file__)
 rofi_path = qtile_home_path + "/rofi"
 
 
@@ -109,7 +109,7 @@ rofi_path = qtile_home_path + "/rofi"
 def autostart():
 
     # Get the absolute path of the startup script.
-    script = os.path.expanduser("~/.config/qtile/autostart.sh")
+    script = os.path.expanduser(f"{qtile_home_path}/autostart.sh")
 
     # Get the coordinates of the center of the main screen.
     xc = str(screens[0].x + screens[0].width // 2)
@@ -585,7 +585,7 @@ widgets = [
         device_battery_format = " [{battery}%]",
         default_timeout = 20,
         mouse_callbacks = {
-            "Button1": lazy.spawn(f"{qtile_home_path}/rofi/rofi-bluetooth-contained"),
+            "Button1": lazy.spawn(f"{rofi_path}/rofi-bluetooth-contained"),
         },
     ),
 
