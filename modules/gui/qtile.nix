@@ -37,9 +37,6 @@ in
         hsetroot # For background setting.
         libnotify # Notification handling library.
         dunst # Notification daemon.
-        libinput-gestures # For touchpad gestures.
-        # libinput # Exposing for other system info.
-        # rot8 # Automatic display rotation helper.
 
       ]
       # TODO: Handle errors if these are missing.
@@ -53,21 +50,17 @@ in
 
       ];
 
-    # My convertible hp laptop has there messages when folding over and back:
-    # -event15 SWITCH_TOGGLE +4.283s	switch tablet-mode state 1
-    #  event15 SWITCH_TOGGLE +12.837s switch tablet-mode state 0
-
-    # Maybe add rot8 for automatic rotation?
-    # Needs a systemd service, and probably not supported by all laptops.
+    # NOTE: Some stuff relating to tablet mode on convertibles:
+    # > libinput # Exposing for other system info.
+    # > rot8 # Automatic display rotation helper.
+    # > My convertible hp laptop has there messages when folding over and back:
+    # > -event15 SWITCH_TOGGLE +4.283s	switch tablet-mode state 1
+    # >  event15 SWITCH_TOGGLE +12.837s switch tablet-mode state 0
+    # > Maybe add rot8 for automatic rotation?
+    # > Needs a systemd service, and probably not supported by all laptops.
 
     # Require fonts used.
     fonts.packages = [ pkgs.nerd-fonts.hack ];
-
-    # Set up auto login if required.
-    services.displayManager.autoLogin = {
-      enable = config.modules.boot.autoLogin;
-      user = globals.user;
-    };
 
     # Request Google API key.
     sops.secrets =
@@ -82,63 +75,64 @@ in
         google-cal-id = userOwned;
       };
 
-    # Enable the X11 windowing system.
-    services.xserver = {
-
-      enable = true;
-
-      # Set up lightdm if there is no auto login.
-      displayManager.lightdm =
-        if config.modules.boot.autoLogin then
-          {
-            enable = true;
-            greeter.enable = false;
-            autoLogin.timeout = 0;
-          }
-        else
-          {
-            enable = true;
-            greeters.mini = {
-              enable = true;
-              user = globals.user;
-              extraConfig = ''
-                [greeter]
-                show-password-label = false
-                password-alignment = center
-                show-input-cursor = false
-                [greeter-theme]
-                background-image = ""
-                background-color = "${globals.colors.background.main}"
-                window-color = "${globals.colors.foreground.main}"
-                border-width = 0px
-                layout-space = 4
-                password-color = "${globals.colors.foreground.main}"
-                password-background-color = "${globals.colors.background.main}"
-                password-border-radius = 0em
-                error-color = "${globals.colors.background.main}"
-                password-character = ■
-              '';
-            };
-          };
-
-    };
-
-    # compositor
-    services.picom = {
-      enable = true;
-      backend = "glx";
-      vSync = true;
-    };
+    # Select the Qtile package.
+    services.xserver.windowManager.qtile.package = qtile-package;
 
     # Enable Qtile.
+    services.xserver.enable = true;
     services.xserver.windowManager.qtile.enable =
       assert lib.assertMsg (
         !(config.modules.gui.qtile && config.modules.gui.gnome)
       ) "Multiple desktop managers are not supported.";
       true;
 
-    # Select the Qtile package.
-    services.xserver.windowManager.qtile.package = qtile-package;
+    # Enable the picom compositor.
+    # NOTE: does not do anything at the moment.
+    services.picom = {
+      enable = true;
+      backend = "glx";
+      vSync = true;
+    };
+
+    # Set up auto login if required.
+    services.displayManager.autoLogin = {
+      enable = config.modules.boot.autoLogin;
+      user = globals.user;
+    };
+
+    # Set up lightdm if there is no auto login.
+    services.xserver.displayManager.lightdm =
+      if config.modules.boot.autoLogin then
+        {
+          enable = true;
+          greeter.enable = false;
+          autoLogin.timeout = 0;
+        }
+      else
+        {
+          enable = true;
+          greeters.mini = {
+            enable = true;
+            user = globals.user;
+            extraConfig = ''
+              [greeter]
+              show-password-label = false
+              password-alignment = center
+              show-input-cursor = false
+              [greeter-theme]
+              background-image = ""
+              background-color = "${globals.colors.background.main}"
+              window-color = "${globals.colors.foreground.main}"
+              border-width = 0px
+              layout-space = 4
+              password-color = "${globals.colors.foreground.main}"
+              password-background-color = "${globals.colors.background.main}"
+              password-border-radius = 0em
+              error-color = "${globals.colors.background.main}"
+              password-character = ■
+            '';
+          };
+        };
 
     # Rules for no sudo password while changing monitor brightness.
     security.sudo.extraRules = lib.mkAfter [
@@ -152,6 +146,45 @@ in
         groups = [ "wheel" ];
       }
     ];
+
+    # Systemd service that sends a hook notification to Qtile after a network
+    # connection is established. Also send the message after sleeping.
+    systemd.services.qtile-network-notification = {
+
+      # Run after a network connection is available.
+      preStart = "${pkgs.host}/bin/host google.com";
+      wantedBy = [ "default.target" ];
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+
+      # Send a notification to Qtile that the network connection is established.
+      path = [ qtile-package ];
+      script = ''
+        qtile cmd-obj -o cmd -f fire_user_hook -a network_connected || true
+      '';
+
+      serviceConfig = {
+        Type = "oneshot";
+        User = globals.user;
+
+        # Restart if there is no network connection yet.
+        Restart = "on-failure";
+        RestartSec = "5sec";
+      };
+    };
+    systemd.services.seafile-daemon-restarter = {
+
+      # Run after resuming from suspend.
+      wantedBy = [ "suspend.target" ];
+      after = [ "suspend.target" ];
+
+      # Run a command to restart the other service.
+      path = [ pkgs.systemd ];
+      script = "systemctl --no-block start qtile-network-notification.service";
+
+      serviceConfig.Type = "simple";
+
+    };
 
     # Start the daemon to handle touchpad gestures.
     systemd.services.libinput-gestures =
@@ -176,18 +209,6 @@ in
 
     # --- Home Manager Part ---
     home-manager.users.${globals.user} =
-      let
-
-        qtileAvailableLayouts =
-          "["
-          + (builtins.foldl' (acc: elem: acc + "\"" + elem + "\",") "" config.modules.locale.keyboardLayouts)
-          + "]";
-        hasHibernation = config.modules.system.hibernation;
-        hasAutoLogin = config.modules.boot.autoLogin;
-
-        dgpuPath = "";
-
-      in
       {
         config,
         pkgs,
@@ -196,33 +217,10 @@ in
       }:
       {
 
-        # Link Qtile configuration into place.
-        home.file = {
-
-          # Main Qtile configuration files.
-          ".config/qtile" = {
-            source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/qtile";
-            recursive = true;
-          };
-
-          # More settings for Qtile in the form of a python file containing settings.
-          ".config/qtileparametric.py".text = ''
-
-            background_main = "${globals.colors.background.main}"
-            background_contrast = "${globals.colors.background.contrast}"
-            foreground_main = "${globals.colors.foreground.main}"
-            foreground_soft = "${globals.colors.foreground.soft}"
-            foreground_error = "${globals.colors.foreground.error}"
-
-            available_layouts = ${qtileAvailableLayouts}
-
-            has_hibernation = ${if hasHibernation then "True" else "False"}
-            has_auto_login = ${if hasAutoLogin then "True" else "False"}
-
-            dgpu_path = "${dgpuPath}"
-
-          '';
-
+        # Main Qtile configuration files.
+        home.file.".config/qtile" = {
+          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/qtile";
+          recursive = true;
         };
 
       };

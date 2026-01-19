@@ -49,6 +49,10 @@
     # Add nixpkgs to the nix path. This is needed for nixd.
     nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
+    # Write JSON files with the globals and module settings.
+    environment.etc."system-options/globals.json".text = builtins.toJSON globals;
+    environment.etc."system-options/modules.json".text = builtins.toJSON config.modules;
+
     # Set state versions.
     system.stateVersion = globals.stateVersion;
     home-manager.users.${globals.user}.home.stateVersion = globals.stateVersion;

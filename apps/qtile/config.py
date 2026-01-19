@@ -1,18 +1,16 @@
 # --- Imports ---
 
 import os
-import sys
 import re
 
 import subprocess
-import importlib.util
 from libqtile.log_utils import logger
 from dataclasses import dataclass
 import urllib.request, urllib.parse
 import json
 import datetime
 
-from libqtile import bar, layout, widget, hook
+from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Group, Key, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
@@ -20,29 +18,35 @@ from libqtile.utils import guess_terminal
 
 # --- Parametric Settings ---
 
-# Try to load parametric settings from a file if possible.
-# Load some defaults if the file does not exist.
+with open("/etc/system-options/globals.json", "r", encoding="utf-8") as f:
+    globals = json.load(f)
 
-try:
-    spec = importlib.util.spec_from_file_location(
-        "qtileparametric",
-        os.path.expanduser("~/.config/qtileparametric.py")
-    )
-    parametric = importlib.util.module_from_spec(spec)
-    sys.modules["parametric"] = parametric
-    spec.loader.exec_module(parametric)
-except:
-    @dataclass
-    class parametric:
-       background_main = "#222222"
-       background_contrast = "#000000"
-       foreground_main = "#FFFFFF"
-       foreground_soft = "#DDDDDD"
-       foreground_error = "#FF2222"
-       available_layouts = "US"
-       has_hibernation = True
-       has_auto_login = False
-       dgpu_path = ""
+with open("/etc/system-options/modules.json", "r", encoding="utf-8") as f:
+    modules = json.load(f)
+
+@dataclass
+class parametric:
+    background_main = globals["colors"]["background"]["main"]
+    background_contrast = globals["colors"]["background"]["contrast"]
+    foreground_main = globals["colors"]["foreground"]["main"]
+    foreground_soft = globals["colors"]["foreground"]["soft"]
+    foreground_error = globals["colors"]["foreground"]["error"]
+    available_layouts = modules["locale"]["keyboardLayouts"]
+    has_hibernation = modules["system"]["hibernation"]
+    has_auto_login = modules["boot"]["autoLogin"]
+    dgpu_path = ""
+
+
+# --- Secrets ---
+
+# Load in secrets from sops. The paths are constant here, assuming that the
+# secrets name is not changed in sops this should be fine.
+
+with open("/run/secrets/google-cal-id", "r", encoding="utf-8") as f:
+    GOOGLE_CAL_ID = f.read().strip()
+
+with open("/run/secrets/google-api-key", "r", encoding="utf-8") as f:
+    GOOGLE_API_KEY = f.read().strip()
 
 
 # --- Guess Network Adapter Names ---
@@ -52,15 +56,8 @@ try:
 except:
     network_interfaces = []
 
-try:
-    wired_interface = next(filter(lambda e: e.startswith("e"), network_interfaces))
-except:
-    wired_interface = "eth0"
-
-try:
-    wireless_interface = next(filter(lambda e: e.startswith("w"), network_interfaces))
-except:
-    wireless_interface = "wlo1"
+wired_interface = next(filter(lambda e: e.startswith("e"), network_interfaces), "eth0")
+wireless_interface = next(filter(lambda e: e.startswith("w"), network_interfaces), "wlo1")
 
 
 # --- Guess Backlight Name ---
@@ -105,8 +102,9 @@ qtile_home_path = os.path.expanduser("~/.config/qtile")
 rofi_path = qtile_home_path + "/rofi"
 
 
-# --- Startup Script ---
+# --- Hooks ---
 
+# Run a startup script.
 @hook.subscribe.startup
 def autostart():
 
@@ -119,6 +117,13 @@ def autostart():
 
     # Run the startup script with the parameters.
     subprocess.Popen([script, parametric.background_main, xc, yc])
+
+# Update some widgets on network connection.
+@hook.subscribe.user("network_connected")
+def hooked_function():
+
+    # Update the calendar widget.
+    qtile.widgets_map["calendar"].force_update()
 
 
 # --- Keyboard Shortcuts ---
@@ -153,7 +158,6 @@ def power_action(cmd):
 
 @lazy.function
 def power_prompt(qtile):
-    qtile.widgets_map["response"].update("")
     qtile.widgets_map["prompt"].start_input("[power]:", power_action)
 
 keys = [
@@ -412,17 +416,11 @@ def get_seafile_status():
 
 def get_next_calendar_event(link_only=False):
 
-    with open("/run/secrets/google-cal-id", "r", encoding="utf-8") as f:
-        cal_id = f.read().strip()
-        cal_id_enc = urllib.parse.quote(cal_id)
-
-    with open("/run/secrets/google-api-key", "r", encoding="utf-8") as f:
-        api_key = f.read().strip()
-
+    cal_id_enc = urllib.parse.quote(GOOGLE_CAL_ID)
     time_now = datetime.datetime.now(datetime.UTC)
 
     params = {
-        "key": api_key,
+        "key": GOOGLE_API_KEY,
         "singleEvents": "true",
         "orderBy": "startTime",
         "timeMin": time_now.isoformat(),
@@ -432,8 +430,15 @@ def get_next_calendar_event(link_only=False):
     params_enc = urllib.parse.urlencode(params)
     url = f"https://www.googleapis.com/calendar/v3/calendars/{cal_id_enc}/events?{params_enc}"
 
-    with urllib.request.urlopen(url) as resp:
-        data = json.load(resp)
+    try:
+        with urllib.request.urlopen(url) as resp:
+            data = json.load(resp)
+    except:
+        
+        # Return some defaults if there is no connection.
+        if link_only:
+            return "about:blank"
+        return "<i>(No Connection)</i>"
 
     events = data.get("items", [])
     events = filter(lambda e: e["start"].get("date") is None, events)
@@ -443,14 +448,12 @@ def get_next_calendar_event(link_only=False):
         return next_event["htmlLink"]
 
     time_format = "%H:%M"
-
     start_str = next_event["start"]["dateTime"]
     start_dt = datetime.datetime.fromisoformat(start_str).astimezone()
     start = start_dt.strftime(time_format)
     end_str = next_event["end"]["dateTime"]
     end_dt = datetime.datetime.fromisoformat(end_str).astimezone()
     end = end_dt.strftime(time_format)
-
     time = ("󰃭 " + start) if start_dt > time_now else ("󰃰 " + end)
 
     title = next_event.get("summary", "(No Title)")
