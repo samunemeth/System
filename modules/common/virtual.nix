@@ -70,23 +70,21 @@
     # Remove Firefox to improve performance.
     modules.apps.firefox = lib.mkForce false;
 
+    # Picom can mess thing up inside, just disable it.
+    services.picom.enable = lib.mkForce false;
+
     # Indicate to some software that we are inside a VM.
     environment.sessionVariables.IS_VM = "1";
+
+    # This just saves space and requirements.
+    boot.loader.systemd-boot.enable = lib.mkForce false;
+    boot.loader.grub.enable = lib.mkForce false;
 
     # --- Testing Configuration ---
     # This is where you can put configuration settings that you want to test
     # in the VM without messing with your whole machine.
 
-    boot.loader.systemd-boot.enable = lib.mkForce false;
-    boot.loader.grub.enable = lib.mkForce false;
-
-    environment.systemPackages = [ pkgs.nix-tree ];
-
-    programs.git.config.safe.directory = "/home/${globals.user}/qtile";
-    virtualisation.sharedDirectories.qtile-repo = {
-      source = "/home/${globals.user}/qtile";
-      target = "/home/${globals.user}/qtile";
-    };
+    # environment.systemPackages = [ pkgs.nix-tree ];
 
   };
 
