@@ -535,6 +535,8 @@ widgets = [
     ),
     add_sep(),
 
+] if not parametric.is_vm and len(parametric.available_layouts) > 1 else []) + ([
+
     widget.GenPollText(
         name = "calendar",
         func = get_next_calendar_event,
