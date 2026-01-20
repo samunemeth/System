@@ -16,25 +16,36 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 
+# --- Logging ---
+
+qtile.info()
+logger.info("--- STARTING ---")
+
+
 # --- Parametric Settings ---
 
 with open("/etc/system-options/globals.json", "r", encoding="utf-8") as f:
-    globals = json.load(f)
+    globals_ = json.load(f)
 
 with open("/etc/system-options/modules.json", "r", encoding="utf-8") as f:
-    modules = json.load(f)
+    modules_ = json.load(f)
+
+is_vm_ = bool(os.getenv("IS_VM"))
+if is_vm_:
+    logger.warning("Running inside virtual machine! Some widgets disabled.")
 
 @dataclass
 class parametric:
-    background_main = globals["colors"]["background"]["main"]
-    background_contrast = globals["colors"]["background"]["contrast"]
-    foreground_main = globals["colors"]["foreground"]["main"]
-    foreground_soft = globals["colors"]["foreground"]["soft"]
-    foreground_error = globals["colors"]["foreground"]["error"]
-    available_layouts = modules["locale"]["keyboardLayouts"]
-    has_hibernation = modules["system"]["hibernation"]
-    has_auto_login = modules["boot"]["autoLogin"]
-    dgpu_path = ""
+    background_main = globals_["colors"]["background"]["main"]
+    background_contrast = globals_["colors"]["background"]["contrast"]
+    foreground_main = globals_["colors"]["foreground"]["main"]
+    foreground_soft = globals_["colors"]["foreground"]["soft"]
+    foreground_error = globals_["colors"]["foreground"]["error"]
+    available_layouts = modules_["locale"]["keyboardLayouts"]
+    has_hibernation = modules_["system"]["hibernation"]
+    has_auto_login = modules_["boot"]["autoLogin"]
+    dgpu_path = "" # Placeholder for now.
+    is_vm = is_vm_
 
 
 # --- Secrets ---
@@ -42,12 +53,21 @@ class parametric:
 # Load in secrets from sops. The paths are constant here, assuming that the
 # secrets name is not changed in sops this should be fine.
 
-with open("/run/secrets/google-cal-id", "r", encoding="utf-8") as f:
-    GOOGLE_CAL_ID = f.read().strip()
+try:
+    with open("/run/secrets/google-cal-id", "r", encoding="utf-8") as f:
+        GOOGLE_CAL_ID = f.read().strip()
+    with open("/run/secrets/google-api-key", "r", encoding="utf-8") as f:
+        GOOGLE_API_KEY = f.read().strip()
+except:
+    GOOGLE_API_KEY = ""
+    GOOGLE_CAL_ID = ""
 
-with open("/run/secrets/google-api-key", "r", encoding="utf-8") as f:
-    GOOGLE_API_KEY = f.read().strip()
 
+# --- Configuration Location ---
+
+qtile_home_path = os.path.realpath(os.path.dirname(qtile.config.file_path))
+rofi_path = qtile_home_path + "/rofi"
+logger.info(f"Running with config path: {qtile_home_path}")
 
 # --- Guess Network Adapter Names ---
 
@@ -56,8 +76,8 @@ try:
 except:
     network_interfaces = []
 
-wired_interface = next(filter(lambda e: e.startswith("e"), network_interfaces), "eth0")
-wireless_interface = next(filter(lambda e: e.startswith("w"), network_interfaces), "wlo1")
+wired_interface = next(filter(lambda e: e.startswith("e"), network_interfaces), "")
+wireless_interface = next(filter(lambda e: e.startswith("w"), network_interfaces), "")
 
 
 # --- Guess Backlight Name ---
@@ -98,8 +118,6 @@ except:
 
 mod = "mod4"
 terminal = guess_terminal()
-qtile_home_path = os.path.dirname(__file__)
-rofi_path = qtile_home_path + "/rofi"
 
 
 # --- Hooks ---
@@ -141,7 +159,7 @@ dunstify -u low "Copied hex code to clipboard."
 
 def power_action(cmd):
 
-    action = ""
+    action = []
     if cmd.startswith(("su", "sl")):
         action = ["suspend"]
     elif cmd.startswith("hi"):
@@ -223,9 +241,6 @@ keys = [
 
     # Keyboard layout switching.
     Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard(), desc="Keyboard Layout"),
-
-    # Reload configuration.
-    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload Config"),
 
     # Screenshot.
     Key([mod, "shift"], "s", lazy.spawn(screenshot_script, shell=True), desc="Screenshot"),
@@ -416,6 +431,12 @@ def get_seafile_status():
 
 def get_next_calendar_event(link_only=False):
 
+    # Return some defaults if there is no API key.
+    if not GOOGLE_API_KEY or not GOOGLE_CAL_ID:
+        if link_only:
+            return "about:blank"
+        return "<i>(No API Key)</i>"
+
     cal_id_enc = urllib.parse.quote(GOOGLE_CAL_ID)
     time_now = datetime.datetime.now(datetime.UTC)
 
@@ -501,6 +522,8 @@ widgets = [
     ),
     add_sep(),
 
+] + ([
+
     widget.KeyboardLayout(
         configured_keyboards = parametric.available_layouts,
         display_map = {
@@ -529,6 +552,9 @@ widgets = [
         fmt = "{}",
         update_interval = 3, # NOTE: I'm not sure how much resources this uses.
     ),
+
+] if not parametric.is_vm else []) + [
+
     widget.Prompt(
         prompt = "{prompt} ",
         record_history = False,
@@ -538,10 +564,13 @@ widgets = [
         cursorblink = .5,
         padding = 7,
     ),
-    widget.TextBox(
-        name = "response",
-        padding = 7,
-    ),
+
+    # --------------------------
+
+    # widget.TextBox(
+    #     name = "response",
+    #     padding = 7,
+    # ),
 
     # --------------------------
 
@@ -571,7 +600,7 @@ widgets = [
     ),
     widget.Spacer(length=4),
 
-] if not parametric.dgpu_path == "" else []) + [
+] if not parametric.dgpu_path == "" else []) + ([
 
     add_sep(),
     widget.Bluetooth(
@@ -616,7 +645,7 @@ widgets = [
         },
     ),
 
-] + ([
+] if not parametric.is_vm else []) + ([
 
     add_sep(),
     widget.Backlight(
@@ -630,7 +659,7 @@ widgets = [
         backlight_name = backlight_name,
     ),
 
-] if backlight_name else []) + [
+] if backlight_name else []) + ([
 
     add_sep(),
     widget.ThermalSensor(
@@ -641,7 +670,7 @@ widgets = [
         },
     ),
 
-] + ([
+] if processor_temperature_name else []) + ([
 
     add_sep(),
     widget.Battery(

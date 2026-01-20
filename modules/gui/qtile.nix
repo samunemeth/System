@@ -9,7 +9,35 @@
   ...
 }:
 let
+
   qtile-package = inputs.qtile-flake.packages.${globals.system}.default;
+
+  qtile-home = pkgs.stdenv.mkDerivation {
+    name = "qtile-home";
+    src = ../../apps/qtile;
+    installPhase = ''
+      # Make the auto start script executable.
+      chmod +x ./autostart.sh
+      # Copy contents to output.
+      mkdir -p $out/qtile
+      cp -r * $out/qtile/
+    '';
+  };
+
+  qtile-session-x11 = pkgs.writeTextFile {
+    name = "qtile-custom-session";
+    destination = "/share/xsessions/qtile.desktop";
+    passthru.providedSessions = [ "qtile" ];
+    text = ''
+      [Desktop Entry]
+      Name=Qtile
+      Comment=Custom Qtile Session
+      Exec=${qtile-package}/bin/qtile start -c ${qtile-home}/qtile/config.py
+      Type=Application
+      Keywords=wm;tiling
+    '';
+  };
+
 in
 {
 
@@ -52,7 +80,6 @@ in
 
     # NOTE: Some stuff relating to tablet mode on convertibles:
     # > libinput # Exposing for other system info.
-    # > rot8 # Automatic display rotation helper.
     # > My convertible hp laptop has there messages when folding over and back:
     # > -event15 SWITCH_TOGGLE +4.283s	switch tablet-mode state 1
     # >  event15 SWITCH_TOGGLE +12.837s switch tablet-mode state 0
@@ -75,16 +102,13 @@ in
         google-cal-id = userOwned;
       };
 
-    # Select the Qtile package.
-    services.xserver.windowManager.qtile.package = qtile-package;
-
     # Enable Qtile.
     services.xserver.enable = true;
-    services.xserver.windowManager.qtile.enable =
+    services.displayManager.sessionPackages =
       assert lib.assertMsg (
         !(config.modules.gui.qtile && config.modules.gui.gnome)
       ) "Multiple desktop managers are not supported.";
-      true;
+      [ qtile-session-x11 ];
 
     # Enable the picom compositor.
     # NOTE: does not do anything at the moment.
@@ -205,24 +229,6 @@ in
           Restart = "always";
           ExecStart = "${pkgs.libinput-gestures}/bin/libinput-gestures -c ${libinput-config-file}";
         };
-      };
-
-    # --- Home Manager Part ---
-    home-manager.users.${globals.user} =
-      {
-        config,
-        pkgs,
-        lib,
-        ...
-      }:
-      {
-
-        # Main Qtile configuration files.
-        home.file.".config/qtile" = {
-          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/System/apps/qtile";
-          recursive = true;
-        };
-
       };
 
   };
