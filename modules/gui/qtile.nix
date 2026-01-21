@@ -11,6 +11,7 @@
 let
 
   qtile-package = inputs.qtile-flake.packages.${globals.system}.default;
+  qtile-log-level = "INFO";
 
   qtile-home = pkgs.stdenv.mkDerivation {
     name = "qtile-home";
@@ -32,7 +33,7 @@ let
       [Desktop Entry]
       Name=Qtile
       Comment=Custom Qtile Session
-      Exec=${qtile-package}/bin/qtile start -c ${qtile-home}/qtile/config.py
+      Exec=${qtile-package}/bin/qtile start -l ${qtile-log-level} -c ${qtile-home}/qtile/config.py
       Type=Application
       Keywords=wm;tiling
     '';

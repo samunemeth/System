@@ -18,7 +18,6 @@ from libqtile.utils import guess_terminal
 
 # --- Logging ---
 
-qtile.info()
 logger.info("--- STARTING ---")
 
 
