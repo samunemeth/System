@@ -680,10 +680,12 @@ widgets = [
         charge_char = "",
         discharge_char = "",
         full_char = "=",
+        empty_char = "x",
         not_charging_char = "-",
         update_interval = 3,
         low_percentage = 0.2,
         low_foreground = parametric.foreground_error,
+        show_short_text = False,
     ),
 
 ] if has_battery else []) + [
