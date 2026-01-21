@@ -56,6 +56,6 @@ jobs:
           fi
 
           # Commit and push changes.
-          git commit -m "generated qtile-layout images"
+          git commit -m "qtile layout: automatically regenerated images"
           git push
 
