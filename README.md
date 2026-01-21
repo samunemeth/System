@@ -18,6 +18,17 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 # ToDo
 
+**Wrappers**
+
+The goal is to remove everything related to *home-manager*.
+
+  - [ ] Fix the linking of ssh keys and other secrets.
+  - [ ] Wrap Zathura.
+  - [ ] Wrap Alacritty.
+  - [ ] Move Firefox into system configuration.
+  - [ ] Move LaTeX outlines to somewhere else.
+  - [ ] Figure out what to do with user ssh configuration.
+
 **General**
 
   - [ ] *Set Up:* Make all apps use wrappers. [More Info](https://www.youtube.com/watch?v=Zzvn9uYjQJY)
