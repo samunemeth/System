@@ -23,28 +23,49 @@ logger.info("--- STARTING ---")
 
 # --- Parametric Settings ---
 
-with open("/etc/system-options/globals.json", "r", encoding="utf-8") as f:
-    globals_ = json.load(f)
+def get_parametric():
+    with open("/etc/system-options/globals.json", "r", encoding="utf-8") as f:
+        globals_ = json.load(f)
+    with open("/etc/system-options/modules.json", "r", encoding="utf-8") as f:
+        modules_ = json.load(f)
+    is_vm_ = bool(os.getenv("IS_VM"))
+    
+    @dataclass
+    class parametric_:
+        background_main = globals_["colors"]["background"]["main"]
+        background_contrast = globals_["colors"]["background"]["contrast"]
+        foreground_main = globals_["colors"]["foreground"]["main"]
+        foreground_soft = globals_["colors"]["foreground"]["soft"]
+        foreground_error = globals_["colors"]["foreground"]["error"]
+        available_layouts = modules_["locale"]["keyboardLayouts"]
+        has_hibernation = modules_["system"]["hibernation"]
+        has_auto_login = modules_["boot"]["autoLogin"]
+        dgpu_path = "" # Placeholder for now.
+        is_vm = is_vm_
+    return parametric_
 
-with open("/etc/system-options/modules.json", "r", encoding="utf-8") as f:
-    modules_ = json.load(f)
+def get_dummy_parametric():
+    @dataclass
+    class parametric_:
+        background_main = "#222222"
+        background_contrast = "#000000"
+        foreground_main = "#FFFFFF"
+        foreground_soft = "#DDDDDD"
+        foreground_error = "#FF0000"
+        available_layouts = "us"
+        has_hibernation = True
+        has_auto_login = False
+        dgpu_path = ""
+        is_vm = True # Assume that we are in a VM of sorts.
+    return parametric_
 
-is_vm_ = bool(os.getenv("IS_VM"))
-if is_vm_:
+try:
+    parametric = get_parametric()
+except:
+    parametric = get_dummy_parametric()
+
+if parametric.is_vm:
     logger.warning("Running inside virtual machine! Some widgets disabled.")
-
-@dataclass
-class parametric:
-    background_main = globals_["colors"]["background"]["main"]
-    background_contrast = globals_["colors"]["background"]["contrast"]
-    foreground_main = globals_["colors"]["foreground"]["main"]
-    foreground_soft = globals_["colors"]["foreground"]["soft"]
-    foreground_error = globals_["colors"]["foreground"]["error"]
-    available_layouts = modules_["locale"]["keyboardLayouts"]
-    has_hibernation = modules_["system"]["hibernation"]
-    has_auto_login = modules_["boot"]["autoLogin"]
-    dgpu_path = "" # Placeholder for now.
-    is_vm = is_vm_
 
 
 # --- Secrets ---
@@ -57,14 +78,17 @@ try:
         GOOGLE_CAL_ID = f.read().strip()
     with open("/run/secrets/google-api-key", "r", encoding="utf-8") as f:
         GOOGLE_API_KEY = f.read().strip()
-except:
+except FileNotFoundError:
     GOOGLE_API_KEY = ""
     GOOGLE_CAL_ID = ""
 
 
 # --- Configuration Location ---
 
-qtile_home_path = os.path.realpath(os.path.dirname(qtile.config.file_path))
+try:
+    qtile_home_path = os.path.realpath(os.path.dirname(qtile.config.file_path))
+except AttributeError:
+    qtile_home_path = os.path.expanduser("~/.config/qtile")
 rofi_path = qtile_home_path + "/rofi"
 logger.info(f"Running with config path: {qtile_home_path}")
 
