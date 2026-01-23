@@ -63,7 +63,9 @@
         };
 
         # Add back borers to alacrity.
-        programs.alacritty.settings.window.decorations = lib.mkForce "full";
+        # WARN: Alacritty is now wrapped. This would need to be included in
+        # > the configuration file for Alacritty.
+        # programs.alacritty.settings.window.decorations = lib.mkForce "full";
 
       };
   };

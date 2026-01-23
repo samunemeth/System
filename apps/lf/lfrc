@@ -104,11 +104,11 @@ cmd open &{{
 
   # E-book formats are handled by Epy.
   elif [[ $filetype =~ ^application/(epub|x-mobi) ]] then
-    alacritty -e epy "$f"
+    $TERMINAL -e epy "$f"
 
   # Anything other than this just falls through to the default editor.
   else
-    alacritty -e $EDITOR "$f"
+    $TERMINAL -e $EDITOR "$f"
   fi
 }}
 

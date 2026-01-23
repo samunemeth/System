@@ -110,6 +110,7 @@ in
 {
 
   # TODO: Add option.
+  # TODO: Include an environment variable for default pdf reader.
   environment.systemPackages = [ wrapped-zathura ];
 
 }
