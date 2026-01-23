@@ -7,76 +7,109 @@
   globals,
   ...
 }:
+let
+
+  # Plugins to add to Zathura.
+  zathura-plugins = with pkgs.zathuraPkgs; [
+    zathura_pdf_mupdf
+  ];
+  zathura-package = (pkgs.zathura.override { plugins = zathura-plugins; });
+
+  # Settings for Zathura.
+  zathura-options = with globals.colors; {
+
+    # Configure some colors.
+    default-bg = background.main;
+    default-fg = foreground.main;
+    statusbar-bg = background.soft;
+    statusbar-fg = foreground.main;
+    inputbar-bg = background.main;
+    inputbar-fg = foreground.main;
+    notification-error-bg = foreground.error;
+
+    # Configure status bar.
+    guioptions = "s";
+    statusbar-basename = true;
+
+    # Configure window title.
+    window-title-home-tilde = true;
+
+    # Copy selection to system clipboard>
+    selection-clipboard = "clipboard";
+    selection-notification = false;
+
+    # Configure recoloring.
+    recolor-keephue = true;
+    recolor-reverse-video = false;
+    recolor-lightcolor = background.contrast;
+    recolor-darkcolor = foreground.soft;
+
+    # Space between pages.
+    page-v-padding = 5;
+    page-h-padding = 5;
+
+  };
+
+  # Mappings for Zathura.
+  # NOTE: This remaps keys to other keys, not functions.
+  zathura-mappings = {
+
+    # Aligns the page for navigations
+    "zz" = "<S-P>";
+
+    # Maps navigations keys for smooth scrolling
+    "j" = "<C-Down>";
+    "k" = "<C-Up>";
+    "h" = "<C-Left>";
+    "l" = "<C-Right>";
+
+    # Better page navigation
+    "<Space>" = "<PageDown>";
+    "<S-Space>" = "<PageUp>";
+
+  };
+
+  # Functions for converting the configuration.
+  formatMapLine = n: v: ''map ${n} feedkeys "${builtins.toString v}"'';
+  formatSetLine =
+    n: v:
+    let
+      formatValue = v: if lib.isBool v then (if v then "true" else "false") else builtins.toString v;
+    in
+    ''set ${n} "${formatValue v}"'';
+
+  # Format the configuration file.
+  zathura-config-text =
+    lib.concatStringsSep "\n" (
+      lib.mapAttrsToList formatSetLine zathura-options
+      ++ lib.mapAttrsToList formatMapLine zathura-mappings
+    )
+    + "\n";
+
+  # Put the configuration text in a file. The more complex writer is needed as
+  # Zathura expects a configuration directory, not a file.
+  zathura-home = pkgs.writeTextFile {
+    name = "zathura-home";
+    destination = "/zathurarc";
+    text = zathura-config-text;
+  };
+
+  wrapped-zathura = pkgs.symlinkJoin {
+    name = "wrapped-zathura";
+    buildInputs = [ pkgs.makeWrapper ];
+    paths = [ zathura-package ];
+    postBuild = ''
+      wrapProgram $out/bin/zathura \
+        --add-flags "\
+          --config-dir=${zathura-home} \
+        "
+    '';
+  };
+
+in
 {
 
-  # --- Home Manager Part ---
-  home-manager.users.${globals.user} =
-    {
-      config,
-      pkgs,
-      lib,
-      ...
-    }:
-    {
+  # TODO: Add option.
+  environment.systemPackages = [ wrapped-zathura ];
 
-      programs.zathura = {
-
-        enable = true;
-        package = (pkgs.zathura.override { plugins = with pkgs.zathuraPkgs; [ zathura_pdf_mupdf ]; });
-
-        options = with globals.colors; {
-
-          # Configure some colors.
-          "default-bg" = background.main;
-          "default-fg" = foreground.main;
-          "statusbar-bg" = background.soft;
-          "statusbar-fg" = foreground.main;
-          "inputbar-bg" = background.main;
-          "inputbar-fg" = foreground.main;
-          "notification-error-bg" = foreground.error;
-
-          # Configure status bar.
-          "guioptions" = "s";
-          "statusbar-basename" = "true";
-
-          # Configure window title.
-          "window-title-home-tilde" = "true";
-
-          # Copy selection to system clipboard>
-          "selection-clipboard" = "clipboard";
-          "selection-notification" = "false";
-
-          # Configure recoloring.
-          "recolor-keephue" = "true";
-          "recolor-reverse-video" = "false";
-          "recolor-lightcolor" = background.contrast;
-          "recolor-darkcolor" = foreground.soft;
-
-          # Space between pages.
-          "page-v-padding" = "5";
-          "page-h-padding" = "5";
-
-
-        };
-
-        mappings = {
-
-          # Aligns the page for navigations
-          "zz" = "feedkeys \"<S-P>\"";
-
-          # Maps navigations keys for smooth scrolling
-          "j" = "feedkeys \"<C-Down>\"";
-          "k" = "feedkeys \"<C-Up>\"";
-          "h" = "feedkeys \"<C-Left>\"";
-          "l" = "feedkeys \"<C-Right>\"";
-
-          # Better page navigation
-          "<Space>" = "feedkeys \"<PageDown>\"";
-          "<S-Space>" = "feedkeys \"<PageUp>\"";
-
-        };
-
-      };
-
-    };
 }
