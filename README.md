@@ -25,7 +25,7 @@ The goal is to remove everything related to *home-manager*.
   - [ ] Fix the linking of ssh keys and other secrets.
   - [ ] Wrap Zathura.
   - [ ] Wrap Alacritty.
-  - [ ] Move Firefox into system configuration.
+  - [x] Move Firefox into system configuration.
   - [ ] Move LaTeX outlines to somewhere else.
   - [ ] Figure out what to do with user ssh configuration.
 
@@ -518,9 +518,11 @@ Wiki's for Nix language basics.
 
 Resources for configuring Firefox with Nix.
 
-  - [View Current Policies: `about:policies#documentation`](about:policies#documentation)
-  - [Available Policies](https://mozilla.github.io/policy-templates/#preferences)
-  - [Available Preferences](https://searchfox.org/firefox-main/source/modules/libpref/init/StaticPrefList.yaml)
+  - [Available Policies](https://mozilla.github.io/policy-templates/)
+  - [Current Policies: `about:policies#documentation`](about:policies#documentation)
+  - [Available Preferences](https://mozilla.github.io/policy-templates/#preferences)
+  - [Available Preferences Detailed](https://searchfox.org/firefox-main/source/modules/libpref/init/StaticPrefList.yaml)
+  - [Current Preferences: `about:config`](about:config)
   - [Some Examples](https://discourse.nixos.org/t/declare-firefox-extensions-and-settings/36265/7)
   - [Declarative Bookmarks](https://discourse.nixos.org/t/firefox-import-html-bookmark-file-in-a-declarative-manner/38168/23)
 
