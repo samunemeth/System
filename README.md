@@ -24,7 +24,7 @@ The goal is to remove everything related to *home-manager*.
 
   - [ ] Fix the linking of ssh keys and other secrets.
   - [ ] Wrap Zathura.
-  - [ ] Wrap Alacritty.
+  - [x] Wrap Alacritty.
   - [x] Move Firefox into system configuration.
   - [ ] Move LaTeX outlines to somewhere else.
   - [ ] Figure out what to do with user ssh configuration.
