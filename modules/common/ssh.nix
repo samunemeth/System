@@ -39,33 +39,14 @@
     # This is required for YubiKey related stuff.
     startAgent = true;
 
-    # Configure known hosts to avoid errors.
-    knownHosts = {
-
-      # GitHub public keys.
-      # TODO: Check if this is actually needed / good practice.
-      "github.com/ed25519" = {
-        hostNames = [
-          "github.com"
-          "www.github.com"
-        ];
-        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
-      };
-      "github.com/sha2" = {
-        hostNames = [
-          "github.com"
-          "www.github.com"
-        ];
-        publicKey = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg=";
-      };
-      "github.com/rsa" = {
-        hostNames = [
-          "github.com"
-          "www.github.com"
-        ];
-        publicKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCj7ndNxQowgcQnjshcLrqPEiiphnt+VTTvDP6mHBL9j1aNUkY4Ue1gvwnGLVlOhGeYrnZaMgRK6+PKCUXaDbC7qtbW8gIkhL7aGCsOr/C56SJMy/BCZfxd1nWzAOxSDPgVsmerOBYfNqltV9/hWCqBywINIR+5dIg6JTJ72pcEpEjcYgXkE2YEFXV1JHnsKgbLWNlhScqb2UmyRkQyytRLtL+38TGxkxCflmO+5Z8CSSNY7GidjMIZ7Q4zMjA2n1nGrlTDkzwDCsw+wqFPGQA179cnfGWOWRVruj16z6XyvxvjJwbz0wQZ75XK5tKSb7FNyeIEs4TT4jk+S4dhPeAUC5y+bDYirYgM4GC7uEnztnZyaVWQ7B381AK4Qdrwt51ZqExKbQpTUNn+EjqoTwvqNj4kqx5QUCI0ThS/YkOxJCXmPUWZbhjpCg56i+2aB6CmK2JGhn57K5mj0MNdBXA4/WnwH6XoPWJzK5Nyu2zB3nAZp+S5hpQs+p1vN1/wsjk=";
-      };
-    };
+    # Add extra configuration.
+    extraConfig = ''
+      Host *
+        IdentityFile ~/.ssh/id_yubi
+        IdentityFile ~/.ssh/id_pass
+        AddKeysToAgent yes
+        LogLevel ERROR
+    '';
 
   };
 
@@ -93,35 +74,6 @@
 
       };
 
-      # User ssh settings.
-      programs.ssh = {
-
-        enable = true;
-        
-        # Remove default configuration. This is there for compatibility,
-        # and will need to be removed in the future.
-        enableDefaultConfig = false;
-
-        # Pass keys to ssh agent. This is needed for YubiKey.
-        extraConfig = ''
-          AddKeysToAgent yes
-          LogLevel ERROR
-        '';
-
-        # Define what keys to use
-        matchBlocks = {
-
-          # Identity for all connections.
-          "*" = {
-            identityFile = [
-              "~/.ssh/id_yubi"
-              "~/.ssh/id_pass"
-            ];
-          };
-
-        };
-
-      };
 
     };
 
