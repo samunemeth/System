@@ -22,7 +22,7 @@ end
 -- Touch and comprehend at your own risk!
 vim.keymap.set(
 	"x",
-	"<leader>t",
+	"<leader>a",
 	[[:'<,'>! sed 's/|\([^-: ]\)/| \1/g' | tr -s ' ' | column -t -s '|' -o '|' | sed '2{s/ /-/g; s/:\(-\+\)-|/-\1:|/g}'<CR>]],
 	buffspec
 )
