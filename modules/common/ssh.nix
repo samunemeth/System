@@ -25,9 +25,6 @@
       user-ssh-pass-public = userOwned;
       user-ssh-pass-private = userOwned;
 
-      # Request ssh destination shortcuts.
-      ssh-destinations = userOwned;
-
     };
 
   # Fixes a conflict with the ssh agent.
