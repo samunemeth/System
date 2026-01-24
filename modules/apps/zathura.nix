@@ -26,6 +26,7 @@ let
     inputbar-bg = background.main;
     inputbar-fg = foreground.main;
     notification-error-bg = foreground.error;
+    highlight-active-color = "rgba(85, 90, 240, 0.4)";
 
     # Configure status bar.
     guioptions = "s";
@@ -34,9 +35,13 @@ let
     # Configure window title.
     window-title-home-tilde = true;
 
-    # Copy selection to system clipboard>
+    # Copy selection to system clipboard.
     selection-clipboard = "clipboard";
     selection-notification = false;
+
+    # Enable SyncTeX
+    dbus-service = true;
+    synctex = true;
 
     # Configure recoloring.
     recolor-keephue = true;

@@ -29,6 +29,9 @@ let
       (pkgs.texlive)
       scheme-basic
 
+      # Technical packages.
+      synctex
+
       # Math related packages.
       amsmath
       amsfonts
