@@ -15,7 +15,7 @@ let
 
   qtile-home = pkgs.stdenvNoCC.mkDerivation {
     name = "qtile-home";
-    src = ../../apps/qtile;
+    src = ../../src/qtile;
     installPhase = ''
       # Make the auto start script executable.
       chmod +x ./autostart.sh

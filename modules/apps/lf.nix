@@ -11,7 +11,7 @@ let
 
   lf-home = pkgs.stdenvNoCC.mkDerivation {
     name = "lf-home";
-    src = ../../apps/lf;
+    src = ../../src/lf;
     installPhase = ''
       # Append the location of the previewer script to the configuration.
       echo "set previewer \"$out/lf/previewer.sh\"" >> ./lfrc

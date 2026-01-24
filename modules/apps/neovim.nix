@@ -55,7 +55,7 @@ let
   # Create a derivation with the Neovim configuration files.
   neovim-home = pkgs.stdenvNoCC.mkDerivation {
     name = "neovim-home";
-    src = ../../apps/nvim;
+    src = ../../src/nvim;
     installPhase = ''
       # Copy contents to output.
       mkdir -p $out/nvim

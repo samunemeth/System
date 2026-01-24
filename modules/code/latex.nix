@@ -12,7 +12,7 @@ let
   # Create a derivation from the outlines that is included in the packages.
   latex-outlines = pkgs.stdenvNoCC.mkDerivation {
     name = "latex-outlines";
-    src = ../../apps/latex;
+    src = ../../src/latex;
     outputs = [ "tex" "out" ];
     installPhase = ''
       mkdir -p $out

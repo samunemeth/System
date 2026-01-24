@@ -43,7 +43,7 @@ from libqtile.confreader import Config
 
 # --- Settings ---
 
-CONFIG_PATH = "apps/qtile/config.py"
+CONFIG_PATH = "src/qtile/config.py"
 OUTPUT_DIR = "assets/qtile-layout/"
 
 SHOW_LEGEND = False

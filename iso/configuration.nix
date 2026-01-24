@@ -45,7 +45,7 @@ let
   # Create a derivation with the Neovim configuration files.
   neovim-home = pkgs.stdenvNoCC.mkDerivation {
     name = "neovim-home";
-    src = ../apps/nvim;
+    src = ../src/nvim;
     installPhase = ''
       # Copy contents to output.
       mkdir -p $out/nvim
@@ -102,7 +102,7 @@ let
       let
         lfhome = pkgs.stdenvNoCC.mkDerivation {
           name = "lfhome";
-          src = ../apps/lf;
+          src = ../src/lf;
           installPhase = ''
             # Remove the previewer script.
             rm ./previewer.sh
