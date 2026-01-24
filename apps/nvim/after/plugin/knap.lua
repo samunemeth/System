@@ -2,6 +2,8 @@
 
 local knap = SafeRequire("knap")
 
+-- TODO: synctex does not actually work.
+
 if knap then
 	vim.g.knap_settings = {
 
@@ -12,8 +14,8 @@ if knap then
 			.. "'\"'\"'%servername%'\"'\"','\"'\"'%{input}'\"'\"',%{line},0)\"' "
 			.. "%outputfile%",
 		textopdfviewerrefresh = "none",
-		textopdfforwardjump = "zathura " .. "--synctex-forward=%line%:%column%:%srcfile% %outputfile%",
-		textopdf = "pdflatex -synctex=1 " .. '-jobname "$(basename -s .pdf %outputfile%)" -halt-on-error',
+		textopdfforwardjump = "zathura --synctex-forward=%line%:%column%:%srcfile% %outputfile%",
+		textopdf = 'pdflatex -synctex=1 -jobname "$(basename -s .pdf %outputfile%)" -halt-on-error',
 		textopdfbufferasstdin = true,
 
 		-- Options for compiling and previewing markdown.

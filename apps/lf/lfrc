@@ -1,7 +1,7 @@
 # --- Settings ---
 
 set filesep ";"
-set hiddenfiles ".*:desktop.ini:main.out:main.log:main.aux:main.synctex.gz:/home/samu/texmf:lost+found"
+set hiddenfiles ".*:desktop.ini:main.out:main.log:main.aux:main.synctex.gz:lost+found"
 set icons "true"
 set ignorecase "true"
 set info "size"
