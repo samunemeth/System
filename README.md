@@ -32,7 +32,7 @@ The goal is to remove everything related to *home-manager*.
 
 **General**
 
-  - [ ] *Set Up:* Make all apps use wrappers. [More Info](https://www.youtube.com/watch?v=Zzvn9uYjQJY)
+  - [x] *Set Up:* Make all apps use wrappers. [More Info](https://www.youtube.com/watch?v=Zzvn9uYjQJY)
   - [ ] *Set Up:* hibernation with the new partition setup.
   - [ ] *Set Up:* Automatic locking, password prompt after hibernation.
   - [ ] *Look Into:* The *mini greeter* seems to act up on first boot.
@@ -43,7 +43,7 @@ The goal is to remove everything related to *home-manager*.
   - [ ] Sometimes there is a significant slowdown after the machine is powered
         on for a long time and/or had been sleeping for a long/multiple times.
   - [ ] *Fix:* Clean up Python scripts.
-  - [ ] *Look Into:* Clean handling of missing utilities that are not present.
+  - [ ] *Look Into:* Clean handling of missing utilities.
   - [ ] *Set Up:* Automatic display rotation for convertibles with `rot8`.
 
 **Documentation**
