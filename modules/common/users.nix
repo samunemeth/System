@@ -37,14 +37,6 @@
     hashedPasswordFile = config.sops.secrets.root-password-hash.path;
   };
 
-  # --- Home Manager ---
-
-  home-manager = {
-    backupFileExtension = "hmbackup";
-    useUserPackages = true;
-    useGlobalPkgs = true;
-  };
-
   # --- Sudo ---
 
   # Enable password prompt for sudo.

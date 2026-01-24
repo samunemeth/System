@@ -55,7 +55,6 @@
 
     # Set state versions.
     system.stateVersion = globals.stateVersion;
-    home-manager.users.${globals.user}.home.stateVersion = globals.stateVersion;
 
     # Allow unfree packages.
     nixpkgs = {

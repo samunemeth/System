@@ -32,8 +32,7 @@ let
 
   # WARN: These settings are not actually applied!
   # > A patch is probably required to make wrapping work, as the database
-  # > file uses the same path as the configuration file. I could use
-  # > home-manager here, but honestly I do not want to.
+  # > file uses the same path as the configuration file.
   epy-settings = ''
     {
       "Setting": {

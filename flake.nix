@@ -6,12 +6,6 @@
     # Root NixOS packages and distribution.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
-    # Home Manager distribution.
-    home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Sops for secrets.
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -123,9 +117,6 @@
         nixpkgs.lib.nixosSystem {
           specialArgs = utils.mkSpecialArgsFor host;
           modules = [
-
-            # Home Manager
-            inputs.home-manager.nixosModules.home-manager
 
             # Sops
             inputs.sops-nix.nixosModules.sops

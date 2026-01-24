@@ -40,11 +40,6 @@ vim.lsp.config["nixd"] = {
 						.. hostname
 						.. ".options",
 				},
-				home_manager = {
-					expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.'
-						.. hostname
-						.. ".options.home-manager.users.type.getSubOptions []",
-				},
 			},
 			diagnostic = {
 				suppress = {
