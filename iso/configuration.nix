@@ -43,7 +43,7 @@ let
   ];
 
   # Create a derivation with the Neovim configuration files.
-  neovim-home = pkgs.stdenv.mkDerivation {
+  neovim-home = pkgs.stdenvNoCC.mkDerivation {
     name = "neovim-home";
     src = ../apps/nvim;
     installPhase = ''
@@ -100,7 +100,7 @@ let
     ];
     postBuild =
       let
-        lfhome = pkgs.stdenv.mkDerivation {
+        lfhome = pkgs.stdenvNoCC.mkDerivation {
           name = "lfhome";
           src = ../apps/lf;
           installPhase = ''

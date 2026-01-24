@@ -13,7 +13,7 @@ let
   qtile-package = inputs.qtile-flake.packages.${globals.system}.default;
   qtile-log-level = "INFO";
 
-  qtile-home = pkgs.stdenv.mkDerivation {
+  qtile-home = pkgs.stdenvNoCC.mkDerivation {
     name = "qtile-home";
     src = ../../apps/qtile;
     installPhase = ''

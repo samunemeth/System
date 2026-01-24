@@ -9,7 +9,7 @@
 }:
 let
 
-  lf-home = pkgs.stdenv.mkDerivation {
+  lf-home = pkgs.stdenvNoCC.mkDerivation {
     name = "lf-home";
     src = ../../apps/lf;
     installPhase = ''

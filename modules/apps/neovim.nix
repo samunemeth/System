@@ -53,7 +53,7 @@ let
     ++ lib.lists.optional languageTable.rust rustaceanvim;
 
   # Create a derivation with the Neovim configuration files.
-  neovim-home = pkgs.stdenv.mkDerivation {
+  neovim-home = pkgs.stdenvNoCC.mkDerivation {
     name = "neovim-home";
     src = ../../apps/nvim;
     installPhase = ''
