@@ -46,6 +46,8 @@
 
   config = lib.mkIf config.modules.yubikey.enable {
 
+    # TODO: Handle the options a bit cleaner.
+
     environment.systemPackages = with pkgs; [
 
       pam_u2f # Enables pam to use u2f authentication.
@@ -61,17 +63,25 @@
     sops.secrets.u2f-keys = {
       owner = globals.user;
       group = "users";
+      path = "/home/${globals.user}/.config/Yubico/u2f_keys";
     };
 
-    # Request the "yubi" ssh key from nix if ssh is enabled.
-    # Similar to what happens in `ssh.nix` with "pass".
+    # Make sure that this folder is owned by the user.
+    system.activationScripts.u2f-keys.text = ''
+      chown ${globals.user}:users /home/${globals.user}/.config
+      chown ${globals.user}:users /home/${globals.user}/.config/Yubico
+    '';
+
+    # Request ssh keys if needed.
     sops.secrets.user-ssh-yubi-public = lib.mkIf config.modules.yubikey.ssh {
       owner = globals.user;
       group = "users";
+      path = "/home/${globals.user}/.ssh/id_yubi.pub";
     };
     sops.secrets.user-ssh-yubi-private = lib.mkIf config.modules.yubikey.ssh {
       owner = globals.user;
       group = "users";
+      path = "/home/${globals.user}/.ssh/id_yubi";
     };
 
     # YubiKey for login and sudo.
@@ -95,72 +105,5 @@
       Defaults env_keep+=SSH_AUTH_SOCK
     '';
 
-    # --- Home Manager Part ---
-    home-manager.users.${globals.user} =
-      let
-        user-ssh-yubi-public-path = config.sops.secrets.user-ssh-yubi-public.path;
-        user-ssh-yubi-private-path = config.sops.secrets.user-ssh-yubi-private.path;
-        u2f-keys-path = config.sops.secrets.u2f-keys.path;
-        has-ssh = config.modules.yubikey.ssh;
-      in
-      {
-        config,
-        pkgs,
-        lib,
-        ...
-      }:
-      {
-
-        home.file =
-          lib.mkAlwaysThenIf has-ssh
-            {
-
-              # Link u2f keys into place.
-              "/home/${globals.user}/.config/Yubico/u2f_keys".source =
-                config.lib.file.mkOutOfStoreSymlink u2f-keys-path;
-
-            }
-
-            {
-
-              # Link the "yubi" ssh keys into place only if ssh is enabled.
-              "/home/${globals.user}/.ssh/id_yubi.pub".source =
-                config.lib.file.mkOutOfStoreSymlink user-ssh-yubi-public-path;
-              "/home/${globals.user}/.ssh/id_yubi".source =
-                config.lib.file.mkOutOfStoreSymlink user-ssh-yubi-private-path;
-
-            };
-
-        # Touch detection
-        # home.packages = with pkgs; [
-        #   yubikey-touch-detector
-        #   gnupg
-        # ];
-        #
-        # systemd.user.sockets.yubikey-touch-detector = {
-        #   Unit.Description = "Unix socket activation for YubiKey touch detector service";
-        #   Socket = {
-        #     ListenFIFO = "%t/yubikey-touch-detector.sock";
-        #     RemoveOnStop = true;
-        #     SocketMode = "0660";
-        #   };
-        #   Install.WantedBy = [ "sockets.target" ];
-        # };
-        #
-        # systemd.user.services.yubikey-touch-detector = {
-        #   Unit = {
-        #     Description = "Detects when your YubiKey is waiting for a touch";
-        #     Requires = [ "yubikey-touch-detector.socket" ];
-        #   };
-        #   Service = {
-        #     ExecStart = "${pkgs.yubikey-touch-detector}/bin/yubikey-touch-detector --libnotify";
-        #     Environment = [ "PATH=${lib.makeBinPath [ pkgs.gnupg ]}" ];
-        #     Restart = "on-failure";
-        #     RestartSec = "1sec";
-        #   };
-        #   Install.Also = [ "yubikey-touch-detector.socket" ];
-        #   Install.WantedBy = [ "default.target" ];
-        # };
-      };
   };
 }

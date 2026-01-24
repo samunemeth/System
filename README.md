@@ -22,7 +22,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 The goal is to remove everything related to *home-manager*.
 
-  - [ ] Fix the linking of ssh keys and other secrets.
+  - [x] Fix the linking of ssh keys and other secrets.
   - [x] Wrap Zathura.
   - [x] Wrap Alacritty.
   - [x] Move Firefox into system configuration.
