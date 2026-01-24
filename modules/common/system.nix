@@ -51,7 +51,9 @@
 
     # Write JSON files with the globals and module settings.
     environment.etc."system-options/globals.json".text = builtins.toJSON globals;
-    environment.etc."system-options/modules.json".text = builtins.toJSON config.modules;
+    environment.etc."system-options/modules.json".text = builtins.toJSON (
+      builtins.removeAttrs config.modules [ "export-apps" ]
+    );
 
     # Set state versions.
     system.stateVersion = globals.stateVersion;
