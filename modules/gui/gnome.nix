@@ -47,26 +47,18 @@
     environment.systemPackages = with pkgs; [ gnomeExtensions.appindicator ];
     services.udev.packages = with pkgs; [ gnome-settings-daemon ];
 
-    # --- Home Manager Part ---
-    home-manager.users.${globals.user} =
-      {
-        config,
-        pkgs,
-        lib,
-        ...
-      }:
-      {
+    # WARN: The settings below are from home manager, and will not work here.
 
-        dconf = {
-          enable = true;
-          settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
-        };
+    # Change the color scheme to dark.
+    # dconf = {
+    #   enable = true;
+    #   settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+    # };
 
-        # Add back borers to alacrity.
-        # WARN: Alacritty is now wrapped. This would need to be included in
-        # > the configuration file for Alacritty.
-        # programs.alacritty.settings.window.decorations = lib.mkForce "full";
-
-      };
+    # Add back borers to alacrity.
+    # WARN: Alacritty is now wrapped. This would need to be included in
+    # > the configuration file for Alacritty.
+    # programs.alacritty.settings.window.decorations = lib.mkForce "full";
+    
   };
 }
