@@ -9,7 +9,20 @@
 }:
 let
 
-  # WARN: Programs used by the previewer are not linked to the store.
+  lf-home = pkgs.stdenv.mkDerivation {
+    name = "lf-home";
+    src = ../../apps/lf;
+    installPhase = ''
+      # Append the location of the previewer script to the configuration.
+      echo "set previewer \"$out/lf/previewer.sh\"" >> ./lfrc
+      # Make the previewer script executable.
+      chmod +x ./previewer.sh
+      # Copy contents to output.
+      mkdir -p $out/lf
+      cp -r * $out/lf/
+    '';
+  };
+
   wrapped-lf = pkgs.symlinkJoin {
     name = "wrapped-lf";
     buildInputs = [ pkgs.makeWrapper ];
@@ -31,26 +44,10 @@ let
       unzip # Unpacking zip files.
 
     ];
-    postBuild =
-      let
-        lfhome = pkgs.stdenv.mkDerivation {
-          name = "lfhome";
-          src = ../../apps/lf;
-          installPhase = ''
-            # Append the location of the previewer script to the configuration.
-            echo "set previewer \"$out/lf/previewer.sh\"" >> ./lfrc
-            # Make the previewer script executable.
-            chmod +x ./previewer.sh
-            # Copy contents to output.
-            mkdir -p $out/lf
-            cp -r * $out/lf/
-          '';
-        };
-      in
-      ''
-        wrapProgram $out/bin/lf \
-          --set LF_CONFIG_HOME ${lfhome}
-      '';
+    postBuild = ''
+      wrapProgram $out/bin/lf \
+        --set LF_CONFIG_HOME ${lf-home}
+    '';
   };
 
 in
