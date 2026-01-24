@@ -9,6 +9,9 @@ if knap then
 		buffer = 0,
 		callback = function()
 			knap.process_once()
+      vim.defer_fn(function()
+        knap.forward_jump()
+      end, 500)
 		end,
 	})
 
