@@ -18,34 +18,27 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 # ToDo
 
-**General**
+**Bugs**
 
-  - [x] *Set Up:* Make all apps use wrappers. [More Info](https://www.youtube.com/watch?v=Zzvn9uYjQJY)
-  - [ ] *Set Up:* hibernation with the new partition setup.
-  - [ ] *Set Up:* Automatic locking, password prompt after hibernation.
+  - [ ] Zathura bottom status bar is not transparent.
   - [ ] *Look Into:* The *mini greeter* seems to act up on first boot.
         *Maybe just ditch the mini greeter?*
-  - [ ] *Look Into:* Automatic monitor detection, and saved layouts.
-  - [ ] *Look Into:* What is actually good in Rofi? Remove some bloat from it?
-  - [ ] *Fix:* There is no transparency possible in Zathura.
   - [ ] Sometimes there is a significant slowdown after the machine is powered
-        on for a long time and/or had been sleeping for a long/multiple times.
-  - [ ] *Fix:* Clean up Python scripts.
-  - [ ] *Look Into:* Clean handling of missing utilities.
-  - [ ] *Set Up:* Automatic display rotation for convertibles with `rot8`.
+        on for a long time and/or had been suspended for a long/multiple times.
 
-**Documentation**
+**Features**
 
-  - [ ] *Update:* Installation documentation.
+  - [ ] Impermanence, for some parts at least.
+  - [ ] Hibernation with the new partition setup.
+  - [ ] Locking, password prompt after suspend.
+  - [ ] Monitor detection and saved layouts.
+  - [ ] Loose some stuff from Rofi.
+  - [ ] Clean up python parts.
+  - [ ] Handle missing low priority packages.
+  - [ ] Automatic display rotation with `rot8`.
+  - [ ] Finish installation documentation.
 
-**Long Term**
-
-  - [ ] *Look Into:* Impermanence. [More Info](https://grahamc.com/blog/erase-your-darlings/)
-        *Maybe just on the root at first, not home?*
-  - [ ] *Set Up:* A configuration for minimal installation.
-  - [ ] *Set Up:* Gnome with declarative settings.
-
-There are also small items marked with **TODO** inside comments. There are also
+There are also items marked with **TODO** inside comments. There are also
 **NOTE**, **WARN** and **BUG** labels used.
 
 # Qtile Keybindings
