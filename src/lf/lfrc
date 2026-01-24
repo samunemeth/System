@@ -28,6 +28,10 @@ map gr cd /
 # Get the current files file type.
 cmd type %xdg-mime query filetype "$f"
 
+# Open a ternimal in the current folder.
+map t term
+cmd term &$TERM
+
 # Get the complete path of the current selection.
 # Wrap it in apostrophes.
 cmd path %{{
@@ -82,8 +86,7 @@ cmd open &{{
     echo "Unzipped contents."
 
   # PDF files are opened with Zathura. 
-  # There is an extra check for LaTeX documents.
-  # BUG: If there is no LaTeX support on the system you can open them.
+  # BUG: What if Zathura is not there?
   elif [[ $filetype == "application/pdf"* ]] then
     zathura "$f" --fork -l error
 
