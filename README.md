@@ -26,6 +26,7 @@ The goal is to remove everything related to *home-manager*.
   - [x] Wrap Zathura.
   - [x] Wrap Alacritty.
   - [x] Move Firefox into system configuration.
+  - [x] Move udiskie into system configuration.
   - [ ] Move LaTeX outlines to somewhere else.
   - [ ] Figure out what to do with user ssh configuration.
 
