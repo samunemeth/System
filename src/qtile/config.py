@@ -172,12 +172,12 @@ def hooked_function():
 screenshot_script = """
 mkdir -p ~/Screenshots
 scrot ~/Screenshots/screenshot-%Y-%m-%d-%H%M%S.png
-dunstify -u low "Screenshot saved."
+notify-send -u low "Screenshot saved."
 """
 
 color_picker_script = """
 xcolor | xclip -selection clipboard
-dunstify -u low "Copied hex code to clipboard."
+notify-send -u low "Copied hex code to clipboard."
 """
 
 def power_action(cmd):

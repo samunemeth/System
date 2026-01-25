@@ -13,7 +13,7 @@ then
     name=${selection% -*}
     code=${selection#*- }
     setsid bash -c "printf '%s' '$code' | xclip -selection clipboard" >/dev/null 2>&1 &
-    dunstify -t 10000 -u low "Copied the code for $name to the clipboard." "The code is: $code"
+    notify-send -t 10000 -u low "Copied the code for $name to the clipboard." "The code is: $code"
     exit
 
 else
@@ -23,7 +23,7 @@ else
     codes=$(ykman oath accounts code || echo "ERROR")
 
     if [[ "$codes" == "ERROR" ]]; then
-        dunstify -t 5000 -u high "No YubiKey Inserted!" "Please plug in your security key to access OATH codes."
+        notify-send -t 5000 -u high "No YubiKey Inserted!" "Please plug in your security key to access OATH codes."
         echo "No YubiKey Inserted!"
         exit
     fi
