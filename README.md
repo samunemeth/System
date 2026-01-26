@@ -16,7 +16,7 @@ For settings, I try to use Rofi menus where possible.
 I am mainly using these systems for internet browsing and LaTeX compilation.
 
 
-# ToDo
+# To-Do
 
 **Bugs**
 
@@ -53,11 +53,12 @@ regenerates the images if needed.
 
 # Language Support
 
-The table below summarises the support for programming languages.
+The table below summarizes the support for programming languages.
 Syntax highlighting is handled by *tree-sitter*, and is enabled automatically.
 The language server and formatter is primarily designed and set up to be used
 with *Neovim*.
 
+<!-- LTeX: enabled=false -->
 | Language | Installed | Formatter | LSP Server |
 |----------|:---------:|:---------:|:----------:|
 | Bash     | S         | ✓         | X          |
@@ -69,6 +70,7 @@ with *Neovim*.
 | Nix      | S         | ✓         | ✓          |
 | Python   | ✓         | ✓         | ✓          |
 | Rust     | ✓         | ✓         | ✓          |
+<!-- LTeX: enabled=# -->
 
 A letter 'S' means that the feature is part of the root system.
 A tick means the feature is available but needs to be enabled with the
@@ -89,7 +91,7 @@ If there is no mark it means that that feature is not applicable.
 For the installation it is recommended to use the ISO image generated from this
 configuration with using the command below.
 An ISO image will be generated into`./result/iso/`. The size should be about
-~1.5GiB.
+~1.5 GiB.
 ```
 nix build github:samunemeth/System#iso
 ```
@@ -103,7 +105,7 @@ partition on a pen drive without the need to erase the drive and burn the image.
 
 > [!WARNING]
 > There are missing steps in this guide at the moment,
-> marked with "**MISSING STEPS**".
+> marked with '**MISSING STEPS**'.
 
   - Boot the installation media, then switch to the root user with:
     ```
@@ -115,7 +117,7 @@ partition on a pen drive without the need to erase the drive and burn the image.
       nmtui
       ```
     - *If* you are using the **official ISO** image,
-      connect to a WiFi network with the following commands:
+      connect to a Wi-Fi network with the following commands:
       ```
       sudo systemctl start wpa_supplicant
       wpa_cli
@@ -148,8 +150,8 @@ partition on a pen drive without the need to erase the drive and burn the image.
     cfdisk /dev/<OS-DISK>
     ```
     If asked, select `GPT` partition table.
-    I recommend a boot partition between 512MiB and 1GiB, and a main partition
-    preferable at least 16GiB.
+    I recommend a boot partition between 512 MiB and 1 GiB, and a main partition
+    preferable at least 16 GiB.
     (A swap partition can also be created, but it is not
     mentioned in the rest of this guide.)
   - *If* you just **created a boot partition**, format it now:
@@ -158,7 +160,7 @@ partition on a pen drive without the need to erase the drive and burn the image.
     ```
     *If* you already **have a boot partition** on your disk, it should work
     just fine as long as it **has enough space**.
-    (Windows usually creates a really small boot partition, and resizing it is
+    (Windows usually creates a small boot partition, and resizing it is
     not the easiest or safest thing to do, so I recommend installing Linux
     before Windows for dual booting setups.)
   - Create a Luks encrypted Btrfs main partition:
@@ -274,7 +276,7 @@ file. You can either:
     Sops and sops-nix both automatically detect them.
   - Use an *age key derived from an SSH host key*.
     This way, your machine only
-    needs it's host keys to persist. This is probably better for everyday use,
+    requires its host keys to persist. This is probably better for everyday use,
     as the host keys are owned by root, and therefore harder to 'peek' at.
     Sops-nix automatically derives the age keys from the host SSH keys, however
     sops needs them supplied directly. For this purpose, a `nes` shell function
@@ -306,14 +308,14 @@ SSH host keys can also be transferred, if the operating system needs to be
 reinstalled. This way, there is no need to modify `.sops.yaml`.
 
 
-## WiFi
+## Wi-Fi
 
-Some WiFi networks are declared in the Nix configuration and `secrets.yaml` file.
+Some Wi-Fi networks are declared in the Nix configuration and `secrets.yaml` file.
 To add a network, create and identifier for it, in this example, let that be `*WORK*.
 
 **If *WORK* is a regular network:**
 
-Then add it to the `normal_networks` list in the `networks.yaml` file, than append
+Then add it to the `normal_networks` list in the `networks.yaml` file, then append
 the following to the `wireless-env` key in the `secrets.yaml` file:
 ```
     WORK_SSID=<SSID>
@@ -327,7 +329,7 @@ exact value by saving the network imperatively and looking at the generated conf
 **If *WORK* is an enterprise network:**
 
 
-Then add it to the `normal_networks` list in the `networks.yaml` file, than append
+Then add it to the `normal_networks` list in the `networks.yaml` file, then append
 the following to the `wireless-env` key in the `secrets.yaml` file:
 ```
     WORK_SSID=<SSID>
@@ -361,8 +363,8 @@ To generate Nix snippets from your saved networks, check out
 Say that you accidentally deleted your boot partition, or the boot entries for
 NixOS in your boot partition.
 
-You could also perform other fixes, in a similar manner, for example a missing
-root password for example. Of course, the disk has to be decrypted for it.
+You could also perform other fixes similarly, for example a missing
+root password. Of course, the disk has to be decrypted for it.
 
   - Boot a live medium that you would use for installing a new system.
   - Make sure you are running as root:
@@ -401,7 +403,7 @@ everyday tasks. Power usage improved from 33W to 20W during video playback
 when disabling the dedicated GPU, without a measurable loss in speed or quality.
 
 If the offloading option was stricter,
-such that would really only allows specific programs to use the dedicated GPU,
+such that would really only allow specific programs to use the dedicated GPU,
 generally keep it more in a suspended state (now the dGPU wakes up
 sometimes for no apparent reason), it would be probably better to use that
 option, but in this state, it just increases power usage too much to be worth
@@ -445,7 +447,7 @@ In addition, some extra information how to get secure boot keys enrolled on
 machines that I used:
 
   - On my *HP ZBook*, secure boot setup mode is enabled while having
-    *"Secure Boot"* disabled and after enabling *"Clear Secure Boot keys"*.
+    *'Secure Boot'* disabled and after enabling *'Clear Secure Boot keys'*.
     After enrolling, secure boot is enabled automatically.
 
 
@@ -454,7 +456,7 @@ machines that I used:
 Installing Windows after NixOS can cause the bootloader to become darker,
 but this usually goes away after a few reboots. No idea what causes it.
 
-On HP laptops the BIOS option *"Verify Boot Block on every boot"* causes issues,
+On HP laptops the BIOS option *'Verify Boot Block on every boot'* causes issues,
 as NixOS modifies the boot partition a lot.
 
 
@@ -465,6 +467,7 @@ this configuration.
 For general linux questions, it is usually a good idea to consult the
 [Arch Wiki](https://docs.qtile.org/en/stable/index.html).
 
+<!-- LTeX: enabled=false -->
 ## Options and Packages
 
 For looking for packages or configuration options respectively.
@@ -523,7 +526,7 @@ Guides, threads, wiki's that I have found useful.
   - [Wrapping Neovim](https://primamateria.github.io/blog/neovim-nix/)
   - [Neovim Wrapper Source](https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/neovim/wrapper.nix)
   - [Erase Your Darlings](https://grahamc.com/blog/erase-your-darlings/)
-
+<!-- LTeX: enabled=# -->
 
 # Fun
 
