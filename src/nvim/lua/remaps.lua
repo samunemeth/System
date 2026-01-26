@@ -38,6 +38,7 @@ end)
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<leader>c", vim.lsp.buf.rename)
 
+-- spellcheck:ignore
 -- Conventions for LSP mappings:
 --   <leader>c   -> Rename variable.
 --   <leader>a   -> Action with code under the cursor.

@@ -3,7 +3,7 @@
 local nabla = SafeRequire("nabla")
 
 if nabla then
-	vim.keymap.set("n", "<leader>a", function()
+	vim.keymap.set("n", "<leader>n", function()
 		nabla.popup({ border = "rounded" })
 	end)
 end

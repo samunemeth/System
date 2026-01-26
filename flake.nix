@@ -85,7 +85,7 @@
 
       };
 
-      # Get the directories in the hosts folder to get the host names.
+      # Get the directories in the host's folder to get the hostnames.
       dirContents = builtins.readDir ./hosts;
       hosts = builtins.foldl' (
         acc: elem: if builtins.getAttr elem dirContents == "directory" then acc ++ [ elem ] else acc
@@ -164,7 +164,7 @@
               btop
               nix-tree
 
-              # All of the packages below should be there by default.
+              # All the packages below should be there by default.
               util-linux
               cryptsetup
               btrfs-progs

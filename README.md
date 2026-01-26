@@ -58,7 +58,6 @@ Syntax highlighting is handled by *tree-sitter*, and is enabled automatically.
 The language server and formatter is primarily designed and set up to be used
 with *Neovim*.
 
-<!-- LTeX: enabled=false -->
 | Language | Installed | Formatter | LSP Server |
 |----------|:---------:|:---------:|:----------:|
 | Bash     | S         | ✓         | X          |
@@ -70,7 +69,6 @@ with *Neovim*.
 | Nix      | S         | ✓         | ✓          |
 | Python   | ✓         | ✓         | ✓          |
 | Rust     | ✓         | ✓         | ✓          |
-<!-- LTeX: enabled=# -->
 
 A letter 'S' means that the feature is part of the root system.
 A tick means the feature is available but needs to be enabled with the
@@ -78,7 +76,7 @@ configuration option of the language. Rows can only be enabled or disabled at
 once at the moment.
 A cross means that the feature is not present at the moment but may be
 implemented later.
-If there is no mark it means that that feature is not applicable.
+If there is no mark it means that the feature is not applicable.
 
 
 # Setup
@@ -112,7 +110,7 @@ partition on a pen drive without the need to erase the drive and burn the image.
     sudo -i
     ```
   - *If* you only have a **wireless connection** do one of the following:
-    - *If* you are using the **custom ISO** image use network manager's tui:
+    - *If* you are using the **custom ISO** image use network manager's TUI:
       ```
       nmtui
       ```
@@ -188,7 +186,7 @@ partition on a pen drive without the need to erase the drive and burn the image.
     mount /dev/<BOOT-PART> /mnt/boot
     ```
   - Check mount points, and file systems now for good measure.
-  - Clone this repository into the installers home directory, and change into it:
+  - Clone this repository into the installer's home directory, and change into it:
     ```
     cd ~
     git clone https://github.com/samunemeth/System.git
@@ -402,11 +400,9 @@ only the integrated graphics might be beneficial for power usage while doing
 everyday tasks. Power usage improved from 33W to 20W during video playback
 when disabling the dedicated GPU, without a measurable loss in speed or quality.
 
-If the offloading option was stricter,
-such that would really only allow specific programs to use the dedicated GPU,
-generally keep it more in a suspended state (now the dGPU wakes up
-sometimes for no apparent reason), it would be probably better to use that
-option, but in this state, it just increases power usage too much to be worth
+If the offloading option was stricter, it would be probably better to use that.
+(Now the dGPU wakes up sometimes for no apparent reason).
+In this state, it just increases power usage too much to be worth
 keeping it on all the time. Using a specialization may be a good idea if the
 dGPU is sometimes required.
 
@@ -464,10 +460,9 @@ as NixOS modifies the boot partition a lot.
 
 Here I have collected some useful resources I have used to create
 this configuration.
-For general linux questions, it is usually a good idea to consult the
+For general Linux questions, it is usually a good idea to consult the
 [Arch Wiki](https://docs.qtile.org/en/stable/index.html).
 
-<!-- LTeX: enabled=false -->
 ## Options and Packages
 
 For looking for packages or configuration options respectively.
@@ -517,7 +512,7 @@ Guides, threads, wiki's that I have found useful.
 
   - [Hibernation](https://nixos.wiki/wiki/Hibernation)
   - [Bluetooth](https://wiki.nixos.org/wiki/Bluetooth)
-  - [Some Dudes Configuration](https://github.com/nmasur/dotfiles/tree/b282e76be4606d9f2fecc06d2dc8e58d5e3514be)
+  - [Some Dude's Configuration](https://github.com/nmasur/dotfiles/tree/b282e76be4606d9f2fecc06d2dc8e58d5e3514be)
   - [Declarative WiFi with Sops](https://www.reddit.com/r/NixOS/comments/zneyil/using_sopsnix_to_amange_wireless_secrets/)
   - [How to Dual Boot Windows and NixOS](https://drakerossman.com/blog/how-to-dualboot-windows-and-nixos)
   - [YubiKeys on NixOS](https://youtu.be/3CeXbONjIgE)
@@ -526,13 +521,12 @@ Guides, threads, wiki's that I have found useful.
   - [Wrapping Neovim](https://primamateria.github.io/blog/neovim-nix/)
   - [Neovim Wrapper Source](https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/neovim/wrapper.nix)
   - [Erase Your Darlings](https://grahamc.com/blog/erase-your-darlings/)
-<!-- LTeX: enabled=# -->
 
 # Fun
 
 ## A full IMU
 
-My convertible HP laptop has a full IMU built in for whatever reason.
+My convertible HP laptop has a full IMU built-in for whatever reason.
 The following command outputs the monitor orientation in degrees for example.
 ```bash
 watch-sensor /sys/bus/iio/devices/iio:device2/in_incli_x_raw 0.00001
