@@ -26,7 +26,12 @@ let
     inputbar-bg = background.main;
     inputbar-fg = foreground.main;
     notification-error-bg = foreground.error;
-    highlight-active-color = "rgba(85, 90, 240, 0.4)";
+    completion-bg = background.contrast;
+    completion-fg = foreground.main;
+    completion-highlight-bg = foreground.soft;
+    completion-highlight-fg = background.contrast;
+    highlight-active-color = "rgba(85, 90, 240, 0.3)";
+    highlight-color = "rgba(160, 235, 25, 0.3)";
 
     # Configure status bar.
     guioptions = "s";
@@ -50,8 +55,8 @@ let
     recolor-darkcolor = foreground.soft;
 
     # Space between pages.
-    page-v-padding = 5;
-    page-h-padding = 5;
+    page-v-padding = 1;
+    page-h-padding = 1;
 
   };
 
