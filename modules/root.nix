@@ -17,6 +17,7 @@
     ./common/boot.nix
     ./common/copyparty.nix
     ./common/git.nix
+    ./common/grammar.nix
     ./common/locale.nix
     ./common/network.nix
     ./common/packages.nix

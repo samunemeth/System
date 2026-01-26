@@ -105,3 +105,84 @@ vim.lsp.config["lua_ls"] = {
 	end,
 }
 vim.lsp.enable("lua_ls")
+
+-- Grammar
+local grammar_language_id_mapping = {
+	bib = "bibtex",
+	pandoc = "markdown",
+	plaintex = "tex",
+	rnoweb = "rsweave",
+	rst = "restructuredtext",
+	tex = "latex",
+	text = "plaintext",
+}
+
+vim.lsp.config["ltex_plus"] = {
+	cmd = { "ltex-ls-plus" },
+	filetypes = {
+		"asciidoc",
+		"bib",
+		"context",
+		"gitcommit",
+		"html",
+		"markdown",
+		"org",
+		"pandoc",
+		"plaintex",
+		"quarto",
+		"mail",
+		"mdx",
+		"rmd",
+		"rnoweb",
+		"rst",
+		"tex",
+		"text",
+		"typst",
+		"xhtml",
+	},
+	root_markers = { ".git" },
+	get_language_id = function(_, filetype)
+		return grammar_language_id_mapping[filetype] or filetype
+	end,
+	settings = {
+		ltex = {
+      language = "en-GB",
+      checkFrequency = "save",
+      disabledRules = {
+        ["en-GB"] = { "MORFOLOGIK_RULE_EN_GB" },
+        ["en-US"] = { "MORFOLOGIK_RULE_EN_US" },
+      },
+      enabledRules = {
+        ["en-GB"] = { "COMMA_COMPOUND_SENTENCE", "COMMA_COMPOUND_SENTENCE_2" },
+        ["en-US"] = { "COMMA_COMPOUND_SENTENCE", "COMMA_COMPOUND_SENTENCE_2" },
+      },
+      additionalRules = {
+        enablePickyRules = true,
+      },
+      diagnosticSeverity = "warning",
+			enabled = {
+				"asciidoc",
+				"bib",
+				"context",
+				"gitcommit",
+				"html",
+				"markdown",
+				"org",
+				"pandoc",
+				"plaintex",
+				"quarto",
+				"mail",
+				"mdx",
+				"rmd",
+				"rnoweb",
+				"rst",
+				"tex",
+				"latex",
+				"text",
+				"typst",
+				"xhtml",
+			},
+		},
+	},
+}
+vim.lsp.enable("ltex_plus")

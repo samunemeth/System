@@ -30,6 +30,7 @@
     locale = {
       timeZone = "Europe/Amsterdam";
       keyboardLayouts = [ "us" ];
+      grammar = true;
     };
 
     # YubiKey options.

@@ -33,6 +33,7 @@
         "us"
         "hu"
       ];
+      grammar = false;
     };
 
     # YubiKey options.
