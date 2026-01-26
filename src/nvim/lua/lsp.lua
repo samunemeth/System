@@ -55,7 +55,7 @@ vim.lsp.config["nixd"] = {
 vim.lsp.enable("nixd")
 
 -- Lua
-vim.lsp.config["lua_ls"] = {
+vim.lsp.config["luals"] = {
 	cmd = { "lua-language-server" },
 	filetypes = { "lua" },
 	root_markers = {
@@ -104,85 +104,49 @@ vim.lsp.config["lua_ls"] = {
 		})
 	end,
 }
-vim.lsp.enable("lua_ls")
+vim.lsp.enable("luals")
 
 -- Grammar
-local grammar_language_id_mapping = {
-	bib = "bibtex",
-	pandoc = "markdown",
-	plaintex = "tex",
-	rnoweb = "rsweave",
-	rst = "restructuredtext",
-	tex = "latex",
-	text = "plaintext",
+vim.lsp.config["harper"] = {
+  cmd = { 'harper-ls', '--stdio' },
+  filetypes = {
+    'asciidoc',
+    'c',
+    'cpp',
+    'cs',
+    'gitcommit',
+    'go',
+    'html',
+    'java',
+    'javascript',
+    'lua',
+    'markdown',
+    'nix',
+    'python',
+    'ruby',
+    'rust',
+    'swift',
+    'toml',
+    'typescript',
+    'typescriptreact',
+    'haskell',
+    'cmake',
+    'typst',
+    'php',
+    'dart',
+    'clojure',
+    'sh',
+  },
+  root_markers = { '.harper-dictionary.txt', '.git' },
+  settings = {
+    ["harper-ls"] = {
+      linters = {
+        WrongQuotes = false,
+        SpellCheck = false,
+        PossessiveNoun = true,
+      },
+      dialect = "British",
+    }
+  }
 }
-
-vim.lsp.config["ltex_plus"] = {
-	cmd = { "ltex-ls-plus" },
-	filetypes = {
-		"asciidoc",
-		"bib",
-		"context",
-		"gitcommit",
-		"html",
-		"markdown",
-		"org",
-		"pandoc",
-		"plaintex",
-		"quarto",
-		"mail",
-		"mdx",
-		"rmd",
-		"rnoweb",
-		"rst",
-		"tex",
-		"text",
-		"typst",
-		"xhtml",
-	},
-	root_markers = { ".git" },
-	get_language_id = function(_, filetype)
-		return grammar_language_id_mapping[filetype] or filetype
-	end,
-	settings = {
-		ltex = {
-      language = "en-GB",
-      checkFrequency = "save",
-      disabledRules = {
-        ["en-GB"] = { "MORFOLOGIK_RULE_EN_GB" },
-        ["en-US"] = { "MORFOLOGIK_RULE_EN_US" },
-      },
-      enabledRules = {
-        ["en-GB"] = { "COMMA_COMPOUND_SENTENCE", "COMMA_COMPOUND_SENTENCE_2" },
-        ["en-US"] = { "COMMA_COMPOUND_SENTENCE", "COMMA_COMPOUND_SENTENCE_2" },
-      },
-      additionalRules = {
-        enablePickyRules = true,
-      },
-      diagnosticSeverity = "warning",
-			enabled = {
-				"asciidoc",
-				"bib",
-				"context",
-				"gitcommit",
-				"html",
-				"markdown",
-				"org",
-				"pandoc",
-				"plaintex",
-				"quarto",
-				"mail",
-				"mdx",
-				"rmd",
-				"rnoweb",
-				"rst",
-				"tex",
-				"latex",
-				"text",
-				"typst",
-				"xhtml",
-			},
-		},
-	},
-}
-vim.lsp.enable("ltex_plus")
+vim.lsp.enable("harper")

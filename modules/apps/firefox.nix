@@ -89,7 +89,7 @@ let
 
   };
 
-  # You have to hunt for these IDs, I do not remember where.
+  # Current: about:debugging#/runtime/this-firefox
   custom-extensions = {
 
     # Block installation of other extensions.
@@ -104,6 +104,12 @@ let
     # Bitwarden
     "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
+      installation_mode = "force_installed";
+    };
+
+    # Harper
+    "harper@writewithharper.com" = {
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/private-grammar-checker-harper/latest.xpi";
       installation_mode = "force_installed";
     };
 

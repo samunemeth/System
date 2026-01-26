@@ -25,7 +25,7 @@
 
     environment.systemPackages = with pkgs; [
     
-      ltex-ls-plus
+      harper
 
     ];
 
