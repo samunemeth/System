@@ -33,6 +33,9 @@ end)
 vim.keymap.set("n", "<leader>i", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end)
+vim.keymap.set("n", "<leader>p", function()
+	vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end)
 
 -- Code actions with LSP
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action)
