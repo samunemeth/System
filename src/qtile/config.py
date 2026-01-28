@@ -463,6 +463,7 @@ def get_next_calendar_event(link_only=False):
     cal_id_enc = urllib.parse.quote(GOOGLE_CAL_ID)
     time_now = datetime.datetime.now(datetime.UTC)
 
+    # TODO: Only allow events from the current day / from the next 24h
     params = {
         "key": GOOGLE_API_KEY,
         "singleEvents": "true",
