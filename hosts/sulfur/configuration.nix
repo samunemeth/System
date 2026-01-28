@@ -89,7 +89,7 @@
       latex = false;
       lua = true;
       nix = true;
-      python = true;
+      python = false;
       rust = false;
     };
 
