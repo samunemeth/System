@@ -87,7 +87,7 @@
           [
             "quiet"
             "boot.shell_on_fail"
-            "udev.log_priority=3"
+            "loglevel=3"
           ]
         else if config.modules.gui.qtile || config.modules.gui.gnome then
           [
@@ -98,7 +98,7 @@
         else
           [
             "quiet"
-            "udev.log_priority=3"
+            "loglevel=3"
           ];
 
       # Enable Lanzaboote on the system if needed.
