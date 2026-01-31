@@ -31,7 +31,7 @@
       timeZone = "Europe/Budapest";
       keyboardLayouts = [
         "us"
-        "hu"
+        "hu 102_qwerty_comma_nodead"
       ];
       grammar = false;
     };

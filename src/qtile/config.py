@@ -551,7 +551,8 @@ widgets = [
     widget.KeyboardLayout(
         configured_keyboards = parametric.available_layouts,
         display_map = {
-            "hu": "HU",
+            "hu": "HU-Z",
+            "hu 102_qwerty_comma_nodead": "HU-Y",
             "us": "US",
             "us dvp": "DV",
             "us intl": "IN",
