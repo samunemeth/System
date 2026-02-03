@@ -38,6 +38,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] Clean up python parts.
   - [ ] Handle missing low priority packages.
   - [ ] Automatic display rotation with `rot8`.
+  - [ ] Minimal 2FA key generator setup.
   - [ ] Finish installation documentation.
 
 There are also items marked with **TODO** inside comments. There are also
