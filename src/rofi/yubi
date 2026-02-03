@@ -12,26 +12,25 @@ then
 
     name=${selection% -*}
     code=${selection#*- }
-    setsid bash -c "printf '%s' '$code' | xclip -selection clipboard" >/dev/null 2>&1 &
-    notify-send -t 10000 -u low "Copied the code for $name to the clipboard." "The code is: $code"
+    setsid bash -c "echo -n '$code' | xclip -selection clipboard" &>/dev/null &
+    notify-send -t 10000 -u low "Copied the TOTP for $name to the clipboard." "The code is: $code"
     exit
 
 else
 
-    echo -en "\x00prompt\x1fSelect OATH Code\n"
+    echo -en "\x00prompt\x1fSelect TOTP Code\n"
 
-    codes=$(ykman oath accounts code || echo "ERROR")
-
-    if [[ "$codes" == "ERROR" ]]; then
-        notify-send -t 5000 -u high "No YubiKey Inserted!" "Please plug in your security key to access OATH codes."
+    if ! codes=$(ykman oath accounts code)
+    then
+        notify-send -t 5000 "No YubiKey Inserted!" "Please plug in your security key to access TOTP codes."
         echo "No YubiKey Inserted!"
         exit
     fi
 
-    for x in $(echo "$codes" | rg '^(.+?):.*\s(\d{6})$' -r '$1:$2' -o --color=never)
+    for x in "$codes"
     do
-        name=${x%:*}
-        code=${x#*:}
+        name=${x%%:*}
+        code=${x##* }
         printf "%s - %s\n" $name $code
     done
 
