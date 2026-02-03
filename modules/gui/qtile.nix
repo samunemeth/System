@@ -76,6 +76,7 @@ in
         playerctl # For media control (play/pause).
         scrot # For screenshots.
         xcolor # For color picking.
+        bluetui # For Bluetooth settings.
 
       ];
 

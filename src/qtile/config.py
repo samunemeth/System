@@ -89,7 +89,6 @@ try:
     qtile_home_path = os.path.realpath(os.path.dirname(qtile.config.file_path))
 except AttributeError:
     qtile_home_path = os.path.expanduser("~/.config/qtile")
-rofi_path = qtile_home_path + "/rofi"
 logger.info(f"Running with config path: {qtile_home_path}")
 
 # --- Guess Network Adapter Names ---
@@ -246,19 +245,19 @@ keys = [
     Key(
         [mod],
         "b",
-        lazy.spawn(f"{rofi_path}/rofi-bluetooth-contained"),
+        lazy.spawn(f"{terminal} -e bluetui"),
         desc="Rofi Bluetooth"
     ),
     Key(
         [mod],
         "x",
-        lazy.spawn(f'rofi -show sound -modi "sound:{rofi_path}/rofi-sound-plugin"'),
+        lazy.spawn("rofi -show sound"),
         desc="Rofi Sound"
     ),
     Key(
         [mod, "shift"],
         "w",
-        lazy.spawn(f"rofi -show oath -modi \"oath:{rofi_path}/rofi-oath-plugin\""),
+        lazy.spawn("rofi -show yubi"),
         desc="Rofi Yubikey Auth"
     ),
 
@@ -641,7 +640,7 @@ widgets = [
         device_battery_format = " [{battery}%]",
         default_timeout = 20,
         mouse_callbacks = {
-            "Button1": lazy.spawn(f"{rofi_path}/rofi-bluetooth-contained"),
+            "Button1": lazy.spawn(f"{terminal} -e bluetui"),
         },
     ),
 
