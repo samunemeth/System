@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "apps/qtile/config.py"
+      - "src/qtile/config.py"
       - "actions/qtile-layout.py"
       - ".github/workflows/qtile-layout.yml"
 
