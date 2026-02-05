@@ -87,6 +87,16 @@
     # Enable automatic power tuning.
     powerManagement.powertop.enable = true;
 
+    # Enable power management support via Upower.
+    services.upower = {
+      enable = true;
+
+      # Do not interfere when battery is low.
+      criticalPowerAction = "Ignore";
+      allowRiskyCriticalPowerAction = true;
+
+    };
+
     services.logind.settings.Login =
 
       # Assert that if hibernation is allowed, there has to be a swap device.
