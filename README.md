@@ -28,20 +28,22 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **Features**
 
-  - [x] Make network settings scratchpads.
-  - [x] Add back Upower.
-  - [x] Figure out a faster way for prototyping.
-  - [x] Ask around for a way of managing Qtile's configuration.
+  - [ ] Option and shortcuts for fingerprint reader.
+  - [ ] Figure out if a compositor is needed.
   - [ ] Impermanence, for some parts at least.
   - [ ] Hibernation with the new partition setup.
   - [ ] Locking, password prompt after suspend.
   - [ ] Monitor detection and saved layouts.
-  - [ ] Loose some stuff from Rofi.
   - [ ] Clean up python parts.
   - [ ] Handle missing low priority packages.
   - [ ] Automatic display rotation with `rot8`.
   - [ ] Minimal 2FA key generator setup.
   - [ ] Finish installation documentation.
+  - [x] Make network settings scratchpads.
+  - [x] Add back Upower.
+  - [x] Figure out a faster way for prototyping.
+  - [x] Ask around for a way of managing Qtile's configuration.
+  - [x] Loose some stuff from Rofi.
 
 There are also items marked with **TODO** inside comments. There are also
 **NOTE**, **WARN** and **BUG** labels used.
