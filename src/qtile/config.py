@@ -229,6 +229,8 @@ keys = [
     Key([mod], "f", lazy.group["scratchpad"].dropdown_toggle("lf"), desc="Scratchpad Lf Files"),
     Key([mod], "d", lazy.group["scratchpad"].dropdown_toggle("term"), desc="Scratchpad Terminal"),
     Key([mod], "c", lazy.group["scratchpad"].dropdown_toggle("calc"), desc="Scratchpad Calculator"),
+    Key([mod], "b", lazy.group["scratchpad"].dropdown_toggle("bluetooth"), desc="Scratchpad Bluetooth"),
+    Key([mod], "n", lazy.group["scratchpad"].dropdown_toggle("network"), desc="Sratchpad Network"),
 
     # Application quick launch
     Key([mod], "semicolon", lazy.spawn(terminal), desc="Terminal"),
@@ -238,28 +240,13 @@ keys = [
     Key([mod], "y", lazy.next_screen(), desc="Next Screen"),
     Key([mod], "z", lazy.next_screen(), desc="Next Screen"),
 
-    # Rofi menu options
+    # Qtile prompts.
     Key([mod], "g", lazy.spawncmd(prompt="[app]:"), desc="Spawn Prompt"),
     Key([mod], "s", power_prompt, desc="Power Prompt"),
-    Key([mod], "n", lazy.spawn("networkmanager_dmenu"), desc="Rofi Network"),
-    Key(
-        [mod],
-        "b",
-        lazy.spawn(f"{terminal} -e bluetui"),
-        desc="Rofi Bluetooth"
-    ),
-    Key(
-        [mod],
-        "x",
-        lazy.spawn("rofi -show sound"),
-        desc="Rofi Sound"
-    ),
-    Key(
-        [mod, "shift"],
-        "w",
-        lazy.spawn("rofi -show yubi"),
-        desc="Rofi Yubikey Auth"
-    ),
+
+    # Rofi menus.
+    Key([mod], "x", lazy.spawn("rofi -show sound"), desc="Rofi Sound"),
+    Key([mod, "shift"], "w", lazy.spawn("rofi -show yubi"), desc="Rofi Yubikey Auth"),
 
     # Keyboard layout switching.
     Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard(), desc="Keyboard Layout"),
@@ -292,6 +279,14 @@ keys = [
 
 # --- Group Settings ---
 
+group_default_settings = {
+    "width": 0.8,
+    "height": 0.601,
+    "x": 0.1,
+    "y": 0.15,
+    "opacity": 1,
+}
+
 groups = [
 
     Group("U", spawn=terminal),
@@ -304,33 +299,11 @@ groups = [
     Group("/"),
 
     ScratchPad("scratchpad", [
-        DropDown(
-            "term",
-            terminal,
-            width = 0.8,
-            height = 0.601,
-            x = 0.1,
-            y = 0.15,
-            opacity = 1,
-        ),
-        DropDown(
-            "lf",
-            f"{terminal} -e lf",
-            width = 0.8,
-            height = 0.601,
-            x = 0.1,
-            y = 0.15,
-            opacity = 1,
-        ),
-        DropDown(
-            "calc",
-            f"{terminal} -e calc",
-            width = 0.8,
-            height = 0.601,
-            x = 0.1,
-            y = 0.15,
-            opacity = 1,
-        ),
+        DropDown("term", terminal, **group_default_settings),
+        DropDown("lf", f"{terminal} -e lf", **group_default_settings),
+        DropDown("calc", f"{terminal} -e calc", **group_default_settings),
+        DropDown("bluetooth", f"{terminal} -e bluetui", **group_default_settings),
+        DropDown("network", f"{terminal} -e nmtui", **group_default_settings),
     ]),
 
 ]
@@ -643,7 +616,7 @@ widgets = [
         device_battery_format = " [{battery}%]",
         default_timeout = 20,
         mouse_callbacks = {
-            "Button1": lazy.spawn(f"{terminal} -e bluetui"),
+            "Button1": lazy.group["scratchpad"].dropdown_toggle("bluetooth"),
         },
     ),
 
@@ -656,7 +629,7 @@ widgets = [
         use_ethernet = True,
         ethernet_interface = wired_interface,
         mouse_callbacks = {
-            "Button1": lazy.spawn("networkmanager_dmenu"),
+            "Button1": lazy.group["scratchpad"].dropdown_toggle("network"),
         },
     ),
 

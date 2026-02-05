@@ -28,7 +28,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **Features**
 
-  - [ ] Make network settings scratchpads.
+  - [x] Make network settings scratchpads.
+  - [ ] Add back Upower.
   - [ ] Figure out a faster way for prototyping.
   - [x] Ask around for a way of managing Qtile's configuration.
   - [ ] Impermanence, for some parts at least.
