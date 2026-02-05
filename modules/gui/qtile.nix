@@ -117,11 +117,11 @@ in
 
     # Enable the picom compositor.
     # NOTE: does not do anything at the moment.
-    services.picom = {
-      enable = true;
-      backend = "glx";
-      vSync = true;
-    };
+    # services.picom = {
+    #   enable = true;
+    #   backend = "glx";
+    #   vSync = true;
+    # };
 
     # Set up auto login if required.
     services.displayManager.autoLogin = {

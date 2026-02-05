@@ -10,6 +10,7 @@
 let
 
   # Define networks present in the secrets.
+  # TODO: Somehow make it so we are not depending on this list.
   normal_networks = [
     "HOME"
     "GERARD"
@@ -84,17 +85,31 @@ in
   # Just a basic host name.
   networking.hostName = lib.mkDefault "nixos";
 
-  # Enable networking with network manager.
   networking.networkmanager = {
+
+    # Enable networking with network manager.
     enable = true;
+
+    # There are no plugins needed at the moment.
     plugins = lib.mkForce [ ];
+
+    # Enable extra power saving for the network adapter.
+    wifi.powersave = true;
+
   };
 
   # Enable the firewall, and do not let anything through.
   networking.firewall.enable = true;
 
-  # Enable Bluetooth on the system.
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+
+    # Enable Bluetooth on the system.
+    enable = true;
+
+    # Turn off Bluetooth by default.
+    powerOnBoot = false;
+
+  };
 
   # --- Declarative WiFi ---
 

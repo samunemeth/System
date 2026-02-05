@@ -80,6 +80,13 @@
     # Enable power management option for sleep and hibernation.
     powerManagement.enable = true;
 
+    # Enable power saving mode for the CPU.
+    # NOTE: This already seems to be the default value.
+    powerManagement.cpuFreqGovernor = "powersave";
+
+    # Enable automatic power tuning.
+    powerManagement.powertop.enable = true;
+
     services.logind.settings.Login =
 
       # Assert that if hibernation is allowed, there has to be a swap device.

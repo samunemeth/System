@@ -102,6 +102,5 @@
   # greatly reduced power usage.
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "modesetting" ];
-  boot.blacklistedKernelModules = [ "nouveau" ];
 
 }

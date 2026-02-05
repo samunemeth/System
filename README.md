@@ -28,6 +28,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **Features**
 
+  - [ ] Make network settings scratchpads.
   - [ ] Figure out a faster way for prototyping.
   - [x] Ask around for a way of managing Qtile's configuration.
   - [ ] Impermanence, for some parts at least.
@@ -413,6 +414,10 @@ I have tried investigating what is causing the dGPU wakeup, but have found to
 definite answer. *Kmscon* definitely runs on the dGPU if available, but without
 *Kmscon* wakeup still happen. Investigating this in detail would be a nice
 side quest for the future.
+
+*Removing* the Nouveau kernel module seems to *increase* power usage by about 10W.
+I assume that without any drivers the dGPU cannot be put into sleep, and
+therefore consumes more power.
 
 
 Look at [modules/nvidia.template.nix](./modules/nvidia.template.nix) for information on the settings.
