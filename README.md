@@ -29,7 +29,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 **Features**
 
   - [ ] Figure out a faster way for prototyping.
-  - [ ] Ask around for a way of managing Qtile's configuration.
+  - [x] Ask around for a way of managing Qtile's configuration.
   - [ ] Impermanence, for some parts at least.
   - [ ] Hibernation with the new partition setup.
   - [ ] Locking, password prompt after suspend.

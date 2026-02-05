@@ -264,6 +264,9 @@ keys = [
     # Keyboard layout switching.
     Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard(), desc="Keyboard Layout"),
 
+    # Reload configuration.
+    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload Config"),
+
     # Screenshot.
     Key([mod, "shift"], "s", lazy.spawn(screenshot_script, shell=True), desc="Screenshot"),
     Key([], "Print", lazy.spawn(screenshot_script, shell=True), desc="Screenshot"),

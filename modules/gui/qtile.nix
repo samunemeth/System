@@ -33,7 +33,7 @@ let
       [Desktop Entry]
       Name=Qtile
       Comment=Custom Qtile Session
-      Exec=${qtile-package}/bin/qtile start -l ${qtile-log-level} -c ${qtile-home}/qtile/config.py
+      Exec=${qtile-package}/bin/qtile start -l ${qtile-log-level} -c /etc/xdg/qtile/config.nix
       Type=Application
       Keywords=wm;tiling
     '';
@@ -111,6 +111,9 @@ in
         !(config.modules.gui.qtile && config.modules.gui.gnome)
       ) "Multiple desktop managers are not supported.";
       [ qtile-session-x11 ];
+
+    # Add configuration files to correct directory.
+    environment.etc."xdg/qtile".source = "${qtile-home}/qtile";
 
     # Enable the picom compositor.
     # NOTE: does not do anything at the moment.
