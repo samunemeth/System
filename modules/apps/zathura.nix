@@ -119,8 +119,27 @@ let
 in
 {
 
-  # TODO: Add option.
-  # TODO: Include an environment variable for default pdf reader.
-  environment.systemPackages = [ wrapped-zathura ];
+  options.modules = {
+    apps.zathura = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      example = false;
+      description = ''
+        Enables the Zathura PDF reader.
+      '';
+    };
+  };
+
+  config =
+    lib.mkAlwaysThenIf config.modules.apps.zathura
+      {
+        modules.export-apps.zathura = wrapped-zathura;
+      }
+      {
+
+        # TODO: Include an environment variable for default pdf reader.
+        environment.systemPackages = [ wrapped-zathura ];
+
+      };
 
 }

@@ -38,6 +38,7 @@
     ./apps/mpv.nix
     ./apps/neovim.nix
     ./apps/rofi.nix
+    ./apps/tmux.nix
     ./apps/vscode.nix
     ./apps/zathura.nix
 

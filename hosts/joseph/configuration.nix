@@ -54,7 +54,7 @@
     # GUIs to install and use.
     gui = {
       gnome = false;
-      kmscon = true;
+      kmscon = false;
       qtile = true;
     };
 
@@ -72,9 +72,11 @@
       ipycalc = true;
       lf = true;
       mpv = true;
-      rofi = true;
       neovim = true;
+      rofi = true;
+      tmux = true;
       vscode = false;
+      zathura = true;
     };
 
     # Programming languages to install.

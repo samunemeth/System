@@ -75,9 +75,11 @@
       ipycalc = false;
       lf = true;
       mpv = true;
-      rofi = true;
       neovim = true;
+      rofi = true;
+      tmux = false;
       vscode = false;
+      zathura = true;
     };
 
     # Programming languages to install.
