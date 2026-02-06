@@ -91,6 +91,9 @@
           "p" = "enter";
           ";" = "backspace";
 
+          # Pass through.
+          "space" = "A-space";
+
           # Accented characters.
           # TODO: Move to a different layer?
           "e" = "macro(compose e ')";

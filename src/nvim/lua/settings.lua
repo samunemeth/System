@@ -65,6 +65,23 @@ if vim.fn.has("wsl") == 1 then
 	})
 end
 
+-- Disable bold and italic in tmux
+if vim.env.TERM == "tmux-256color" then
+  vim.api.nvim_create_autocmd("VimEnter", {
+    pattern = "*",
+    callback = function()
+      for _, group in ipairs(vim.fn.getcompletion("", "highlight")) do
+        local hl = vim.api.nvim_get_hl(0, { name = group })
+        if hl.bold or hl.italic then
+          hl.bold = nil
+          hl.italic = nil
+          vim.api.nvim_set_hl(0, group, hl)
+        end
+      end
+    end,
+  })
+end
+
 -- Panel behaviour
 vim.opt.splitbelow = true
 
