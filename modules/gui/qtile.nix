@@ -115,8 +115,8 @@ in
     # Add configuration files to correct directory.
     environment.etc."xdg/qtile".source = "${qtile-home}/qtile";
 
-    # Enable the picom compositor.
-    # NOTE: does not do anything at the moment.
+    # NOTE: While a compositor makes screen tearing a bit less prominent,
+    # > there is nothing else using it so it is not necessary.
     # services.picom = {
     #   enable = true;
     #   backend = "glx";

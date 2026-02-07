@@ -28,6 +28,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **Features**
 
+  - [ ] Proper Tmux setup for Kmscon.
   - [ ] Option and shortcuts for fingerprint reader.
   - [ ] Figure out if a compositor is needed.
   - [ ] Impermanence, for some parts at least.
@@ -39,6 +40,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] Automatic display rotation with `rot8`.
   - [ ] Minimal 2FA key generator setup.
   - [ ] Finish installation documentation.
+  - [ ] Lite mode with Kmscon with some kind of status bar.
   - [x] Make network settings scratchpads.
   - [x] Add back Upower.
   - [x] Figure out a faster way for prototyping.
