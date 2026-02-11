@@ -25,22 +25,28 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
         *Maybe just ditch the mini greeter?*
   - [ ] Sometimes there is a significant slowdown after the machine is powered
         on for a long time and/or had been suspended for a long/multiple times.
+  - [ ] The calendar widget is not updated after waking up from suspend.
+        *Could just store previous value*
+  - [ ] In some cases missing optional applications are not handled with care.
+        This is manly an issue on minimal configurations.
 
 **Features**
 
-  - [ ] Proper Tmux setup for Kmscon.
+  - [ ] Migrate Rofi to Dmenu.
+  - [ ] Automatically scan folders containing modules.
+  - [ ] Make the calendar widget only display events in the next 24h, possibly
+        display the end of an event if one is in progress.
   - [ ] Option and shortcuts for fingerprint reader.
-  - [ ] Figure out if a compositor is needed.
+  - [ ] Figure out if a compositor is needed. *Probably No*
   - [ ] Impermanence, for some parts at least.
-  - [ ] Hibernation with the new partition setup.
   - [ ] Locking, password prompt after suspend.
-  - [ ] Monitor detection and saved layouts.
+  - [ ] Monitor detection, saved layouts, and automatic rotation with `rot8`.
   - [ ] Clean up python parts.
   - [ ] Handle missing low priority packages.
-  - [ ] Automatic display rotation with `rot8`.
   - [ ] Minimal 2FA key generator setup.
   - [ ] Finish installation documentation.
-  - [ ] Lite mode with Kmscon with some kind of status bar.
+  - [ ] Proper Tmux setup for Kmscon, with some status bar.
+  - [x] Hibernation with the new partition setup.
   - [x] Make network settings scratchpads.
   - [x] Add back Upower.
   - [x] Figure out a faster way for prototyping.
