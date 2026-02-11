@@ -15,7 +15,7 @@
     # System options.
     system = {
       isDesktop = false;
-      hibernation = false;
+      hibernation = true;
     };
 
     # Boot options.

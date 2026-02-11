@@ -159,8 +159,7 @@ partition on a pen drive without the need to erase the drive and burn the image.
     If asked, select `GPT` partition table.
     I recommend a boot partition between 512 MiB and 1 GiB, and a main partition
     preferable at least 16 GiB.
-    (A swap partition can also be created, but it is not
-    mentioned in the rest of this guide.)
+    **MISSING STEPS** for the swap partition, look at [this guide](https://wiki.nixos.org/wiki/Swap#Encrypt_swap_partition_with_password_or_fixed_key).
   - *If* you just **created a boot partition**, format it now:
     ```
     mkfs.fat -F 32 -n boot /dev/<BOOT-PART>
@@ -506,6 +505,7 @@ Wiki's for Nix language basics.
   - https://discourse.nixos.org/t/btrfs-swap-not-enough-swap-space-for-hibernation/36805
   - https://github.com/NixOS/nixpkgs/issues/276374
   - https://haseebmajid.dev/posts/2024-07-30-how-i-setup-btrfs-and-luks-on-nixos-using-disko/
+  - https://wiki.nixos.org/wiki/Swap#Encrypt_swap_partition_with_password_or_fixed_key
 
 ## Firefox
 

@@ -52,6 +52,8 @@
     # Write JSON files with the globals and module settings.
     environment.etc."system-options/globals.json".text = builtins.toJSON globals;
     environment.etc."system-options/modules.json".text = builtins.toJSON (
+      # Make sure to remove the exported apps, as including this in the JSON
+      # would force them to be installed regardless of the settings.
       builtins.removeAttrs config.modules [ "export-apps" ]
     );
 
@@ -64,10 +66,8 @@
       config.allowUnfree = true;
     };
 
-    # Automatically optimise packages.
+    # Automatically optimise packages and collect garbage.
     nix.settings.auto-optimise-store = true;
-
-    # Automatically collect garbage.
     nix.gc = {
       automatic = true;
       dates = "weekly";
@@ -77,15 +77,16 @@
 
     # --- Power Management ---
 
-    # Enable power management option for sleep and hibernation.
+    # Enable power management for sleep and hibernation.
     powerManagement.enable = true;
 
     # Enable power saving mode for the CPU.
     # NOTE: This already seems to be the default value.
     powerManagement.cpuFreqGovernor = "powersave";
 
-    # Enable automatic power tuning.
+    # Enable automatic power tuning. Add package to path if already installed.
     powerManagement.powertop.enable = true;
+    environment.systemPackages = [ pkgs.powertop ];
 
     # Enable power management support via Upower.
     services.upower = {
