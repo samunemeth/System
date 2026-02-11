@@ -33,7 +33,6 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 **Features**
 
   - [ ] Migrate Rofi to Dmenu.
-  - [ ] Automatically scan folders containing modules.
   - [ ] Make the calendar widget only display events in the next 24h, possibly
         display the end of an event if one is in progress.
   - [ ] Option and shortcuts for fingerprint reader.
@@ -52,6 +51,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [x] Figure out a faster way for prototyping.
   - [x] Ask around for a way of managing Qtile's configuration.
   - [x] Loose some stuff from Rofi.
+  - [x] Automatically scan folders containing modules.
 
 There are also items marked with **TODO** inside comments. There are also
 **NOTE**, **WARN** and **BUG** labels used.

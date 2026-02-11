@@ -8,58 +8,24 @@
   inputs,
   ...
 }:
+let
+
+  # Read all the modules that are in subdirectories to this directory.
+  # This way the templates that are on this level are excluded.
+  module-folders = lib.attrNames (
+    lib.filterAttrs (key: value: value == "directory") (builtins.readDir ./.)
+  );
+  modules-to-import = lib.flatten (
+    map (
+      folder: map (file: ./${folder}/${file}) (lib.attrNames (builtins.readDir ./${folder}))
+    ) module-folders
+  );
+
+in
 {
 
-  imports = [
-
-    # General Modules
-    ./common/bash.nix
-    ./common/boot.nix
-    ./common/copyparty.nix
-    ./common/git.nix
-    ./common/grammar.nix
-    ./common/locale.nix
-    ./common/network.nix
-    ./common/packages.nix
-    ./common/seafile.nix
-    ./common/sops.nix
-    ./common/ssh.nix
-    ./common/system.nix
-    ./common/users.nix
-    ./common/virtual.nix
-    ./common/yubikey.nix
-
-    # Applications
-    ./apps/alacritty.nix
-    ./apps/dmenu.nix
-    ./apps/epy.nix
-    ./apps/firefox.nix
-    ./apps/ipycalc.nix
-    ./apps/lf.nix
-    ./apps/mpv.nix
-    ./apps/neovim.nix
-    ./apps/rofi.nix
-    ./apps/tmux.nix
-    ./apps/vscode.nix
-    ./apps/zathura.nix
-
-    # Programming Languages
-    ./code/bash.nix
-    ./code/haskell.nix
-    ./code/java.nix
-    ./code/julia.nix
-    ./code/latex.nix
-    ./code/lua.nix
-    ./code/nix.nix
-    ./code/python.nix
-    ./code/rust.nix
-
-    # User Interfaces
-    ./gui/gnome.nix
-    ./gui/kmscon.nix
-    ./gui/qtile.nix
-
-  ];
+  # Import all the modules.
+  imports = modules-to-import;
 
   options.modules = {
     export-apps = lib.mkOption {
