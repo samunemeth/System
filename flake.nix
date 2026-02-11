@@ -53,6 +53,7 @@
           foreground = {
             main = "#F2F4F3";
             soft = "#D0D6DD";
+            select = "#8cf8f7";
             error = "#DC4332";
           };
         };

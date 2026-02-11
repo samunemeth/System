@@ -519,6 +519,10 @@ Resources for configuring Firefox with Nix.
   - [Some Examples](https://discourse.nixos.org/t/declare-firefox-extensions-and-settings/36265/7)
   - [Declarative Bookmarks](https://discourse.nixos.org/t/firefox-import-html-bookmark-file-in-a-declarative-manner/38168/23)
 
+## Dmenu
+
+  - https://tools.suckless.org/dmenu/patches/line-height/
+
 ## Other
 
 Guides, threads, wiki's that I have found useful.

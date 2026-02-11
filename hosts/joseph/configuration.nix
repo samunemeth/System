@@ -67,6 +67,7 @@
     # Apps to install.
     apps = {
       alacritty = true;
+      dmenu = true;
       epy = true;
       firefox = true;
       ipycalc = true;
