@@ -10,7 +10,7 @@ import urllib.request, urllib.parse
 import json
 import datetime
 
-from libqtile import bar, layout, widget, hook, qtile
+from libqtile import bar, layout, widget, hook, qtile, pangocffi
 from libqtile.config import Group, Key, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
@@ -24,6 +24,7 @@ logger.info("--- STARTING ---")
 # --- Parametric Settings ---
 
 def get_parametric():
+    """Loads parametric setting from JSON files containing the system configuration."""
     with open("/etc/system-options/globals.json", "r", encoding="utf-8") as f:
         globals_ = json.load(f)
     with open("/etc/system-options/modules.json", "r", encoding="utf-8") as f:
@@ -45,6 +46,7 @@ def get_parametric():
     return parametric_
 
 def get_dummy_parametric():
+    """Created dummy default values that act the same as the parametric settings."""
     @dataclass
     class parametric_:
         background_main = "#222222"
@@ -59,11 +61,13 @@ def get_dummy_parametric():
         is_vm = True # Assume that we are in a VM of sorts.
     return parametric_
 
+# Try to get the parametric settings, if if fails use the dummy ones.
 try:
     parametric = get_parametric()
 except:
     parametric = get_dummy_parametric()
 
+# Add a message if a VM is detected.
 if parametric.is_vm:
     logger.warning("Running inside virtual machine! Some widgets disabled.")
 
@@ -72,6 +76,7 @@ if parametric.is_vm:
 
 # Load in secrets from sops. The paths are constant here, assuming that the
 # secrets name is not changed in sops this should be fine.
+# They might not be present if Qtile is inside a VM.
 
 try:
     with open("/run/secrets/google-cal-id", "r", encoding="utf-8") as f:
@@ -90,6 +95,7 @@ try:
 except AttributeError:
     qtile_home_path = os.path.expanduser("~/.config/qtile")
 logger.info(f"Running with config path: {qtile_home_path}")
+
 
 # --- Guess Network Adapter Names ---
 
@@ -180,6 +186,7 @@ notify-send -u low "Copied hex code to clipboard."
 """
 
 def power_action(cmd):
+    """Preforms a power action depending on the input of a prompt."""
 
     action = []
     if cmd.startswith(("su", "sl")):
@@ -279,7 +286,7 @@ keys = [
 
 # --- Group Settings ---
 
-group_default_settings = {
+drop_down_default_settings = {
     "width": 0.8,
     "height": 0.601,
     "x": 0.1,
@@ -299,11 +306,11 @@ groups = [
     Group("/"),
 
     ScratchPad("scratchpad", [
-        DropDown("term", terminal, **group_default_settings),
-        DropDown("lf", f"{terminal} -e lf", **group_default_settings),
-        DropDown("calc", f"{terminal} -e calc", **group_default_settings),
-        DropDown("bluetooth", f"{terminal} -e bluetui", **group_default_settings),
-        DropDown("network", f"{terminal} -e nmtui", **group_default_settings),
+        DropDown("term", terminal, **drop_down_default_settings),
+        DropDown("lf", f"{terminal} -e lf", **drop_down_default_settings),
+        DropDown("calc", f"{terminal} -e calc", **drop_down_default_settings),
+        DropDown("bluetooth", f"{terminal} -e bluetui", **drop_down_default_settings),
+        DropDown("network", f"{terminal} -e nmtui", **drop_down_default_settings),
     ]),
 
 ]
@@ -320,29 +327,17 @@ group_key_lookup = {
 }
 
 for name, key in group_key_lookup.items():
-    keys.append(
-       Key(
-           [mod],
-           key,
-           lazy.group[name].toscreen(),
-           desc=f"Group {name}",
-       )
-    )
-    keys.append(
-       Key(
-           [mod, "shift"],
-           key,
-           lazy.window.togroup(name, switch_group=True),
-           desc=f"Move to {name}",
-       )
-    )
+    keys.extend([
+        Key([mod], key, lazy.group[name].toscreen(), desc=f"Group {name}"),
+        Key([mod, "shift"], key, lazy.window.togroup(name, switch_group=True), desc=f"Move to {name}")
+    ])
 
 
 # --- Layout Settings ---
 
 
-# Return number of connected outputs reported by xrandr.
 def get_connected_monitors() -> int:
+    """Return number of connected outputs reported by xrandr."""
     try:
         out = subprocess.check_output(["xrandr", "--query"], stderr=subprocess.DEVNULL)
         out = out.decode("utf-8", errors="ignore")
@@ -396,6 +391,7 @@ def get_nvidia_status_icon():
         return "󰷜"
 
 def get_seafile_status():
+    # TODO: What the actual fuck is going on in this function?
     try: 
         seaf_status = subprocess.check_output(["seaf-cli", "status"]).decode("utf-8").strip()
         content_raw = [re.sub(r"\s+", " ", x.strip()).split(" ") for x in seaf_status.split("\n")[1:]]
@@ -428,45 +424,52 @@ def get_seafile_status():
 
 
 def get_next_calendar_event(link_only=False):
+    """Get a calendar event from Google Calendar in a formatted string."""
 
-    # Return some defaults if there is no API key.
+    # Return if the API key or calendar id is missing.
     if not GOOGLE_API_KEY or not GOOGLE_CAL_ID:
-        if link_only:
-            return "about:blank"
-        return "<i>(No API Key)</i>"
+        return "about:blank" if link_only else "<i>(No API Key)</i>"
 
+    # Encode the calendar id, get the current time and the end of the time frame.
     cal_id_enc = urllib.parse.quote(GOOGLE_CAL_ID)
     time_now = datetime.datetime.now(datetime.UTC)
+    time_end = time_now + datetime.timedelta(days=1)
 
-    # TODO: Only allow events from the current day / from the next 24h
+    # Generate the search parameters, and the URL for the request.
     params = {
         "key": GOOGLE_API_KEY,
         "singleEvents": "true",
         "orderBy": "startTime",
         "timeMin": time_now.isoformat(),
+        "timeMax": time_end.isoformat(),
         "maxResults": "5",
         "showDeleted": "false",
     }
     params_enc = urllib.parse.urlencode(params)
     url = f"https://www.googleapis.com/calendar/v3/calendars/{cal_id_enc}/events?{params_enc}"
 
+    # Fetch the data from the URL.
     try:
         with urllib.request.urlopen(url) as resp:
             data = json.load(resp)
     except:
-        
-        # Return some defaults if there is no connection.
-        if link_only:
-            return "about:blank"
-        return "<i>(No Connection)</i>"
+        # Return if there is no connection, or the received data is not a JSON.
+        return "about:blank" if link_only else "<i>(No Connection)</i>"
 
+    # Get the items from the data, and filter for events that are not full day.
     events = data.get("items", [])
     events = filter(lambda e: e["start"].get("date") is None, events)
     next_event = next(events, None)
 
+    # Maybe there are no events in the time frame, return a message.
+    if not next_event:
+        return "about:blank" if link_only else "<i>(No Events)</i>"
+
+    # Return the link to the event if that is requested.
     if link_only:
         return next_event["htmlLink"]
 
+    # Format the time for the widget.
     time_format = "%H:%M"
     start_str = next_event["start"]["dateTime"]
     start_dt = datetime.datetime.fromisoformat(start_str).astimezone()
@@ -476,15 +479,26 @@ def get_next_calendar_event(link_only=False):
     end = end_dt.strftime(time_format)
     time = ("󰃭 " + start) if start_dt > time_now else ("󰃰 " + end)
 
+    # Escape the text in the title and location, as it might contain special
+    # Pango markup characters.
     title = next_event.get("summary", "(No Title)")
+    title = pangocffi.markup_escape_text(title)
     location = next_event.get("location", "")
+    location = pangocffi.markup_escape_text(location)
     
+    # Return a formatted string with the information required.
     return f"{time} - <i>{title}</i>" + (f" - {location}" if location else "")
 
 @lazy.function
 def calendar_clicked(qtile):
+    """Open and focus a Firefox browser tab with the next calendar event."""
+
+    # Open a new Firefox tab.
     subprocess.Popen(["firefox", get_next_calendar_event(link_only=True)])
 
+    # Try to find where the fuck is it, and focus that group.
+    # NOTE: This probably does not need to be this complicated, but I guess
+    # > it works so I will not touch if for now.
     firefox_window = next(filter(lambda e: "Firefox" in e["name"], qtile.windows()))
     firefox_group_name = firefox_window["group"]
     firefox_group_object = next(filter(lambda e: e.info()["name"] == firefox_group_name, qtile.groups))

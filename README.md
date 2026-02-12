@@ -33,8 +33,6 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 **Features**
 
   - [ ] Migrate Rofi to Dmenu.
-  - [ ] Make the calendar widget only display events in the next 24h, possibly
-        display the end of an event if one is in progress.
   - [ ] Option and shortcuts for fingerprint reader.
   - [ ] Figure out if a compositor is needed. *Probably No*
   - [ ] Impermanence, for some parts at least.
@@ -52,6 +50,8 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [x] Ask around for a way of managing Qtile's configuration.
   - [x] Loose some stuff from Rofi.
   - [x] Automatically scan folders containing modules.
+  - [x] Make the calendar widget only display events in the next 24h, possibly
+        display the end of an event if one is in progress.
 
 There are also items marked with **TODO** inside comments. There are also
 **NOTE**, **WARN** and **BUG** labels used.
@@ -432,8 +432,8 @@ therefore consumes more power.
 
 Look at [modules/nvidia.template.nix](./modules/nvidia.template.nix) for information on the settings.
 The template is based on the following sources:
-  - [Community NixOS Wiki](https://nixos.wiki/wiki/Nvidia)
-  - [Official NixOS Wiki](https://wiki.nixos.org/wiki/NVIDIA)
+  - [Community NixOS Wiki on Nvidia](https://nixos.wiki/wiki/Nvidia)
+  - [Official NixOS Wiki on Nvidia](https://wiki.nixos.org/wiki/NVIDIA)
 
 
 ## Sticky Derivations
@@ -505,13 +505,13 @@ Wiki's for Nix language basics.
 
 ## Hibernation
 
+  - [Luks Encrypted Swap](https://wiki.nixos.org/wiki/Swap#Encrypt_swap_partition_with_password_or_fixed_key)
   - https://nixos.wiki/wiki/Hibernation
   - https://blog.tiserbox.com/posts/2025-03-10-enable-hibernation-on-nix-os.html
   - https://sawyershepherd.org/post/hibernating-to-an-encrypted-swapfile-on-btrfs-with-nixos/
   - https://discourse.nixos.org/t/btrfs-swap-not-enough-swap-space-for-hibernation/36805
   - https://github.com/NixOS/nixpkgs/issues/276374
   - https://haseebmajid.dev/posts/2024-07-30-how-i-setup-btrfs-and-luks-on-nixos-using-disko/
-  - https://wiki.nixos.org/wiki/Swap#Encrypt_swap_partition_with_password_or_fixed_key
 
 ## Firefox
 
@@ -524,10 +524,6 @@ Resources for configuring Firefox with Nix.
   - [Current Preferences: `about:config`](about:config)
   - [Some Examples](https://discourse.nixos.org/t/declare-firefox-extensions-and-settings/36265/7)
   - [Declarative Bookmarks](https://discourse.nixos.org/t/firefox-import-html-bookmark-file-in-a-declarative-manner/38168/23)
-
-## Dmenu
-
-  - https://tools.suckless.org/dmenu/patches/line-height/
 
 ## Other
 
@@ -544,6 +540,8 @@ Guides, threads, wiki's that I have found useful.
   - [Wrapping Neovim](https://primamateria.github.io/blog/neovim-nix/)
   - [Neovim Wrapper Source](https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/neovim/wrapper.nix)
   - [Erase Your Darlings](https://grahamc.com/blog/erase-your-darlings/)
+  - [List of Keyboard Variants on Linux](https://gist.githubusercontent.com/rindeal/1891455c258b22f3e31e1da8f9821c28/raw/ec620128c9c7c4fd83c2311de569e11f9157652f/~layouts-variants.txt)
+  - [Dmenu Patch for Line Height](https://tools.suckless.org/dmenu/patches/line-height/)
 
 # Fun
 
