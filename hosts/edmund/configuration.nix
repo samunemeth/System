@@ -20,7 +20,7 @@
 
     # Boot options.
     boot = {
-      silentBoot = true;
+      silentBoot = false;
       luksPrompt = false;
       autoLogin = false;
       secureboot = false; # Turn off before first boot!
@@ -38,9 +38,9 @@
 
     # YubiKey options.
     yubikey = {
-      enable = true;
-      login = true;
-      sudo = true;
+      enable = false;
+      login = false;
+      sudo = false;
       ssh = false;
     };
 
@@ -57,7 +57,7 @@
     # GUIs to install and use.
     gui = {
       gnome = true;
-      kmscon = true;
+      kmscon = false;
       qtile = false;
     };
 
@@ -96,6 +96,15 @@
       rust = false;
     };
 
+  };
+
+  # Settings for Nvidia graphics card.
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia = {
+    nvidiaSettings = false;
+    open = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
 }

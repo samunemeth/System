@@ -26,7 +26,7 @@
     services.xserver = {
       enable = true;
 
-      # Enable gdm and gnome.
+      # Enable GDM and Gnome.
       displayManager.gdm.enable = true;
       desktopManager.gnome.enable =
         assert lib.assertMsg (
@@ -38,6 +38,7 @@
 
     # Disable default bloat.
     services.gnome.core-apps.enable = false;
+    environment.gnome.excludePackages = [ pkgs.gnome-tour ];
 
     # Enable sound with Pipe Wire instead.
     services.pulseaudio.enable = lib.mkForce false;
@@ -59,6 +60,6 @@
     # WARN: Alacritty is now wrapped. This would need to be included in
     # > the configuration file for Alacritty.
     # programs.alacritty.settings.window.decorations = lib.mkForce "full";
-    
+    # programs.alacritty.settings.font.size = lib.mkForce 12;
   };
 }
