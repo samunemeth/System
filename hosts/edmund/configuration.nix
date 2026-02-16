@@ -15,14 +15,14 @@
     # System options.
     system = {
       isDesktop = true;
-      hibernation = false;
+      hibernation = true;
     };
 
     # Boot options.
     boot = {
       silentBoot = false;
-      luksPrompt = false;
-      autoLogin = false;
+      luksPrompt = true;
+      autoLogin = true;
       secureboot = false; # Turn off before first boot!
     };
 
@@ -56,22 +56,22 @@
 
     # GUIs to install and use.
     gui = {
-      gnome = true;
+      gnome = false;
       kmscon = false;
-      qtile = false;
+      qtile = true;
     };
 
     # General package options.
     packages = {
       lowPriority = true;
-      manuals = false;
+      manuals = true;
     };
 
     # Apps to install.
     apps = {
       alacritty = true;
       dmenu = true;
-      epy = false;
+      epy = true;
       firefox = true;
       ipycalc = false;
       lf = true;
