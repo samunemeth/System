@@ -123,7 +123,6 @@ in
 
   imports = [
 
-    ../modules/gui/kmscon.nix
     ../modules/common/locale.nix
 
   ];
@@ -153,10 +152,6 @@ in
 
   ];
   programs.git.enable = true;
-
-  # Enable kmscon for a better visual experience.
-  modules.gui.kmscon = true;
-  services.kmscon.autologinUser = lib.mkForce "nixos";
 
   # Set Neovim as the default editor.
   environment.sessionVariables.EDITOR = "nvim";
