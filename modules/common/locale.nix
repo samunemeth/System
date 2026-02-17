@@ -51,6 +51,15 @@
       # Set time zone to CET.
       time.timeZone = config.modules.locale.timeZone;
 
+      # Keep the hardware clock of the machine on local time. This fixes the
+      # issue of windows displaying UTC time as local time.
+      # After this setting is enabled, the hardware clock may not be updated
+      # instantly. Run the following to check the status of the clocks:
+      # $ timedatectl
+      # To force a write to the local RTC clock, run the following:
+      # $ sudo hwclock --systohc --localtime
+      time.hardwareClockInLocalTime = true;
+
       # Set default US locales.
       i18n.defaultLocale = "en_US.UTF-8";
 
