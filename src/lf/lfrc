@@ -14,6 +14,9 @@ map . set hidden!
 map <enter> open
 map DD delete
 
+map +x $chmod +x "$f"
+map -x $chmod -x "$f"
+
 # These are some quick movement mappings.
 map gh cd ~/
 map gd cd ~/Downloads
