@@ -272,9 +272,9 @@ keys = [
     Key([], "XF86MonBrightnessUp", lazy.spawn("sudo xbacklight -inc 5"), desc="Brightness Up"),
     Key([], "XF86MonBrightnessDown", lazy.spawn("sudo xbacklight -dec 5"), desc="Brightness Down"),
 
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("pulseaudio-ctl up"), desc="Volume Up"),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("pulseaudio-ctl down"), desc="Volume Down"),
-    Key([], "XF86AudioMute", lazy.spawn("pulseaudio-ctl mute"), desc="Volume Mute"),
+    Key([], "XF86AudioRaiseVolume", lazy.widget["pulsevolume"].increase_vol(), desc="Volume Up"),
+    Key([], "XF86AudioLowerVolume", lazy.widget["pulsevolume"].decrease_vol(), desc="Volume Down"),
+    Key([], "XF86AudioMute", lazy.widget["pulsevolume"].mute(), desc="Volume Mute"),
 
     Key([], "XF86AudioMicMute", lazy.spawn("pulseaudio-ctl mute-input"), desc="Microphone Mute"),
     Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause"), desc="Play Pause"),
