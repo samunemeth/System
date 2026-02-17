@@ -24,9 +24,6 @@
         # Update NixOS flake.
         "nfu" = "( cd ~/System ; nix flake update )";
 
-        # Collect NixOS garbage.
-        "ncg" = "sudo nix-collect-garbage -d";
-
         # Check NixOS roots.
         "ncr" =
           "sudo -i nix-store --gc --print-roots | egrep -v '^(/nix/var|/run/current-system|/run/booted-system|/proc|{memory|{censored)'";
@@ -39,6 +36,12 @@
           # Rebuild NixOS from a flake.
           nrs () {
             sudo nixos-rebuild switch --flake ~/System/#$1
+          }
+
+          # Collect NixOS garbage. This includes cleaning temporary roots.
+          ncg() {
+            sudo rm -f /nix/var/nix/temproots/*
+            sudo nix-collect-garbage -d
           }
 
           # Start a nix shell with specified packages and a nice prompt.
