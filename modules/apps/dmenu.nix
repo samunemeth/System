@@ -40,6 +40,21 @@ let
     '';
   };
 
+  dmenu-scripts = pkgs.stdenvNoCC.mkDerivation {
+    name = "dmenu-plugins";
+    src = ../../src/dmenu;
+    nativeBuildInputs = [ pkgs.rename ];
+    installPhase = ''
+      # Rename all the scripts.
+      rename 's/^/dmenu-/; s/\.sh$//' *
+      # Make all of the executable.
+      chmod +x *
+      # Copy contents to output.
+      mkdir -p $out/bin
+      cp -r * $out/bin/
+    '';
+  };
+
 in
 {
 
@@ -56,7 +71,10 @@ in
 
   config = lib.mkIf config.modules.apps.dmenu {
 
-    environment.systemPackages = [ wrapped-dmenu ];
+    environment.systemPackages = [
+      wrapped-dmenu
+      dmenu-scripts
+    ];
 
     # Require fonts used.
     fonts.packages = [ pkgs.nerd-fonts.hack ];

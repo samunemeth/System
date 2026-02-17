@@ -67,7 +67,6 @@
       lf = true;
       mpv = false;
       neovim = false;
-      rofi = false;
       tmux = true;
       vscode = false;
       zathura = false;

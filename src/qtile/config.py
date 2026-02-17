@@ -251,9 +251,9 @@ keys = [
     Key([mod], "g", lazy.spawncmd(prompt="[app]:"), desc="Spawn Prompt"),
     Key([mod], "s", power_prompt, desc="Power Prompt"),
 
-    # Rofi menus.
-    Key([mod], "x", lazy.spawn("rofi -show sound"), desc="Rofi Sound"),
-    Key([mod, "shift"], "w", lazy.spawn("rofi -show yubi"), desc="Rofi Yubikey Auth"),
+    # Dmenu scripts.
+    Key([mod], "x", lazy.spawn("dmenu-sound"), desc="Dmenu Sound"),
+    Key([mod, "shift"], "w", lazy.spawn("dmenu-yubi"), desc="Dmenu Yubikey Auth"),
 
     # Keyboard layout switching.
     Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard(), desc="Keyboard Layout"),

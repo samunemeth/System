@@ -12,7 +12,6 @@
 I am trying to achieve a minimal NixOS installation for productivity.
 I use Qtile as my window manager, Neovim for text and code editing,
 Firefox for browsing and Lf for file management.
-For settings, I try to use Rofi menus where possible.
 I am mainly using these systems for internet browsing and LaTeX compilation.
 
 
@@ -32,7 +31,6 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
 
 **Features**
 
-  - [ ] Migrate Rofi to Dmenu.
   - [ ] Option and shortcuts for fingerprint reader.
   - [ ] Figure out if a compositor is needed. *Probably No*
   - [ ] Impermanence, for some parts at least.
@@ -43,6 +41,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] Minimal 2FA key generator setup.
   - [ ] Finish installation documentation.
   - [ ] Proper Tmux setup for Kmscon, with some status bar.
+  - [x] Migrate Rofi to Dmenu.
   - [x] Hibernation with the new partition setup.
   - [x] Make network settings scratchpads.
   - [x] Add back Upower.
