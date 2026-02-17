@@ -12,7 +12,8 @@
 I am trying to achieve a minimal NixOS installation for productivity.
 I use Qtile as my window manager, Neovim for text and code editing,
 Firefox for browsing and Lf for file management.
-I am mainly using these systems for internet browsing and LaTeX compilation.
+I am mainly using these systems for internet browsing, text editing, coding,
+and LaTeX compilation.
 
 
 # To-Do
@@ -41,6 +42,7 @@ I am mainly using these systems for internet browsing and LaTeX compilation.
   - [ ] Minimal 2FA key generator setup.
   - [ ] Finish installation documentation.
   - [ ] Proper Tmux setup for Kmscon, with some status bar.
+  - [ ] Restart Qtile after suspend.
   - [x] Migrate Rofi to Dmenu.
   - [x] Hibernation with the new partition setup.
   - [x] Make network settings scratchpads.
