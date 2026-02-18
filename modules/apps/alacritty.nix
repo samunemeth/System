@@ -46,7 +46,7 @@ let
         family = "Hack Nerd Font Mono";
         style = "Bold Italic";
       };
-      size = 8;
+      size = if config.modules.system.isDesktop then 12 else 8;
     };
 
   };
