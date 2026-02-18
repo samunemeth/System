@@ -43,7 +43,8 @@
     in
     {
 
-      # TODO: Do we need this here?
+      # Add Seafile to the system packages to allow looking at the status from
+      # Qtile or any other external application.
       environment.systemPackages = with pkgs; [
         seafile-shared
       ];

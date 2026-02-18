@@ -9,16 +9,16 @@
 }:
 {
 
-  # NOTE: Based on the following sources:
-  # > https://nixos.wiki/wiki/Nvidia
-  # > https://wiki.nixos.org/wiki/NVIDIA
+  # Based on the following sources:
+  # https://nixos.wiki/wiki/Nvidia
+  # https://wiki.nixos.org/wiki/NVIDIA
 
   # GPU testing software, may use a lot of space.
   environment.systemPackages = with pkgs; [
 
     # For stress testing graphics cards. Unfree package.
     # Use the following command to start the application:
-    #$ FurMark_GUI
+    # $ FurMark_GUI
     furmark
 
     # For inspecting usage and processes.
@@ -32,10 +32,10 @@
 
   ];
 
-  # WARN: Kmscon may mess with GPU sleeping.
+  # Kmscon may mess with GPU sleeping.
 
   # Enable OpenGL and Vulkan.
-  # NOTE: Some Vulkan packages may need separate importing?
+  # Some Vulkan packages may need separate importing?
   # I have not confirmed this.
   hardware.graphics.enable = true;
 
@@ -50,9 +50,9 @@
     modesetting.enable = true; # Some kernel magic I guess.
     nvidiaSettings = false; # Disable the settings app, there is no need for it.
 
-    # NOTE: List of supported graphics cards for open drivers:
-    # > https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-    # > Older graphics cards may require a different driver version.
+    # List of supported graphics cards for open drivers:
+    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
+    # Older graphics cards may require a different driver version.
     open = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
 
