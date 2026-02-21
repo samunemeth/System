@@ -522,6 +522,10 @@ def add_sep():
         padding = 10,
     )
 
+# Adds padding to a string using pango markup.
+def pad(px):
+    return f'<span letter_spacing="{str(1024 * px)}">\u200b</span>'
+
 widgets = [
 
     widget.GroupBox(
@@ -638,8 +642,8 @@ widgets = [
     widget.Wlan(
         interface = wireless_interface,
         format = "󰖩 {percent:2.0%}",
-        disconnected_message = "󰖪 ",
-        ethernet_message_format = "󰈀 ",
+        disconnected_message = f"󰖪{pad(8)}",
+        ethernet_message_format = f"󰈀{pad(8)}",
         use_ethernet = True,
         ethernet_interface = wired_interface,
         mouse_callbacks = {
