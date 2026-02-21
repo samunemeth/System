@@ -16,6 +16,7 @@
     system = {
       isDesktop = false;
       hibernation = true;
+      powerTuning = true;
     };
 
     # Boot options.

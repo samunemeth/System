@@ -18,6 +18,16 @@
         Allows the machine to hibernate.
       '';
     };
+    system.powerTuning = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      example = true;
+      description = ''
+        Enables automatic power tuning via powertop.
+        This sometimes messes up peripherals and HID devices, so it is
+        only recommended to be used on laptops.
+      '';
+    };
   };
 
   config = {
@@ -29,9 +39,10 @@
     # NOTE: This already seems to be the default value.
     powerManagement.cpuFreqGovernor = "powersave";
 
-    # Enable automatic power tuning. Add package to path if already installed.
-    powerManagement.powertop.enable = true;
-    environment.systemPackages = [ pkgs.powertop ];
+    # Enable automatic power tuning as per the setting.
+    # Add package to path if already installed.
+    powerManagement.powertop.enable = config.modules.system.powerTuning;
+    environment.systemPackages = lib.mkIf config.modules.system.powerTuning [ pkgs.powertop ];
 
     # Enable power management support via Upower.
     services.upower = {
