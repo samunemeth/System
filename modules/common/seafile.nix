@@ -22,7 +22,7 @@
       type = lib.types.attrsOf lib.types.str;
       default = { };
       example = { };
-      description = '''';
+      description = "";
     };
   };
 
@@ -104,8 +104,8 @@
             fi
           done
 
-
         '';
+
         serviceConfig = {
           Type = "forking";
           User = globals.user;
@@ -113,6 +113,11 @@
           # Restart if there is no network connection yet.
           Restart = "on-failure";
           RestartSec = "10sec";
+
+          # Allow to terminate if not responding.
+          TimeoutStopSec = "5s";
+          SendSIGKILL = true;
+          KillMode = "control-group";
         };
       };
 
