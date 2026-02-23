@@ -153,34 +153,23 @@ partition on a pen drive without the need to erase the drive and burn the image.
     ```
     nix develop github:samunemeth/System#setup
     ```
-  - Check disk and partition names, mount points with the first, and file system
-    information with the second command at any time during the installation:
+  - Check disk and partition names, mount points, labels, and file system types
+    with the following command any time during the installation:
     ```
-    lsblk
-    lsblk -f
+    lsblk -o +LABEL,FSTYPE,FSVER
     ```
   - Create the needed partitions:
     ```
     cfdisk /dev/<OS-DISK>
     ```
     If asked, select `GPT` partition table.
-    I recommend a boot partition between 512 MiB and 1 GiB, and a main partition
-    preferable at least 16 GiB.
-    **MISSING STEPS** for the swap partition, look at [this guide](https://wiki.nixos.org/wiki/Swap#Encrypt_swap_partition_with_password_or_fixed_key).
-  - *If* you just **created a boot partition**, format it now:
-    ```
-    mkfs.fat -F 32 -n boot /dev/<BOOT-PART>
-    ```
-    *If* you already **have a boot partition** on your disk, it should work
-    just fine as long as it **has enough space**.
-    (Windows usually creates a small boot partition, and resizing it is
-    not the easiest or safest thing to do, so I recommend installing Linux
-    before Windows for dual booting setups.)
+    I recommend a boot partition between 512 MiB and 1 GiB, a main partition
+    of at least 16 GiB, and a swap partition the same size as the RAM.
   - Create a Luks encrypted Btrfs main partition:
     ```
-    cryptsetup --verify-passphrase -v luksFormat /dev/<LINUX-PART>
-    cryptsetup open /dev/<LINUX-PART> enc
-    mkfs.btrfs /dev/mapper/enc
+    cryptsetup luksFormat /dev/<NIXOS-PART> --label lb_luks_nixos -v --verify-passphrase
+    cryptsetup open /dev/disk/by-label/lb_luks_nixos
+    mkfs.btrfs /dev/mapper/enc --label lb_nixos
     ```
   - Create the needed sub volumes on the Btrfs partition:
     ```
@@ -195,11 +184,33 @@ partition on a pen drive without the need to erase the drive and burn the image.
     mount -o subvol=home,compress=zstd /dev/mapper/enc /mnt/home
     mount -o subvol=nix,compress=zstd,noatime /dev/mapper/enc /mnt/nix
     ```
+  - *If* you just **created a boot partition**, format it now:
+    ```
+    mkfs.fat -F 32 -n lb_boot /dev/<BOOT-PART>
+    ```
+    *If* you already **have a boot partition**, make sure it is labelled:
+     ```
+    fatlabel /dev/<BOOT-PART> lb_boot
+    ```
+    It should work after this as long as it **has enough space**.
+    *(Windows usually creates a small boot partition, and resizing it is
+    not the easiest or safest thing to do, so I recommend installing Linux
+    before Windows for dual booting setups.)*
   - Mount the boot partition:
     ```
     mkdir -p /mnt/boot
-    mount /dev/<BOOT-PART> /mnt/boot
+    mount /dev/disk/by-label/lb_boot /mnt/boot
     ```
+  - *If* you *created a swap partition*, format it with Luks encryption:
+    ```
+    cryptsetup luksFormat /dev/<SWAP-PART> --label lb_luks_swap
+    cryptsetup luksOpen /dev/disk/by-label/lb_luks_swap swap
+    mkswap /dev/mapper/swap -L lb_swap
+    ```
+    *(If you use the same passphrase for the swap as the main partition, you will
+    only have to enter it once during boot.)*
+  - **MISSING STEPS**
+    *What do we do with the swap now? Do we just leave it?*
   - Check mount points, and file systems now for good measure.
   - Clone this repository into the installer's home directory, and change into it:
     ```
@@ -220,7 +231,10 @@ partition on a pen drive without the need to erase the drive and burn the image.
     mv ~/System/hosts/<HOST>/hardware-configuration.nix hardware-configuration.nix.old
     nixos-generate-config --root /mnt --dir ~/System/hosts/<HOST>/
     ```
-    **MISSING STEPS**
+  - **MISSING STEPS**
+    *Generating a new hardware configuration might not be necessary if only
+    file system labels are used.*
+  - **MISSING STEPS**
     *You need to add all the extra mount options, and file system support.*
   - You will have to add these changes in git:
     ```
@@ -238,8 +252,10 @@ partition on a pen drive without the need to erase the drive and burn the image.
       ssh-keygen -A -f /mnt
       ```
       In this case, the new keys need to be added to the `.sops.yaml` file,
-      and the keys need to be updated. **MISSING STEPS**
-    - Copy some **existing** keys from an external drive. **MISSING STEPS**
+      and the keys need to be updated.
+    - **MISSING STEPS**
+    - Copy some **existing** keys from an external drive.
+    - **MISSING STEPS**
   - Make sure that the keys have the correct permissions:
     ```
     chmod 0400 /etc/ssh/ssh_host_*
