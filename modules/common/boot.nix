@@ -36,6 +36,14 @@
         Enables automatic login.
       '';
     };
+    boot.monochrome = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      example = true;
+      description = ''
+        Makes the tty monochrome.
+      '';
+    };
     boot.secureboot = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -81,25 +89,28 @@
       # Silent boot implementation. This will interfere with tty if there is
       # no window manager, so it is turned off in that case.
       kernelParams =
-        if !config.modules.boot.silentBoot then
-          [ ]
-        else if config.modules.boot.luksPrompt then
-          [
-            "quiet"
-            "boot.shell_on_fail"
-            "loglevel=3"
-          ]
-        else if config.modules.gui.qtile || config.modules.gui.gnome then
-          [
-            "quiet"
-            "fbcon=vc:2-6"
-            "console=tty0"
-          ]
-        else
-          [
-            "quiet"
-            "loglevel=3"
-          ];
+        (
+          if !config.modules.boot.silentBoot then
+            [ ]
+          else if config.modules.boot.luksPrompt then
+            [
+              "quiet"
+              "boot.shell_on_fail"
+              "loglevel=3"
+            ]
+          else if config.modules.gui.qtile || config.modules.gui.gnome then
+            [
+              "quiet"
+              "fbcon=vc:2-6"
+              "console=tty0"
+            ]
+          else
+            [
+              "quiet"
+              "loglevel=3"
+            ]
+        )
+        ++ lib.lists.optional config.modules.boot.monochrome "systemd.log_color=0";
 
       # Enable Lanzaboote on the system if needed.
       lanzaboote = {
