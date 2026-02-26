@@ -28,11 +28,7 @@
 
       # Enable GDM and Gnome.
       displayManager.gdm.enable = true;
-      desktopManager.gnome.enable =
-        assert lib.assertMsg (
-          !(config.modules.gui.qtile && config.modules.gui.gnome)
-        ) "Multiple desktop managers are not supported.";
-        true;
+      desktopManager.gnome.enable = true;
 
     };
 

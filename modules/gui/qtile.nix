@@ -104,24 +104,12 @@ in
         google-cal-id = userOwned;
       };
 
-    # Enable Qtile.
+    # Enable Qtile. Use the custom session instead of the usual option.
     services.xserver.enable = true;
-    services.displayManager.sessionPackages =
-      assert lib.assertMsg (
-        !(config.modules.gui.qtile && config.modules.gui.gnome)
-      ) "Multiple desktop managers are not supported.";
-      [ qtile-session-x11 ];
+    services.displayManager.sessionPackages = [ qtile-session-x11 ];
 
     # Add configuration files to correct directory.
     environment.etc."xdg/qtile".source = "${qtile-home}/qtile";
-
-    # NOTE: While a compositor makes screen tearing a bit less prominent,
-    # > there is nothing else using it so it is not necessary.
-    # services.picom = {
-    #   enable = true;
-    #   backend = "glx";
-    #   vSync = true;
-    # };
 
     # Set up auto login if required.
     services.displayManager.autoLogin = {
@@ -201,7 +189,7 @@ in
         RestartSec = "5sec";
       };
     };
-    systemd.services.seafile-daemon-restarter = {
+    systemd.services.qtile-network-notification-restarter = {
 
       # Run after resuming from suspend.
       wantedBy = [ "suspend.target" ];
