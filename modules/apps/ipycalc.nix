@@ -34,7 +34,7 @@ let
 
           x y z  ->  Numers
           k m n  ->  Integers
-          f g h  ->  Funstions
+          f g h  ->  Functions
           A B C  ->  Matrices (3x3)
           a b c  ->  Vectors (3)\
         """)
