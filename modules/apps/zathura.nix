@@ -33,6 +33,9 @@ let
     highlight-active-color = "rgba(85, 90, 240, 0.3)";
     highlight-color = "rgba(160, 235, 25, 0.3)";
 
+    # Adjust document when opening.
+    adjust-open = "best-fit";
+
     # Configure status bar.
     guioptions = "s";
     statusbar-basename = true;
