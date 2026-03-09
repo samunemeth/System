@@ -84,7 +84,7 @@
     code = {
       bash = true;
       haskell = true;
-      java = false;
+      java = true;
       julia = false;
       latex = true;
       lua = true;
