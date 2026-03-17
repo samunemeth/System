@@ -32,7 +32,6 @@ and LaTeX compilation.
 
 **Features**
 
-  - [ ] Option and shortcuts for fingerprint reader.
   - [ ] Figure out if a compositor is needed. *Probably No*
   - [ ] Impermanence, for some parts at least.
   - [ ] Locking, password prompt after suspend.
@@ -53,6 +52,7 @@ and LaTeX compilation.
   - [x] Automatically scan folders containing modules.
   - [x] Make the calendar widget only display events in the next 24h, possibly
         display the end of an event if one is in progress.
+  - [x] Option and shortcuts for fingerprint reader.
 
 There are also items marked with **TODO** inside comments. There are also
 **NOTE**, **WARN** and **BUG** labels used.

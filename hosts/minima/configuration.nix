@@ -17,6 +17,7 @@
       isDesktop = false;
       hibernation = false;
       powerTuning = false;
+      fprint = false;
     };
 
     # Boot options.
@@ -88,7 +89,6 @@
 
   };
 
-  services.fprintd.enable = lib.mkForce false;
   services.keyd.enable = lib.mkForce false;
   networking.networkmanager.enable = lib.mkForce false;
   services.udisks2.enable = lib.mkForce false;

@@ -17,6 +17,7 @@
       isDesktop = true;
       hibernation = true;
       powerTuning = false;
+      fprint = false;
     };
 
     # Boot options.
