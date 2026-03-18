@@ -482,9 +482,9 @@ def get_next_calendar_event(link_only=False):
     # Escape the text in the title and location, as it might contain special
     # Pango markup characters.
     title = next_event.get("summary", "(No Title)")
-    title = pangocffi.markup_escape_text(title)
+    title = pangocffi.markup_escape_text(title).strip()
     location = next_event.get("location", "")
-    location = pangocffi.markup_escape_text(location)
+    location = pangocffi.markup_escape_text(location).strip()
     
     # Return a formatted string with the information required.
     return f"{time} - <i>{title}</i>" + (f" - {location}" if location else "")
