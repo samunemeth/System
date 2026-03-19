@@ -310,7 +310,7 @@ groups = [
         DropDown("lf", f"{terminal} -e lf", **drop_down_default_settings),
         DropDown("calc", f"{terminal} -e calc", **drop_down_default_settings),
         DropDown("bluetooth", f"{terminal} -e bluetui", **drop_down_default_settings),
-        DropDown("network", f"{terminal} -e nmtui", **drop_down_default_settings),
+        DropDown("network", f"{terminal} -e sh -lc 'sleep 1; exec nmtui'", **drop_down_default_settings),
     ]),
 
 ]
