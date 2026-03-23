@@ -32,6 +32,8 @@ and LaTeX compilation.
 
 **Features**
 
+  - [ ] Add local support for TOTP 2FA codes with a dmenu interface and
+        mintotp.
   - [ ] Figure out if a compositor is needed. *Probably No*
   - [ ] Impermanence, for some parts at least.
   - [ ] Locking, password prompt after suspend.
