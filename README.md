@@ -44,7 +44,6 @@ and LaTeX compilation.
   - [ ] Minimal 2FA key generator setup.
   - [ ] Finish installation documentation.
   - [ ] Proper Tmux setup for Kmscon, with some status bar.
-  - [ ] Restart Qtile after suspend.
   - [x] Migrate Rofi to Dmenu.
   - [x] Hibernation with the new partition setup.
   - [x] Make network settings scratchpads.

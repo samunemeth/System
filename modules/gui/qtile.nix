@@ -166,42 +166,38 @@ in
 
     # Systemd service that sends a hook notification to Qtile after a network
     # connection is established. Also send the message after sleeping.
-    systemd.services.qtile-network-notification = {
+    systemd.services.qtile-network-notification =
+      let
+        targetList = [
+          "suspend.target"
+          "hibernate.target"
+          "hybrid-sleep.target"
+          "suspend-then-hibernate.target"
+        ];
+      in
+      {
 
-      # Run after a network connection is available.
-      preStart = "${pkgs.host}/bin/host google.com";
-      wantedBy = [ "default.target" ];
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
+        # Run after a network connection is available.
+        preStart = "${pkgs.host}/bin/host google.com";
+        wantedBy = targetList ++ [ "default.target" ];
+        after = targetList ++ [ "network-online.target" ];
+        wants = [ "network-online.target" ];
 
-      # Send a notification to Qtile that the network connection is established.
-      path = [ qtile-package ];
-      script = ''
-        qtile cmd-obj -o cmd -f fire_user_hook -a network_connected || true
-      '';
+        # Send a notification to Qtile that the network connection is established.
+        path = [ qtile-package ];
+        script = ''
+          qtile cmd-obj -o cmd -f fire_user_hook -a network_connected || true
+        '';
 
-      serviceConfig = {
-        Type = "oneshot";
-        User = globals.user;
+        serviceConfig = {
+          Type = "oneshot";
+          User = globals.user;
 
-        # Restart if there is no network connection yet.
-        Restart = "on-failure";
-        RestartSec = "5sec";
+          # Restart if there is no network connection yet.
+          Restart = "on-failure";
+          RestartSec = "5sec";
+        };
       };
-    };
-    systemd.services.qtile-network-notification-restarter = {
-
-      # Run after resuming from suspend.
-      wantedBy = [ "suspend.target" ];
-      after = [ "suspend.target" ];
-
-      # Run a command to restart the other service.
-      path = [ pkgs.systemd ];
-      script = "systemctl --no-block start qtile-network-notification.service";
-
-      serviceConfig.Type = "simple";
-
-    };
 
     # Start the daemon to handle touchpad gestures.
     systemd.services.libinput-gestures =
