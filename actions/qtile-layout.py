@@ -120,7 +120,7 @@ WIDTH = 78
 HEIGHT = 70
 GAP = 5
 
-CHAR_LIMIT = 12  # This is for word warp.
+CHAR_LIMIT = 10  # This is for word warp.
 
 
 # --- Everything Else ---
