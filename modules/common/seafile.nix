@@ -122,19 +122,25 @@
       };
 
       # Restart the Seafile daemon after suspend, as it tends to get stuck.
-      systemd.services.seafile-daemon-restarter = {
+      systemd.services.seafile-daemon-restarter =
+        let
+          targetList = [
+            "suspend.target"
+            "hibernate.target"
+            "hybrid-sleep.target"
+            "suspend-then-hibernate.target"
+          ];
+        in
+        {
 
-        # Run after resuming from suspend.
-        wantedBy = [ "suspend.target" ];
-        after = [ "suspend.target" ];
+          # Restart after any of the events listed above.
+          wantedBy = targetList;
+          after = targetList;
 
-        # Run a command to restart the other service.
-        path = [ pkgs.systemd ];
-        script = "systemctl --no-block restart seafile-daemon.service";
+          script = "${pkgs.systemd}/bin/systemctl --no-block restart seafile-daemon";
+          serviceConfig.Type = "oneshot";
 
-        serviceConfig.Type = "simple";
-
-      };
+        };
 
     }
   );

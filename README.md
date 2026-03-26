@@ -29,6 +29,7 @@ and LaTeX compilation.
         *Could just store previous value*
   - [ ] In some cases missing optional applications are not handled with care.
         This is manly an issue on minimal configurations.
+  - [x] Seafile is not restarting after suspend.
 
 **Features**
 
