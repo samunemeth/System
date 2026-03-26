@@ -18,6 +18,8 @@ if todo then
 		},
 		colors = {
 			hint = { "Comment" },
+      -- TODO: Change the color of the TODO items to a different color.
+			-- info = { "#FF0000" }, -- This is the color of the TODO items.
 		},
 	})
 end
