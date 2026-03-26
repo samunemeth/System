@@ -25,11 +25,8 @@ and LaTeX compilation.
         *Maybe just ditch the mini greeter?*
   - [ ] Sometimes there is a significant slowdown after the machine is powered
         on for a long time and/or had been suspended for a long/multiple times.
-  - [ ] The calendar widget is not updated after waking up from suspend.
-        *Could just store previous value*
   - [ ] In some cases missing optional applications are not handled with care.
         This is manly an issue on minimal configurations.
-  - [x] Seafile is not restarting after suspend.
 
 **Features**
 
@@ -44,17 +41,6 @@ and LaTeX compilation.
   - [ ] Minimal 2FA key generator setup.
   - [ ] Finish installation documentation.
   - [ ] Proper Tmux setup for Kmscon, with some status bar.
-  - [x] Migrate Rofi to Dmenu.
-  - [x] Hibernation with the new partition setup.
-  - [x] Make network settings scratchpads.
-  - [x] Add back Upower.
-  - [x] Figure out a faster way for prototyping.
-  - [x] Ask around for a way of managing Qtile's configuration.
-  - [x] Loose some stuff from Rofi.
-  - [x] Automatically scan folders containing modules.
-  - [x] Make the calendar widget only display events in the next 24h, possibly
-        display the end of an event if one is in progress.
-  - [x] Option and shortcuts for fingerprint reader.
 
 There are also items marked with **TODO** inside comments. There are also
 **NOTE**, **WARN** and **BUG** labels used.
