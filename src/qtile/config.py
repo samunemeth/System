@@ -311,6 +311,7 @@ groups = [
         DropDown("calc", f"{terminal} -e calc", **drop_down_default_settings),
         DropDown("bluetooth", f"{terminal} -e bluetui", **drop_down_default_settings),
         DropDown("network", f"{terminal} -e sh -lc 'sleep 1; exec nmtui'", **drop_down_default_settings),
+        DropDown("btop", f"{terminal} -e btop", **drop_down_default_settings),
     ]),
 
 ]
@@ -686,7 +687,7 @@ widgets = [
         format = " {temp:.0f}{unit}",
         tag_sensor = processor_temperature_name,
         mouse_callbacks = {
-            "Button1": lazy.spawn(f"{terminal} -e btop"),
+            "Button1": lazy.group["scratchpad"].dropdown_toggle("btop"),
         },
     ),
 
@@ -704,6 +705,9 @@ widgets = [
         low_percentage = 0.2,
         low_foreground = parametric.foreground_error,
         show_short_text = False,
+        mouse_callbacks = {
+            "Button1": lazy.group["scratchpad"].dropdown_toggle("btop"),
+        },
     ),
 
 ] if has_battery else []) + [
@@ -711,6 +715,7 @@ widgets = [
     add_sep(),
     widget.Clock(
         format = "%Y-%m-%d %H:%M:%S",
+        # TODO: Add functionality to open the google calendar with the API key?
     ),
 
 ]
