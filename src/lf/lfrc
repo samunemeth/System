@@ -71,6 +71,20 @@ cmd add %{{
   fi
 }}
 
+# A simple batch rename. Uses the util-linux provided rename command.
+# Works with simple patterns, and regex matching; however the documentation
+# for it seems to be a bit lacking. Despite this, should be usable for simple
+# renaming tasks.
+map R regrename
+cmd regrename %{{
+  echo -n "From: "
+  IFS= read -r from
+  echo -n "Into: "
+  IFS= read -r into
+  IFS=';' read -ra arr <<< "$fx"
+  rename "$from" "$into" "${arr[@]}"
+}}
+
 # Override the defult open script, as out window manager does not handle
 # default applications, and that seems to be harder to do than override
 # this script. It also allows for more flexibility.
