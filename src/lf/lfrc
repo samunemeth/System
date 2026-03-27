@@ -59,7 +59,7 @@ cmd size %{{
 # created. Nested paths are also cleanly handled.
 map a add
 cmd add %{{
-  printf "New: "
+  echo -n "New: "
   read ans
   if [[ $ans == */ ]]; then
     mkdir -p $ans
@@ -135,7 +135,7 @@ cmd url %{{
 # I do not remember why this is so difficult, but it works all the time.
 map zz zip
 cmd zip %{{
-  printf "ZIP file name [NewZip.zip]: "
+  echo -n "ZIP file name [NewZip.zip]: "
   read name
   name=${name:-NewZip.zip}
   IFS=';' read -ra filesarray <<< "$fx"
