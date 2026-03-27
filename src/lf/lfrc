@@ -72,11 +72,12 @@ cmd add %{{
 }}
 
 # A simple batch rename. Uses the util-linux provided rename command.
-# Works with simple patterns, and regex matching; however the documentation
-# for it seems to be a bit lacking. Despite this, should be usable for simple
-# renaming tasks.
-map R regrename
-cmd regrename %{{
+# Finds the first occurance of the from string, and replaces it with the to
+# string. Does not do complex pattern matching. To add a prefix, leave from
+# empty. To add a postfix before the extension, match the . and add it back
+# at the end of into.
+map R rename-pattern
+cmd rename-pattern %{{
   echo -n "From: "
   IFS= read -r from
   echo -n "Into: "
