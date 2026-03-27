@@ -111,6 +111,13 @@ in
 
   };
 
+  # Enable mDNS resolving.
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
   # --- Declarative WiFi ---
 
   # Get the environment variables from sops, and add them to the environment.
