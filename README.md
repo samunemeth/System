@@ -30,17 +30,17 @@ and LaTeX compilation.
 
 **Features**
 
-  - [ ] Add local support for TOTP 2FA codes with a dmenu interface and
-        mintotp.
-  - [ ] Figure out if a compositor is needed. *Probably No*
   - [ ] Impermanence, for some parts at least.
   - [ ] Locking, password prompt after suspend.
   - [ ] Monitor detection, saved layouts, and automatic rotation with `rot8`.
   - [ ] Clean up python parts.
   - [ ] Handle missing low priority packages.
-  - [ ] Minimal 2FA key generator setup.
   - [ ] Finish installation documentation.
   - [ ] Proper Tmux setup for Kmscon, with some status bar.
+  - [ ] Try the Wayland backed for Qtile.
+  - [x] Figure out if a compositor is needed. *Probably No*
+  - [x] Add local support for TOTP 2FA codes with a dmenu interface and
+        mintotp. *No TOTP here, as it might cause security concerns.*
 
 There are also items marked with **TODO** inside comments. There are also
 **NOTE**, **WARN** and **BUG** labels used.
