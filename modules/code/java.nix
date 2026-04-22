@@ -22,7 +22,16 @@
 
   config = lib.mkIf config.modules.code.java {
 
-    environment.systemPackages = [ pkgs.jdk17 ];
+    environment.systemPackages =
+      with pkgs;
+      let
+        java-package = jdk25;
+      in
+      [
+        java-package
+        (maven.override { jdk_headless = java-package; })
+        (checkstyle.override { jre = java-package; })
+      ];
 
   };
 }
