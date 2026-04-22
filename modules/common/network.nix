@@ -13,11 +13,11 @@ let
   # TODO: Somehow make it so we are not depending on this list.
   normal_networks = [
     "HOME"
-    "GERARD"
+    "STUDIO"
     "HOTSPOT"
   ];
   enterprise_networks = [
-    "TUE"
+    "UNI"
   ];
 
   # Generate configuration for the specified networks, if secrets are available.
