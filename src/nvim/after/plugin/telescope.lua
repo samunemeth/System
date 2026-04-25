@@ -24,6 +24,7 @@ if telescope then
 				"main.toc",
 				"main.out",
 			},
+			path_display = { "truncate" },
 		},
 		pickers = { find_files = { hidden = false } },
 	})
@@ -32,5 +33,5 @@ if telescope then
 	vim.keymap.set("n", "<leader><leader>", builtin.find_files)
 	vim.keymap.set("n", "<leader>h", builtin.help_tags)
 	vim.keymap.set("n", "<leader>/", builtin.live_grep)
-  vim.keymap.set("n", "<leader>q", ":TodoTelescope<CR>")
+	vim.keymap.set("n", "<leader>q", ":TodoTelescope<CR>")
 end
