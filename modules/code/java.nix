@@ -31,6 +31,7 @@
         java-package
         (maven.override { jdk_headless = java-package; })
         (checkstyle.override { jre = java-package; })
+        (netbeans.override { jdk21 = java-package; })
       ];
 
   };
