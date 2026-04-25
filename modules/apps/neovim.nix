@@ -14,6 +14,18 @@ let
   languageList = lib.attrNames (lib.filterAttrs (n: v: v) languageTable);
   grammars = p: builtins.map (x: p.${x}) (lib.remove "lua" languageList);
 
+  # Custom plugins that are not in the plugin library.
+  vim-checkstyle-integration = pkgs.vimUtils.buildVimPlugin {
+    pname = "checkstyle-integration.nvim";
+    version = "unstable-2026-04-25";
+    src = pkgs.fetchFromGitHub {
+      owner = "samunemeth";
+      repo = "checkstyle-integration.nvim";
+      rev = "548dc0285dff1d81a5cdf89380741fc2469e7a73";
+      hash = "sha256-8Sy+qRxrHRdiGT+sQw1nKLhJYMB529uCaPBrN5cb/gM=";
+    };
+  };
+
   # The list of plugins to use with Neovim.
   plugins =
     with pkgs.vimPlugins;
@@ -50,7 +62,8 @@ let
       ultisnips # For snippets mainly in LaTeX
 
     ]
-    ++ lib.lists.optional languageTable.rust rustaceanvim;
+    ++ lib.lists.optional languageTable.rust rustaceanvim
+    ++ lib.lists.optional languageTable.java vim-checkstyle-integration;
 
   # Create a derivation with the Neovim configuration files.
   neovim-home = pkgs.stdenvNoCC.mkDerivation {
