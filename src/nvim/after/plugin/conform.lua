@@ -12,8 +12,13 @@ if conform then
 			tex = { "tex-fmt" },
 			python = { "autopep8" },
 			rust = { "rustfmt" },
+			java = { "astyle" },
 		},
 	})
+
+	conform.formatters.astyle = {
+		append_args = { "-xC100", "-xe", "--squeeze-lines=1" },
+	}
 
 	-- BUG: Overwriting the setting for VSCode. Add a way to check if already set.
 	vim.keymap.set("n", "=", function()
