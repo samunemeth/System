@@ -33,6 +33,7 @@
         (checkstyle.override { jre = java-package; })
         (netbeans.override { jdk21 = java-package; })
         astyle
+        jdt-language-server
       ];
 
   };

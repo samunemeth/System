@@ -106,6 +106,9 @@ vim.lsp.config["luals"] = {
 }
 vim.lsp.enable("luals")
 
+-- Java
+vim.lsp.enable("jdtls")
+
 -- Grammar
 vim.lsp.config["harper"] = {
 	cmd = { "harper-ls", "--stdio" },

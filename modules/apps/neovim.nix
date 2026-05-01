@@ -63,7 +63,10 @@ let
 
     ]
     ++ lib.lists.optional languageTable.rust rustaceanvim
-    ++ lib.lists.optional languageTable.java vim-checkstyle-integration;
+    ++ lib.lists.optionals languageTable.java [
+      vim-checkstyle-integration
+      nvim-jdtls
+    ];
 
   # Create a derivation with the Neovim configuration files.
   neovim-home = pkgs.stdenvNoCC.mkDerivation {

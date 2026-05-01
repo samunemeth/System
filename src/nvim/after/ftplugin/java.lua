@@ -1,5 +1,20 @@
---- Configuration for Checkstyle ---
+--- Configuration for Java ---
 
+-- Completion
+local bufnr = vim.api.nvim_get_current_buf()
+
+-- Open auto completion on '.'
+vim.keymap.set("i", ".", function()
+	local col = vim.fn.col(".") - 1
+	local line = vim.api.nvim_get_current_line()
+	local prev = (col >= 1) and line:sub(col, col) or ""
+	if prev == "." then
+		return "."
+	end
+	return vim.api.nvim_replace_termcodes(".<C-g>u<C-x><C-o>", true, false, true)
+end, { expr = true, noremap = true, buffer = bufnr })
+
+-- Checkstyle
 local checkstyle = SafeRequire("checkstyle-integration")
 
 if checkstyle then
