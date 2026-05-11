@@ -695,7 +695,7 @@ widgets = [
 
     add_sep(),
     widget.DF(
-        format = " {u:.1f}/{s:.1f}{m}",
+        format = " {u:.1f}/{s:.0f}{m}",
         measure = "G",
         partition = "/",
         visible_on_warn = False,
@@ -707,7 +707,7 @@ widgets = [
 
     add_sep(),
     widget.Battery(
-        format="{char} {watt:.0f}W  󰂎 {percent:2.1%}  󱧦 {hour:02d}:{min:02d}",
+        format = "{char} {watt:.0f}W  󰂎 {percent:2.1%}  󱧦 {hour:02d}:{min:02d}",
         charge_char = "",
         discharge_char = "",
         full_char = "=",
