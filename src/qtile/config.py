@@ -151,7 +151,7 @@ terminal = guess_terminal()
 # --- Hooks ---
 
 # Run a startup script.
-@hook.subscribe.startup
+@hook.subscribe.startup_once
 def autostart():
 
     # Get the absolute path of the startup script.

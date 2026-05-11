@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# TODO: Remove this script, and run commands from python directly.
+
 # Get passed variables.
 BG_COLOR="$1"
 XC="$2"
