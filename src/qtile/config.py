@@ -691,7 +691,19 @@ widgets = [
         },
     ),
 
-] if processor_temperature_name else []) + ([
+] if processor_temperature_name else []) + [
+
+    add_sep(),
+    widget.DF(
+        format = " {u:.1f}/{s:.1f}{m}",
+        measure = "G",
+        partition = "/",
+        visible_on_warn = False,
+        update_interval = 10,
+        warn_color = parametric.foreground_error,
+    ),
+
+] + ([
 
     add_sep(),
     widget.Battery(
