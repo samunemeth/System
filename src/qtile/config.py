@@ -423,6 +423,25 @@ def get_seafile_status():
     except:
         return ""
 
+def get_player_status():
+    """Get metadata from the currently playing song."""
+
+    try:
+        status = subprocess.check_output(["playerctl", "status"]).decode("utf-8").strip()
+    except:
+        return "No Music"
+
+    icon = ""
+    if status == "Playing":
+        icon = " "
+    elif status == "Paused":
+        icon = " "
+
+    title = subprocess.check_output(["playerctl", "metadata", "title"]).decode("utf-8").strip()
+    artist = subprocess.check_output(["playerctl", "metadata", "artist"]).decode("utf-8").strip()
+
+    return f"{icon}{title} - {artist}"
+
 
 def get_next_calendar_event(link_only=False):
     """Get a calendar event from Google Calendar in a formatted string."""
@@ -511,6 +530,7 @@ widget_defaults = dict(
     foreground = parametric.foreground_main,
     fontsize = 14,
     padding = 10,
+    scroll_interval = 0.05,
 )
 extension_defaults = widget_defaults.copy()
 
@@ -567,6 +587,23 @@ widgets = [
         
     ),
     add_sep(),
+
+    # --------------------------
+
+    # widget.GenPollText(
+    #     func = get_player_status,
+    #     fmt = "{}",
+    #     update_interval = 3,
+    #     # max_chars = 30,
+    #     width = 300,
+    #     scroll = True,
+    #     mouse_callbacks = {
+    #         "Button1": lazy.spawn("playerctl play-pause"),
+    #     },
+    # ),
+    # add_sep(),
+
+    # --------------------------
 
     widget.GenPollText(
         func = get_seafile_status,
@@ -699,7 +736,7 @@ widgets = [
         measure = "G",
         partition = "/",
         visible_on_warn = False,
-        update_interval = 10,
+        update_interval = 30,
         warn_color = parametric.foreground_error,
     ),
 
