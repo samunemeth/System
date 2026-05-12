@@ -577,33 +577,27 @@ widgets = [
 ] if not parametric.is_vm and len(parametric.available_layouts) > 1 else []) + ([
 
     widget.GenPollText(
+        name = "player",
+        func = get_player_status,
+        update_interval = 3,
+        max_chars = 30,
+        mouse_callbacks = {
+            "Button1": lazy.spawn("playerctl play-pause"),
+        },
+    ),
+    add_sep(),
+
+    widget.GenPollText(
         name = "calendar",
         func = get_next_calendar_event,
-        fmt = "{}",
         update_interval = 60,
+        max_chars = 40,
         mouse_callbacks = {
             "Button1": calendar_clicked,
         },
         
     ),
     add_sep(),
-
-    # --------------------------
-
-    # widget.GenPollText(
-    #     func = get_player_status,
-    #     fmt = "{}",
-    #     update_interval = 3,
-    #     # max_chars = 30,
-    #     width = 300,
-    #     scroll = True,
-    #     mouse_callbacks = {
-    #         "Button1": lazy.spawn("playerctl play-pause"),
-    #     },
-    # ),
-    # add_sep(),
-
-    # --------------------------
 
     widget.GenPollText(
         func = get_seafile_status,
@@ -743,6 +737,7 @@ widgets = [
 ] + ([
 
     add_sep(),
+    # TODO: Incorrect reporting on Sulfur.
     widget.Battery(
         format = "{char} {watt:.0f}W  󰂎 {percent:2.1%}  󱧦 {hour:02d}:{min:02d}",
         charge_char = "",
@@ -750,6 +745,7 @@ widgets = [
         full_char = "=",
         empty_char = "x",
         not_charging_char = "-",
+        max_chars = 25,
         update_interval = 3,
         low_percentage = 0.2,
         low_foreground = parametric.foreground_error,
