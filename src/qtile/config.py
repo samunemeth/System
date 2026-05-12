@@ -436,7 +436,7 @@ def get_player_status():
     try:
         status = subprocess.check_output(["playerctl", "status"]).decode("utf-8").strip()
     except:
-        return "No Music"
+        return "<i>(No Music)</i>"
 
     icon = ""
     if status == "Playing":
@@ -444,8 +444,11 @@ def get_player_status():
     elif status == "Paused":
         icon = " "
 
-    title = subprocess.check_output(["playerctl", "metadata", "title"]).decode("utf-8").strip()
-    artist = subprocess.check_output(["playerctl", "metadata", "artist"]).decode("utf-8").strip()
+    try:
+        title = subprocess.check_output(["playerctl", "metadata", "title"]).decode("utf-8").strip()
+        artist = subprocess.check_output(["playerctl", "metadata", "artist"]).decode("utf-8").strip()
+    except:
+        return "<i>(No Music)</i>"
 
     return f"{icon}{title} • {artist}"
 
