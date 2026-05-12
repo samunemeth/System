@@ -440,7 +440,7 @@ def get_player_status():
     title = subprocess.check_output(["playerctl", "metadata", "title"]).decode("utf-8").strip()
     artist = subprocess.check_output(["playerctl", "metadata", "artist"]).decode("utf-8").strip()
 
-    return f"{icon}{title} - {artist}"
+    return f"{icon}{title} • {artist}"
 
 
 def get_next_calendar_event(link_only=False):
@@ -507,7 +507,7 @@ def get_next_calendar_event(link_only=False):
     location = pangocffi.markup_escape_text(location).strip()
     
     # Return a formatted string with the information required.
-    return f"{time} - <i>{title}</i>" + (f" - {location}" if location else "")
+    return f"{time} • {title}" + (f" • {location}" if location else "")
 
 @lazy.function
 def calendar_clicked(qtile):
