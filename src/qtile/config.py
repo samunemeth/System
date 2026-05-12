@@ -120,10 +120,17 @@ except:
 
 try:
     power_supplies = subprocess.check_output(["ls", "/sys/class/power_supply/"]).decode("utf-8").split("\n")
-    next(filter(lambda e: e.startswith("BAT"), power_supplies))
+    battery_name = next(filter(lambda e: e.startswith("BAT"), power_supplies))
     has_battery = True
 except:
     has_battery = False
+
+try:
+    power_supplies = subprocess.check_output(["ls", f"/sys/class/power_supply/{battery_name}"]).decode("utf-8").split("\n")
+    next(filter(lambda e: e.startswith("power_now"), power_supplies))
+    battery_format_string = "{char} {watt:.0f}W  󰂎 {percent:2.1%}  󱧦 {hour:02d}:{min:02d}"
+except:
+    battery_format_string = "{char} 󰂎 {percent:2.1%}"
 
 
 # --- Guess Processor Temperature Sensor ---
@@ -576,6 +583,7 @@ widgets = [
 
 ] if not parametric.is_vm and len(parametric.available_layouts) > 1 else []) + ([
 
+    # TODO: It might not update if nothing is playing at the start?
     widget.GenPollText(
         name = "player",
         func = get_player_status,
@@ -737,9 +745,8 @@ widgets = [
 ] + ([
 
     add_sep(),
-    # TODO: Incorrect reporting on Sulfur.
     widget.Battery(
-        format = "{char} {watt:.0f}W  󰂎 {percent:2.1%}  󱧦 {hour:02d}:{min:02d}",
+        format = battery_format_string,
         charge_char = "",
         discharge_char = "",
         full_char = "=",
