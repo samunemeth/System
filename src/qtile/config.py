@@ -602,7 +602,7 @@ widgets = [
         name = "calendar",
         func = get_next_calendar_event,
         update_interval = 60,
-        max_chars = 40,
+        max_chars = 45,
         mouse_callbacks = {
             "Button1": calendar_clicked,
         },
