@@ -25,6 +25,7 @@ logger.info("--- STARTING ---")
 
 def get_parametric():
     """Loads parametric setting from JSON files containing the system configuration."""
+
     with open("/etc/system-options/globals.json", "r", encoding="utf-8") as f:
         globals_ = json.load(f)
     with open("/etc/system-options/modules.json", "r", encoding="utf-8") as f:
@@ -161,15 +162,32 @@ terminal = guess_terminal()
 @hook.subscribe.startup_once
 def autostart():
 
-    # Get the absolute path of the startup script.
-    script = os.path.expanduser(f"{qtile_home_path}/autostart.sh")
+    # Set the background color.
+    try:
+        subprocess.Popen(["hsetroot", "-solid", parametric.backgroud_main])
+    except Exception as e:
+        logger.warning(f"Error while launching process: {e}")
 
-    # Get the coordinates of the center of the main screen.
+    # Get the coordinates of the center of the main screen, and move the mouse.
     xc = str(screens[0].x + screens[0].width // 2)
     yc = str(screens[0].y + screens[0].height // 2)
+    try:
+        subprocess.Popen(["warpd", "--move", xc, yc])
+    except Exception as e:
+        logger.warning(f"Error while launching process: {e}")
 
-    # Run the startup script with the parameters.
-    subprocess.Popen([script, parametric.background_main, xc, yc])
+    # Turn on numlock.
+    try:
+        subprocess.Popen(["numlockx", "on"])
+    except Exception as e:
+        logger.warning(f"Error while launching process: {e}")
+
+    # Set the volume of the default sync to zero.
+    try:
+        subprocess.Popen(["pulseaudio-ctl", "set", "0."])
+    except Exception as e:
+        logger.warning(f"Error while launching process: {e}")
+
 
 # Update some widgets on network connection.
 @hook.subscribe.user("network_connected")

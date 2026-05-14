@@ -17,8 +17,6 @@ let
     name = "qtile-home";
     src = ../../src/qtile;
     installPhase = ''
-      # Make the auto start script executable.
-      chmod +x ./autostart.sh
       # Copy contents to output.
       mkdir -p $out/qtile
       cp -r * $out/qtile/
@@ -79,14 +77,6 @@ in
         bluetui # For Bluetooth settings.
 
       ];
-
-    # NOTE: Some stuff relating to tablet mode on convertibles:
-    # > libinput # Exposing for other system info.
-    # > My convertible hp laptop has there messages when folding over and back:
-    # > -event15 SWITCH_TOGGLE +4.283s	switch tablet-mode state 1
-    # >  event15 SWITCH_TOGGLE +12.837s switch tablet-mode state 0
-    # > Maybe add rot8 for automatic rotation?
-    # > Needs a systemd service, and probably not supported by all laptops.
 
     # Require fonts used.
     fonts.packages = [ pkgs.nerd-fonts.hack ];
