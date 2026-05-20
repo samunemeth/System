@@ -252,7 +252,6 @@ keys = [
 
     # Layout management.
     Key([mod], "e", lazy.layout.next(), desc="Move Focus"),
-    Key([mod], "q", lazy.next_layout(), desc="Toggle Layouts"),
     Key([mod], "r", lazy.window.toggle_fullscreen(), desc="Fullscreen"),
     Key([mod], "v", lazy.window.kill(), desc="Kill Window"),
     Key([mod], "t", lazy.hide_show_bar(), desc="Toggle Bar"),
@@ -278,6 +277,7 @@ keys = [
 
     # Dmenu scripts.
     Key([mod], "x", lazy.spawn("dmenu-sound"), desc="Dmenu Sound"),
+    Key([mod], "q", lazy.spawn("dmenu-display"), desc="Dmenu Display"),
     Key([mod, "shift"], "w", lazy.spawn("dmenu-yubi"), desc="Dmenu Yubikey Auth"),
 
     # Keyboard layout switching.
