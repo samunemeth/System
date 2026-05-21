@@ -101,6 +101,9 @@ in
   # Enable the firewall, and do not let anything through.
   networking.firewall.enable = true;
 
+  # WARN: Allow Minecraft server.
+  networking.firewall.allowedTCPPorts = [ 25565 ];
+
   hardware.bluetooth = {
 
     # Enable Bluetooth on the system.
