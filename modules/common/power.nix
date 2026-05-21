@@ -73,7 +73,7 @@
 
       # NOTE: Your system might have an option to enter a deeper sleep mode.
       ''
-        HibernateDelaySec=10m
+        HibernateDelaySec=20m
         SuspendState=mem
       ''
 
