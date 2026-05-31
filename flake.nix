@@ -4,7 +4,7 @@
   inputs = {
 
     # Root NixOS packages and distribution.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
     # Sops for secrets.
     sops-nix = {
@@ -20,9 +20,8 @@
 
     # Local or personal repo for Qtile.
     qtile-flake = {
-      # url = "github:samunemeth/qtile?ref=unstable";
       url = "github:qtile/qtile/master";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
   };

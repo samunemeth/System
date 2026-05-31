@@ -69,20 +69,19 @@
         HandlePowerKeyLongPress = "poweroff";
       };
 
-    systemd.sleep.extraConfig = (
+    systemd.sleep.settings.Sleep =
 
       # NOTE: Your system might have an option to enter a deeper sleep mode.
-      ''
-        HibernateDelaySec=20m
-        SuspendState=mem
-      ''
+      {
+        HibernateDelaySec = "20m";
+        SuspendState = "mem";
+      }
 
       # Disable hibernation if not enabled explicitly.
-      + lib.strings.optionalString (!config.modules.system.hibernation) ''
-        AllowHibernation=no
-        AllowSuspendThenHibernate=no
-      ''
-    );
+      // lib.attrsets.optionalAttrs (!config.modules.system.hibernation) {
+        AllowHibernation = "no";
+        AllowSuspendThenHibernate = "no";
+      };
 
   };
 }

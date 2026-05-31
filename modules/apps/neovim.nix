@@ -81,6 +81,7 @@ let
 
   # The packages that are required by Neovim.
   neovim-deps = with pkgs; [
+    (python3.withPackages (p: [ p.pynvim ])) # For python provider.
     ripgrep # For live grep.
     fd # For quick file search.
     xclip # For using the system clipboard.
@@ -99,6 +100,9 @@ let
     # Add aliases for vim and vi.
     vimAlias = true;
     viAlias = true;
+
+    # Enable the python provider.
+    withPython3 = true;
 
     # Disable extra providers.
     withNodeJs = false;

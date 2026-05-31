@@ -42,7 +42,7 @@
         xclip # Command line clipboard tool.
         curl # Fetching form the web.
         btop # System monitoring and testing.
-        fastfetchMinimal # Displaying system data.
+        fastfetch.minimal # Displaying system data.
         nix-tree # Explore sizes of packages.
         rsync # Powerful file copy tool.
         # ncdu # Folder size explorer.

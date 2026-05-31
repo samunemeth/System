@@ -140,7 +140,7 @@ in
 
     # For some system info.
     lm_sensors
-    fastfetchMinimal
+    fastfetch.minimal
     btop
     nix-tree
 
