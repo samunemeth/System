@@ -20,8 +20,9 @@
 
     # Local or personal repo for Qtile.
     qtile-flake = {
-      url = "github:samunemeth/qtile?ref=unstable";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # url = "github:samunemeth/qtile?ref=unstable";
+      url = "github:qtile/qtile/master";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
   };

@@ -10,7 +10,9 @@
 }:
 let
 
-  qtile-package = inputs.qtile-flake.packages.${globals.system}.default;
+  qtile-package = inputs.qtile-flake.packages.${globals.system}.default.overrideAttrs (oldAttrs: {
+    dontUsePytestCheck = true;
+  });
   qtile-log-level = "INFO";
 
   qtile-home = pkgs.stdenvNoCC.mkDerivation {
