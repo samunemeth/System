@@ -12,7 +12,11 @@ let
   wrapped-mpv = pkgs.symlinkJoin {
     name = "wrapped-mpv";
     buildInputs = [ pkgs.makeWrapper ];
-    paths = [ pkgs.mpv ];
+    paths = [
+      (pkgs.mpv.override {
+        youtubeSupport = false;
+      })
+    ];
     # NOTE: This is actually kind of hardware dependent...
     # > This is ideal for AMD integrated graphics, the OpenGL part should
     # > probably be removed if used on Nvidia.
