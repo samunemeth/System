@@ -76,7 +76,7 @@
           # Disable systemd boot if it is replace by Lanzaboote.
           enable = !config.modules.boot.secureboot;
 
-          configurationLimit = lib.mkDefault 3;
+          configurationLimit = lib.mkDefault 10;
           consoleMode = lib.mkDefault "max";
 
         };
