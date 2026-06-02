@@ -24,15 +24,15 @@ let
     '';
   };
 
-  qtile-session-x11 = pkgs.writeTextFile {
-    name = "qtile-custom-session";
-    destination = "/share/xsessions/qtile.desktop";
-    passthru.providedSessions = [ "qtile" ];
+  qtile-wayland-session = pkgs.writeTextFile {
+    name = "qtile-wayland-session";
+    destination = "/share/wayland-sessions/qtile-wayland.desktop";
+    passthru.providedSessions = [ "qtile-wayland" ];
     text = ''
       [Desktop Entry]
-      Name=Qtile
-      Comment=Custom Qtile Session
-      Exec=${qtile-package}/bin/qtile start -l ${qtile-log-level} -c /etc/xdg/qtile/config.nix
+      Name=Qtile Wayland
+      Comment=Custom Qtile Wayland Session
+      Exec=${qtile-package}/bin/qtile start -l ${qtile-log-level} -c /etc/xdg/qtile/config.nix -b wayland
       Type=Application
       Keywords=wm;tiling
     '';
@@ -59,6 +59,10 @@ in
       Auto login will be used despite modules.boot.autoLogin being false.
     '';
 
+    # BUG: Clipboard is completely fucked.
+    # BUG: Numlock is not turned on by default.
+    # TODO: Check if there are ways to reduce Wayland power usage even more.
+
     # Packages related to Qtile in some way.
     environment.systemPackages =
       with pkgs;
@@ -67,7 +71,8 @@ in
         lm_sensors # Read system sensors.
         acpilight # Brightness controller.
         pulseaudio-ctl # Command line volume control.
-        hsetroot # For background setting.
+        swaybg # For background setting.
+        # BUG: No notifications are showing up.
         libnotify # Notification handling library.
         dunst # Notification daemon.
 
@@ -75,10 +80,10 @@ in
       # TODO: Handle errors if these are missing.
       ++ lib.lists.optionals config.modules.packages.lowPriority [
 
-        numlockx # To enable NumLock by default.
-        warpd # Keyboard mouse control and movement emulation.
         playerctl # For media control (play/pause).
+        # BUG: Seems to produce black images.
         scrot # For screenshots.
+        # BUG: Does not work on Wayland of course.
         xcolor # For color picking.
         bluetui # For Bluetooth settings.
 
@@ -100,22 +105,25 @@ in
         google-cal-id = userOwned;
       };
 
-    # Enable Qtile. Use the custom session instead of the usual option.
-    services.xserver.enable = true;
-    services.displayManager.sessionPackages = [ qtile-session-x11 ];
-
     # Add configuration files to correct directory.
     environment.etc."xdg/qtile".source = "${qtile-home}/qtile";
 
-    # Set up auto login.
-    services.displayManager.autoLogin = {
-      enable = true;
-      user = globals.user;
-    };
-    services.xserver.displayManager.lightdm = {
-      enable = true;
-      greeter.enable = false;
-      autoLogin.timeout = 0;
+    # Enable Qtile. Use the custom session instead of the usual option.
+    services.displayManager.sessionPackages = [ qtile-wayland-session ];
+
+    # Set up display manager and auto login.
+    services.displayManager = {
+      defaultSession = "qtile-wayland";
+      autoLogin = {
+        enable = true;
+        user = globals.user;
+      };
+
+      # TODO: Remove sddm if possible.
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+      };
     };
 
     # Rules for no sudo password while changing monitor brightness.

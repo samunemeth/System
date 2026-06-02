@@ -14,6 +14,7 @@ from libqtile import bar, layout, widget, hook, qtile, pangocffi
 from libqtile.config import Group, Key, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+from libqtile.backend.wayland import InputConfig
 
 
 # --- Logging ---
@@ -164,21 +165,7 @@ def autostart():
 
     # Set the background color.
     try:
-        subprocess.Popen(["hsetroot", "-solid", parametric.backgroud_main])
-    except Exception as e:
-        logger.warning(f"Error while launching process: {e}")
-
-    # Get the coordinates of the center of the main screen, and move the mouse.
-    xc = str(screens[0].x + screens[0].width // 2)
-    yc = str(screens[0].y + screens[0].height // 2)
-    try:
-        subprocess.Popen(["warpd", "--move", xc, yc])
-    except Exception as e:
-        logger.warning(f"Error while launching process: {e}")
-
-    # Turn on numlock.
-    try:
-        subprocess.Popen(["numlockx", "on"])
+        subprocess.Popen(["swaybg", "-m", "solid_color", "-c", parametric.background_main[1:]])
     except Exception as e:
         logger.warning(f"Error while launching process: {e}")
 
@@ -805,6 +792,20 @@ screens = [
         ),
     ),
 ]
+
+
+# --- Wayland Input Settings ---
+
+# TODO: If kb_numlock option becomes available, turn on numlock at startup.
+wl_input_rules = {
+    "*": InputConfig(
+        natural_scroll=True,
+        tap = True,
+        drag_lock = True,
+        pointer_accel = 0,
+    ),
+}
+
 
 # --- Other Settings ---
 
