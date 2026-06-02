@@ -5,21 +5,20 @@
   pkgs,
   lib,
   globals,
-  inputs, # For possible local building.
+  inputs, # For building Qtile directly from the flake.
   ...
 }:
 let
 
+  qtile-log-level = "INFO";
   qtile-package = inputs.qtile-flake.packages.${globals.system}.default.overrideAttrs (oldAttrs: {
     dontUsePytestCheck = true;
   });
-  qtile-log-level = "INFO";
 
   qtile-home = pkgs.stdenvNoCC.mkDerivation {
     name = "qtile-home";
     src = ../../src/qtile;
     installPhase = ''
-      # Copy contents to output.
       mkdir -p $out/qtile
       cp -r * $out/qtile/
     '';
@@ -54,6 +53,11 @@ in
   };
 
   config = lib.mkIf config.modules.gui.qtile {
+
+    warnings = lib.optional (!config.modules.boot.autoLogin) ''
+      Qtile no longer has an option for manual login.
+      Auto login will be used despite modules.boot.autoLogin being false.
+    '';
 
     # Packages related to Qtile in some way.
     environment.systemPackages =
@@ -103,45 +107,16 @@ in
     # Add configuration files to correct directory.
     environment.etc."xdg/qtile".source = "${qtile-home}/qtile";
 
-    # Set up auto login if required.
+    # Set up auto login.
     services.displayManager.autoLogin = {
-      enable = config.modules.boot.autoLogin;
+      enable = true;
       user = globals.user;
     };
-
-    # Set up lightdm if there is no auto login.
-    services.xserver.displayManager.lightdm =
-      if config.modules.boot.autoLogin then
-        {
-          enable = true;
-          greeter.enable = false;
-          autoLogin.timeout = 0;
-        }
-      else
-        {
-          enable = true;
-          greeters.mini = {
-            enable = true;
-            user = globals.user;
-            extraConfig = ''
-              [greeter]
-              show-password-label = false
-              password-alignment = center
-              show-input-cursor = false
-              [greeter-theme]
-              background-image = ""
-              background-color = "${globals.colors.background.main}"
-              window-color = "${globals.colors.foreground.main}"
-              border-width = 0px
-              layout-space = 4
-              password-color = "${globals.colors.foreground.main}"
-              password-background-color = "${globals.colors.background.main}"
-              password-border-radius = 0em
-              error-color = "${globals.colors.background.main}"
-              password-character = ■
-            '';
-          };
-        };
+    services.xserver.displayManager.lightdm = {
+      enable = true;
+      greeter.enable = false;
+      autoLogin.timeout = 0;
+    };
 
     # Rules for no sudo password while changing monitor brightness.
     security.sudo.extraRules = lib.mkAfter [
