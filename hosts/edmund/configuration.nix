@@ -100,6 +100,7 @@
   };
 
   # Settings for Nvidia graphics card.
+  nixpkgs.config.allowUnfree = true;
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {

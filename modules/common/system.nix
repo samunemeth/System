@@ -52,10 +52,10 @@
     # Set state versions.
     system.stateVersion = globals.stateVersion;
 
-    # Allow unfree packages.
+    # Do not allow unfree packages.
     nixpkgs = {
       system = globals.system;
-      config.allowUnfree = true;
+      config.allowUnfree = lib.mkDefault false;
     };
 
     # Automatically optimise packages and collect garbage.
