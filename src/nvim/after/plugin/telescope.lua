@@ -33,5 +33,6 @@ if telescope then
 	vim.keymap.set("n", "<leader><leader>", builtin.find_files)
 	vim.keymap.set("n", "<leader>h", builtin.help_tags)
 	vim.keymap.set("n", "<leader>/", builtin.live_grep)
+	vim.keymap.set("n", "<leader>d", builtin.diagnostics)
 	vim.keymap.set("n", "<leader>q", ":TodoTelescope<CR>")
 end
