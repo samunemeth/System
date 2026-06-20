@@ -101,4 +101,17 @@
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
 
+  # Add a chain loading option for Debian.
+  # TODO: Figure out if there is a correct way to do this.
+  #system.activationScripts.lanzabooteGrubEntry = {
+  #  supportsDryActivation = true;
+  #  text = ''
+  #    mkdir -p /boot/loader/entries
+  #    cat << 'EOF' > /boot/loader/entries/debian-grub.conf
+  #    title Debian
+  #    efi   /EFI/debian/grubx64.efi
+  #    EOF
+  #  '';
+  #};
+
 }
