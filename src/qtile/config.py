@@ -612,6 +612,7 @@ widgets = [
         max_chars = 30,
         mouse_callbacks = {
             "Button1": lazy.spawn("playerctl play-pause"),
+            "Button3": lazy.spawn("playerctl next"),
         },
     ),
     add_sep(),
