@@ -38,11 +38,11 @@ let
     '';
   };
 
-  # TODO: Copy image to clipboard as well.
   screenshot-script = pkgs.writers.writeBashBin "screenshot" ''
     mkdir -p ~/Screenshots
-    ${pkgs.scrot}/bin/scrot ~/Screenshots/screenshot-%Y-%m-%d-%H%M%S.png
-    ${pkgs.libnotify}/bin/notify-send -u low "Screenshot saved."
+    ${pkgs.scrot}/bin/scrot ~/Screenshots/screenshot-%Y-%m-%d-%H%M%S.png \
+      -e '${pkgs.xclip}/bin/xclip -selection clipboard -target image/png $f'
+    ${pkgs.libnotify}/bin/notify-send -u low "Screenshot saved and copied to clipboard."
   '';
 
   color-picker-script = pkgs.writers.writeBashBin "color-picker" ''
