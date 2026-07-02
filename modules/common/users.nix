@@ -18,6 +18,7 @@
   users.users.${globals.user} = {
     isNormalUser = true;
     description = globals.name;
+    linger = true; # Enables running of user services.
     extraGroups = [
       "networkmanager"
       "wheel"

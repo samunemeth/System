@@ -132,6 +132,7 @@ in
     };
 
     # Rules for no sudo password while changing monitor brightness.
+    # TODO: Hard link this?
     security.sudo.extraRules = lib.mkAfter [
       {
         commands = [
@@ -180,21 +181,23 @@ in
       };
 
     # Start the daemon to handle touchpad gestures.
-    systemd.services.libinput-gestures =
+    systemd.user.services.libinput-gestures =
       let
         libinput-config-file = pkgs.writers.writeText "libinput-gestures.conf" ''
           gesture swipe left 3 ${qtile-package}/bin/qtile cmd-obj -o screen -f next_group
           gesture swipe right 3 ${qtile-package}/bin/qtile cmd-obj -o screen -f prev_group
           gesture swipe down 3 ${qtile-package}/bin/qtile cmd-obj -o group P -f toscreen
           gesture swipe up 3 ${qtile-package}/bin/qtile cmd-obj -o group U -f toscreen
+          gesture pinch in 2 ${screenshot-script}/bin/screenshot
+          gesture pinch out 2 xdotool key ctrl+v
         '';
       in
       {
         enable = lib.mkDefault (if config.modules.system.isDesktop then false else true);
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = [ "graphical-session.target" ];
+        partOf = [ "graphical-session.target" ];
         serviceConfig = {
           Type = "simple";
-          User = globals.user;
           Restart = "always";
           ExecStart = "${pkgs.libinput-gestures}/bin/libinput-gestures -c ${libinput-config-file}";
         };
