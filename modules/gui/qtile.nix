@@ -38,6 +38,18 @@ let
     '';
   };
 
+  # TODO: Copy image to clipboard as well.
+  screenshot-script = pkgs.writers.writeBashBin "screenshot" ''
+    mkdir -p ~/Screenshots
+    ${pkgs.scrot}/bin/scrot ~/Screenshots/screenshot-%Y-%m-%d-%H%M%S.png
+    ${pkgs.libnotify}/bin/notify-send -u low "Screenshot saved."
+  '';
+
+  color-picker-script = pkgs.writers.writeBashBin "color-picker" ''
+    ${pkgs.xcolor}/bin/xcolor | ${pkgs.xclip}/bin/xclip -selection clipboard
+    ${pkgs.libnotify}/bin/notify-send -u low "Copied hex code to clipboard."
+  '';
+
 in
 {
 
@@ -64,6 +76,9 @@ in
       with pkgs;
       [
 
+        screenshot-script
+        color-picker-script
+
         lm_sensors # Read system sensors.
         acpilight # Brightness controller.
         pulseaudio-ctl # Command line volume control.
@@ -78,8 +93,6 @@ in
         numlockx # To enable NumLock by default.
         warpd # Keyboard mouse control and movement emulation.
         playerctl # For media control (play/pause).
-        scrot # For screenshots.
-        xcolor # For color picking.
         bluetui # For Bluetooth settings.
 
       ];

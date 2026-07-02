@@ -199,17 +199,6 @@ def hooked_function():
 
 # --- Keyboard Shortcuts ---
 
-screenshot_script = """
-mkdir -p ~/Screenshots
-scrot ~/Screenshots/screenshot-%Y-%m-%d-%H%M%S.png
-notify-send -u low "Screenshot saved."
-"""
-
-color_picker_script = """
-xcolor | xclip -selection clipboard
-notify-send -u low "Copied hex code to clipboard."
-"""
-
 def power_action(cmd):
     """Preforms a power action depending on the input of a prompt."""
 
@@ -287,11 +276,11 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload Config"),
 
     # Screenshot.
-    Key([mod, "shift"], "s", lazy.spawn(screenshot_script, shell=True), desc="Screenshot"),
-    Key([], "Print", lazy.spawn(screenshot_script, shell=True), desc="Screenshot"),
+    Key([mod, "shift"], "s", lazy.spawn("screenshot"), desc="Screenshot"),
+    Key([], "Print", lazy.spawn("screenshot"), desc="Screenshot"),
 
     # Color picker that copies to clipboard.
-    Key([mod, "shift"], "c", lazy.spawn(color_picker_script, shell=True), desc="Color Picker"),
+    Key([mod, "shift"], "c", lazy.spawn("color-picker"), desc="Color Picker"),
 
     # Hardware key maps to commands.
     Key([], "XF86MonBrightnessUp", lazy.spawn("sudo xbacklight -inc 5"), desc="Brightness Up"),
