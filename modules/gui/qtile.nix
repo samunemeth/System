@@ -132,7 +132,6 @@ in
     };
 
     # Rules for no sudo password while changing monitor brightness.
-    # TODO: Hard link this?
     security.sudo.extraRules = lib.mkAfter [
       {
         commands = [
