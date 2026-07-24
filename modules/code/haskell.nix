@@ -34,6 +34,7 @@
 
       haskell-language-server # LSP server.
       ormolu # Formatter.
+      ghcid # Minimal live diagnostics.
 
     ];
 
