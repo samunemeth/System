@@ -31,6 +31,10 @@ map gr cd /
 # Get the current files file type.
 cmd type %xdg-mime query filetype "$f"
 
+# Get the specified hash of the file.
+cmd sha256 %echo -n "SHA256: " && sha256sum "$f"
+cmd md5    %echo -n "MD5:    " && md5sum "$f"
+
 # Open a ternimal in the current folder.
 map t term
 cmd term &$TERM
