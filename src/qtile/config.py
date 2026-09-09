@@ -211,18 +211,20 @@ def power_action(cmd):
 
     action = []
     if cmd.startswith(("su", "sl")):
-        action = ["suspend"]
+        action = ["systemctl", "suspend"]
     elif cmd.startswith("hi"):
-        action = ["hibernate"]
+        action = ["systemctl", "hibernate"]
     elif cmd.startswith("re"):
-        action = ["reboot"]
+        action = ["systemctl", "reboot"]
+    elif cmd.startswith("lo"):
+        action = ["slock"]
     elif cmd.startswith("wi"):
-        action = ["reboot", "--boot-loader-entry=auto-windows", "--boot-loader-menu=1"]
+        action = ["systemctl", "reboot", "--boot-loader-entry=auto-windows", "--boot-loader-menu=1"]
     elif cmd.startswith(("po", "sh")):
-        action = ["poweroff"]
+        action = ["systemctl", "poweroff"]
 
     if action:
-        subprocess.Popen(["systemctl", *action])
+        subprocess.Popen(action)
 
 @lazy.function
 def power_prompt(qtile):
