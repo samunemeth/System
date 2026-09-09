@@ -162,6 +162,13 @@ terminal = guess_terminal()
 @hook.subscribe.startup_once
 def autostart():
 
+    # Set up locking daemon.
+    # TODO: Parametric handling of locking program?
+    try:
+        subprocess.Popen(["xss-lock", "--", "slock"])
+    except Exception as e:
+        logger.warning(f"Error while launching process: {e}")
+
     # Set the background color.
     try:
         subprocess.Popen(["hsetroot", "-solid", parametric.backgroud_main])

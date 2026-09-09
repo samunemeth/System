@@ -50,6 +50,23 @@ let
     ${pkgs.libnotify}/bin/notify-send -u low "Copied hex code to clipboard."
   '';
 
+  slock-package = pkgs.slock.override {
+    conf = ''
+      /* user and group to drop privileges to */
+      static const char *user  = "nobody";
+      static const char *group = "nogroup";
+
+      static const char *colorname[NUMCOLS] = {
+      	[INIT] =   "${globals.colors.background.main}",  /* after initialization */
+      	[INPUT] =  "${globals.colors.background.soft}",  /* during input */
+      	[FAILED] = "${globals.colors.foreground.error}", /* wrong password */
+      };
+
+      /* treat a cleared input like a wrong password (color) */
+      static const int failonclear = 0;
+    '';
+  };
+
 in
 {
 
@@ -85,6 +102,7 @@ in
         hsetroot # For background setting.
         libnotify # Notification handling library.
         dunst # Notification daemon.
+        xss-lock # Locking daemon.
 
       ]
       # TODO: Handle errors if these are missing.
@@ -125,10 +143,17 @@ in
       enable = true;
       user = globals.user;
     };
+    # TODO: Remove the dependence on lightdm.
     services.xserver.displayManager.lightdm = {
       enable = true;
       greeter.enable = false;
       autoLogin.timeout = 0;
+    };
+
+    # Set up locking.
+    programs.slock = {
+      enable = true;
+      package = slock-package;
     };
 
     # Rules for no sudo password while changing monitor brightness.
