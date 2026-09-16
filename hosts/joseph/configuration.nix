@@ -18,6 +18,7 @@
       hibernation = true;
       powerTuning = true;
       fprint = true;
+      autoMountDrives = true;
     };
 
     # Boot options.
