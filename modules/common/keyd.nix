@@ -41,7 +41,6 @@
       "space" = "A-space";
 
       # Accented characters.
-      # TODO: Move to a different layer?
       "e" = "macro(compose e ')";
       "a" = "macro(compose a ')";
       "i" = "macro(compose i ')";

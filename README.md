@@ -21,7 +21,7 @@ and LaTeX compilation.
 **Bugs**
 
   - [ ] Zathura bottom status bar is not transparent.
-  - [ ] *Look Into:* The *mini greeter* seems to act up on first boot.
+  - [x] *Look Into:* The *mini greeter* seems to act up on first boot.
         *Maybe just ditch the mini greeter?*
   - [ ] Sometimes there is a significant slowdown after the machine is powered
         on for a long time and/or had been suspended for a long/multiple times.
@@ -31,7 +31,7 @@ and LaTeX compilation.
 **Features**
 
   - [ ] Impermanence, for some parts at least.
-  - [ ] Locking, password prompt after suspend.
+  - [x] Locking, password prompt after suspend.
   - [ ] Clean up python parts.
   - [ ] Handle missing low priority packages.
   - [ ] Finish installation documentation.
