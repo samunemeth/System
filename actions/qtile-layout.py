@@ -95,6 +95,7 @@ SPECIAL_KEY_WIDTH = {
 DICTIONARY = {
     "period": ",",
     "comma": ".",
+    "apostrophe": "'", 
     "Button1": "Left",
     "Button2": "Middle",
     "Button3": "Right",
@@ -349,7 +350,7 @@ class KeyInfo:
         "backslash": "\\",
         "bracketleft": "[",
         "bracketright": "]",
-        "quote": "'",
+        "apostrophe": "'",
         "minus": "-",
         "equals": "=",
     }
