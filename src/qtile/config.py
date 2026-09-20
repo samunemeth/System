@@ -286,7 +286,7 @@ keys = [
     Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard(), desc="Keyboard Layout"),
 
     # Power actions.
-    Key([mod], "apostrophe", lazy_power_action("lock")),
+    Key([mod], "apostrophe", lazy_power_action("lock"), desc="Lock"),
 
     # Reload configuration.
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload Config"),
