@@ -227,6 +227,10 @@ def power_action(cmd):
         subprocess.Popen(action)
 
 @lazy.function
+def lazy_power_action(qtile, cmd):
+    power_action(cmd)
+
+@lazy.function
 def power_prompt(qtile):
     qtile.widgets_map["prompt"].start_input("[power]:", power_action)
 
@@ -280,6 +284,9 @@ keys = [
 
     # Keyboard layout switching.
     Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard(), desc="Keyboard Layout"),
+
+    # Power actions.
+    Key([mod], "apostrophe", lazy_power_action("lock")),
 
     # Reload configuration.
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload Config"),
