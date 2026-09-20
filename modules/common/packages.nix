@@ -62,6 +62,9 @@
     # Set documentation availability in accordance with setting.
     documentation.enable = config.modules.packages.manuals;
 
+    # Use a simple tty pin entry application if required.
+    programs.gnupg.agent.pinentryPackage = pkgs.pinentry-tty;
+
     # List of fonts.
     fonts.packages = with pkgs; [
       nerd-fonts.hack
