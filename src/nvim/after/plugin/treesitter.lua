@@ -13,4 +13,12 @@ if treesitter then
 			additional_vim_regex_highlighting = false,
 		},
 	})
+
+  vim.api.nvim_create_autocmd("FileType", {
+      pattern = "python",
+      callback = function()
+          vim.treesitter.start()
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      end,
+  })
 end
