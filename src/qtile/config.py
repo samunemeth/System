@@ -212,13 +212,15 @@ def power_action(cmd):
     action = []
     if cmd.startswith(("su", "sl")):
         action = ["systemctl", "suspend"]
-    elif cmd.startswith("hi"):
+    elif cmd.startswith("h"):
         action = ["systemctl", "hibernate"]
-    elif cmd.startswith("re"):
+    elif cmd.startswith("r"):
         action = ["systemctl", "reboot"]
-    elif cmd.startswith("lo"):
+    elif cmd.startswith(("sr", "so")):
+        action = ["systemctl", "soft-reboot"]
+    elif cmd.startswith("l"):
         action = ["slock"]
-    elif cmd.startswith("wi"):
+    elif cmd.startswith("w"):
         action = ["systemctl", "reboot", "--boot-loader-entry=auto-windows", "--boot-loader-menu=1"]
     elif cmd.startswith(("po", "sh")):
         action = ["systemctl", "poweroff"]
