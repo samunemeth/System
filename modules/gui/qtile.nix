@@ -38,6 +38,12 @@ let
     '';
   };
 
+  # A small script for launching qtile with the appropriate configuration.
+  # This is useful if Qtile stops or does not start for some reason.
+  qtile-start-script = pkgs.writers.writeBashBin "qtile-start" ''
+    ${qtile-package}/bin/qtile start -l ${qtile-log-level} -c /etc/xdg/qtile/config.nix
+  '';
+
   screenshot-script = pkgs.writers.writeBashBin "screenshot" ''
     mkdir -p ~/Screenshots
     ${pkgs.scrot}/bin/scrot ~/Screenshots/screenshot-%Y-%m-%d-%H%M%S.png \
@@ -93,6 +99,7 @@ in
       with pkgs;
       [
 
+        qtile-start-script
         screenshot-script
         color-picker-script
 
