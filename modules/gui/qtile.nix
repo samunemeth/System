@@ -138,12 +138,15 @@ in
     # Add configuration files to correct directory.
     environment.etc."xdg/qtile".source = "${qtile-home}/qtile";
 
-    # Set up auto login.
+    # Set up auto login via lightdm.
+    # NOTE: While lightdm might seems overkill here, it actually handles a lot
+    # > important stuff. Getting rid of it would require coding a lot of
+    # > scripts, and making sure everything can start up properly all the time.
+    # > lightdm is indeed light, so keeping it does not require too much space.
     services.displayManager.autoLogin = {
       enable = true;
       user = globals.user;
     };
-    # TODO: Remove the dependence on lightdm.
     services.xserver.displayManager.lightdm = {
       enable = true;
       greeter.enable = false;
