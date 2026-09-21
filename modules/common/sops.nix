@@ -22,6 +22,9 @@
     defaultSopsFile = ../../secrets.yaml;
     validateSopsFiles = false;
 
+    # Use systemd activation for easier manipulation.
+    useSystemdActivation = true;
+
     age = {
 
       # Use machine host SSH key derived age keys.
@@ -30,6 +33,15 @@
       keyFile = "/var/lib/sops-nix/keys.txt";
     };
 
+  };
+
+  # Reactivate the secrets after a soft-reboot.
+  systemd.services.sops-install-secrets = {
+    conflicts = [ "soft-reboot.target" ];
+    before = [
+      "soft-reboot.target"
+      "systemd-soft-reboot.service"
+    ];
   };
 
   # Edit NixOS secrets, with the machines host ssh key.
