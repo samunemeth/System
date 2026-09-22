@@ -138,7 +138,6 @@ cmd open &{{
 }}
 
 # Generate a URL if the file is inside the Copyparty cloned directory.
-# TODO: Pull this out to a helper function somehow?
 cmd url %{{
   if [[ $f == /copyparty* ]]; then
     furl=$(jq -nr --arg p "${f#/copyparty}" '$p | split("/") | map(@uri) | join("/")')

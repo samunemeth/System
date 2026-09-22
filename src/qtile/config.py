@@ -163,7 +163,6 @@ terminal = guess_terminal()
 def autostart():
 
     # Set up locking daemon.
-    # TODO: Parametric handling of locking program?
     try:
         subprocess.Popen(["xss-lock", "--", "slock"])
     except Exception as e:
@@ -796,7 +795,6 @@ widgets = [
     add_sep(),
     widget.Clock(
         format = "%Y-%m-%d %H:%M:%S",
-        # TODO: Add functionality to open the google calendar with the API key?
     ),
 
 ]
