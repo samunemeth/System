@@ -422,37 +422,73 @@ def get_nvidia_status_icon():
     else:
         return "󰷜"
 
+# Returns a nicely formatted concise message about the statuses of the synced
+# Seafile shares.
 def get_seafile_status():
-    # TODO: What the actual fuck is going on in this function?
+
+    # Get the output of the seaf-cli status command.
     try: 
-        seaf_status = subprocess.check_output(["seaf-cli", "status"]).decode("utf-8").strip()
-        content_raw = [re.sub(r"\s+", " ", x.strip()).split(" ") for x in seaf_status.split("\n")[1:]]
-        def get_status_icon(status_text):
-            icons = {
-                "synchronized": " ",
-                "uploading": " ",
-                "downloading": " ",
-                "initializing": "󰜝 ",
-                "committing": "󰜘 ",
-                "waiting": "󰔚 ",
-                "error": " ",
-            }
-            if status_text in icons:
-                return icons[status_text]
-            logger.warning(f"Unrecognised Seafile status: '{status_text}'. Raw content: '{content_raw}'")
-            return status_text[0]
-        content = [
-            f"{
-                lib[0]
-            }: {
-                get_status_icon(lib[1])
-            }{
-                '' if len(lib) < 3 else f' {lib[3 if lib[2] == "files" else 2]}' if lib[1] not in ['waiting', 'error'] else ''
-            }"
-            for lib in content_raw if lib[1] != "synchronized"]
-        return " ".join(content)[:-1]
-    except:
+        status_raw = subprocess.check_output(["seaf-cli", "status"]).decode("utf-8").strip()
+    except Exception as e:
+        logger.warning(f"Error while trying to read Seafile status: {e}")
         return ""
+
+    # Split the lines, and discard the first one as it is only contains headers.
+    status_lines = status_raw.split("\n")[1:]
+    # Strip the extra white spaces from the line edges.
+    status_lines = [x.strip() for x in status_lines]
+    # De-duplicate the extra spaces inside the lines.
+    status_lines = [re.sub(r"\s+", " ", x) for x in status_lines]
+    # Split up the lines into tokens.
+    status_libs = [x.split(" ") for x in status_lines]
+
+    # Function for getting an icon for a specific status. Logs a message if the
+    # status does not have an icon, as the status function is undocumented and
+    # might produce unexpected results.
+    def get_status_icon(status_text):
+        icons = {
+            "synchronized": " ",
+            "uploading": " ",
+            "downloading": " ",
+            "initializing": "󰜝 ",
+            "committing": "󰜘 ",
+            "waiting": "󰔚 ",
+            "error": " ",
+        }
+        if status_text in icons:
+            return icons[status_text]
+        else:
+            logger.warning(f"Unrecognised Seafile status: '{status_text}'. Raw content: '{status_libs}'")
+            return status_text[0]
+
+    # Loop through all the libraries we got information for.
+    result_string = ""
+    for lib in status_libs:
+
+        # If there is nothing important, it is not worth displaying.
+        if lib[1] == "synchronized":
+            continue
+
+        # Ge the name of the library and the icon of the status
+        lib_string = f"{lib[0]}: {get_status_icon(lib[1])}"
+
+        # In special cases, there might be a percentage indicating progress.
+        # Try to extract this as best as possible, and add it to the end of
+        # the line.
+        if (len(lib) >= 3) and (lib[1] not in ["waiting", "error"]):
+            if lib[2] == "files":
+                lib_string += " " + {lib[3]}
+            else:
+                lib_string += " " + {lib[2]}
+
+        # Extend the accumulating string.
+        if result_string != "":
+            result_string += " " + lib_string
+        else:
+            result_string = lib_string
+
+    # Return the built string.
+    return result_string
 
 def get_player_status():
     """Get metadata from the currently playing song."""
