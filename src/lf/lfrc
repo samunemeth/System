@@ -114,7 +114,7 @@ cmd open &{{
 
   # SVG images are not handled by Mpv.
   elif [[ $filetype == "image/svg"* ]] then
-    $BROWSER --new-window "$f"
+    firefox --new-window "$f"
 
   # Basically any other multimedia is possible to open with Mpv.
   # If we can get a direct URL, use that rather than the extra abstraction.

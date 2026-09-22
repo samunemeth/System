@@ -170,10 +170,6 @@ in
 
   config = lib.mkIf config.modules.apps.firefox {
 
-    # Update environment settings.
-    # TODO: Actually use this in Qtile.
-    environment.sessionVariables.BROWSER = "firefox";
-
     # Enable Firefox with the policies.
     programs.firefox = {
       enable = true;
