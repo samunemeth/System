@@ -48,9 +48,10 @@
     services.upower = {
       enable = true;
 
-      # Do not interfere when battery is low.
-      criticalPowerAction = "Ignore";
-      allowRiskyCriticalPowerAction = true;
+      # If battery level is critically low, enter hybrid sleep.
+      usePercentageForPolicy = true;
+      percentageAction = 2;
+      criticalPowerAction = "HybridSleep";
 
     };
 
