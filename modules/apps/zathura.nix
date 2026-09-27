@@ -70,12 +70,6 @@ let
     # Aligns the page for navigations
     "zz" = "<S-P>";
 
-    # Maps navigations keys for smooth scrolling
-    "j" = "<C-Down>";
-    "k" = "<C-Up>";
-    "h" = "<C-Left>";
-    "l" = "<C-Right>";
-
     # Better page navigation
     "<Space>" = "<PageDown>";
     "<S-Space>" = "<PageUp>";
