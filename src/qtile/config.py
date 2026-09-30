@@ -39,6 +39,8 @@ def get_parametric():
         foreground_main = globals_["colors"]["foreground"]["main"]
         foreground_soft = globals_["colors"]["foreground"]["soft"]
         foreground_error = globals_["colors"]["foreground"]["error"]
+        foreground_warn = globals_["colors"]["foreground"]["warn"]
+        foreground_select = globals_["colors"]["foreground"]["select"]
         available_layouts = modules_["locale"]["keyboardLayouts"]
         has_hibernation = modules_["system"]["hibernation"]
         has_auto_login = modules_["boot"]["autoLogin"]
@@ -55,6 +57,8 @@ def get_dummy_parametric():
         foreground_main = "#FFFFFF"
         foreground_soft = "#DDDDDD"
         foreground_error = "#FF0000"
+        foreground_warn = "#FFFF00"
+        foreground_select = "#0000FF"
         available_layouts = "us"
         has_hibernation = True
         has_auto_login = False
@@ -788,6 +792,8 @@ widgets = [
     add_sep(),
     widget.ThermalSensor(
         format = " {temp:.0f}{unit}",
+        foreground_alert = parametric.foreground_warn,
+        threshold = 70,
         tag_sensor = processor_temperature_name,
         mouse_callbacks = {
             "Button1": lazy.group["scratchpad"].dropdown_toggle("btop"),
