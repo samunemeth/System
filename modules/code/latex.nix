@@ -28,6 +28,7 @@ let
       # Root packages.
       (pkgs.texlive)
       scheme-basic
+      latexmk
 
       # Technical packages.
       synctex
@@ -56,6 +57,10 @@ let
       # Language packages.
       babel
       babel-hungarian
+
+      # Bibliography management.
+      biblatex
+      biber
 
       ;
 

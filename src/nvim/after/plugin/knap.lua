@@ -9,7 +9,7 @@ if knap then
 		textopdfviewerlaunch = [[zathura -x "nvim --headless -es --cmd \"lua require('knaphelper').relayjump('%servername%', '%{input}', %{line}, 0)\"" %outputfile%]],
 		textopdfviewerrefresh = "none",
 		textopdfforwardjump = [[zathura --fork --synctex-forward=%line%:%column%:%srcfile% %outputfile%]],
-		textopdf = "pdflatex -interaction=batchmode -halt-on-error -synctex=1 %docroot%",
+    textopdf = "latexmk -pdf -interaction=batchmode -halt-on-error -synctex=1 %docroot%",
 
 		-- Options for compiling and previewing markdown.
 		mdoutputext = "pdf",
