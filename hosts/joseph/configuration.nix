@@ -71,6 +71,7 @@
     apps = {
       alacritty = true;
       dmenu = true;
+      eduvpn = true;
       epy = true;
       firefox = true;
       ipycalc = true;

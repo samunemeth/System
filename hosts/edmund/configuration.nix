@@ -75,6 +75,7 @@
       alacritty = true;
       dmenu = true;
       epy = true;
+      eduvpn = false;
       firefox = true;
       ipycalc = false;
       lf = true;
