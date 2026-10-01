@@ -286,6 +286,9 @@ keys = [
     Key([mod], "x", lazy.spawn("dmenu-sound"), desc="Dmenu Sound"),
     Key([mod], "q", lazy.spawn("dmenu-display"), desc="Dmenu Display"),
     Key([mod, "shift"], "w", lazy.spawn("dmenu-yubi"), desc="Dmenu Yubikey Auth"),
+    Key([mod, "shift"], "d", lazy.spawn("dmenu-diacritics-picker"), desc="Dmenu Diacritics Picker"),
+    Key([mod, "shift"], "e", lazy.spawn("dmenu-emoji-picker"), desc="Dmenu Emoji Picker"),
+    Key([mod, "shift"], "f", lazy.spawn("dmenu-nerdfont-picker"), desc="Dmenu NerdFont Picker"),
 
     # Keyboard layout switching.
     Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard(), desc="Keyboard Layout"),

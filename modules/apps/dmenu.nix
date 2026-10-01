@@ -55,6 +55,26 @@ let
     '';
   };
 
+  # Some quick scripts for symbol pickers based on rofimoji.
+  rofimoji-pickers = {
+    diacritics = "-a type -f combining_diacritical_marks";
+    emoji = "-a type copy -s neutral -f emojis";
+    nerdfont = "-a type copy -f nerd_font";
+  };
+
+  # WARN: This depends on the user environment actually being x11.
+  rofimoji-package = pkgs.rofimoji.override {
+    waylandSupport = false;
+    x11Support = true;
+  };
+  # WARN: We assue that xclip and xdotool are available.
+  rofimoji-picker-scripts = lib.attrsets.mapAttrsToList (
+    name: value:
+    pkgs.writers.writeBashBin "dmenu-${name}-picker" ''
+      ${rofimoji-package}/bin/rofimoji ${value} --prompt \"\" --selector dmenu --clipboarder xclip --typer xdotool
+    ''
+  ) rofimoji-pickers;
+
 in
 {
 
@@ -74,7 +94,7 @@ in
     environment.systemPackages = [
       wrapped-dmenu
       dmenu-scripts
-    ];
+    ] ++ rofimoji-picker-scripts;
 
     # Require fonts used.
     fonts.packages = [ pkgs.nerd-fonts.hack ];
