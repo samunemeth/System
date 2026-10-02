@@ -97,6 +97,7 @@
       nix = true;
       python = false;
       rust = false;
+      tlaplus = false;
     };
 
   };
