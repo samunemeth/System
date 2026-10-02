@@ -45,6 +45,7 @@ let
       pgf
       ragged2e
       hyperref
+      xurl
       graphics
       listings
       wasysym
