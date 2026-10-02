@@ -71,7 +71,7 @@ let
   rofimoji-picker-scripts = lib.attrsets.mapAttrsToList (
     name: value:
     pkgs.writers.writeBashBin "dmenu-${name}-picker" ''
-      ${rofimoji-package}/bin/rofimoji ${value} --prompt \"\" --selector dmenu --clipboarder xclip --typer xdotool
+      ${rofimoji-package}/bin/rofimoji ${value} --prompt "" --selector dmenu --clipboarder xclip --typer xdotool
     ''
   ) rofimoji-pickers;
 
