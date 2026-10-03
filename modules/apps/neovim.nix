@@ -41,6 +41,7 @@ let
       # Change tracking
       undotree # For an undo tree
       vim-fugitive # For git
+      gitsigns-nvim # For visualising changes in files
 
       # Small improvements
       flash-nvim # For faster navigation with 'f'
