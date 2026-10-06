@@ -221,6 +221,8 @@ def power_action(cmd):
         action = ["systemctl", "reboot"]
     elif cmd.startswith(("sr", "so")):
         action = ["systemctl", "soft-reboot"]
+    elif cmd.startswith(("sa", "ss")):
+        action = ["systemctl", "hybrid-sleep"]
     elif cmd.startswith("l"):
         action = ["slock"]
     elif cmd.startswith("w"):
