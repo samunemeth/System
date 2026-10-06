@@ -67,10 +67,19 @@ let
   # Current: about:config
   custom-preferences = {
 
+    # Disable the new rounded look.
+    "browser.nova.enabled" = {
+      Value = false;
+      Status = "locked";
+    };
+
+    # Disable the pocket extension.
     "extensions.pocket.enabled" = {
       Value = false;
       Status = "locked";
     };
+
+    # Set the theme and the toolbar.
     "browser.theme.toolbar-theme" = {
       Value = if globals.colors.dark then 0 else 1;
       Type = "number";
