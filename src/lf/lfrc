@@ -209,3 +209,28 @@ cmd fzf-hidden ${{
   fi
 }}
 
+# Time stamping functionality with freeTSA. A verified timestamp file can be
+# requested for the file, and can be later verified.
+
+cmd timestamp-request %{{
+  openssl ts -query -data "$f" -no_nonce -sha512 -cert -out "$f.tsq" 2>&1 \
+    | grep -v '^Using configuration'
+  curl --progress-bar -H "Content-Type: application/timestamp-query" --data-binary "@$f.tsq" https://freetsa.org/tsr > "$f.tsr"
+  rm "$f.tsq"
+  echo "Time stamp requested and received."
+}}
+
+cmd timestamp-generate-request %{{
+  openssl ts -query -data "$f" -no_nonce -sha512 -cert -out "$f.tsq"
+  echo "Time stamp request file generated."
+}}
+
+cmd timestamp-verify %{{
+  [[ -f /tmp/freetsa-cacert.pem ]] || curl --progress-bar -fLo /tmp/freetsa-cacert.pem https://freetsa.org/files/cacert.pem
+  {
+    openssl ts -verify -in "$f.tsr" -data "$f" -CAfile /tmp/freetsa-cacert.pem
+    openssl ts -reply -in "$f.tsr" -text | grep '^Time stamp'
+  } 2>&1 \
+    | grep -v '^Using configuration' \
+    | paste -sd ' ' -
+}}

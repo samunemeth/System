@@ -71,7 +71,11 @@ in
       }
       {
 
-        environment.systemPackages = [ wrapped-lf ];
+        environment.systemPackages = with pkgs; [
+          wrapped-lf
+
+          openssl # For time stamping.
+        ];
 
         # Add a command to change directories with Lf.
         programs.bash.interactiveShellInit = # bash
