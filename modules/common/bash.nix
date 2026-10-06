@@ -38,6 +38,11 @@
             sudo nixos-rebuild switch --flake ~/System/#$1
           }
 
+          # Rebuild NixOS from a flake for testing.
+          nrt () {
+            sudo nixos-rebuild test --flake ~/System/#$1
+          }
+
           # Collect NixOS garbage. This includes cleaning temporary roots.
           ncg() {
             sudo rm -f /nix/var/nix/temproots/*
