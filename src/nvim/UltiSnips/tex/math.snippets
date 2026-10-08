@@ -1,6 +1,8 @@
 # These snippets are for math mode.
-# Usually they convert to specific symbols.
-# All symbols must have a space after them.
+
+# Make sure that there is only a space after if there needs to be one for
+# syntax, or the snippet is not automatic and it might be convenient.
+
 
 # --- Context Definition for Math ---
 
@@ -12,7 +14,9 @@ endglobal
 # --- Initiating Math  ---
 
 snippet math "Math" bA
-\[ $1 \]$0
+\[
+		$1
+\]$0
 endsnippet
 
 snippet mm "Inline math" wA
@@ -29,55 +33,20 @@ snippet plot "Plot" b
 \end{figure}
 endsnippet
 
-# --- Auto Calculations ---
-
-context "math()"
-snippet calc "Sympy calculation block" w
-calc $1 calc$0
-endsnippet
-
-priority 10000
-context "math()"
-snippet 'calc(.*)calc' "Evaluate sympy calculation (requires: sympy)" wr
-`!p
-from sympy import *
-x, y, z, t = symbols('x y z t')
-k, m, n = symbols('k m n', integer=True)
-f, g, h = symbols('f g h', cls=Function)
-init_printing()
-snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
-    .replace('^', '**') \
-    .replace('{', '(') \
-    .replace('}', ')') + ')')
-`
-endsnippet
-
 # --- Non-math elements ---
+
 context "math()"
-snippet space "Empty space" wA
+snippet space "Empty space" w
 \quad $0
 endsnippet
 
 context "math()"
-snippet break "More Empty space" wA
-\qquad $0
+snippet tt "Text in math" w
+\text{${VISUAL}$1}$0
 endsnippet
 
 context "math()"
-snippet tt "Text in math" wA
-\text{${VISUAL}$1} $0
-endsnippet
-
-# --- vectors ---
-context "math()"
-snippet vec "Vector" w
-\left[\begin{array}{c} $1 \end{array}\right]$0
-endsnippet
-
-# --- Align Environment ---
-
-context "math()"
-snippet == "Align Equals" wA
+snippet == "Align equals" wA
 &=$0
 endsnippet
 
@@ -93,52 +62,134 @@ snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction (adaptiv
 \\frac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
 
-# --- Large Brackets ---
+# --- Arrays and Tables ---
+
 context "math()"
-snippet (( "Large Left Brace" iA
+snippet arr "Array Environment" w
+\begin{array}{${1:c}} ${2:${VISUAL}} \end{array}$0
+endsnippet
+
+context "math()"
+snippet vec "Vector" w
+\left[\begin{array}{c} $1 \end{array}\right]$0
+endsnippet
+
+context "math()"
+snippet (. "Large left invisible brace" i
+\left.$0
+endsnippet
+
+context "math()"
+snippet ). "Large right invisible brace" i
+\right.$0
+endsnippet
+
+context "math()"
+snippet (( "Large left brace" i
 \left($0
 endsnippet
 
 context "math()"
-snippet )) "Large Right Brace" iA
+snippet )) "Large right brace" i
 \right)$0
 endsnippet
 
-# --- Environments inside Math ---
 context "math()"
-snippet arr "Array Environment" w
-\begin{array}{ ${1:c} } ${2:${VISUAL}} \end{array}$0
+snippet {{ "Large left curly brace" i
+\left\{$0
+endsnippet
+
+context "math()"
+snippet }} "Large right curly brace" i
+\right\}$0
 endsnippet
 
 # --- Postfixes ---
 
 context "math()"
 snippet "(\\?\w+)(,\.|\.,)" "Vector postfix" riA
-\vec{`!p snip.rv=match.group(1)`}
+\vec{`!p snip.rv=match.group(1)`}$0
 endsnippet
 
-# --- Subscript ---
-
 context "math()"
-snippet __ "Text subscript" iA
-_\text{$1}$0
+snippet __ "Long subscript" iA
+_{$1}$0
 endsnippet
 
-# --- Symbols ---
+context "math()"
+snippet ^^ "Long superscript" iA
+^{$1}$0
+endsnippet
+
+# --- Math fonts ---
 
 context "math()"
-snippet dt "Delta symbol" wA
+snippet "m?a?t?h?bb\s?(\S)" "Math BB font" rwA
+\mathbb{`!p snip.rv = match.group(1).upper()`}$0
+endsnippet
+
+context "math()"
+snippet "m?a?t?h?bf\s?(\S)" "Math bold font" rwA
+\mathbf{`!p snip.rv = match.group(1).upper()`}$0
+endsnippet
+
+# --- Logical Operators ---
+
+context "math()"
+snippet equ "Equivalent symbol" w
+\equiv $0
+endsnippet
+
+context "math()"
+snippet neq "Not equal symbol" w
+\neq $0
+endsnippet
+
+context "math()"
+snippet and "And symbol" w
+\wedge $0
+endsnippet
+
+context "math()"
+snippet or "Or symbol" w
+\vee $0
+endsnippet
+
+context "math()"
+snippet not "Not symbol" w
+\neg $0
+endsnippet
+
+context "math()"
+snippet imp "Implication arrow symbol" w
+\Rightarrow $0
+endsnippet
+
+# --- Other Math ---
+
+context "math()"
+snippet larr "Left arrow symbol" w
+\leftarrow $0
+endsnippet
+
+context "math()"
+snippet rarr "Right arrow symbol" w
+\rightarrow $0
+endsnippet
+
+context "math()"
+snippet dt "Delta symbol" w
 \Delta $0
 endsnippet
 
 context "math()"
-snippet ssum "Sigma symbol" wA
-\Sigma $0
+snippet ld "Low dots symbol" w
+\ldots $0
 endsnippet
 
 context "math()"
-snippet dots "Low Dots symbol" wA
-\ldots $0
+snippet cd "Center dots symbol" w
+\cdots $0
 endsnippet
 
 context "math()"
@@ -146,68 +197,9 @@ snippet inf "Infinity symbol" w
 \infty $0
 endsnippet
 
-# --- Different kinds of arrows ---
-
 context "math()"
-snippet larr "Left Arrow symbol" wA
-\leftarrow $0
-endsnippet
-
-context "math()"
-snippet "rarr" "Right Arrow symbol" rwA
-\rightarrow $0
-endsnippet
-
-context "math()"
-snippet "Rarr" "Double Right Arrow symbol" rwA
-\Rightarrow $0
-endsnippet
-
-context "math()"
-snippet lrarr "Left-right Arrow symbol" wA
-\leftrightarrow $0
-endsnippet
-
-context "math()"
-snippet deduce "Long Double Right Arrow symbol" wA
-\Longrightarrow $0
-endsnippet
-
-# --- Logical Operators ---
-
-context "math()"
-snippet equ "Equivalent symbol" wA
-\equiv $0
-endsnippet
-
-context "math()"
-snippet true "True symbol" wA
-\mathbb{T} $0
-endsnippet
-
-context "math()"
-snippet false "False symbol" wA
-\mathbb{F} $0
-endsnippet
-
-context "math()"
-snippet and "And symbol" wA
-\wedge $0
-endsnippet
-
-context "math()"
-snippet or "Or symbol" wA
-\vee $0
-endsnippet
-
-context "math()"
-snippet not "Not symbol" wA
-\neg $0
-endsnippet
-
-context "math()"
-snippet neq "Not Equal symbol" wA
-\neq $0
+snippet set "A set" w
+\{$1\}$0
 endsnippet
 
 context "math()"
@@ -215,11 +207,28 @@ snippet in "In symbol" w
 \in $0
 endsnippet
 
-# --- Math fonts ---
+context "math()"
+snippet to "To symbol" w
+\to $0
+endsnippet
 
 context "math()"
-snippet "m?a?t?h?bb\s?(\S)" "Math BB Font" rwA
-\mathbb{`!p
-snip.rv = match.group(1).upper()
-`} $0
+snippet sm "Set minus symbol" w
+\setminus $0
 endsnippet
+
+context "math()"
+snippet bar "Bar with spaces around" w
+\ | \ $0
+endsnippet
+
+context "math()"
+snippet geq "Greater or equal to symbol" w
+\geq $0
+endsnippet
+
+context "math()"
+snippet leq "Less than or equal to symbol" w
+\leq $0
+endsnippet
+
