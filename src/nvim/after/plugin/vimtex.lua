@@ -7,10 +7,9 @@
 vim.opt.conceallevel = 1
 vim.g.tex_flavor = "latex"
 vim.g.vimtex_view_method = "zathura"
-vim.g.tex_conceal = "abdmg" -- NOTE: This is probably not needed?
 vim.g.vimtex_indent_lists = {}
-vim.g.vimtex_mappings_enabled = true
-vim.g.vimtex_imaps_enabled = 0 -- NOTE: Why is this 0 if the above is true?
+vim.g.vimtex_mappings_enabled = false
+vim.g.vimtex_imaps_enabled = false
 
 -- Sterilise the plugin so that it does not complain if latexmk is
 -- not available; it is not used.
