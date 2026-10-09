@@ -32,7 +32,7 @@
     let
 
       # A global set of variables passed to all modules.
-      globals = {
+      globals = rec {
 
         # System and version information.
         system = "x86_64-linux";
@@ -42,6 +42,13 @@
         user = "samu";
         name = "Samu Németh";
         email = "nemeth.samu.0202@gmail.com";
+
+        # Path to a src directory that contains dotfiles. Some applications
+        # have a development version that sources its configuration from this
+        # path instead of the nix store. This is useful for quick prototyping
+        # for some applications. Usually this path should point inside this
+        # flake. By convention, I always place this flake in the same place.
+        dev-src-path = "/home/${user}/System/src";
 
         # Color configuration.
         colors = {

@@ -88,15 +88,15 @@ let
     xclip # For using the system clipboard.
   ];
 
-  # Wrap Neovim.
-  wrapped-neovim = pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped {
+  # Wrap Neovim with a parametric configuration path.
+  pathless-wrapped-neovim = config-path: pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped {
 
     # Use the list of plugins defined above.
     inherit plugins;
 
     # Use the derivation as the configuration folder and add dependencies.
     wrapRc = false;
-    wrapperArgs = "--set XDG_CONFIG_HOME ${neovim-home} --prefix PATH : ${lib.makeBinPath neovim-deps}";
+    wrapperArgs = "--set XDG_CONFIG_HOME ${config-path} --prefix PATH : ${lib.makeBinPath neovim-deps}";
 
     # Add aliases for vim and vi.
     vimAlias = true;
@@ -114,6 +114,11 @@ let
     waylandSupport = false;
 
   };
+
+  wrapped-neovim = pathless-wrapped-neovim neovim-home;
+  wrapped-neovim-dev = pkgs.writers.writeBashBin "nvim-dev" ''
+    ${pathless-wrapped-neovim globals.dev-src-path}/bin/nvim "$@"
+  '';
 
 in
 {
@@ -137,7 +142,10 @@ in
       }
       {
 
-        environment.systemPackages = [ wrapped-neovim ];
+        environment.systemPackages = [
+          wrapped-neovim
+          wrapped-neovim-dev
+        ];
 
         # Set Neovim as the default editor.
         environment.sessionVariables.EDITOR = "nvim";
