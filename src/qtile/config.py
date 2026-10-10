@@ -262,6 +262,7 @@ keys = [
     # Layout management.
     Key([mod], "e", lazy.layout.next(), desc="Move Focus"),
     Key([mod], "r", lazy.window.toggle_fullscreen(), desc="Fullscreen"),
+    Key([mod, "shift"], "r", lazy.window.toggle_floating(), desc="Floating"),
     Key([mod], "v", lazy.window.kill(), desc="Kill Window"),
     Key([mod], "t", lazy.hide_show_bar(), desc="Toggle Bar"),
 
