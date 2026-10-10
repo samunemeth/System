@@ -11,11 +11,19 @@ def math():
     return vim.eval('vimtex#syntax#in_mathzone()') == '1'
 endglobal
 
+global !p
+def xspace():
+	  if t[0] and t[0][0] in [',', '.', '?', '-', ' ', '_', '^']:
+	      snip.rv += ''
+	  else:
+	      snip.rv += ' '
+endglobal
+
 # --- Initiating Math  ---
 
 snippet math "Math" bA
 \[
-		$1
+`!p snip.shift(); snip.rv = snip.mkline()`$1
 \]$0
 endsnippet
 
@@ -36,12 +44,12 @@ endsnippet
 # --- Non-math elements ---
 
 context "math()"
-snippet space "Empty space" w
-\quad $0
+snippet spc "Empty space" wA
+\quad$0
 endsnippet
 
 context "math()"
-snippet tt "Text in math" w
+snippet tt "Text in math" wA
 \text{${VISUAL}$1}$0
 endsnippet
 
@@ -58,7 +66,7 @@ snippet // "Fraction (raw)" iA
 endsnippet
 
 context "math()"
-snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction (adaptive)" wrA
+snippet "((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/" "Fraction (adaptive)" wrA
 \\frac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
 
@@ -96,12 +104,12 @@ endsnippet
 
 context "math()"
 snippet {{ "Large left curly brace" i
-\left\{$0
+\left\\{$0
 endsnippet
 
 context "math()"
 snippet }} "Large right curly brace" i
-\right\}$0
+\right\\}$0
 endsnippet
 
 # --- Postfixes ---
@@ -111,26 +119,60 @@ snippet "(\\?\w+)(,\.|\.,)" "Vector postfix" riA
 \vec{`!p snip.rv=match.group(1)`}$0
 endsnippet
 
+priority -1
 context "math()"
-snippet __ "Long subscript" iA
-_{$1}$0
+snippet "([A-Za-z])([\d])" "Auto subscript" wrA
+`!p snip.rv = match.group(1) + "_" + match.group(2)`
+endsnippet
+priority 0
+
+context "math()"
+snippet "\s?_(\w\w)" "Auto extend subscript" irA
+_{`!p snip.rv = match.group(1)`$1}$0
 endsnippet
 
 context "math()"
-snippet ^^ "Long superscript" iA
+snippet "\s?_(\w)" "Extend subscript" ir
+_{`!p snip.rv = match.group(1)` $1}$0
+endsnippet
+
+context "math()"
+snippet "\s?__" "Long subscript" irA
+_{$1}$0
+endsnippet
+
+# NOTE: I am not sure if this causes interference for any words.
+context "math()"
+snippet "\s?td" "Auto superscript" irA
+^$0
+endsnippet
+
+context "math()"
+snippet "\s?\^(\w\w)" "Auto extend superscript" irA
+^{`!p snip.rv = match.group(1)`$1}$0
+endsnippet
+
+context "math()"
+snippet "\s?\^(\w)" "Extend superscript" ir
+^{`!p snip.rv = match.group(1)` $1}$0
+endsnippet
+
+context "math()"
+snippet "\s?\^\^" "Long superscript" irA
 ^{$1}$0
 endsnippet
 
 # --- Math fonts ---
 
+# Generate single letters in the specified math fonts.
+# For mathbb and mathcal make the letter upper case.
 context "math()"
-snippet "m?a?t?h?bb\s?(\S)" "Math BB font" rwA
-\mathbb{`!p snip.rv = match.group(1).upper()`}$0
-endsnippet
-
-context "math()"
-snippet "m?a?t?h?bf\s?(\S)" "Math bold font" rwA
-\mathbf{`!p snip.rv = match.group(1).upper()`}$0
+snippet "m?a?t?h?(bb|bf|cal|frak|sf)\s?(\w)" "Math fonts" rwA
+\math`!p snip.rv = match.group(1)`{`!p
+snip.rv = match.group(2)
+if match.group(1) in ["bb", "cal"]:
+	snip.rv = snip.rv.upper()
+`}`!p xspace()`$0
 endsnippet
 
 # --- Logical Operators ---
@@ -179,27 +221,27 @@ endsnippet
 
 context "math()"
 snippet dt "Delta symbol" w
-\Delta $0
+\Delta`!p xspace()`$0
 endsnippet
 
 context "math()"
 snippet ld "Low dots symbol" w
-\ldots $0
+\ldots`!p xpsace()`$0
 endsnippet
 
 context "math()"
 snippet cd "Center dots symbol" w
-\cdots $0
+\cdots`!p xspace()`$0
 endsnippet
 
 context "math()"
 snippet inf "Infinity symbol" w
-\infty $0
+\infty`!p xspace()`$0
 endsnippet
 
 context "math()"
 snippet set "A set" w
-\{$1\}$0
+\\{$1\\}$0
 endsnippet
 
 context "math()"
@@ -231,4 +273,40 @@ context "math()"
 snippet leq "Less than or equal to symbol" w
 \leq $0
 endsnippet
+
+context "math()"
+snippet cup "Cup symbol" w
+\cup $0
+endsnippet
+
+context "math()"
+snippet cap "Cap symbol" w
+\cap $0
+endsnippet
+
+context "math()"
+snippet times "Times symbol" w
+\times $0
+endsnippet
+
+context "math()"
+snippet sum "Summation with subscript" w
+\sum_{$1}$0
+endsnippet
+
+context "math()"
+snippet sumto "Summation with sub- and superscript" w
+\sum_{$1}^{$2}$0
+endsnippet
+
+context "math()"
+snippet prod "Product with subscript" w
+\prod_{$1}$0
+endsnippet
+
+context "math()"
+snippet prodto "Product with sub- and superscript" w
+\prod_{$1}^{$2}$0
+endsnippet
+
 
