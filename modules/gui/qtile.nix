@@ -222,7 +222,6 @@ in
           gesture swipe right 3 ${qtile-package}/bin/qtile cmd-obj -o screen -f prev_group
           gesture swipe down 3 ${qtile-package}/bin/qtile cmd-obj -o group P -f toscreen
           gesture swipe up 3 ${qtile-package}/bin/qtile cmd-obj -o group U -f toscreen
-          gesture pinch in 2 ${screenshot-script}/bin/screenshot
           gesture pinch out 2 xdotool key ctrl+v
         '';
       in
