@@ -54,6 +54,14 @@
         Extra setup is required for rolling in the keys; consult the readme.
       '';
     };
+    boot.latestKernel = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      example = true;
+      description = ''
+        Use the latest kernel instead of the default one.
+      '';
+    };
   };
 
   # Import the Lanzaboote module. Later only enabled if needed.
@@ -66,6 +74,11 @@
 
     # Boot options.
     boot = {
+
+      # Depending on the configuration, either use the latest or the default
+      # linux kernel for the system.
+      kernelPackages =
+        if config.modules.boot.latestKernel then pkgs.linuxPackages_latest else pkgs.linuxPackages;
 
       # Configure bootloader to have a maximum of 3 entries,
       # and a timeout of 3 seconds to allow rollbacks.
