@@ -35,6 +35,12 @@
       keyboardLayouts = [ "us" ];
     };
 
+    # Key remapping.
+    keyd = {
+      enable = false;
+      remapPageKeys = false;
+    };
+
     # YubiKey options.
     yubikey = {
       enable = false;

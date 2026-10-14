@@ -40,6 +40,12 @@
       grammar = false;
     };
 
+    # Key remapping.
+    keyd = {
+      enable = true;
+      remapPageKeys = false;
+    };
+
     # YubiKey options.
     yubikey = {
       enable = false;

@@ -37,6 +37,12 @@
       grammar = false;
     };
 
+    # Key remapping.
+    keyd = {
+      enable = true;
+      remapPageKeys = true;
+    };
+
     # YubiKey options.
     yubikey = {
       enable = true;
