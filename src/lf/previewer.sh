@@ -40,6 +40,10 @@ case "$1" in
     *.tar* | *.rar | *.7z | *.gz | *.tgz)
         printf "\033[30;47;1mARCHIVE\033[0m" ;;
 
+    *.tsr)
+        printf "\033[30;47;1mTIMESTAMP\033[0m\n\n"
+        openssl ts -reply -in "$1" -text 2>&1 | grep '^Time stamp' ;;
+
     *)
         printf "\033[30;47;1mTEXT\033[0m\n\n"
         highlight -O ansi --max-size 64M --line-length=60 --wrap-simple "$1" ;;
