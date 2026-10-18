@@ -63,7 +63,10 @@
     documentation.enable = config.modules.packages.manuals;
 
     # Use a simple tty pin entry application if required.
-    programs.gnupg.agent.pinentryPackage = pkgs.pinentry-tty;
+    programs.gnupg.agent = {
+      enable = true;
+      pinentryPackage = pkgs.pinentry-tty;
+    };
 
     # List of fonts.
     fonts.packages = with pkgs; [
