@@ -79,14 +79,14 @@
     apps = {
       alacritty = true;
       dmenu = true;
-      eduvpn = true;
-      epy = true;
+      eduvpn = false;
+      epy = false;
       firefox = true;
-      ipycalc = true;
+      ipycalc = false;
       lf = true;
       mpv = true;
       neovim = true;
-      tmux = true;
+      tmux = false;
       vscode = false;
       zathura = true;
     };
@@ -94,13 +94,13 @@
     # Programming languages to install.
     code = {
       bash = true;
-      haskell = true;
-      java = true;
+      haskell = false;
+      java = false;
       julia = false;
       latex = true;
       lua = true;
       nix = true;
-      python = true;
+      python = false;
       rust = false;
       tlaplus = true;
     };
