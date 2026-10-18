@@ -2,6 +2,9 @@
 
 local knap = SafeRequire("knap")
 
+local bufnr = vim.api.nvim_get_current_buf()
+local buffspec = { buffer = bufnr }
+
 if knap then
 	knap.process_once()
 
@@ -9,8 +12,8 @@ if knap then
 		buffer = 0,
 		callback = function()
 			knap.process_once()
-      -- TODO: Do we really want to jump every time?
-      -- > Is there a way to know then the compile is done, not just guess?
+			-- TODO: Do we really want to jump every time?
+			-- > Is there a way to know then the compile is done, not just guess?
 			vim.defer_fn(function()
 				knap.forward_jump()
 			end, 500)
@@ -21,4 +24,7 @@ if knap then
 	vim.keymap.set({ "n", "v" }, "<leader>a", function()
 		knap.forward_jump()
 	end)
+
+  -- Open the table of contents on the side.
+	vim.keymap.set("n", "<leader>t", "<cmd>VimtexTocToggle<CR>", buffspec)
 end

@@ -11,20 +11,12 @@ def math():
     return vim.eval('vimtex#syntax#in_mathzone()') == '1'
 endglobal
 
-global !p
-def xspace():
-	  if t[0] and t[0][0] in [',', '.', '?', '-', ' ', '_', '^']:
-	      snip.rv += ''
-	  else:
-	      snip.rv += ' '
-endglobal
-
 # --- Initiating Math  ---
 
 snippet math "Math" bA
 \[
 `!p snip.shift(); snip.rv = snip.mkline()`$1
-\]$0
+.\]$0
 endsnippet
 
 snippet mm "Inline math" wA
@@ -58,6 +50,11 @@ snippet == "Align equals" wA
 &=$0
 endsnippet
 
+context "math()"
+snippet "\s," "Remove space before comma" riA
+,$0
+endsnippet
+
 # --- Fractions ---
 
 context "math()"
@@ -68,6 +65,18 @@ endsnippet
 context "math()"
 snippet "((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/" "Fraction (adaptive)" wrA
 \\frac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
+
+# --- Automatic Brackets ---
+
+context "math()"
+snippet ( "Close brackets" iA
+($1)$0
+endsnippet
+
+context "math()"
+snippet [ "Close square brackets" iA
+[$1]$0
 endsnippet
 
 # --- Arrays and Tables ---
@@ -121,25 +130,31 @@ endsnippet
 
 priority -1
 context "math()"
-snippet "([A-Za-z])([\d])" "Auto subscript" wrA
+snippet "([A-Za-z])([\d])" "Auto subscript via number" wrA
 `!p snip.rv = match.group(1) + "_" + match.group(2)`
 endsnippet
 priority 0
 
+# NOTE: I am not sure if this causes interference for any words.
 context "math()"
-snippet "\s?_(\w\w)" "Auto extend subscript" irA
+snippet "\s?sb" "Auto subscript via 'sb'" irA
+_$0
+endsnippet
+
+context "math()"
+snippet "\s?_([^\s,{]{2})" "Auto extend subscript" irA
 _{`!p snip.rv = match.group(1)`$1}$0
 endsnippet
 
 context "math()"
-snippet "\s?_(\w)" "Extend subscript" ir
+snippet "\s?_([^\s,{])" "Extend subscript" ir
 _{`!p snip.rv = match.group(1)` $1}$0
 endsnippet
 
-context "math()"
-snippet "\s?__" "Long subscript" irA
-_{$1}$0
-endsnippet
+#context "math()"
+#snippet "\s?__" "Long subscript" irA
+#_{$1}$0
+#endsnippet
 
 # NOTE: I am not sure if this causes interference for any words.
 context "math()"
@@ -148,19 +163,19 @@ snippet "\s?td" "Auto superscript" irA
 endsnippet
 
 context "math()"
-snippet "\s?\^(\w\w)" "Auto extend superscript" irA
+snippet "\s?\^([^\s,{]{2})" "Auto extend superscript" irA
 ^{`!p snip.rv = match.group(1)`$1}$0
 endsnippet
 
 context "math()"
-snippet "\s?\^(\w)" "Extend superscript" ir
+snippet "\s?\^([^\s,{])" "Extend superscript" ir
 ^{`!p snip.rv = match.group(1)` $1}$0
 endsnippet
 
-context "math()"
-snippet "\s?\^\^" "Long superscript" irA
-^{$1}$0
-endsnippet
+#context "math()"
+#snippet "\s?\^\^" "Long superscript" irA
+#^{$1}$0
+#endsnippet
 
 # --- Math fonts ---
 
@@ -172,7 +187,7 @@ snippet "m?a?t?h?(bb|bf|cal|frak|sf)\s?(\w)" "Math fonts" rwA
 snip.rv = match.group(2)
 if match.group(1) in ["bb", "cal"]:
 	snip.rv = snip.rv.upper()
-`}`!p xspace()`$0
+`}$0
 endsnippet
 
 # --- Logical Operators ---
@@ -221,22 +236,22 @@ endsnippet
 
 context "math()"
 snippet dt "Delta symbol" w
-\Delta`!p xspace()`$0
+\Delta $0
 endsnippet
 
 context "math()"
 snippet ld "Low dots symbol" w
-\ldots`!p xpsace()`$0
+\ldots $0
 endsnippet
 
 context "math()"
 snippet cd "Center dots symbol" w
-\cdots`!p xspace()`$0
+\cdots $0
 endsnippet
 
 context "math()"
 snippet inf "Infinity symbol" w
-\infty`!p xspace()`$0
+\infty $0
 endsnippet
 
 context "math()"
@@ -309,4 +324,7 @@ snippet prodto "Product with sub- and superscript" w
 \prod_{$1}^{$2}$0
 endsnippet
 
-
+context "math()"
+snippet sse "Subset or equals symbol" w
+\subseteq $0
+endsnippet
