@@ -16,7 +16,7 @@
       default = false;
       example = true;
       description = ''
-        Weather the machine is a desktop machine. If true, disables touch
+        Whether the machine is a desktop machine. If true, disables touch
         input gestures.
       '';
     };

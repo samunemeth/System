@@ -23,7 +23,7 @@
       default = true;
       example = false;
       description = ''
-        Weather to remap the pageup and pagedown keys to left and right arrow
+        Whether to remap the pageup and pagedown keys to left and right arrow
         keys respectively. This is useful when using keyboard layouts that
         place these keys very close to the arrows.
       '';

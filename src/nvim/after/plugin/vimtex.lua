@@ -1,6 +1,6 @@
 --- Configuration for Vimtex ---
 
--- TODO: Is there a way to detect weather the plugin is present?
+-- TODO: Is there a way to detect whether the plugin is present?
 -- TODO: Add a way to open table of contents with `:VimtexTocOpen`
 
 -- Settings
