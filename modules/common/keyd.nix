@@ -28,6 +28,15 @@
         place these keys very close to the arrows.
       '';
     };
+    keyd.unmapBackspace = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      example = true;
+      description = ''
+        Whether to remap the backspace key to nothing.
+        This can be used to force the usage of the mapping with alt.
+      '';
+    };
   };
 
   config = lib.mkIf config.modules.keyd.enable {
@@ -52,18 +61,19 @@
       // lib.attrsets.optionalAttrs config.modules.keyd.remapPageKeys {
         "pageup" = "left";
         "pagedown" = "right";
+      }
+
+      # If enabled, remap the backspace key to nothing to force the use of the
+      # mapping via alt.
+      // lib.attrsets.optionalAttrs config.modules.keyd.unmapBackspace {
+        "backspace" = "noop";
       };
 
       # Spacial layer.
       "special" = {
 
-        # Movement and control.
-        "h" = "left";
-        "k" = "up";
-        "j" = "down";
-        "l" = "right";
-        "p" = "enter";
-        ";" = "backspace";
+        # Make backspace appear in a convenient spot.
+        "l" = "backspace";
 
         # Pass through.
         "space" = "A-space";

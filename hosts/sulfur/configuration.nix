@@ -44,6 +44,7 @@
     keyd = {
       enable = true;
       remapPageKeys = false;
+      unmapBackspace = false;
     };
 
     # YubiKey options.
