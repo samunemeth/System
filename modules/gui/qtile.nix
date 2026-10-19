@@ -110,6 +110,7 @@ in
         libnotify # Notification handling library.
         dunst # Notification daemon.
         xss-lock # Locking daemon.
+        xdotool # For typing.
 
       ]
       # TODO: Handle errors if these are missing.
@@ -125,7 +126,6 @@ in
     # Require fonts used.
     fonts.packages = [ pkgs.nerd-fonts.hack ];
 
-    # Request Google API key.
     sops.secrets =
       let
         userOwned = {
@@ -134,8 +134,12 @@ in
         };
       in
       {
+        # Request Google API key.
         google-api-key = userOwned;
         google-cal-id = userOwned;
+
+        # Request TOTP key.
+        totp-key = userOwned;
       };
 
     # Enable Qtile. Use the custom session instead of the usual option.

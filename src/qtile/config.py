@@ -15,6 +15,27 @@ from libqtile.config import Group, Key, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
+# --- mintotop ---
+# Copyright (c) 2019 Susam Pal
+# Source: https://github.com/susam/mintotp
+# License: MIT
+
+import base64
+import hmac
+import struct
+import time
+
+def hotp(key, counter, digits=6, digest='sha1'):
+    key = base64.b32decode(key.upper() + '=' * ((8 - len(key)) % 8))
+    counter = struct.pack('>Q', counter)
+    mac = hmac.new(key, counter, digest).digest()
+    offset = mac[-1] & 0x0f
+    binary = struct.unpack('>L', mac[offset:offset+4])[0] & 0x7fffffff
+    return str(binary)[-digits:].zfill(digits)
+
+def totp(key, time_step=30, digits=6, digest='sha1'):
+    return hotp(key, int(time.time() / time_step), digits, digest)
+
 
 # --- Logging ---
 
@@ -91,6 +112,12 @@ try:
 except FileNotFoundError:
     GOOGLE_API_KEY = ""
     GOOGLE_CAL_ID = ""
+
+try:
+    with open("/run/secrets/totp-key", "r", encoding="utf-8") as f:
+        TOTP_KEY = f.read().strip()
+except FileNotFoundError:
+    TOTP_KEY = ""
 
 
 # --- Configuration Location ---
@@ -241,6 +268,10 @@ def lazy_power_action(qtile, cmd):
 def power_prompt(qtile):
     qtile.widgets_map["prompt"].start_input("[power]:", power_action)
 
+@lazy.function
+def lazy_totp_copy(qtile, key):
+    subprocess.Popen(f"sleep 0.5; xdotool type --clearmodifiers \"{totp(key)}\"", shell=True)
+
 keys = [
 
     # Switching and moving windows.
@@ -292,6 +323,9 @@ keys = [
     Key([mod, "shift"], "d", lazy.spawn("dmenu-diacritics-picker"), desc="Dmenu Diacritics Picker"),
     Key([mod, "shift"], "e", lazy.spawn("dmenu-emoji-picker"), desc="Dmenu Emoji Picker"),
     Key([mod, "shift"], "f", lazy.spawn("dmenu-nerdfont-picker"), desc="Dmenu NerdFont Picker"),
+
+    # One time code generator
+    Key([mod, "shift"], "semicolon", lazy_totp_copy(TOTP_KEY), desc="TOTP Generator"),
 
     # Keyboard layout switching.
     Key([mod], "a", lazy.widget["keyboardlayout"].next_keyboard(), desc="Keyboard Layout"),
