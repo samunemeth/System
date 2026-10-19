@@ -13,7 +13,8 @@ di  01;34  # DIR
 ln  01;36  # LINK
 fi  00     # FILE                    
 
-*.old   01;90
+*.old   00;90
+*.tsr   00;90
 
 # MEDIA
 
