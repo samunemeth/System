@@ -3,9 +3,10 @@
 case "$1" in
 
     *.pdf)
+        pagecount=$(exiftool -PageCount -T -f "$1")
         author=$(exiftool -Author -T -f "$1"); [[ $author == "-" ]] && author=""
         title=$(exiftool -Title -T -f "$1"); [[ $title == "-" ]] && title=""
-        printf "\033[30;47;1mPDF\033[0m "
+        printf "\033[30;47;1mPDF\033[0m ${pagecount}p "
         if [[ -n $author && -n $title ]]; then
             printf "\033[0;3;4m$author: \033[0m\033[0;4;1m$title\033[0m"
         elif [[ -n $author ]]; then
@@ -14,7 +15,7 @@ case "$1" in
             printf "\033[0;4;1m$title\033[0m"
         fi
         printf "\n\n"
-        pdftotext -l 5 "$1" - ;;
+        pdftotext -l 1 "$1" - ;;
 
     *.png | *.jpg | *.jpeg | *.webp | *.svg | *.gif)
         printf "\033[30;47;1mIMAGE\033[0m\n\n"
