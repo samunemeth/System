@@ -70,13 +70,14 @@
           pacer_min_sleep="0.01ms" \
           user="$remoteuser" \
           pass="$remotepass" \
-          --non-interactive
+          --non-interactive \
+          --obscure
 
         rclone mount homeserver-dav: /copyparty \
           --config /run/copyparty/rclone.conf \
           --vfs-cache-mode writes \
           --dir-cache-time 5s \
-          --allow-other
+          --allow-other \
           --uid $(id -u ${globals.user}) \
           --gid $(id -g ${globals.user})
       '';
