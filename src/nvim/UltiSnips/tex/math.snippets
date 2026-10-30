@@ -142,19 +142,9 @@ _$0
 endsnippet
 
 context "math()"
-snippet "\s?_([^\s,{]{2})" "Auto extend subscript" irA
+snippet "\s?_([^\s,}{|\)]{2})" "Auto extend subscript" irA
 _{`!p snip.rv = match.group(1)`$1}$0
 endsnippet
-
-context "math()"
-snippet "\s?_([^\s,{])" "Extend subscript" ir
-_{`!p snip.rv = match.group(1)` $1}$0
-endsnippet
-
-#context "math()"
-#snippet "\s?__" "Long subscript" irA
-#_{$1}$0
-#endsnippet
 
 # NOTE: I am not sure if this causes interference for any words.
 context "math()"
@@ -163,19 +153,9 @@ snippet "\s?td" "Auto superscript" irA
 endsnippet
 
 context "math()"
-snippet "\s?\^([^\s,{]{2})" "Auto extend superscript" irA
+snippet "\s?\^([^\s,}{|\)]{2})" "Auto extend superscript" irA
 ^{`!p snip.rv = match.group(1)`$1}$0
 endsnippet
-
-context "math()"
-snippet "\s?\^([^\s,{])" "Extend superscript" ir
-^{`!p snip.rv = match.group(1)` $1}$0
-endsnippet
-
-#context "math()"
-#snippet "\s?\^\^" "Long superscript" irA
-#^{$1}$0
-#endsnippet
 
 # --- Math fonts ---
 
@@ -327,4 +307,14 @@ endsnippet
 context "math()"
 snippet sse "Subset or equals symbol" w
 \subseteq $0
+endsnippet
+
+context "math()"
+snippet A "For all symbol" w
+\forall $0
+endsnippet
+
+context "math()"
+snippet E "Exists symbol" w
+\exists $0
 endsnippet
