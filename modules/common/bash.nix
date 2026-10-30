@@ -95,6 +95,16 @@
             systemctl reboot --boot-loader-entry=auto-windows --boot-loader-menu=1
           }
 
+          # Borrow an application. This is an extention of the pgks script.
+          borrow() {
+            local pref=""
+            if [[ "$1" == "sudo" ]]; then
+              shift
+              pref="sudo"
+            fi
+            $pref nix shell "nixpkgs#$1" -c "''${1##*.}"
+          }
+
         '';
 
       # Set the bash prompt depending on the user and environment.
