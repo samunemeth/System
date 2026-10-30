@@ -688,7 +688,30 @@ widgets = [
     ),
     add_sep(),
 
-] if not parametric.is_vm and len(parametric.available_layouts) > 1 else []) + ([
+] if not parametric.is_vm and len(parametric.available_layouts) > 1 else []) + [
+
+    widget.Pomodoro(
+        display_hours = False,
+        length_pomodori = 25,
+        length_short_break = 5,
+        length_long_break = 15,
+        num_pomodori = 4,
+        notification_on = True,
+        notification_urgent = False,
+        notification_title = "Pomodoro Timer",
+        color_active = parametric.foreground_warn,
+        color_break = parametric.foreground_select,
+        color_inactive = parametric.foreground_main,
+        prefix_inactive = f"{pad(16)}󰚭 ",
+        prefix_active = "󰔟 ",
+        prefix_break = "󱦟 ",
+        prefix_long_break = "󱦟 ",
+        prefix_paused = f"{pad(10)}󱦠 ",
+        update_interval = 0.2,
+    ),
+    add_sep(),
+
+] + ([
 
     # TODO: It might not update if nothing is playing at the start?
     widget.GenPollText(

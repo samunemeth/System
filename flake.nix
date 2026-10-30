@@ -20,8 +20,8 @@
 
     # Local or personal repo for Qtile.
     qtile-flake = {
-      url = "github:qtile/qtile/master";
-      # url = "git+file:///home/samu/Projects/qtile?ref=HEAD";
+      # url = "github:qtile/qtile/master";
+      url = "git+file:///home/samu/Projects/qtile?ref=HEAD";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

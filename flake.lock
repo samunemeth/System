@@ -123,18 +123,18 @@
         ]
       },
       "locked": {
-        "lastModified": 1789896322,
-        "narHash": "sha256-n45e5/XvzKjH/ehatDPA+UWIlaiwSUhYnoPQOb5cLnA=",
-        "owner": "qtile",
-        "repo": "qtile",
-        "rev": "83c697a5621306c3586efca31867efcfa0482e2d",
-        "type": "github"
+        "lastModified": 1790463252,
+        "narHash": "sha256-kbcqDjioOKmZdHFPiOGyJ2tqDeKEXSE5VqRksR49kZU=",
+        "ref": "HEAD",
+        "rev": "2117239ac92cc8778b270f458e053018486f50be",
+        "revCount": 6389,
+        "type": "git",
+        "url": "file:///home/samu/Projects/qtile"
       },
       "original": {
-        "owner": "qtile",
-        "ref": "master",
-        "repo": "qtile",
-        "type": "github"
+        "ref": "HEAD",
+        "type": "git",
+        "url": "file:///home/samu/Projects/qtile"
       }
     },
     "root": {
