@@ -71,8 +71,14 @@
       };
       console.useXkbConfig = true;
 
-      # Use natural scrolling, as I am used to it.
-      services.libinput.touchpad.naturalScrolling = true;
+      services.libinput.touchpad = {
+
+        # Use natural scrolling, as I am used to it.
+        naturalScrolling = true;
+
+        # Disable the touchpad while typing.
+        disableWhileTyping = true;
+      };
 
     };
 }
