@@ -27,7 +27,7 @@
       luksPrompt = true;
       autoLogin = true;
       secureboot = false; # Turn off before first boot!
-      latestKernel = false;
+      latestKernel = true;
     };
 
     # Locale options.
