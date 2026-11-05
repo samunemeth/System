@@ -26,6 +26,7 @@ and LaTeX compilation.
   - [ ] In some cases missing optional applications are not handled with care.
         This is manly an issue on minimal configurations.
   - [ ] The CPU governor can not be changed without a reboot.
+  - [ ] Battery information is not shown on Sulfur.
 
 **Features**
 
@@ -34,7 +35,7 @@ and LaTeX compilation.
   - [ ] Handle missing low priority packages.
   - [ ] Finish installation documentation.
   - [ ] Proper Tmux setup for Kmscon, with some status bar.
-  - [ ] Try the Wayland backed for Qtile.
+  - [ ] Wayland backed for Qtile.
 
 There are also items marked with **TODO** inside comments. There are also
 **NOTE**, **WARN** and **BUG** labels used.

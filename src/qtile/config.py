@@ -468,6 +468,7 @@ def get_nvidia_status_icon():
 
 # Returns a nicely formatted concise message about the statuses of the synced
 # Seafile shares.
+# TODO: Turns out this is fucked.
 def get_seafile_status():
 
     # Get the output of the seaf-cli status command.
