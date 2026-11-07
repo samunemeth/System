@@ -118,4 +118,10 @@
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "modesetting" ];
 
+  # Force remove Nvidia graphics drivers.
+  boot.blacklistedKernelModules = [
+    "nouveau"
+    "nvidiafb"
+  ];
+
 }
