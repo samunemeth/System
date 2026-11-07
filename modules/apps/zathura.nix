@@ -5,15 +5,32 @@
   pkgs,
   lib,
   globals,
+  inputs,
   ...
 }:
 let
 
+  # WARN: Temporary for newer Zathura version.
+  # > This will hopefully be obsolete after updating to version 26.11.
+  pkgsUnstable = lib.extractPackages globals.system inputs.nixpkgsUnstable;
+
+  # Patch Zathura, so that the statusbar is over the document.
+  zathura-core = pkgsUnstable.zathuraPkgs.zathura_core.overrideAttrs (oldAttrs: {
+    patches = (oldAttrs.patches or [ ]) ++ [
+      ../../src/zathura/statusbar-overhang.patch
+    ];
+  });
+
   # Plugins to add to Zathura.
-  zathura-plugins = with pkgs.zathuraPkgs; [
+  zathura-plugins = with pkgsUnstable.zathuraPkgs; [
     zathura_pdf_mupdf
   ];
-  zathura-package = (pkgs.zathura.override { plugins = zathura-plugins; });
+
+  # Create the package with the packages and the patched core.
+  zathura-package = pkgsUnstable.zathura.override {
+    plugins = zathura-plugins;
+    zathura_core = zathura-core;
+  };
 
   # Settings for Zathura.
   zathura-options = with globals.colors; {
@@ -21,8 +38,8 @@ let
     # Configure some colors.
     default-bg = background.main;
     default-fg = foreground.main;
-    statusbar-bg = background.soft;
-    statusbar-fg = foreground.main;
+    statusbar-bg = "rgba(0, 0, 0, 0)"; # Completely transparent.
+    statusbar-fg = "#808080"; # Gray so it is visible on black and white.
     inputbar-bg = background.main;
     inputbar-fg = foreground.main;
     notification-error-bg = foreground.error;

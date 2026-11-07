@@ -6,6 +6,10 @@
     # Root NixOS packages and distribution.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
+    # WARN: Temporary for newer Zathura version.
+    # > This will hopefully be obsolete after updating to version 26.11.
+    nixpkgsUnstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     # Sops for secrets.
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -93,6 +97,10 @@
           lib = nixpkgs.lib.extend (_: _: utils);
         };
 
+        # Extract pkgs from nixpkgs for a specific system. This is useful when
+        # dealing with multiple versions of nixpkgs.
+        extractPackages = _system: _nixpkgs: _nixpkgs.legacyPackages.${_system};
+
       };
 
       # Get the directories in the host's folder to get the hostnames.
@@ -112,7 +120,7 @@
         nixpkgs.lib.genAttrs supportedSystems (
           sys:
           f {
-            pkgs = nixpkgs.legacyPackages.${sys};
+            pkgs = utils.extractPackages sys nixpkgs;
             system = sys;
           }
         );

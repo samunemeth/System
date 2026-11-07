@@ -1,0 +1,13 @@
+diff --git a/girara-gtk/session.c b/girara-gtk/session.c
+index 9b070131..4023790d 100644
+--- a/girara-gtk/session.c
++++ b/girara-gtk/session.c
+@@ -347,7 +347,7 @@ bool girara_session_init(girara_session_t* session, const char* sessionname) {
+   g_object_set(session->private_data->gtk.bottom_box, "halign", GTK_ALIGN_FILL, NULL);
+   g_object_set(session->private_data->gtk.bottom_box, "valign", GTK_ALIGN_END, NULL);
+ 
+-  gtk_box_append(session->gtk.box, GTK_WIDGET(session->private_data->gtk.bottom_box));
++  gtk_overlay_add_overlay(GTK_OVERLAY(session->private_data->gtk.overlay), GTK_WIDGET(session->private_data->gtk.bottom_box));
+ 
+   gtk_window_set_child(GTK_WINDOW(session->gtk.window), GTK_WIDGET(session->private_data->gtk.overlay));
+ 
