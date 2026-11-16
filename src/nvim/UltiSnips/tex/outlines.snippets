@@ -22,6 +22,33 @@ $0
 
 endsnippet
 
+# --- Course Notes Outline ---
+
+snippet !!!course "Course Notes Outline" b
+% --- Settings ---
+
+\documentclass[11pt, a4paper]{article}
+\usepackage{outline}
+\dat{Samu Németh}{
+		\normalsize Notes for the Course \\\\[.5em]
+		\LARGE ${1:Course Name} \\\\
+		\normalsize TU\!/\hskip -.1em e course ${2:Course Code} by \!\textit{${3:Responsible Lecturer}}
+}
+\hypersetup{
+		pdftitle={Notes for the Course $1}
+}
+
+% --- Document ---
+
+\begin{document}
+\maketitle
+
+$0
+
+\end{document}
+
+endsnippet
+
 # --- Hungarian Outline ---
 
 snippet !!!hun "General Hungarian Outline" b
@@ -40,4 +67,25 @@ $0
 
 \end{document}
 
+endsnippet
+
+# --- General Longer Snippets ---
+
+snippet !copyright "Copiright Notice" b
+% Copyright notice.
+\noindent
+\textcopyright\ `date +%Y` Samu Németh.
+Original material is licensed under
+\href{https://creativecommons.org/licenses/by-sa/4.0/}{CC BY-SA 4.0}.
+Third-party material remains subject to its respective terms.
+endsnippet
+
+snippet !bib "Bibliography Import" b
+% Import bibliography.`touch references.bib`
+\usepackage[backend=biber]{biblatex}
+\addbibresource{references.bib}
+
+% Print bibliography.
+\nocite{*}
+\printbibliography
 endsnippet
