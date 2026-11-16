@@ -100,9 +100,9 @@
       latex = true;
       lua = true;
       nix = true;
-      python = false;
+      python = true;
       rust = false;
-      tlaplus = true;
+      tlaplus = false;
     };
 
   };
