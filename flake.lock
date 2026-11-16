@@ -139,11 +139,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1789896322,
-        "narHash": "sha256-n45e5/XvzKjH/ehatDPA+UWIlaiwSUhYnoPQOb5cLnA=",
+        "lastModified": 1794747338,
+        "narHash": "sha256-dwmgR4F9lmrvUZqAgMR4R+6jhhajPWnwv9YVuF0Pqpg=",
         "owner": "qtile",
         "repo": "qtile",
-        "rev": "83c697a5621306c3586efca31867efcfa0482e2d",
+        "rev": "6687c8ebd563c2914129a1b69d0b59d42d9d2e51",
         "type": "github"
       },
       "original": {
