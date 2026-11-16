@@ -31,10 +31,10 @@ let
 
       lf # Core.
 
-      jq # For URL encoding.
+      jq # For URL encoding. # TODO: We sure we need this?
       xclip # For copying to the clipboard.
-      highlight # Text file highlighting.
-      poppler-utils # Pdf to text conversion.
+      highlight # Text file highlighting. # TODO: Can I just Neovim for this?
+      poppler-utils # Pdf to text conversion. # TODO: Make minimal?
       exiftool # Getting metadata.
 
       fd # For recursive funding of files and directories.
@@ -42,6 +42,8 @@ let
 
       zip # Creating zip files.
       unzip # Unpacking zip files.
+
+      img2pdf # For converting images to pdf.
 
     ];
     postBuild = ''

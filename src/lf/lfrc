@@ -149,6 +149,16 @@ cmd url %{{
   fi
 }}
 
+# Create a pdf file from the selection of images.
+cmd pdf %{{
+  echo -n "PDF name [from-images.pdf]: "
+  read name
+  name=${name:-form-images.pdf}
+  IFS=';' read -ra filesarray <<< "$fx"
+  img2pdf -o "$name" "${filesarray[@]}"
+  echo "Created PDF from selection."
+}}
+
 # Create a zip file from the selection.
 # I do not remember why this is so difficult, but it works all the time.
 map zz zip
