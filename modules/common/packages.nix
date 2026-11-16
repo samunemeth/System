@@ -73,17 +73,6 @@
       nerd-fonts.hack
     ];
 
-    # WARN: TEMPORARY
-    programs.nix-ld = {
-      enable = true;
-
-      libraries = with pkgs; [
-        stdenv.cc.cc.lib
-        zlib
-        openssl
-      ];
-    };
-
   };
 
 }
