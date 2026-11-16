@@ -73,6 +73,12 @@
       nerd-fonts.hack
     ];
 
+    # Enable dynamic linking of executables. This is useful for development.
+    # NOTE: No specific libraries are included here, they should be declared in
+    # the > development shell for the appropriate projects.
+    # WARN: This might not actually be required.
+    programs.nix-ld.enable = true;
+
   };
 
 }
