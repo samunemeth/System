@@ -45,7 +45,7 @@
         fastfetch.minimal # Displaying system data.
         nix-tree # Explore sizes of packages.
         rsync # Powerful file copy tool.
-        # ncdu # Folder size explorer.
+        ncdu # Folder size explorer.
 
       ]
       ++ lib.lists.optional (!config.modules.apps.ipycalc) calc;
@@ -63,6 +63,8 @@
     documentation.enable = config.modules.packages.manuals;
 
     # Use a simple tty pin entry application if required.
+    # TODO: Maybe this should only be included in specific cases?
+    # > Maybe a tty is not always appropriate?
     programs.gnupg.agent = {
       enable = true;
       pinentryPackage = pkgs.pinentry-tty;
