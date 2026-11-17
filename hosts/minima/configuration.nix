@@ -77,6 +77,7 @@
       lf = true;
       mpv = false;
       neovim = false;
+      thunderbird = false;
       tmux = true;
       vscode = false;
       zathura = false;
