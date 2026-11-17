@@ -29,6 +29,8 @@ and LaTeX compilation.
 
 **Features**
 
+  - [ ] Manage GPG keys for encrypted email via sops.
+  - [ ] Make clipboard manager parametric. *(For Wayland in the future.)*
   - [ ] Impermanence, for some parts at least.
   - [ ] Clean up python parts.
   - [ ] Handle missing low priority packages.
@@ -39,6 +41,7 @@ and LaTeX compilation.
 There are also items marked with **TODO** inside comments. There are also
 **NOTE**, **WARN** and **BUG** labels used.
 
+
 # Qtile Keybindings
 
 The images below are generated from the Qtile configuration with
@@ -48,6 +51,7 @@ regenerates the images if needed.
 ![Keybindings with Meta](/assets/qtile-layout/mod4.png)
 ![Keybindings with Meta and Shift](/assets/qtile-layout/mod4-shift.png)
 ![Keybindings with Meta and Control](/assets/qtile-layout/mod4-control.png)
+
 
 # Language Support
 
@@ -274,9 +278,7 @@ partition on a pen drive without the need to erase the drive and burn the image.
   - Everything should be set! Rebuild with `nrs` and reboot to see if everything
     works as expected.
 
-
 ## Sops
-
 
 To use sops encrypted secrets while rebuilding your machine, or editing the
 secrets file, you will need an *age* key that is authorized in the `.sops.yaml`
@@ -317,7 +319,6 @@ To update the `secrets.yaml` file with new keys or settings, use the
 `updatekeys` option with the `sops` or `nes` commands.
 SSH host keys can also be transferred, if the operating system needs to be
 reinstalled. This way, there is no need to modify `.sops.yaml`.
-
 
 ## Wi-Fi
 
@@ -368,7 +369,6 @@ sudo nmcli -f NAME,DEVICE,FILENAME connection show
 To generate Nix snippets from your saved networks, check out
 [this tool](https://github.com/janik-haag/nm2nix).
 
-
 ## Fix for Missing Bootloader
 
 Say that you accidentally deleted your boot partition, or the boot entries for
@@ -403,7 +403,6 @@ root password. Of course, the disk has to be decrypted for it.
 
 *Based on the [NixOS wiki's bootloader page](https://nixos.wiki/wiki/Bootloader#From_an_installation_media).*
 
-
 ## Nvidia GPU
 
 There are a plethora of versions for Nvidia drivers depending on the GPU type,
@@ -428,12 +427,10 @@ side quest for the future.
 I assume that without any drivers the dGPU cannot be put into sleep, and
 therefore consumes more power.
 
-
 Look at [modules/nvidia.template.nix](./modules/nvidia.template.nix) for information on the settings.
 The template is based on the following sources:
   - [Community NixOS Wiki on Nvidia](https://nixos.wiki/wiki/Nvidia)
   - [Official NixOS Wiki on Nvidia](https://wiki.nixos.org/wiki/NVIDIA)
-
 
 ## Sticky Derivations
 
@@ -444,7 +441,6 @@ sudo rm -rf /tmp/*
 sudo reboot
 ```
 *This should be solved later with impermanence.*
-
 
 ## Secure Boot
 
@@ -462,7 +458,6 @@ machines that I used:
   - On my *HP ZBook*, secure boot setup mode is enabled while having
     *'Secure Boot'* disabled and after enabling *'Clear Secure Boot keys'*.
     After enrolling, secure boot is enabled automatically.
-
 
 ## Miscellaneous
 
