@@ -378,7 +378,7 @@ groups = [
     Group("M"),
     Group(","),
     Group("."),
-    Group("/"),
+    Group("/", spawn="thunderbird"),
 
     ScratchPad("scratchpad", [
         DropDown("term", terminal, **drop_down_default_settings),
