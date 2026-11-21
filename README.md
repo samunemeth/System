@@ -20,6 +20,7 @@ and LaTeX compilation.
 
 **Bugs**
 
+  - [ ] LaTeX temporary files might link to old store folders.
   - [ ] Sometimes there is a significant slowdown after the machine is powered
         on for a long time and/or had been suspended for a long/multiple times.
   - [ ] In some cases missing optional applications are not handled with care.

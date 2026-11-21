@@ -1,75 +1,53 @@
-# These snippets provide basic LATEX functionality
-# to be used in all kinds of file/projects.
-# Some of them are more specific than others,
-# some require packages (this is indicated in the description).
+# These snippets provide basic LaTeX functionality to be used in all kinds of
+# scenarios. Some of them are more specific than others. Some require packages
+# (indicated in the description).
 
-# --- Environments, Sections and Others ---
+global !p
 
-snippet "beg?i?n?(\s(\S+))?" "Environment" rb
-\begin{${1:`!p
-snip.rv = match.group(2) if match.group(1) is not None else "environment"
-`}}$2
-${0:${VISUAL}}
+# Open the omni complete of vim. This is useful in places where Vimtex can
+# provide a list of all available options.
+def open_complete():
+	vim.eval(r'feedkeys("\<C-x>\<C-o>", "n")')
+
+# Return the name of the most inner environment.
+def inner_env():
+	return vim.eval("vimtex#env#get_inner()").get("name")
+
+endglobal 
+
+# --- Remove Redundant Spaces ---
+
+# NOTE: ":" is not added here as it is used with a space before in math mode.
+snippet "[\s~]([,\.;])" "Remove Redundant Spaces" riA
+`!p snip.rv = match.group(1)`$0
+endsnippet
+
+# --- Environments, Sections ---
+
+snippet beg "Environment" b
+\begin{$1`!p open_complete()`}$2
+${VISUAL}$0
 \end{$1}
 endsnippet
 
-snippet sec "Section" bA
-\section{${VISUAL}$1}$0
-endsnippet
-
-snippet # "Section Alt" b
-\section{${VISUAL}$1}$0
-endsnippet
-
-snippet "^#\s" "Section Alt" rbA
-\section{${VISUAL}$1}$0
-endsnippet
-
-snippet ssec "Subsection" bA
-\subsection{${VISUAL}$1}$0
-endsnippet
-
-snippet ## "Subsection Alt" b
-\subsection{${VISUAL}$1}$0
-endsnippet
-
-snippet "^##\s" "Subsection Alt" rbA
-\subsection{${VISUAL}$1}$0
-endsnippet
-
-snippet sssec "Subsubsection" bA
-\subsubsection{${VISUAL}$1}$0
-endsnippet
-
-snippet ### "Subsubsection" b
-\subsubsection{${VISUAL}$1}$0
-endsnippet
-
-snippet "^###\s" "Subsubsection" rbA
-\subsubsection{${VISUAL}$1}$0
-endsnippet
-
-snippet cc "Unnumbered Centered subsubsection" b
-\addcontentsline{toc}{subsubsection}{${VISUAL}$1}
-\subsubsection*{\centering{${VISUAL}$1}}$0
-endsnippet
-
-snippet "code(\s(\S+))?" "Code Block" rb
-\begin{lstlisting}[language=${1:`!p
-snip.rv = match.group(2) if match.group(1) is not None else "Java"
-`}]
-${0:${VISUAL}}
+snippet code "Code Block (lstlisting)" b
+\begin{lstlisting}[language=$1]
+${VISUAL}$0
 \end{lstlisting}
 endsnippet
 
-# -- Footnotes ---
+# TODO: Consider making these tab triggered for consistency.
 
-snippet fm "Footnotemark" i
-\footnotemark $0
+snippet "#\s" "Section" rbA
+\section{$1}$0
 endsnippet
 
-snippet ft "Footnotetext" w
-\footnotetext{${VISUAL}$1}$0
+snippet "##\s" "Subsection" rbA
+\subsection{$1}$0
+endsnippet
+
+snippet "###\s" "Subsubsection" rbA
+\subsubsection{$1}$0
 endsnippet
 
 # --- Text decorations ---
@@ -86,46 +64,73 @@ snippet bf "Wrap in textbf" w
 \textbf{${VISUAL}$1}$0
 endsnippet
 
-snippet say "Wrap in say (dirtytalk package)" w
+snippet say "Wrap in say (dirtytalk)" w
 \say{${VISUAL}$1}$0
 endsnippet
 
-# --- References ---
+# --- References, Citations, Footnotes ---
 
-snippet sref "Superscript reference" i
-\textsuperscript{\ref{$1}}$0
+snippet "\s?(c?ref)" "" rw
+~\\`!p snip.rv = match.group(1)`{$1} $0`!p open_complete()`
 endsnippet
 
-# --- Definitions, Theorems and Others ---
+snippet ci "Cite" w
+\cite{$1`!p open_complete()`}$0
+endsnippet
 
-snippet def "Definition" bA
-\begin{definition}
-\label{${VISUAL}${1:Definition}}
-\textbf{${VISUAL}$1}: $2
+snippet cip "Cite Page" w
+\cite[p.~$1]{$2`!p open_complete()`}$0
+endsnippet
+
+snippet "\sfm" "Footnotemark" rw
+\footnotemark~$0
+endsnippet
+
+snippet ft "Footnotetext" w
+\footnotetext{${1:${VISUAL}}}$0
+endsnippet
+
+# --- Definitions, Lemmas, Proofs, Remarks ---
+
+snippet def "Definition" b
+\begin{definition}[${1:Name}]
+\label{def:`!p snip.rv = t[1].lower().replace(" ", "-")`}
+$0
 \end{definition}$0
+endsnippet
+
+snippet lem "Lemma" b
+\begin{lemma}
+$0
+\end{lemma}$0
+endsnippet
+
+snippet pro "Proof" b
+\begin{proof}
+$0
+\end{proof}$0
+endsnippet
+
+snippet rem "Remark" b
+\begin{remark}
+$0
+\end{remark}$0
+endsnippet
+
+snippet lab "Label" "inner_env() in ['lemma', 'proof', 'remark']" be
+\label{`!p snip.rv = inner_env()[:3]`:$1}
+$0
 endsnippet
 
 # --- Lists ---
 
-snippet enum "Enumerated list" b
-\begin{enumerate}
-	$0
-\end{enumerate}
-endsnippet
-
-snippet number "Dense Enumerated list" b
+snippet enum "Dense Enumerated List" b
 \begin{enumerate-dense}
-$0
+	$0
 \end{enumerate-dense}
 endsnippet
 
-snippet itemize "Itemized list" b
-\begin{itemize}
-	$0
-\end{itemize}
-endsnippet
-
-snippet list "Dense Itemized list" b
+snippet list "Dense Itemized List" b
 \begin{itemize-dense}
 	$0
 \end{itemize-dense}
@@ -135,39 +140,23 @@ snippet i "Item" b
 \item $0
 endsnippet
 
-snippet iit "Item with italic start" b
+snippet iit "Item With Italic Start" b
 \item \textit{${VISUAL}$1:} $0
 endsnippet
 
-snippet ibf "Item with bold start" b
+snippet ibf "Item With Bold Start" b
 \item \textbf{${VISUAL}$1:} $0
-endsnippet
-
-# --- Citations and References ---
-snippet cp "Cite Page" w
-\cite[p.~$1]{$2}$0
 endsnippet
 
 # --- Tables ---
 
-snippet table "Centered table" b
+snippet table "Centered Table" b
 \begin{centered-table}{ ${1:P{1em} | M} }
 	$0
 \end{centered-table}
 endsnippet
 
-snippet line "Horizontal line in table" b
+snippet line "Horizontal Line in Table" b
 \hline $0
-endsnippet
-
-# --- Mind maps ---
-snippet cnode "Child node" b
-child { node { ${1:${VISUAL}} } }$0
-endsnippet
-
-# --- Miscellaneous ---
-
-snippet td "TODO label" wA
-% TODO$0
 endsnippet
 

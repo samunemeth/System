@@ -1,47 +1,34 @@
 # These snippets are for math mode.
 
-# Make sure that there is only a space after if there needs to be one for
-# syntax, or the snippet is not automatic and it might be convenient.
-
-
-# --- Context Definition for Math ---
-
 global !p
+
+# Returns true if inside a mathematical environment of any kind.
 def math():
     return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+		
 endglobal
 
 # --- Initiating Math  ---
 
-snippet math "Math" bA
+snippet math "Math" b
 \[
-`!p snip.shift(); snip.rv = snip.mkline()`$1
-.\]$0
+	$1
+\]$0
 endsnippet
 
 snippet mm "Inline math" wA
-$ ${1}$$2
-endsnippet
-
-snippet plot "Plot" b
-\begin{figure}[h!] \centering
-\begin{tikzpicture} \begin{axis}
-		\addplot [domain=-${2:10}:$2, samples=100]
-		{ ${0:${VISUAL:x^2}} };
-\end{axis} \end{tikzpicture}
-\caption{${1:Graph of a function.}}
-\end{figure}
+$ $1$$2
 endsnippet
 
 # --- Non-math elements ---
 
 context "math()"
-snippet spc "Empty space" wA
-\quad$0
+snippet spc "Empty space" w
+\quad $0
 endsnippet
 
 context "math()"
-snippet tt "Text in math" wA
+snippet tt "Text in math" w
 \text{${VISUAL}$1}$0
 endsnippet
 
@@ -50,75 +37,63 @@ snippet == "Align equals" wA
 &=$0
 endsnippet
 
-context "math()"
-snippet "\s," "Remove space before comma" riA
-,$0
-endsnippet
-
 # --- Fractions ---
 
 context "math()"
-snippet // "Fraction (raw)" iA
-\\frac{$1}{$2}$0
+snippet // "Fraction Raw" iA
+\frac{$1}{$2}$0
 endsnippet
 
 context "math()"
-snippet "((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/" "Fraction (adaptive)" wrA
-\\frac{`!p snip.rv = match.group(1)`}{$1}$0
-endsnippet
-
-# --- Automatic Brackets ---
-
-context "math()"
-snippet ( "Close brackets" iA
-($1)$0
-endsnippet
-
-context "math()"
-snippet [ "Close square brackets" iA
-[$1]$0
+snippet "((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/" "Fraction Adaptive" wrA
+\frac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
 
 # --- Arrays and Tables ---
 
 context "math()"
 snippet arr "Array Environment" w
-\begin{array}{${1:c}} ${2:${VISUAL}} \end{array}$0
+\begin{array}{${1:c}} ${VISUAL}${2} \end{array}$0
 endsnippet
 
 context "math()"
 snippet vec "Vector" w
-\left[\begin{array}{c} $1 \end{array}\right]$0
+\left(\begin{array}{c} ${VISUAL}$1 \end{array}\right)$0
+endsnippet
+
+context "math()"
+snippet mat "Matrix" w
+\left(\begin{array}{${1:c}} ${VISUAL}$2 \end{array}\right)$0
 endsnippet
 
 context "math()"
 snippet (. "Large left invisible brace" i
-\left.$0
+\left. $0
 endsnippet
 
 context "math()"
 snippet ). "Large right invisible brace" i
-\right.$0
+\right. $0
 endsnippet
 
 context "math()"
 snippet (( "Large left brace" i
-\left($0
+\left( $0
 endsnippet
 
 context "math()"
 snippet )) "Large right brace" i
-\right)$0
+\right) $0
 endsnippet
 
 context "math()"
 snippet {{ "Large left curly brace" i
-\left\\{$0
+\left\\{ $0
 endsnippet
 
 context "math()"
 snippet }} "Large right curly brace" i
-\right\\}$0
+\right\\} $0
 endsnippet
 
 # --- Postfixes ---
@@ -135,7 +110,6 @@ snippet "([A-Za-z])([\d])" "Auto subscript via number" wrA
 endsnippet
 priority 0
 
-# NOTE: I am not sure if this causes interference for any words.
 context "math()"
 snippet "\s?sb" "Auto subscript via 'sb'" irA
 _$0
@@ -146,7 +120,6 @@ snippet "\s?_([^\s,}{|\)]{2})" "Auto extend subscript" irA
 _{`!p snip.rv = match.group(1)`$1}$0
 endsnippet
 
-# NOTE: I am not sure if this causes interference for any words.
 context "math()"
 snippet "\s?td" "Auto superscript" irA
 ^$0
@@ -157,12 +130,12 @@ snippet "\s?\^([^\s,}{|\)]{2})" "Auto extend superscript" irA
 ^{`!p snip.rv = match.group(1)`$1}$0
 endsnippet
 
-# --- Math fonts ---
+# --- Math Fonts ---
 
 # Generate single letters in the specified math fonts.
 # For mathbb and mathcal make the letter upper case.
 context "math()"
-snippet "m?a?t?h?(bb|bf|cal|frak|sf)\s?(\w)" "Math fonts" rwA
+snippet "m?a?t?h?(bb|bf|cal|frak|sf)\s?(\w)" "Math Fonts" rwA
 \math`!p snip.rv = match.group(1)`{`!p
 snip.rv = match.group(2)
 if match.group(1) in ["bb", "cal"]:
@@ -170,7 +143,36 @@ if match.group(1) in ["bb", "cal"]:
 `}$0
 endsnippet
 
-# --- Logical Operators ---
+# --- Sum, Product ---
+
+context "math()"
+snippet sum "Summation with subscript" w
+\sum_{$1}$0
+endsnippet
+
+context "math()"
+snippet sumto "Summation with sub- and superscript" w
+\sum_{$1}^{$2}$0
+endsnippet
+
+context "math()"
+snippet prod "Product with subscript" w
+\prod_{$1}$0
+endsnippet
+
+context "math()"
+snippet prodto "Product with sub- and superscript" w
+\prod_{$1}^{$2}$0
+endsnippet
+
+# --- Miscellaneous ---
+
+context "math()"
+snippet set "Set" w
+\\{$1\\}$0
+endsnippet
+
+# --- Symbols ---
 
 context "math()"
 snippet equ "Equivalent symbol" w
@@ -202,7 +204,10 @@ snippet imp "Implication arrow symbol" w
 \Rightarrow $0
 endsnippet
 
-# --- Other Math ---
+context "math()"
+snippet iff "Bimplication arrow symbol" w
+\Leftrightarrow $0
+endsnippet
 
 context "math()"
 snippet larr "Left arrow symbol" w
@@ -232,11 +237,6 @@ endsnippet
 context "math()"
 snippet inf "Infinity symbol" w
 \infty $0
-endsnippet
-
-context "math()"
-snippet set "A set" w
-\\{$1\\}$0
 endsnippet
 
 context "math()"
@@ -285,23 +285,8 @@ snippet times "Times symbol" w
 endsnippet
 
 context "math()"
-snippet sum "Summation with subscript" w
-\sum_{$1}$0
-endsnippet
-
-context "math()"
-snippet sumto "Summation with sub- and superscript" w
-\sum_{$1}^{$2}$0
-endsnippet
-
-context "math()"
-snippet prod "Product with subscript" w
-\prod_{$1}$0
-endsnippet
-
-context "math()"
-snippet prodto "Product with sub- and superscript" w
-\prod_{$1}^{$2}$0
+snippet mul "Multiplication symbol" w
+\cdot $0
 endsnippet
 
 context "math()"
@@ -310,11 +295,12 @@ snippet sse "Subset or equals symbol" w
 endsnippet
 
 context "math()"
-snippet A "For all symbol" w
+snippet all "For all symbol" w
 \forall $0
 endsnippet
 
 context "math()"
-snippet E "Exists symbol" w
+snippet ex "Exists symbol" w
 \exists $0
 endsnippet
+

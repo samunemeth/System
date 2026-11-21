@@ -23,10 +23,9 @@ let
   };
 
   custom-texlive = pkgs.texlive.combine {
-    inherit
+    inherit (pkgs.texlive)
 
       # Root packages.
-      (pkgs.texlive)
       scheme-basic
       latexmk
 
@@ -50,6 +49,7 @@ let
       listings
       wasysym
       wasy-type1
+      lipsum
 
       # Packages for markdown.
       booktabs
@@ -62,6 +62,9 @@ let
       # Bibliography management.
       biblatex
       biber
+
+      # References
+      cleveref
 
       ;
 

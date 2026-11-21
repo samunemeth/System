@@ -19,9 +19,10 @@
 \usepackage{hyperref}
 \usepackage{xurl}
 \usepackage{color}
-%\usepackage{indentfirst}
 \usepackage{listings}
 \usepackage{pgfplots}
+\usepackage{cleveref}
+\usepackage{lipsum}
 
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
@@ -82,5 +83,20 @@
 	\end{adjustbox}
 }
 
+% --- Theorem Styles ---
+
+% Proves are already defined for some reason.
+\crefname{proof}{Proof}{Proofs}
+
 \theoremstyle{definition}
-\newtheorem{definition}{}[subsection]
+\newtheorem{definition}{Definition}
+\crefname{definition}{Definition}{Definitions}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\crefname{remark}{Remark}{Remark}
+
+\theoremstyle{lemma}
+\newtheorem{lemma}{Lemma}
+\crefname{lemma}{Lemma}{Lemmas}
+
